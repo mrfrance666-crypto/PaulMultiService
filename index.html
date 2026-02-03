@@ -71,7 +71,7 @@
         .msg-btn { 
             flex: 1; min-width: 160px; padding: 16px; border-radius: 12px; 
             text-decoration: none; color: white; font-weight: bold; transition: 0.4s ease; 
-            text-align: center; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         
@@ -79,28 +79,27 @@
         .tg-btn { background: #0088cc; } 
         .call-btn { background: var(--gold); color: var(--dark-green); }
         .mail-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+        .vcard-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+        .share-btn { background: #6c757d; width: 100%; max-width: 340px; margin-top: 5px; }
         
         .msg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
 
-        /* How it works section */
         .how-it-works { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
         .steps-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
         .step-card { 
             flex: 1; min-width: 250px; padding: 25px; background: rgba(255,255,255,0.03); 
-            border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.1); transition: 0.3s; 
+            border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.1); 
         }
         .step-num { 
             width: 40px; height: 40px; background: var(--gold); color: var(--dark-green); 
             border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            margin: 0 auto 15px; font-weight: bold; font-size: 1.2rem; 
+            margin: 0 auto 15px; font-weight: bold; 
         }
-        .step-card h3 { color: var(--gold); margin-bottom: 10px; font-size: 1.1rem; }
-        .step-card p { font-size: 0.9rem; line-height: 1.5; opacity: 0.8; }
 
         .calc-box {
             max-width: 400px; margin: 40px auto; padding: 25px;
             background: rgba(255,255,255,0.05); border: 1px solid var(--gold);
-            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 20px;
         }
         .calc-title { color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
         .calc-input-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; }
@@ -116,12 +115,11 @@
             gap: 25px; max-width: 1100px; margin: 40px auto; padding: 0 25px; 
         }
         .card { 
-            position: relative; border: 1px solid rgba(212, 175, 55, 0.3); 
-            padding: 30px; border-radius: 20px; background: rgba(255, 255, 255, 0.04); 
-            backdrop-filter: blur(5px); text-align: left; transition: 0.4s; opacity: 0; transform: translateY(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3); padding: 30px; border-radius: 20px; 
+            background: rgba(255, 255, 255, 0.04); text-align: left; transition: 0.4s; 
+            opacity: 0; transform: translateY(20px);
         }
         .card.show { opacity: 1; transform: translateY(0); }
-        .card:hover { border-color: var(--gold); transform: translateY(-5px); }
         .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: 15px; }
         .sap-math { font-size: 0.9rem; color: #8ecae6; font-style: italic; }
 
@@ -130,7 +128,6 @@
             border-radius: 20px; padding: 30px; margin: 40px 25px; max-width: 1050px; display: inline-block;
         }
 
-        /* Beautiful Footer */
         .footer { 
             margin-top: 60px; padding: 40px 20px; background: rgba(0, 0, 0, 0.2); 
             border-top: 1px solid rgba(212, 175, 55, 0.2);
@@ -141,9 +138,8 @@
             font-size: 0.75rem; opacity: 0.5; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 15px; max-width: 600px; margin: 0 auto; 
         }
-        .legal-mentions p { margin: 5px 0; }
 
-        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } }
+        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .share-btn { max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -162,8 +158,10 @@
     <div class="messenger-wrapper">
         <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
-        <a href="mailto:paulmultiservice7@gmail.com?subject=Contact%20PaulMultiService" class="msg-btn mail-btn" id="mail-text">E-mail</a>
+        <a href="mailto:paulmultiservice7@gmail.com" class="msg-btn mail-btn" id="mail-text">E-mail</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
+        <button onclick="downloadVCard()" class="msg-btn vcard-btn" id="save-text">Ajouter aux contacts</button>
+        <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager le site</button>
     </div>
 
     <div class="how-it-works">
@@ -242,9 +240,8 @@
     <script>
         const translations = {
             fr: {
-                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Appeler",
-                how_t: "Comment ça marche ?", 
-                s1t: "Contact", s1d: "Expliquez votre problème par WhatsApp, Telegram ou téléphone.",
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Appeler", save: "Ajouter aux contacts", share: "Partager le site",
+                how_t: "Comment ça marche ?", s1t: "Contact", s1d: "Expliquez votre problème par WhatsApp, Telegram ou téléphone.",
                 s2t: "Devis & RDV", s2d: "Nous fixons ensemble le prix et l'heure de l'intervention.",
                 s3t: "Résultat", s3d: "J'interviens chez vous. Travail soigné et facture SAP (crédit 50%).",
                 calc_t: "Simulateur Crédit d'Impôt", calc_h: "Nombre d'heures :", calc_a: "Coût réel après SAP :",
@@ -255,9 +252,8 @@
                 name: "Paul — Votre artisan multiservice"
             },
             en: {
-                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Call me",
-                how_t: "How it works?", 
-                s1t: "Contact", s1d: "Describe your problem via WhatsApp, Telegram, or phone.",
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Call me", save: "Add to contacts", share: "Share website",
+                how_t: "How it works?", s1t: "Contact", s1d: "Describe your problem via WhatsApp, Telegram, or phone.",
                 s2t: "Quote & Appt", s2d: "We agree on the price and the time of the intervention.",
                 s3t: "Result", s3d: "I come to your place. Quality work and SAP invoice (50% credit).",
                 calc_t: "Tax Credit Simulator", calc_h: "Number of hours:", calc_a: "Real cost after SAP:",
@@ -268,9 +264,8 @@
                 name: "Paul — Your multiservice artisan"
             },
             ua: {
-                wa: "WhatsApp", tg: "Telegram Бот", mail: "Пошта", call: "Дзвінок",
-                how_t: "Як це працює?", 
-                s1t: "Зв'язок", s1d: "Опишіть проблему через WhatsApp, Telegram або по телефону.",
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Пошта", call: "Дзвінок", save: "Додати в контакти", share: "Поділитися",
+                how_t: "Як це працює?", s1t: "Зв'язок", s1d: "Опишіть проблему через WhatsApp, Telegram або по телефону.",
                 s2t: "Ціна та Час", s2d: "Ми узгоджуємо вартість та зручний для вас час візиту.",
                 s3t: "Результат", s3d: "Я приїжджаю та все лагоджу. Ви отримуєте знижку 50% (SAP).",
                 calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин:", calc_a: "Реальна вартість (після SAP):",
@@ -281,9 +276,8 @@
                 name: "Paul — Ваш майстер на всі руки"
             },
             ru: {
-                wa: "WhatsApp", tg: "Telegram Бот", mail: "Почта", call: "Позвонить",
-                how_t: "Как это работает?", 
-                s1t: "Связь", s1d: "Опишите проблему через WhatsApp, Telegram или по телефону.",
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Почта", call: "Позвонить", save: "Добавить в контакты", share: "Поделиться",
+                how_t: "Как это работает?", s1t: "Связь", s1d: "Опишите проблему через WhatsApp, Telegram или по телефону.",
                 s2t: "Цена и Время", s2d: "Мы согласовываем стоимость и удобное для вас время визита.",
                 s3t: "Результат", s3d: "Я приезжаю и всё исправляю. Вы получаете скидку 50% (SAP).",
                 calc_t: "Калькулятор выгоды SAP", calc_h: "Количество часов:", calc_a: "Реальная стоимость (после SAP):",
@@ -302,10 +296,24 @@
             document.getElementById('netPrice').innerText = total / 2;
         }
 
+        function downloadVCard() {
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul (PaulMultiService)\nTEL;TYPE=CELL:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD";
+            const blob = new Blob([vcard], { type: "text/vcard" });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = "Paul_MultiService.vcf"; a.click();
+        }
+
+        async function shareSite() {
+            if (navigator.share) {
+                try { await navigator.share({ title: 'PaulMultiService', url: window.location.href }); } catch (err) {}
+            } else { alert(window.location.href); }
+        }
+
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
             const ids = {
-                'wa-text': t.wa, 'tg-text': t.tg, 'mail-text': t.mail, 'call-text': t.call,
+                'wa-text': t.wa, 'tg-text': t.tg, 'mail-text': t.mail, 'call-text': t.call, 'save-text': t.save, 'share-text': t.share,
                 'how-title': t.how_t, 'step1-t': t.s1t, 'step1-d': t.s1d, 'step2-t': t.s2t,
                 'step2-d': t.s2d, 'step3-t': t.s3t, 'step3-d': t.s3d, 'calc-t': t.calc_t,
                 'calc-h': t.calc_h, 'calc-after': t.calc_a, 'it-title': t.it_t, 'it-list': t.it_l,
