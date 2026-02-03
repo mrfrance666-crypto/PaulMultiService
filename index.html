@@ -3,40 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaulMultiService - Dépannage Informatique & Bricolage à Rennes</title>
+    <title>PaulMultiService - Rennes</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --dark-green: #0a2e1f; --gold: #d4af37; --white: #ffffff; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--dark-green); color: var(--white); text-align: center; min-height: 100vh; padding-bottom: 30px; }
+        :root { 
+            --dark-green: #0a2e1f; 
+            --gold: #d4af37; 
+            --gold-light: #f4d06f;
+            --white: #ffffff; 
+        }
         
-        .lang-switcher { position: sticky; top: 0; background: rgba(10, 46, 31, 0.95); padding: 15px; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(5px); }
-        .lang-btn { background: none; border: 1px solid var(--gold); color: white; padding: 6px 14px; margin: 0 4px; cursor: pointer; border-radius: 5px; font-weight: 600; transition: 0.3s; }
-        .lang-btn:hover { background: var(--gold); color: var(--dark-green); }
+        body { 
+            margin: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--dark-green); 
+            color: var(--white); 
+            text-align: center; 
+            min-height: 100vh; 
+            padding-bottom: 50px; 
+            overflow-x: hidden;
+        }
         
-        .brand-name { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 8vw, 2.8rem); color: var(--gold); margin: 30px 0 10px; text-transform: uppercase; letter-spacing: 3px; }
-        .main-logo { width: 160px; height: 160px; border-radius: 50%; margin: 0 auto 10px; display: block; border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: cover; }
-        .phone-display { color: var(--gold); font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; display: block; text-decoration: none; }
+        /* Стеклянная шапка */
+        .lang-switcher { 
+            position: sticky; 
+            top: 0; 
+            background: rgba(10, 46, 31, 0.9); 
+            padding: 15px; 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4); 
+            backdrop-filter: blur(10px); 
+        }
         
-        .messenger-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px auto; max-width: 800px; padding: 0 15px; }
-        .msg-btn { flex: 1; min-width: 140px; padding: 15px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; transition: 0.3s; text-align: center; font-size: 0.85rem; }
-        .wa-btn { background-color: #25D366; } 
-        .tg-btn { background-color: #0088cc; } 
-        .call-btn { background-color: var(--gold); color: var(--dark-green); }
-        .mail-btn { background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); }
+        .lang-btn { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid var(--gold); 
+            color: white; 
+            padding: 7px 15px; 
+            margin: 0 4px; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            transition: 0.3s; 
+        }
+        
+        .lang-btn:hover { background: var(--gold); color: var(--dark-green); box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+        
+        .brand-name { 
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(2rem, 8vw, 3rem); 
+            color: var(--gold); 
+            margin: 40px 0 5px; 
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .main-logo { 
+            width: 170px; 
+            height: 170px; 
+            border-radius: 50%; 
+            margin: 0 auto 15px; 
+            display: block; 
+            border: 3px solid var(--gold); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
+            object-fit: cover; 
+        }
 
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto 30px; padding: 0 20px; }
-        .card { border: 1px solid rgba(212, 175, 55, 0.3); padding: 25px; border-radius: 15px; background: rgba(255,255,255,0.03); text-align: left; display: flex; flex-direction: column; }
-        .sap-card { border: 2px solid var(--gold); background: rgba(212, 175, 55, 0.1); text-align: center; }
+        .owner-name { 
+            color: var(--gold-light); 
+            font-size: 1.5rem; 
+            font-family: 'Playfair Display', serif; 
+            font-weight: 600; 
+            margin-bottom: 25px; 
+            display: block; 
+            letter-spacing: 1px; 
+        }
         
-        .price-row { border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: auto; padding-top: 15px; }
-        .price-tag { color: var(--gold); font-weight: 600; display: block; font-size: 1.05rem; margin-top: 5px; }
-        .sap-math { font-size: 0.85rem; color: #a0c4ff; display: block; margin-bottom: 8px; font-style: italic; }
+        .messenger-wrapper { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 12px; 
+            margin: 30px auto; 
+            max-width: 900px; 
+            padding: 0 20px; 
+        }
         
-        h2 { margin-top: 0; font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.4rem; }
-        ul { padding-left: 20px; font-size: 0.9rem; line-height: 1.5; opacity: 0.9; }
-        p { line-height: 1.6; font-size: 0.95rem; opacity: 0.9; }
+        .msg-btn { 
+            flex: 1; 
+            min-width: 160px; 
+            padding: 16px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            color: white; 
+            font-weight: bold; 
+            transition: 0.4s ease; 
+            text-align: center; 
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .wa-btn { background: #25D366; } 
+        .tg-btn { background: #0088cc; } 
+        .call-btn { background: var(--gold); color: var(--dark-green); }
+        .mail-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+        
+        .msg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
 
-        .footer { margin-top: 40px; padding: 25px; font-size: 0.75rem; opacity: 0.6; border-top: 1px solid rgba(212, 175, 55, 0.2); line-height: 1.6; }
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 25px; 
+            max-width: 1100px; 
+            margin: 40px auto; 
+            padding: 0 25px; 
+        }
+        
+        /* Стеклянные карточки с анимацией */
+        .card { 
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.3); 
+            padding: 30px; 
+            border-radius: 20px; 
+            background: rgba(255, 255, 255, 0.04); 
+            backdrop-filter: blur(5px);
+            text-align: left; 
+            transition: 0.4s;
+            overflow: hidden;
+            opacity: 0; /* Для анимации */
+            transform: translateY(30px); /* Для анимации */
+        }
+
+        /* Анимация при появлении */
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        
+        .card:hover { 
+            border-color: var(--gold);
+            transform: translateY(-10px) !important;
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        
+        .price-row { 
+            border-top: 1px solid rgba(212, 175, 55, 0.2); 
+            margin-top: 20px; 
+            padding-top: 20px; 
+        }
+        
+        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; }
+        .sap-math { font-size: 0.9rem; color: #8ecae6; display: block; margin-bottom: 10px; font-style: italic; }
+        
+        h2 { margin-top: 0; font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.6rem; letter-spacing: 1px; }
+        ul { padding-left: 20px; font-size: 0.95rem; line-height: 1.7; opacity: 0.9; }
+
+        .trust-box { 
+            background: rgba(212, 175, 55, 0.1); 
+            border: 2px solid var(--gold); 
+            border-radius: 20px; 
+            padding: 30px; 
+            margin: 40px 25px;
+            max-width: 1050px;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.8s ease-out;
+        }
+        .trust-box.show { opacity: 1; transform: translateY(0); }
+
+        .footer { 
+            margin-top: 60px; 
+            padding: 30px; 
+            font-size: 0.8rem; 
+            opacity: 0.7; 
+            border-top: 1px solid rgba(212, 175, 55, 0.2); 
+            background: rgba(0,0,0,0.2);
+        }
 
         @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .msg-btn { width: 100%; } }
     </style>
@@ -52,17 +204,17 @@
 
     <p class="brand-name">PaulMultiService</p>
     <img src="logo.png" alt="Logo" class="main-logo">
-    <a href="tel:0745625007" class="phone-display">07 45 62 50 07</a>
+    <span class="owner-name">Pavlo Pashkin</span>
 
     <div class="messenger-wrapper">
         <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
-        <a href="mailto:paulmultiservice7@gmail.com?subject=Demande%20de%20service" class="msg-btn mail-btn" id="mail-text">E-mail</a>
+        <a href="mailto:paulmultiservice7@gmail.com" class="msg-btn mail-btn" id="mail-text">E-mail</a>
         <a href="tel:0745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
     </div>
 
     <div class="services-grid">
-        <div class="card">
+        <div class="card" style="transition-delay: 0.1s;">
             <h2 id="it-title">Informatique</h2>
             <ul id="it-list">
                 <li>Installation Windows / MacOS</li>
@@ -78,7 +230,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" style="transition-delay: 0.3s;">
             <h2 id="br-title">Petit Bricolage</h2>
             <ul id="br-list">
                 <li>Montage de meubles (IKEA, etc.)</li>
@@ -93,21 +245,18 @@
                 <span class="sap-math" id="m2-br">Soit 20€ (SAP)</span>
             </div>
         </div>
+    </div>
 
-        <div class="card sap-card">
-            <h2 id="sap-title">Crédit d'impôt de 50%</h2>
-            <p id="sap-desc">Organisme agréé "Service à la Personne" (SAP). Réduction или crédit d'impôt de 50% sur vos factures.</p>
-            <span class="price-tag" id="sap-link">Rennes & 35700</span>
-        </div>
+    <div class="trust-box" id="trust-box">
+        <h2 id="why-title">Pourquoi me faire confiance ?</h2>
+        <p id="why-desc">Intervention rapide à Rennes • 50% de crédit d'impôt (SAP) • Travail soigné и professionnel</p>
     </div>
 
     <div class="footer">
         <p id="footer-text">
             <strong>PaulMultiService</strong><br>
             Entrepreneur Individuel | SIRET : 10000226000014 | Rennes 35700<br>
-            paulmultiservice7@gmail.com<br>
-            Organisme déclaré "Service à la Personne"<br>
-            TVA non applicable, art. 293 B du CGI
+            paulmultiservice7@gmail.com | TVA non applicable, art. 293 B du CGI
         </p>
     </div>
 
@@ -119,8 +268,8 @@
                 br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Pose d'étagères & Tableaux</li><li>Changement de serrures</li><li>Petites réparations diverses</li>",
                 p1: "1ère heure : 50€", p2: "2ème heure : 40€",
                 m1: "Soit 25€ (SAP)", m2: "Soit 20€ (SAP)",
-                sap_t: "Crédit d'impôt de 50%", sap_d: "Organisme agréé 'Service à la Personne' (SAP). Réduction или crédit d'impôt de 50% sur vos factures.",
-                sap_l: "Rennes & 35700"
+                why_t: "Pourquoi me faire confiance ?",
+                why_d: "Intervention rapide à Rennes • 50% de crédit d'impôt (SAP) • Travail soigné и professionnel"
             },
             en: {
                 wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Call",
@@ -128,8 +277,8 @@
                 br_t: "Handyman", br_l: "<li>Furniture Assembly</li><li>Shelves & TV Mounting</li><li>Lock Replacement</li><li>Minor Home Repairs</li>",
                 p1: "1st hour: 50€", p2: "2nd hour: 40€",
                 m1: "Only 25€ after Tax Credit", m2: "Only 20€ after Tax Credit",
-                sap_t: "50% Tax Credit", sap_d: "Registered 'Service à la Personne'. Get 50% of your expenses back through the French tax credit system.",
-                sap_l: "Rennes & 35700"
+                why_t: "Why choose me?",
+                why_d: "Fast response in Rennes • 50% Tax Credit (SAP) • Quality and reliable work"
             },
             ua: {
                 wa: "WhatsApp", tg: "Telegram Бот", mail: "Пошта", call: "Дзвінок",
@@ -137,8 +286,8 @@
                 br_t: "Дрібний ремонт", br_l: "<li>Збірка меблів (IKEA тощо)</li><li>Монтаж полиць та ТБ</li><li>Заміна замків</li><li>Різна допомога по дому</li>",
                 p1: "1-ша година: 50€", p2: "2-га година: 40€",
                 m1: "Лише 25€ (з вирахуванням SAP)", m2: "Лише 20€ (з вирахуванням SAP)",
-                sap_t: "Податкова знижка 50%", sap_d: "Зареєстрований сервіс допомоги (SAP). Повернення 50% вартості послуг через податки.",
-                sap_l: "Ренн (35700)"
+                why_t: "Чому варто обрати мене?",
+                why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Якісна та охайна робота"
             },
             ru: {
                 wa: "WhatsApp", tg: "Telegram Бот", mail: "Почта", call: "Позвонить",
@@ -146,8 +295,8 @@
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Монтаж полок и ТВ</li><li>Замена замков</li><li>Мелкий ремонт по дому</li>",
                 p1: "1-й час: 50€", p2: "2-й час: 40€",
                 m1: "Итого 25€ (с учетом SAP)", m2: "Итого 20€ (с учетом SAP)",
-                sap_t: "Налоговый вычет 50%", sap_d: "Зарегистрированный сервис помощи (SAP). Возврат 50% стоимости услуг через налоги.",
-                sap_l: "Ренн (35700)"
+                why_t: "Почему стоит выбрать меня?",
+                why_d: "Быстрый выезд в Ренне • Налоговый вычет 50% (SAP) • Качественная и чистая работа"
             }
         };
 
@@ -168,14 +317,21 @@
             document.getElementById('m1-br').innerText = translations[lang].m1;
             document.getElementById('p2-br').innerText = translations[lang].p2;
             document.getElementById('m2-br').innerText = translations[lang].m2;
-            document.getElementById('sap-title').innerText = translations[lang].sap_t;
-            document.getElementById('sap-desc').innerText = translations[lang].sap_d;
-            document.getElementById('sap-link').innerText = translations[lang].sap_l;
+            document.getElementById('why-title').innerText = translations[lang].why_t;
+            document.getElementById('why-desc').innerText = translations[lang].why_d;
             localStorage.setItem('preferredLang', lang);
         }
 
-        const savedLang = localStorage.getItem('preferredLang') || 'fr';
-        changeLang(savedLang);
+        // Запуск анимаций при загрузке
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLang') || 'fr';
+            changeLang(savedLang);
+            
+            setTimeout(() => {
+                document.querySelectorAll('.card').forEach(card => card.classList.add('show'));
+                document.getElementById('trust-box').classList.add('show');
+            }, 200);
+        });
     </script>
 </body>
 </html>
