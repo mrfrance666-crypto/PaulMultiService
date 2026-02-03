@@ -5,16 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaulMultiService - Rennes</title>
     <style>
-        :root {
-            --gold: #d4af37;
-            --dark-blue: #0f172a;
-            --premium-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--premium-gradient);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Тот самый богатый темный градиент */
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: white;
             margin: 0;
             display: flex;
@@ -23,62 +17,63 @@
             min-height: 100vh;
         }
 
-        /* Переключатель языков */
         .lang-switch {
             display: flex;
             gap: 10px;
-            margin-top: 20px;
+            margin: 20px 0;
         }
+
         .lang-btn {
-            background: var(--glass);
-            border: 1px solid var(--gold);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.8em;
+            transition: 0.3s;
         }
-        .lang-btn:hover { background: var(--gold); color: black; }
+
+        .lang-btn:hover { background: #4ecca3; border-color: #4ecca3; }
 
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .logo {
             max-width: 130px;
             border-radius: 50%;
-            border: 3px solid var(--gold);
-            padding: 5px;
+            border: 3px solid #4ecca3;
             margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(78, 204, 163, 0.3);
         }
 
-        h1 { margin: 10px 0; font-size: 2.5em; letter-spacing: 1px; }
-        .subtitle { color: var(--gold); font-weight: 300; margin-bottom: 25px; }
+        h1 { margin: 10px 0; font-size: 2.2em; }
+        .subtitle { color: #4ecca3; font-weight: bold; margin-bottom: 20px; }
 
         .contact-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 12px;
             max-width: 400px;
-            margin: 20px auto;
+            width: 90%;
+            margin-bottom: 30px;
         }
 
         .msg-btn {
             text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 12px;
             text-align: center;
             font-weight: bold;
             color: white;
-            border: 1px solid rgba(255,255,255,0.1);
             transition: 0.3s;
         }
-        .wa-btn { background: #25D366; }
-        .tg-btn { background: #0088cc; }
-        .mail-btn { background: #e74c3c; }
-        .call-btn { background: #34495e; }
-        .msg-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        .wa-btn { background-color: #25D366; }
+        .tg-btn { background-color: #0088cc; }
+        .mail-btn { background-color: #e74c3c; }
+        .call-btn { background-color: #34495e; }
 
         .card-container {
             display: flex;
@@ -86,40 +81,38 @@
             justify-content: center;
             gap: 20px;
             padding: 20px;
+            max-width: 1000px;
         }
 
         .card {
-            background: var(--glass);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             padding: 25px;
             border-radius: 20px;
             width: 300px;
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .card::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--gold);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        h2 { color: var(--gold); margin-top: 0; }
-        ul { padding-left: 20px; font-size: 0.9em; line-height: 1.6; }
+        h2 { color: #4ecca3; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        ul { padding-left: 20px; font-size: 0.95em; line-height: 1.6; }
 
         .price-tag {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(78, 204, 163, 0.15);
             padding: 10px;
             border-radius: 10px;
-            margin: 10px 0;
-            border-left: 3px solid var(--gold);
+            margin: 15px 0;
+            border-left: 4px solid #4ecca3;
         }
-        .sap-price { color: #4ade80; font-weight: bold; }
+
+        .sap-price { color: #4ecca3; font-weight: bold; }
 
         footer {
             margin-top: auto;
             padding: 30px;
             text-align: center;
-            font-size: 0.8em;
-            opacity: 0.7;
+            font-size: 0.85em;
+            color: #999;
             width: 100%;
         }
     </style>
@@ -135,8 +128,8 @@
 
     <header>
         <img src="logo.png" alt="Logo" class="logo">
-        <h1 id="main-title">PaulMultiService</h1>
-        <p class="subtitle" id="main-sub">Dépannage Informatique & Bricolage</p>
+        <h1>PaulMultiService</h1>
+        <p id="main-sub" class="subtitle">Dépannage Informatique & Bricolage</p>
         
         <div class="contact-container">
             <a href="https://wa.me/33745625007" class="msg-btn wa-btn">WhatsApp</a>
@@ -150,21 +143,27 @@
         <div class="card">
             <h2 id="it-title">💻 Informatique</h2>
             <ul id="it-list">
-                <li>Installation Windows / Mac</li>
+                <li>Installation Windows / MacOS</li>
                 <li>Nettoyage & Optimisation</li>
                 <li>Wi-Fi & Imprimantes</li>
+                <li>Récupération de données</li>
             </ul>
-            <div class="price-tag">1h : 50€ <br><span class="sap-price">25€ (SAP)</span></div>
+            <div class="price-tag">
+                1h : 50€ <br><span class="sap-price" id="sap1">Soit 25€ (SAP)</span>
+            </div>
         </div>
 
         <div class="card">
             <h2 id="br-title">🛠 Bricolage</h2>
             <ul id="br-list">
                 <li>Montage de meubles</li>
-                <li>Fixation étagères/TV</li>
+                <li>Fixation étagères / TV</li>
+                <li>Changement de serrures</li>
                 <li>Petites réparations</li>
             </ul>
-            <div class="price-tag">1h : 50€ <br><span class="sap-price">25€ (SAP)</span></div>
+            <div class="price-tag">
+                1h : 50€ <br><span class="sap-price" id="sap2">Soit 25€ (SAP)</span>
+            </div>
         </div>
     </div>
 
@@ -179,45 +178,51 @@
     <script>
         const translations = {
             fr: {
-                title: "Dépannage Informatique & Bricolage",
-                it: "Informatique",
-                itL: "<li>Installation Windows / Mac</li><li>Nettoyage & Optimisation</li><li>Wi-Fi & Imprimantes</li>",
-                br: "Bricolage",
-                brL: "<li>Montage de meubles</li><li>Fixation étagères/TV</li><li>Petites réparations</li>",
+                sub: "Dépannage Informatique & Bricolage",
+                itT: "💻 Informatique",
+                itL: "<li>Installation Windows / MacOS</li><li>Nettoyage & Optimisation</li><li>Wi-Fi & Imprimantes</li><li>Récupération de données</li>",
+                brT: "🛠 Bricolage",
+                brL: "<li>Montage de meubles</li><li>Fixation étagères / TV</li><li>Changement de serrures</li><li>Petites réparations</li>",
+                sap: "Soit 25€ (SAP)",
                 legal: "PaulMultiService — Pavlo Pashkin<br>SIRET : 10000226000014 | Rennes 35700<br>Organisme déclaré 'Service à la Personne'"
             },
             en: {
-                title: "IT Repair & Handyman Services",
-                it: "IT Services",
-                itL: "<li>Windows / Mac Setup</li><li>Cleanup & Optimization</li><li>Wi-Fi & Printers</li>",
-                br: "Handyman",
-                brL: "<li>Furniture Assembly</li><li>Shelves & TV Mounting</li><li>Minor Repairs</li>",
-                legal: "PaulMultiService — Pavlo Pashkin<br>SIRET : 10000226000014 | Rennes 35700<br>Service à la Personne Registered"
+                sub: "IT Repair & Handyman Services",
+                itT: "💻 IT Services",
+                itL: "<li>Windows / macOS Installation</li><li>Cleanup & Optimization</li><li>Wi-Fi & Printers Setup</li><li>Data Recovery</li>",
+                brT: "🛠 Handyman",
+                brL: "<li>Furniture Assembly</li><li>Shelves / TV Mounting</li><li>Lock Replacement</li><li>Minor Repairs</li>",
+                sap: "That's 25€ (After Tax Credit)",
+                legal: "PaulMultiService — Pavlo Pashkin<br>SIRET : 10000226000014 | Rennes 35700<br>Registered Service à la Personne"
             },
             ua: {
-                title: "IT Допомога та Дрібний Ремонт",
-                it: "IT Послуги",
-                itL: "<li>Встановлення Windows / Mac</li><li>Очищення та Оптимізація</li><li>Wi-Fi та Принтери</li>",
-                br: "Ремонт",
-                brL: "<li>Збірка меблів</li><li>Монтаж полиць/ТВ</li><li>Дрібний ремонт</li>",
+                sub: "IT Допомога та Дрібний Ремонт",
+                itT: "💻 IT Послуги",
+                itL: "<li>Встановлення Windows / MacOS</li><li>Очищення та Оптимізація</li><li>Налаштування Wi-Fi та принтерів</li><li>Відновлення даних</li>",
+                brT: "🛠 Ремонт",
+                brL: "<li>Збірка меблів</li><li>Монтаж полиць / ТБ</li><li>Заміна замків</li><li>Дрібний ремонт</li>",
+                sap: "Всього 25€ (через SAP)",
                 legal: "PaulMultiService — Pavlo Pashkin<br>SIRET : 10000226000014 | Ренн 35700<br>Зареєстрований сервіс допомоги (SAP)"
             },
             ru: {
-                title: "IT Помощь и Мелкий Ремонт",
-                it: "IT Услуги",
-                itL: "<li>Установка Windows / Mac</li><li>Очистка и Оптимизация</li><li>Wi-Fi и Принтеры</li>",
-                br: "Ремонт",
-                brL: "<li>Сборка мебели</li><li>Монтаж полок/ТВ</li><li>Мелкий ремонт</li>",
+                sub: "IT Помощь и Мелкий Ремонт",
+                itT: "💻 IT Услуги",
+                itL: "<li>Установка Windows / MacOS</li><li>Очистка и Оптимизация</li><li>Настройка Wi-Fi и принтеров</li><li>Восстановление данных</li>",
+                brT: "🛠 Ремонт",
+                brL: "<li>Сборка мебели</li><li>Монтаж полок / ТВ</li><li>Замена замков</li><li>Мелкий ремонт</li>",
+                sap: "Всего 25€ (через SAP)",
                 legal: "PaulMultiService — Pavlo Pashkin<br>SIRET : 10000226000014 | Ренн 35700<br>Зарегистрированный сервис помощи (SAP)"
             }
         };
 
         function changeLang(lang) {
-            document.getElementById('main-sub').innerText = translations[lang].title;
-            document.getElementById('it-title').innerText = translations[lang].it;
+            document.getElementById('main-sub').innerText = translations[lang].sub;
+            document.getElementById('it-title').innerText = translations[lang].itT;
             document.getElementById('it-list').innerHTML = translations[lang].itL;
-            document.getElementById('br-title').innerText = translations[lang].br;
+            document.getElementById('br-title').innerText = translations[lang].brT;
             document.getElementById('br-list').innerHTML = translations[lang].brL;
+            document.getElementById('sap1').innerText = translations[lang].sap;
+            document.getElementById('sap2').innerText = translations[lang].sap;
             document.getElementById('legal').innerHTML = translations[lang].legal;
         }
     </script>
