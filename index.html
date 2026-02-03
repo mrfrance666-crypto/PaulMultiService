@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>PaulMultiService - Informatique & Bricolage à Rennes</title>
-    <meta name="description" content="Services de petit bricolage et assistance informatique à Rennes. Profitez de 50% de crédit d'impôt (SAP). Interventions rapides et professionnelles.">
-    <meta property="og:title" content="PaulMultiService - Pavlo Pashkin">
+    <title>Paul — Votre artisan multiservice | Rennes</title>
+    <meta name="description" content="Petit bricolage et assistance informatique à Rennes. Profitez de 50% de crédit d'impôt (SAP). Interventions rapides par un artisan professionnel.">
+    <meta property="og:title" content="Paul — Votre artisan multiservice">
     <meta property="og:description" content="Informatique et Bricolage à Rennes. 50% de réduction d'impôt via SAP.">
     <meta property="og:image" content="https://mrfrance666-crypto.github.io/PaulMultiService/logo.png">
     <meta property="og:url" content="https://mrfrance666-crypto.github.io/PaulMultiService/">
@@ -58,8 +58,9 @@
         .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--gold); }
 
         .owner-name { 
-            color: var(--gold-light); font-size: 1.5rem; font-family: 'Playfair Display', serif; 
-            font-weight: 600; margin-bottom: 25px; display: block; 
+            color: var(--gold-light); font-size: clamp(1.1rem, 4vw, 1.6rem); 
+            font-family: 'Playfair Display', serif; font-weight: 600; 
+            margin-bottom: 30px; display: block; letter-spacing: 1px;
         }
         
         .messenger-wrapper { 
@@ -147,11 +148,11 @@
         .zone-list { font-size: 0.85rem; opacity: 0.7; letter-spacing: 0.5px; }
 
         .footer { 
-            margin-top: 60px; padding: 50px 20px; font-size: 0.9rem; opacity: 0.8; 
+            margin-top: 60px; padding: 50px 20px; font-size: 0.85rem; opacity: 0.8; 
             border-top: 1px solid rgba(212, 175, 55, 0.2); background: rgba(0,0,0,0.3);
             line-height: 2;
         }
-        .footer strong { color: var(--gold); font-size: 1.2rem; display: block; margin-bottom: 5px; }
+        .footer strong { color: var(--gold); font-size: 1.1rem; display: block; margin-bottom: 5px; }
         .footer span { display: block; }
 
         @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .msg-btn { width: 100%; } }
@@ -168,13 +169,13 @@
 
     <p class="brand-name">PaulMultiService</p>
     <img src="logo.png" alt="Logo" class="main-logo">
-    <span class="owner-name">Pavlo Pashkin</span>
+    <span class="owner-name" id="display-name">Paul — Votre artisan multiservice</span>
 
     <div class="messenger-wrapper">
         <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
-        <a href="mailto:paulmultiservice7@gmail.com" class="msg-btn mail-btn" id="mail-text">E-mail</a>
-        <a href="tel:0745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
+        <a href="mailto:paulmultiservice7@gmail.com?subject=Contact%20PaulMultiService" class="msg-btn mail-btn" id="mail-text">E-mail</a>
+        <a href="tel:+33745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
         <a href="#" class="msg-btn share-btn" id="share-text" onclick="shareSite(event)">Partager le site</a>
     </div>
 
@@ -242,8 +243,9 @@
 
     <div class="footer" id="footer-box">
         <strong id="f-brand">PaulMultiService</strong>
+        <span id="f-legal">EI Pavlo Pashkin</span>
+        <span>SIRET : 10000226000014</span>
         <span>paulmultiservice7@gmail.com</span>
-        <span id="f-siret">Entrepreneur Individuel | SIRET : 10000226000014</span>
         <span>TVA non applicable, art. 293 B du CGI</span>
         <span id="f-city">Rennes 35700</span>
     </div>
@@ -258,7 +260,7 @@
                 p1: "1ère heure : 50€", p2: "2ème heure : 40€", m1: "Soit 25€ (SAP)", m2: "Soit 20€ (SAP)",
                 why_t: "Pourquoi me faire confiance ?", why_d: "Intervention rapide à Rennes • 50% de crédit d'impôt (SAP) • Travail soigné et professionnel",
                 zt: "Zone d'intervention", zl: "Rennes • Cesson-Sévigné • Saint-Grégoire • Betton • Bruz • Chantepie • Pacé • 35700",
-                siret: "Entrepreneur Individuel | SIRET : 10000226000014", city: "Rennes 35700", save: "Ajouter aux contacts"
+                save: "Ajouter aux contacts", name: "Paul — Votre artisan multiservice"
             },
             ua: {
                 wa: "WhatsApp", tg: "Telegram Бот", mail: "Пошта", call: "Дзвінок", share: "Поділитися сайтом",
@@ -268,7 +270,7 @@
                 p1: "1-ша година: 50€", p2: "2-га година: 40€", m1: "Лише 25€ (SAP)", m2: "Лише 20€ (SAP)",
                 why_t: "Чому варто обрати мене?", why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Якісна та охайна робота",
                 zt: "Зона обслуговування", zl: "Ренн та прилеглі райони (35700)",
-                siret: "Приватний підприємець | SIRET: 10000226000014", city: "Ренн 35700", save: "Додати в контакти"
+                save: "Додати в контакти", name: "Paul — Ваш майстер на всі руки"
             },
             ru: {
                 wa: "WhatsApp", tg: "Telegram Бот", mail: "Почта", call: "Позвонить", share: "Поделиться сайтом",
@@ -278,7 +280,7 @@
                 p1: "1-й час: 50€", p2: "2-й час: 40€", m1: "Итого 25€ (SAP)", m2: "Итого 20€ (SAP)",
                 why_t: "Почему стоит выбрать меня?", why_d: "Быстрый выезд в Ренне • Налоговый вычет 50% (SAP) • Качественная и чистая работа",
                 zt: "Зона работы", zl: "Ренн и пригороды (35700)",
-                siret: "Индивидуальный предприниматель | SIRET: 10000226000014", city: "Ренн 35700", save: "Добавить в контакты"
+                save: "Добавить в контакты", name: "Paul — Ваш мастер на все руки"
             }
         };
 
@@ -292,11 +294,11 @@
         }
 
         function downloadVCard() {
-            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Pavlo Pashkin\nTEL;TYPE=CELL:0745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD";
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul (PaulMultiService)\nTEL;TYPE=CELL:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD";
             const blob = new Blob([vcard], { type: "text/vcard" });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
-            a.href = url; a.download = "Pavlo_Pashkin.vcf"; a.click();
+            a.href = url; a.download = "Paul_MultiService.vcf"; a.click();
         }
 
         async function shareSite(e) {
@@ -332,9 +334,8 @@
             document.getElementById('why-desc').innerText = t.why_d;
             document.getElementById('zone-title').innerText = t.zt;
             document.getElementById('zone-list').innerText = t.zl;
-            document.getElementById('f-siret').innerText = t.siret;
-            document.getElementById('f-city').innerText = t.city;
             document.getElementById('save-btn-text').innerText = t.save;
+            document.getElementById('display-name').innerText = t.name;
             localStorage.setItem('preferredLang', lang);
         }
 
