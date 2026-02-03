@@ -17,9 +17,12 @@
         .main-logo { width: 160px; height: 160px; border-radius: 50%; margin: 0 auto 10px; display: block; border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: cover; }
         .phone-display { color: var(--gold); font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; display: block; text-decoration: none; }
         
-        .messenger-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px auto; max-width: 600px; padding: 0 15px; }
+        .messenger-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px auto; max-width: 800px; padding: 0 15px; }
         .msg-btn { flex: 1; min-width: 140px; padding: 15px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; transition: 0.3s; text-align: center; font-size: 0.85rem; }
-        .wa-btn { background-color: #25D366; } .tg-btn { background-color: #0088cc; } .call-btn { background-color: var(--gold); color: var(--dark-green); }
+        .wa-btn { background-color: #25D366; } 
+        .tg-btn { background-color: #0088cc; } 
+        .call-btn { background-color: var(--gold); color: var(--dark-green); }
+        .mail-btn { background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); }
 
         .services-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 700px; margin: 0 auto 30px; padding: 0 20px; }
         .card { border: 1px solid rgba(212, 175, 55, 0.3); padding: 30px; border-radius: 15px; background: rgba(255,255,255,0.03); text-align: left; }
@@ -34,7 +37,7 @@
 
         .footer { margin-top: 40px; padding: 25px; font-size: 0.75rem; opacity: 0.6; border-top: 1px solid rgba(212, 175, 55, 0.2); line-height: 1.6; }
 
-        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } }
+        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .msg-btn { width: 100%; } }
     </style>
 </head>
 <body>
@@ -54,6 +57,7 @@
         <a href="tel:0745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
         <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
         <a href="https://t.me/+33745625007" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram</a>
+        <a href="mailto:paulmultiservice7@gmail.com" class="msg-btn mail-btn" id="mail-text">E-mail</a>
     </div>
 
     <div class="services-grid">
@@ -81,7 +85,7 @@
 
         <div class="card sap-card">
             <h2 id="sap-title">Crédit d'impôt de 50%</h2>
-            <p id="sap-desc">Organisme agréé "Service à la Personne" (SAP). Réduction ou crédit d'impôt de 50% sur vos factures.</p>
+            <p id="sap-desc">Organisme agréé "Service à la Personne" (SAP). Réduction или crédit d'impôt de 50% sur vos factures.</p>
             <span class="price-tag" id="sap-link">Avantage Fiscal Inclus</span>
         </div>
     </div>
@@ -90,15 +94,15 @@
         <p>
             <strong>PaulMultiService</strong><br>
             Entrepreneur Individuel | SIRET : 10000226000014<br>
-            Organisme déclaré "Service à la Personne"<br>
-            TVA non applicable, art. 293 B du CGI
+            paulmultiservice7@gmail.com<br>
+            Organisme déclaré "Service à la Personne" | TVA non applicable, art. 293 B du CGI
         </p>
     </div>
 
     <script>
         const translations = {
             fr: {
-                call: "Appeler", wa: "WhatsApp", tg: "Telegram",
+                call: "Appeler", wa: "WhatsApp", tg: "Telegram", mail: "E-mail",
                 it_t: "Informatique", it_d: "Conseil, installation et dépannage informatique à domicile.",
                 br_t: "Petit Bricolage", br_d: "Montage de meubles, réparations « homme toutes mains ».",
                 p1: "1ère heure : 50€", p2: "2ème heure : 40€",
@@ -107,7 +111,7 @@
                 sap_l: "Avantage Fiscal Inclus"
             },
             en: {
-                call: "Call", wa: "WhatsApp", tg: "Telegram",
+                call: "Call", wa: "WhatsApp", tg: "Telegram", mail: "E-mail",
                 it_t: "IT Services", it_d: "Software & systems consulting, home computer troubleshooting.",
                 br_t: "Handyman", br_d: "Furniture assembly, small repairs and home maintenance.",
                 p1: "1st hour: 50€", p2: "2nd hour: 40€",
@@ -116,7 +120,7 @@
                 sap_l: "Tax Benefit Included"
             },
             ua: {
-                call: "Зателефонувати", wa: "WhatsApp", tg: "Telegram",
+                call: "Зателефонувати", wa: "WhatsApp", tg: "Telegram", mail: "Пошта",
                 it_t: "IT Послуги", it_d: "Консультації, налаштування та ремонт ПК на дому.",
                 br_t: "Дрібний ремонт", br_d: "Збирання меблів, ремонт та допомога по дому.",
                 p1: "1-ша година: 50€", p2: "2-га година: 40€",
@@ -125,7 +129,7 @@
                 sap_l: "Вигода 50% включена"
             },
             ru: {
-                call: "Позвонить", wa: "WhatsApp", tg: "Telegram",
+                call: "Позвонить", wa: "WhatsApp", tg: "Telegram", mail: "Почта",
                 it_t: "ИТ Услуги", it_d: "Консультации, настройка и ремонт ПК на дому.",
                 br_t: "Мастер на час", br_d: "Сборка мебели, мелкий ремонт и помощь по дому.",
                 p1: "1-й час: 50€", p2: "2-й час: 40€",
@@ -139,6 +143,7 @@
             document.getElementById('call-text').innerText = translations[lang].call;
             document.getElementById('wa-text').innerText = translations[lang].wa;
             document.getElementById('tg-text').innerText = translations[lang].tg;
+            document.getElementById('mail-text').innerText = translations[lang].mail;
             document.getElementById('it-title').innerText = translations[lang].it_t;
             document.getElementById('it-desc').innerText = translations[lang].it_d;
             document.getElementById('p1-it').innerText = translations[lang].p1;
