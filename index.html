@@ -3,181 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaulMultiService</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <title>PaulMultiService - Dépannage Informatique & Bricolage à Rennes</title>
+    
+    <meta name="description" content="Services de dépannage informatique et petit bricolage à domicile à Rennes (35700). 50% de crédit d'impôt SAP. Montage de meubles et assistance PC.">
+    <meta name="keywords" content="dépannage informatique, bricolage, Rennes, montage meubles, SAP, crédit d'impôt, 35700, PaulMultiService">
+
     <style>
-        :root { --dark-green: #0a2e1f; --gold: #d4af37; --white: #ffffff; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--dark-green); color: var(--white); text-align: center; min-height: 100vh; padding-bottom: 30px; }
-        
-        .lang-switcher { position: sticky; top: 0; background: rgba(10, 46, 31, 0.95); padding: 15px; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(5px); }
-        .lang-btn { background: none; border: 1px solid var(--gold); color: white; padding: 6px 14px; margin: 0 4px; cursor: pointer; border-radius: 5px; font-weight: 600; transition: 0.3s; }
-        .lang-btn:hover { background: var(--gold); color: var(--dark-green); }
-        
-        .brand-name { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 8vw, 2.8rem); color: var(--gold); margin: 30px 0 5px; text-transform: uppercase; letter-spacing: 3px; }
-        .user-name { color: var(--gold); font-weight: 400; font-size: 1.1rem; margin-bottom: 20px; opacity: 0.9; }
-        .main-logo { width: 160px; height: 160px; border-radius: 50%; margin: 0 auto 15px; display: block; border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: cover; }
-        
-        .contact-hint { font-size: 0.9rem; opacity: 0.8; margin: 15px auto; max-width: 80%; line-height: 1.4; font-style: italic; }
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --sap-color: #27ae60;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
 
-        .messenger-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px auto; max-width: 800px; padding: 0 15px; }
-        .msg-btn { flex: 1; min-width: 140px; padding: 15px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; transition: 0.3s; text-align: center; font-size: 0.85rem; }
-        
-        .wa-btn { background-color: #25D366; } 
-        .tg-btn { background-color: #0088cc; } 
-        .mail-btn { background-color: #555; }
-        .call-btn-sub { background: none; border: 1px solid rgba(212, 175, 55, 0.4); color: var(--gold); }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-        .services-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 700px; margin: 0 auto 30px; padding: 0 20px; }
-        .card { border: 1px solid rgba(212, 175, 55, 0.3); padding: 30px; border-radius: 15px; background: rgba(255,255,255,0.03); text-align: left; }
-        .sap-card { border: 2px solid var(--gold); background: rgba(212, 175, 55, 0.1); text-align: center; }
-        
-        .price-row { border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 15px; padding-top: 10px; }
-        .price-tag { color: var(--gold); font-weight: 600; display: block; font-size: 1.05rem; }
-        .sap-math { font-size: 0.85rem; color: #a0c4ff; display: block; margin-bottom: 8px; font-style: italic; }
-        
-        h2 { margin-top: 0; font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.4rem; }
-        p { line-height: 1.6; font-size: 0.95rem; opacity: 0.9; }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-        .footer { margin-top: 40px; padding: 25px; font-size: 0.75rem; opacity: 0.6; border-top: 1px solid rgba(212, 175, 55, 0.2); line-height: 1.6; }
+        .logo {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
 
-        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .msg-btn { width: 100%; } }
+        h1 { margin: 10px 0; color: var(--primary-color); font-size: 2.2em; }
+        .subtitle { color: #e67e22; font-weight: bold; margin-bottom: 20px; }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 450px;
+            width: 95%;
+            margin: 25px auto;
+        }
+
+        .msg-btn {
+            text-decoration: none;
+            padding: 14px 10px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            font-size: 0.95em;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .msg-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .msg-btn:active { transform: scale(0.98); }
+
+        .wa-btn { background-color: #25D366; } /* WhatsApp 1st */
+        .tg-btn { background-color: #0088cc; } /* Telegram 2nd */
+        .mail-btn { background-color: #e74c3c; }
+        .call-btn { background-color: #34495e; }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 30px 15px;
+            max-width: 1100px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            width: 320px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-top: 6px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card.sap-highlight { border-top-color: var(--sap-color); }
+
+        h2 { color: var(--primary-color); border-bottom: 2px solid #f0f0f0; padding-bottom: 12px; margin-top: 0; }
+        
+        ul { padding-left: 20px; margin: 15px 0; flex-grow: 1; }
+        li { margin-bottom: 8px; font-size: 0.95em; }
+
+        .price-tag {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 8px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .sap-price {
+            color: var(--sap-color);
+            font-weight: bold;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .footer-info {
+            background: white;
+            width: 100%;
+            padding: 40px 20px;
+            margin-top: auto;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .legal-text {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 480px) {
+            .contact-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="lang-switcher">
-        <button class="lang-btn" onclick="changeLang('fr')">FR</button>
-        <button class="lang-btn" onclick="changeLang('en')">EN</button>
-        <button class="lang-btn" onclick="changeLang('ua')">UA</button>
-        <button class="lang-btn" onclick="changeLang('ru')">RU</button>
-    </div>
-
-    <p class="brand-name">PaulMultiService</p>
-    <div class="user-name">Pavlo Pashkin</div>
+<header>
+    <img src="logo.png" alt="PaulMultiService Logo" class="logo">
+    <h1>PaulMultiService</h1>
+    <p class="subtitle">⚠️ Merci de me contacter par écrit uniquement</p>
     
-    <img src="logo.png" alt="Logo" class="main-logo">
-
-    <p class="contact-hint" id="hint-text">Merci de me contacter par écrit pour une réponse rapide</p>
-
-    <div class="messenger-wrapper">
-        <a href="mailto:paulmultiservice7@gmail.com?subject=Demande%20de%20service%20PaulMultiService" class="msg-btn mail-btn" id="mail-text">E-mail</a>
-        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram</a>
-        <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
-        <a href="tel:0745625007" class="msg-btn call-btn-sub" id="call-text">Appeler</a>
+    <div class="contact-container">
+        <a href="https://wa.me/33745625007" class="msg-btn wa-btn">WhatsApp</a>
+        <a href="https://t.me/PaulMultiService_bot" class="msg-btn tg-btn">Telegram Bot</a>
+        <a href="mailto:paulmultiservice7@gmail.com?subject=Demande%20de%20service" class="msg-btn mail-btn">E-mail</a>
+        <a href="tel:0745625007" class="msg-btn call-btn">Appeler</a>
     </div>
+</header>
 
-    <div class="services-grid">
-        <div class="card">
-            <h2 id="it-title">Informatique</h2>
-            <p id="it-desc">Conseil et dépannage informatique à domicile.</p>
-            <div class="price-row">
-                <span class="price-tag" id="p1-it">1ère heure : 50€</span>
-                <span class="sap-math" id="m1-it">Soit 25€ (SAP)</span>
-                <span class="price-tag" id="p2-it">2ème heure : 40€</span>
-                <span class="sap-math" id="m2-it">Soit 20€ (SAP)</span>
-            </div>
+<div class="card-container">
+    <div class="card">
+        <h2>💻 Informatique</h2>
+        <ul>
+            <li>Installation Windows / MacOS</li>
+            <li>Nettoyage virus & Optimisation</li>
+            <li>Configuration Wi-Fi & Imprimantes</li>
+            <li>Récupération de données</li>
+            <li>Assistance smartphone / tablette</li>
+        </ul>
+        <div class="price-tag">
+            1ère heure : <b>50€</b>
+            <span class="sap-price">Soit 25€ (après crédit d'impôt)</span>
         </div>
-
-        <div class="card">
-            <h2 id="br-title">Petit Bricolage</h2>
-            <p id="br-desc">Montage de meubles, réparations « homme toutes mains ».</p>
-            <div class="price-row">
-                <span class="price-tag" id="p1-br">1ère heure : 50€</span>
-                <span class="sap-math" id="m1-br">Soit 25€ (SAP)</span>
-                <span class="price-tag" id="p2-br">2ème heure : 40€</span>
-                <span class="sap-math" id="m2-br">Soit 20€ (SAP)</span>
-            </div>
-        </div>
-
-        <div class="card sap-card">
-            <h2 id="sap-title">Crédit d'impôt de 50%</h2>
-            <p id="sap-desc">Organisme agréé "Service à la Personne" (SAP). Réduction или crédit d'impôt de 50% sur vos factures.</p>
-            <span class="price-tag" id="sap-link">Avantage Fiscal Inclus</span>
+        <div class="price-tag">
+            2ème heure : <b>40€</b>
+            <span class="sap-price">Soit 20€ (après crédit d'impôt)</span>
         </div>
     </div>
 
-    <div class="footer">
-        <p>
-            <strong>PaulMultiService</strong><br>
-            Entrepreneur Individuel | SIRET : 10000226000014<br>
-            paulmultiservice7@gmail.com<br>
-            Organisme déclaré "Service à la Personne"<br>
-            TVA non applicable, art. 293 B du CGI
-        </p>
+    <div class="card">
+        <h2>🛠 Petit Bricolage</h2>
+        <ul>
+            <li>Montage de meubles (IKEA, etc.)</li>
+            <li>Pose d'étagères & Tableaux</li>
+            <li>Changement de serrures / poignées</li>
+            <li>Installation de luminaires</li>
+            <li>Petites réparations diverses</li>
+        </ul>
+        <div class="price-tag">
+            1ère heure : <b>50€</b>
+            <span class="sap-price">Soit 25€ (après crédit d'impôt)</span>
+        </div>
+        <div class="price-tag">
+            2ème heure : <b>40€</b>
+            <span class="sap-price">Soit 20€ (après crédit d'impôt)</span>
+        </div>
     </div>
 
-    <script>
-        const translations = {
-            fr: {
-                hint: "Merci de me contacter par écrit pour une réponse rapide",
-                call: "Appeler", wa: "WhatsApp", tg: "Telegram", mail: "E-mail",
-                it_t: "Informatique", it_d: "Conseil, installation et dépannage informatique à domicile.",
-                br_t: "Petit Bricolage", br_d: "Montage de meubles, réparations « homme toutes mains ».",
-                p1: "1ère heure : 50€", p2: "2ème heure : 40€",
-                m1: "Soit 25€ après crédit d'impôt", m2: "Soit 20€ après crédit d'impôt",
-                sap_t: "Crédit d'impôt de 50%", sap_d: "Bénéficiez de 50% de réduction d'impôt sur toutes mes prestations à domicile.",
-                sap_l: "Avantage Fiscal Inclus"
-            },
-            en: {
-                hint: "Please contact me via message for a quick response",
-                call: "Call", wa: "WhatsApp", tg: "Telegram", mail: "E-mail",
-                it_t: "IT Services", it_d: "Software & systems consulting, home computer troubleshooting.",
-                br_t: "Handyman", br_d: "Furniture assembly, small repairs and home maintenance.",
-                p1: "1st hour: 50€", p2: "2nd hour: 40€",
-                m1: "Only 25€ after tax credit", m2: "Only 20€ after tax credit",
-                sap_t: "50% Tax Credit", sap_d: "Get 50% of your expenses back through the French tax credit (SAP).",
-                sap_l: "Tax Benefit Included"
-            },
-            ua: {
-                hint: "Для швидкої відповіді, будь ласка, пишіть у месенджери",
-                call: "Зателефонувати", wa: "WhatsApp", tg: "Telegram", mail: "Пошта",
-                it_t: "IT Послуги", it_d: "Консультації, налаштування та ремонт ПК на дому.",
-                br_t: "Дрібний ремонт", br_d: "Збирання меблів, ремонт та допомога по дому.",
-                p1: "1-ша година: 50€", p2: "2-га година: 40€",
-                m1: "Лише 25€ з урахуванням SAP", m2: "Лише 20€ з урахуванням SAP",
-                sap_t: "Податкова знижка 50%", sap_d: "Ви отримуєте повернення 50% вартості послуг у вигляді податкового кредиту.",
-                sap_l: "Вигода 50% включена"
-            },
-            ru: {
-                hint: "Для быстрого ответа, пожалуйста, пишите в мессенджеры",
-                call: "Позвонить", wa: "WhatsApp", tg: "Telegram", mail: "Почта",
-                it_t: "ИТ Услуги", it_d: "Консультации, настройка и ремонт ПК на дому.",
-                br_t: "Мастер на час", br_d: "Сборка мебели, мелкий ремонт и помощь по дому.",
-                p1: "1-й час: 50€", p2: "2-й час: 40€",
-                m1: "Итого 25€ с учетом SAP", m2: "Итого 20€ с учетом SAP",
-                sap_t: "Налоговый вычет 50%", sap_d: "Вы получаете возврат 50% стоимости услуг через налоговый вычет (SAP).",
-                sap_l: "Выгода 50% включена"
-            }
-        };
+    <div class="card sap-highlight">
+        <h2>📍 Service à la Personne</h2>
+        <p>J'interviens à <b>Rennes (35700)</b> et ses alentours.</p>
+        <p>✅ <b>Crédit d'impôt de 50%</b> : Bénéficiez d'un avantage fiscal immédiat sur mes factures.</p>
+        <p>✅ <b>Devis Gratuit</b> : Envoyez-moi une photo ou description de votre besoin pour une estimation rapide.</p>
+    </div>
+</div>
 
-        function changeLang(lang) {
-            document.getElementById('hint-text').innerText = translations[lang].hint;
-            document.getElementById('call-text').innerText = translations[lang].call;
-            document.getElementById('wa-text').innerText = translations[lang].wa;
-            document.getElementById('tg-text').innerText = translations[lang].tg;
-            document.getElementById('mail-text').innerText = translations[lang].mail;
-            document.getElementById('it-title').innerText = translations[lang].it_t;
-            document.getElementById('it-desc').innerText = translations[lang].it_d;
-            document.getElementById('p1-it').innerText = translations[lang].p1;
-            document.getElementById('m1-it').innerText = translations[lang].m1;
-            document.getElementById('p2-it').innerText = translations[lang].p2;
-            document.getElementById('m2-it').innerText = translations[lang].m2;
-            document.getElementById('br-title').innerText = translations[lang].br_t;
-            document.getElementById('br-desc').innerText = translations[lang].br_d;
-            document.getElementById('p1-br').innerText = translations[lang].p1;
-            document.getElementById('m1-br').innerText = translations[lang].m1;
-            document.getElementById('p2-br').innerText = translations[lang].p2;
-            document.getElementById('m2-br').innerText = translations[lang].m2;
-            document.getElementById('sap-title').innerText = translations[lang].sap_t;
-            document.getElementById('sap-desc').innerText = translations[lang].sap_d;
-            document.getElementById('sap-link').innerText = translations[lang].sap_l;
-            localStorage.setItem('preferredLang', lang);
-        }
+<footer class="footer-info">
+    <div class="legal-text">
+        <strong>PaulMultiService — Pavlo Pashkin</strong><br>
+        Entrepreneur Individuel | SIRET : 10000226000014<br>
+        Siège social : 35700 Rennes, France<br>
+        Organisme déclaré "Service à la Personne" (SAP)<br>
+        TVA non applicable, art. 293 B du CGI
+    </div>
+</footer>
 
-        const savedLang = localStorage.getItem('preferredLang') || 'fr';
-        changeLang(savedLang);
-    </script>
 </body>
 </html>
-
-
