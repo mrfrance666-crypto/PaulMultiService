@@ -89,3 +89,255 @@
         .calc-result { 
             font-size: 1.1rem; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.2);
         }
+        .calc-result b { color: var(--gold-light); font-size: 1.3rem; }
+
+        .services-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 25px; max-width: 1100px; margin: 40px auto; padding: 0 25px; 
+        }
+        
+        .card { 
+            position: relative; border: 1px solid rgba(212, 175, 55, 0.3); 
+            padding: 30px; border-radius: 20px; background: rgba(255, 255, 255, 0.04); 
+            backdrop-filter: blur(5px); text-align: left; transition: 0.4s; 
+            overflow: hidden; opacity: 0; transform: translateY(30px);
+        }
+        .card.show { opacity: 1; transform: translateY(0); }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .card:hover { 
+            border-color: var(--gold); transform: translateY(-10px) !important;
+            background: rgba(255, 255, 255, 0.07); box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        
+        .price-row { border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 20px; padding-top: 20px; }
+        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; }
+        .sap-math { font-size: 0.9rem; color: #8ecae6; display: block; margin-bottom: 10px; font-style: italic; }
+        
+        h2 { margin-top: 0; font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.6rem; }
+        ul { padding-left: 20px; font-size: 0.95rem; line-height: 1.7; opacity: 0.9; }
+
+        .save-contact-btn {
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 10px 25px; border-radius: 30px; cursor: pointer; font-size: 0.85rem;
+            transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; font-weight: 600;
+        }
+        .save-contact-btn:hover { background: var(--gold); color: var(--dark-green); }
+
+        .trust-box { 
+            background: rgba(212, 175, 55, 0.1); border: 2px solid var(--gold); 
+            border-radius: 20px; padding: 30px; margin: 40px 25px;
+            max-width: 1050px; display: inline-block; opacity: 0; 
+            transform: translateY(20px); transition: 0.8s ease-out;
+        }
+        .trust-box.show { opacity: 1; transform: translateY(0); }
+
+        .zone-box { margin: 40px auto; padding: 20px; max-width: 1000px; border-top: 1px solid rgba(212, 175, 55, 0.1); }
+        .zone-title { color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
+        .zone-list { font-size: 0.85rem; opacity: 0.7; letter-spacing: 0.5px; }
+
+        .footer { 
+            margin-top: 60px; padding: 50px 20px; font-size: 0.9rem; opacity: 0.8; 
+            border-top: 1px solid rgba(212, 175, 55, 0.2); background: rgba(0,0,0,0.3);
+            line-height: 2;
+        }
+        .footer strong { color: var(--gold); font-size: 1.2rem; display: block; margin-bottom: 5px; }
+        .footer span { display: block; }
+
+        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .msg-btn { width: 100%; } .calc-box { margin: 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switcher">
+        <button class="lang-btn" onclick="changeLang('fr')">FR</button>
+        <button class="lang-btn" onclick="changeLang('en')">EN</button>
+        <button class="lang-btn" onclick="changeLang('ua')">UA</button>
+        <button class="lang-btn" onclick="changeLang('ru')">RU</button>
+    </div>
+
+    <p class="brand-name">PaulMultiService</p>
+    <img src="logo.png" alt="Logo" class="main-logo">
+    <span class="owner-name">Pavlo Pashkin</span>
+
+    <div class="messenger-wrapper">
+        <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
+        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
+        <a href="mailto:paulmultiservice7@gmail.com" class="msg-btn mail-btn" id="mail-text">E-mail</a>
+        <a href="tel:0745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
+        <a href="#" class="msg-btn share-btn" id="share-text" onclick="shareSite(event)">Partager le site</a>
+    </div>
+
+    <div style="margin: 20px auto;">
+        <button class="save-contact-btn" onclick="downloadVCard()">
+            <span id="save-btn-text">Ajouter aux contacts</span>
+        </button>
+    </div>
+
+    <div class="calc-box">
+        <div class="calc-title" id="calc-t">Simulateur Crédit d'Impôt</div>
+        <div class="calc-input-group">
+            <label id="calc-h">Nombre d'heures :</label>
+            <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
+        </div>
+        <div class="calc-result" id="calc-res">
+            Total : <span id="totalPrice">50</span>€<br>
+            <span id="calc-after">Coût réel après SAP :</span> <b><span id="netPrice">25</span>€</b>
+        </div>
+    </div>
+
+    <div class="services-grid">
+        <div class="card" style="transition-delay: 0.1s;">
+            <h2 id="it-title">Informatique</h2>
+            <ul id="it-list">
+                <li>Installation Windows / MacOS</li>
+                <li>Nettoyage virus & Optimisation</li>
+                <li>Configuration Wi-Fi & Imprimantes</li>
+                <li>Récupération de données</li>
+            </ul>
+            <div class="price-row">
+                <span class="price-tag" id="p1-it">1ère heure : 50€</span>
+                <span class="sap-math" id="m1-it">Soit 25€ (SAP)</span>
+                <span class="price-tag" id="p2-it">2ème heure : 40€</span>
+                <span class="sap-math" id="m2-it">Soit 20€ (SAP)</span>
+            </div>
+        </div>
+
+        <div class="card" style="transition-delay: 0.3s;">
+            <h2 id="br-title">Petit Bricolage</h2>
+            <ul id="br-list">
+                <li>Montage de meubles (IKEA, etc.)</li>
+                <li>Pose d'étagères & Tableaux</li>
+                <li>Changement de serruреs</li>
+                <li>Petites réparations diverses</li>
+            </ul>
+            <div class="price-row">
+                <span class="price-tag" id="p1-br">1ère heure : 50€</span>
+                <span class="sap-math" id="m1-br">Soit 25€ (SAP)</span>
+                <span class="price-tag" id="p2-br">2ème heure : 40€</span>
+                <span class="sap-math" id="m2-br">Soit 20€ (SAP)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="trust-box" id="trust-box">
+        <h2 id="why-title">Pourquoi me faire confiance ?</h2>
+        <p id="why-desc">Intervention rapide à Rennes • 50% de crédit d'impôt (SAP) • Travail soigné et professionnel</p>
+    </div>
+
+    <div class="zone-box">
+        <div class="zone-title" id="zone-title">Zone d'intervention</div>
+        <div class="zone-list" id="zone-list">Rennes • Cesson-Sévigné • Saint-Grégoire • Betton • Bruz • Chantepie • Pacé • 35700</div>
+    </div>
+
+    <div class="footer" id="footer-box">
+        <strong id="f-brand">PaulMultiService</strong>
+        <span>paulmultiservice7@gmail.com</span>
+        <span id="f-siret">Entrepreneur Individuel | SIRET : 10000226000014</span>
+        <span>TVA non applicable, art. 293 B du CGI</span>
+        <span id="f-city">Rennes 35700</span>
+    </div>
+
+    <script>
+        const translations = {
+            fr: {
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Appeler", share: "Partager le site",
+                calc_t: "Simulateur Crédit d'Impôt", calc_h: "Nombre d'heures :", calc_a: "Coût réel après SAP :",
+                it_t: "Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Imprimantes</li><li>Récupération de données</li>",
+                br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Pose d'étagères & Tableaux</li><li>Changement de serrures</li><li>Petites réparations diverses</li>",
+                p1: "1ère heure : 50€", p2: "2ème heure : 40€", m1: "Soit 25€ (SAP)", m2: "Soit 20€ (SAP)",
+                why_t: "Pourquoi me faire confiance ?", why_d: "Intervention rapide à Rennes • 50% de crédit d'impôt (SAP) • Travail soigné et professionnel",
+                zt: "Zone d'intervention", zl: "Rennes • Cesson-Sévigné • Saint-Grégoire • Betton • Bruz • Chantepie • Pacé • 35700",
+                siret: "Entrepreneur Individuel | SIRET : 10000226000014", city: "Rennes 35700", save: "Ajouter aux contacts"
+            },
+            ua: {
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Пошта", call: "Дзвінок", share: "Поділитися сайтом",
+                calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин:", calc_a: "Реальна вартість (після SAP):",
+                it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi та принтерів</li><li>Відновлення даних</li>",
+                br_t: "Дрібний ремонт", br_l: "<li>Збірка меблів (IKEA тощо)</li><li>Монтаж полиць та ТБ</li><li>Заміна замків</li><li>Різна допомога по дому</li>",
+                p1: "1-ша година: 50€", p2: "2-га година: 40€", m1: "Лише 25€ (SAP)", m2: "Лише 20€ (SAP)",
+                why_t: "Чому варто обрати мене?", why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Якісна та охайна робота",
+                zt: "Зона обслуговування", zl: "Ренн та прилеглі райони (35700)",
+                siret: "Приватний підприємець | SIRET: 10000226000014", city: "Ренн 35700", save: "Додати в контакти"
+            },
+            ru: {
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Почта", call: "Позвонить", share: "Поделиться сайтом",
+                calc_t: "Калькулятор выгоды SAP", calc_h: "Количество часов:", calc_a: "Реальная стоимость (после SAP):",
+                it_t: "ИТ Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов</li><li>Настройка Wi-Fi и принтеров</li><li>Восстановление данных</li>",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Монтаж полок и ТВ</li><li>Замена замков</li><li>Мелкий ремонт по дому</li>",
+                p1: "1-й час: 50€", p2: "2-й час: 40€", m1: "Итого 25€ (SAP)", m2: "Итого 20€ (SAP)",
+                why_t: "Почему стоит выбрать меня?", why_d: "Быстрый выезд в Ренне • Налоговый вычет 50% (SAP) • Качественная и чистая работа",
+                zt: "Зона работы", zl: "Ренн и пригороды (35700)",
+                siret: "Индивидуальный предприниматель | SIRET: 10000226000014", city: "Ренн 35700", save: "Добавить в контакты"
+            }
+        };
+
+        function updateCalc() {
+            const h = parseInt(document.getElementById('hoursInput').value) || 0;
+            let total = 0;
+            if (h >= 1) total += 50;
+            if (h > 1) total += (h - 1) * 40;
+            document.getElementById('totalPrice').innerText = total;
+            document.getElementById('netPrice').innerText = total / 2;
+        }
+
+        function downloadVCard() {
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Pavlo Pashkin\nTEL;TYPE=CELL:0745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD";
+            const blob = new Blob([vcard], { type: "text/vcard" });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = "Pavlo_Pashkin.vcf"; a.click();
+        }
+
+        async function shareSite(e) {
+            e.preventDefault();
+            if (navigator.share) {
+                try { await navigator.share({ title: 'PaulMultiService', url: window.location.href }); } catch (err) {}
+            } else { alert('Lien : ' + window.location.href); }
+        }
+
+        function changeLang(lang) {
+            const t = translations[lang] || translations['fr'];
+            document.getElementById('wa-text').innerText = t.wa;
+            document.getElementById('tg-text').innerText = t.tg;
+            document.getElementById('mail-text').innerText = t.mail;
+            document.getElementById('call-text').innerText = t.call;
+            document.getElementById('share-text').innerText = t.share;
+            document.getElementById('calc-t').innerText = t.calc_t;
+            document.getElementById('calc-h').innerText = t.calc_h;
+            document.getElementById('calc-after').innerText = t.calc_a;
+            document.getElementById('it-title').innerText = t.it_t;
+            document.getElementById('it-list').innerHTML = t.it_l;
+            document.getElementById('br-title').innerText = t.br_t;
+            document.getElementById('br-list').innerHTML = t.br_l;
+            document.getElementById('p1-it').innerText = t.p1;
+            document.getElementById('m1-it').innerText = t.m1;
+            document.getElementById('p2-it').innerText = t.p2;
+            document.getElementById('m2-it').innerText = t.m2;
+            document.getElementById('p1-br').innerText = t.p1;
+            document.getElementById('m1-br').innerText = t.m1;
+            document.getElementById('p2-br').innerText = t.p2;
+            document.getElementById('m2-br').innerText = t.m2;
+            document.getElementById('why-title').innerText = t.why_t;
+            document.getElementById('why-desc').innerText = t.why_d;
+            document.getElementById('zone-title').innerText = t.zt;
+            document.getElementById('zone-list').innerText = t.zl;
+            document.getElementById('f-siret').innerText = t.siret;
+            document.getElementById('f-city').innerText = t.city;
+            document.getElementById('save-btn-text').innerText = t.save;
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLang') || 'fr';
+            changeLang(savedLang);
+            setTimeout(() => {
+                document.querySelectorAll('.card').forEach(card => card.classList.add('show'));
+                document.getElementById('trust-box').classList.add('show');
+            }, 200);
+        });
+    </script>
+</body>
+</html>
