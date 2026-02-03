@@ -62,219 +62,30 @@
             flex: 1; min-width: 160px; padding: 16px; border-radius: 12px; 
             text-decoration: none; color: white; font-weight: bold; transition: 0.4s ease; 
             text-align: center; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         
         .wa-btn { background: #25D366; } 
         .tg-btn { background: #0088cc; } 
         .call-btn { background: var(--gold); color: var(--dark-green); }
         .mail-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+        .share-btn { background: #6c757d; width: 100%; max-width: 340px; margin-top: 10px; }
         
         .msg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
 
-        .services-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 25px; max-width: 1100px; margin: 40px auto; padding: 0 25px; 
+        /* Калькулятор */
+        .calc-box {
+            max-width: 400px; margin: 40px auto; padding: 25px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--gold);
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        
-        .card { 
-            position: relative; border: 1px solid rgba(212, 175, 55, 0.3); 
-            padding: 30px; border-radius: 20px; background: rgba(255, 255, 255, 0.04); 
-            backdrop-filter: blur(5px); text-align: left; transition: 0.4s; 
-            overflow: hidden; opacity: 0; transform: translateY(30px);
+        .calc-title { color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
+        .calc-input-group { margin-bottom: 20px; }
+        .calc-input-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; }
+        .calc-input-group input { 
+            width: 80px; padding: 10px; border-radius: 10px; border: 1px solid var(--gold);
+            background: var(--dark-green); color: white; text-align: center; font-size: 1.1rem;
         }
-        .card.show { opacity: 1; transform: translateY(0); }
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        .calc-result { 
+            font-size: 1.1rem; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.2);
         }
-        .card:hover { 
-            border-color: var(--gold); transform: translateY(-10px) !important;
-            background: rgba(255, 255, 255, 0.07); box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        
-        .price-row { border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 20px; padding-top: 20px; }
-        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; }
-        .sap-math { font-size: 0.9rem; color: #8ecae6; display: block; margin-bottom: 10px; font-style: italic; }
-        
-        h2 { margin-top: 0; font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.6rem; }
-        ul { padding-left: 20px; font-size: 0.95rem; line-height: 1.7; opacity: 0.9; }
-
-        .trust-box { 
-            background: rgba(212, 175, 55, 0.1); border: 2px solid var(--gold); 
-            border-radius: 20px; padding: 30px; margin: 20px 25px;
-            max-width: 1050px; display: inline-block; opacity: 0; 
-            transform: translateY(20px); transition: 0.8s ease-out;
-        }
-        .trust-box.show { opacity: 1; transform: translateY(0); }
-
-        .zone-box { margin: 40px auto; padding: 20px; max-width: 1000px; border-top: 1px solid rgba(212, 175, 55, 0.1); }
-        .zone-title { color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
-        .zone-list { font-size: 0.85rem; opacity: 0.7; letter-spacing: 0.5px; }
-
-        .qr-section { margin-top: 30px; cursor: pointer; transition: 0.3s; }
-        .qr-section:hover { opacity: 1; transform: scale(1.1); }
-        .qr-section img { width: 50px; opacity: 0.5; filter: sepia(1) saturate(5) hue-rotate(10deg); }
-
-        .footer { 
-            margin-top: 60px; padding: 40px 20px; font-size: 0.8rem; opacity: 0.7; 
-            border-top: 1px solid rgba(212, 175, 55, 0.2); background: rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .msg-btn { width: 100%; } }
-    </style>
-</head>
-<body>
-
-    <div class="lang-switcher">
-        <button class="lang-btn" onclick="changeLang('fr')">FR</button>
-        <button class="lang-btn" onclick="changeLang('en')">EN</button>
-        <button class="lang-btn" onclick="changeLang('ua')">UA</button>
-        <button class="lang-btn" onclick="changeLang('ru')">RU</button>
-    </div>
-
-    <p class="brand-name">PaulMultiService</p>
-    <img src="logo.png" alt="Logo" class="main-logo">
-    <span class="owner-name">Pavlo Pashkin</span>
-
-    <div class="messenger-wrapper">
-        <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
-        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
-        <a href="mailto:paulmultiservice7@gmail.com" class="msg-btn mail-btn" id="mail-text">E-mail</a>
-        <a href="tel:0745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
-    </div>
-
-    <div class="services-grid">
-        <div class="card" style="transition-delay: 0.1s;">
-            <h2 id="it-title">Informatique</h2>
-            <ul id="it-list">
-                <li>Installation Windows / MacOS</li>
-                <li>Nettoyage virus & Optimisation</li>
-                <li>Configuration Wi-Fi & Imprimantes</li>
-                <li>Récupération de données</li>
-            </ul>
-            <div class="price-row">
-                <span class="price-tag" id="p1-it">1ère heure : 50€</span>
-                <span class="sap-math" id="m1-it">Soit 25€ (SAP)</span>
-                <span class="price-tag" id="p2-it">2ème heure : 40€</span>
-                <span class="sap-math" id="m2-it">Soit 20€ (SAP)</span>
-            </div>
-        </div>
-
-        <div class="card" style="transition-delay: 0.3s;">
-            <h2 id="br-title">Petit Bricolage</h2>
-            <ul id="br-list">
-                <li>Montage de meubles (IKEA, etc.)</li>
-                <li>Pose d'étagères & Tableaux</li>
-                <li>Changement de serrures</li>
-                <li>Petites réparations diverses</li>
-            </ul>
-            <div class="price-row">
-                <span class="price-tag" id="p1-br">1ère heure : 50€</span>
-                <span class="sap-math" id="m1-br">Soit 25€ (SAP)</span>
-                <span class="price-tag" id="p2-br">2ème heure : 40€</span>
-                <span class="sap-math" id="m2-br">Soit 20€ (SAP)</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="trust-box" id="trust-box">
-        <h2 id="why-title">Pourquoi me faire confiance ?</h2>
-        <p id="why-desc">Intervention rapide à Rennes • 50% de crédit d'impôt (SAP) • Travail soigné et professionnel</p>
-    </div>
-
-    <div class="zone-box">
-        <div class="zone-title" id="zone-title">Zone d'intervention</div>
-        <div class="zone-list" id="zone-list">Rennes • Cesson-Sévigné • Saint-Gréгоire • Betton • Bruz • Chantepie • Pacé • 35700</div>
-    </div>
-
-    <div class="qr-section" onclick="alert('Bientôt : Scannez pour ajouter Pavlo à vos contacts !')">
-        <img src="https://cdn-icons-png.flaticon.com/512/241/241528.png" alt="QR Code">
-    </div>
-
-    <div class="footer">
-        <p id="footer-text">
-            <strong>PaulMultiService</strong><br>
-            Entrepreneur Individuel | SIRET : 10000226000014 | Rennes 35700<br>
-            paulmultiservice7@gmail.com | TVA non applicable, art. 293 B du CGI
-        </p>
-    </div>
-
-    <script>
-        const translations = {
-            fr: {
-                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Appeler",
-                it_t: "Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Imprimantes</li><li>Récupération de données</li>",
-                br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Pose d'étagères & Tableaux</li><li>Changement de serrures</li><li>Petites réparations diverses</li>",
-                p1: "1ère heure : 50€", p2: "2ème heure : 40€",
-                m1: "Soit 25€ (SAP)", m2: "Soit 20€ (SAP)",
-                why_t: "Pourquoi me faire confiance ?",
-                why_d: "Intervention rapide à Rennes • 50% de crédit d'impôt (SAP) • Travail soigné et professionnel",
-                zt: "Zone d'intervention", zl: "Rennes • Cesson-Sévigné • Saint-Grégoire • Betton • Bruz • Chantepie • Pacé • 35700"
-            },
-            en: {
-                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Call",
-                it_t: "IT Services", it_l: "<li>Windows / MacOS Setup</li><li>Virus Cleanup & Optimization</li><li>Wi-Fi & Printers Config</li><li>Data Recovery</li>",
-                br_t: "Handyman", br_l: "<li>Furniture Assembly</li><li>Shelves & TV Mounting</li><li>Lock Replacement</li><li>Minor Home Repairs</li>",
-                p1: "1st hour: 50€", p2: "2nd hour: 40€",
-                m1: "Only 25€ after Tax Credit", m2: "Only 20€ after Tax Credit",
-                why_t: "Why choose me?",
-                why_d: "Fast response in Rennes • 50% Tax Credit (SAP) • Quality and reliable work",
-                zt: "Service Area", zl: "Rennes and surrounding areas (35700)"
-            },
-            ua: {
-                wa: "WhatsApp", tg: "Telegram Бот", mail: "Пошта", call: "Дзвінок",
-                it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi та принтерів</li><li>Відновлення даних</li>",
-                br_t: "Дрібний ремонт", br_l: "<li>Збірка меблів (IKEA тощо)</li><li>Монтаж полиць та ТБ</li><li>Заміна замків</li><li>Різна допомога по дому</li>",
-                p1: "1-ша година: 50€", p2: "2-га година: 40€",
-                m1: "Лише 25€ (з вирахуванням SAP)", m2: "Лише 20€ (з вирахуванням SAP)",
-                why_t: "Чому варто обрати мене?",
-                why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Якісна та охайна робота",
-                zt: "Зона обслуговування", zl: "Ренн та прилеглі райони (35700)"
-            },
-            ru: {
-                wa: "WhatsApp", tg: "Telegram Бот", mail: "Почта", call: "Позвонить",
-                it_t: "ИТ Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов</li><li>Настройка Wi-Fi и принтеров</li><li>Восстановление данных</li>",
-                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Монтаж полок и ТВ</li><li>Замена замков</li><li>Мелкий ремонт по дому</li>",
-                p1: "1-й час: 50€", p2: "2-й час: 40€",
-                m1: "Итого 25€ (с учетом SAP)", m2: "Итого 20€ (с учетом SAP)",
-                why_t: "Почему стоит выбрать меня?",
-                why_d: "Быстрый выезд в Ренне • Налоговый вычет 50% (SAP) • Качественная и чистая работа",
-                zt: "Зона работы", zl: "Ренн и пригороды (35700)"
-            }
-        };
-
-        function changeLang(lang) {
-            document.getElementById('wa-text').innerText = translations[lang].wa;
-            document.getElementById('tg-text').innerText = translations[lang].tg;
-            document.getElementById('mail-text').innerText = translations[lang].mail;
-            document.getElementById('call-text').innerText = translations[lang].call;
-            document.getElementById('it-title').innerText = translations[lang].it_t;
-            document.getElementById('it-list').innerHTML = translations[lang].it_l;
-            document.getElementById('br-title').innerText = translations[lang].br_t;
-            document.getElementById('br-list').innerHTML = translations[lang].br_l;
-            document.getElementById('p1-it').innerText = translations[lang].p1;
-            document.getElementById('m1-it').innerText = translations[lang].m1;
-            document.getElementById('p2-it').innerText = translations[lang].p2;
-            document.getElementById('m2-it').innerText = translations[lang].m2;
-            document.getElementById('p1-br').innerText = translations[lang].p1;
-            document.getElementById('m1-br').innerText = translations[lang].m1;
-            document.getElementById('p2-br').innerText = translations[lang].p2;
-            document.getElementById('m2-br').innerText = translations[lang].m2;
-            document.getElementById('why-title').innerText = translations[lang].why_t;
-            document.getElementById('why-desc').innerText = translations[lang].why_d;
-            document.getElementById('zone-title').innerText = translations[lang].zt;
-            document.getElementById('zone-list').innerText = translations[lang].zl;
-            localStorage.setItem('preferredLang', lang);
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('preferredLang') || 'fr';
-            changeLang(savedLang);
-            setTimeout(() => {
-                document.querySelectorAll('.card').forEach(card => card.classList.add('show'));
-                document.getElementById('trust-box').classList.add('show');
-            }, 200);
-        });
-    </script>
-</body>
-</html>
