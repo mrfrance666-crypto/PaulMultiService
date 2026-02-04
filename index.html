@@ -85,7 +85,6 @@
         .vcard-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
         .share-btn { grid-column: span 2; background: #4a4a4a; margin-top: 5px; }
 
-        /* ЛИПКОЕ МЕНЮ */
         .nav-pills-container { position: sticky; top: 0; z-index: 1000; background: var(--bg-color); padding: 10px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
         .nav-pills { display: flex; justify-content: center; gap: 8px; flex-wrap: nowrap; overflow-x: auto; padding: 0 15px; }
         .nav-pill { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--gold); padding: 10px 18px; border-radius: 30px; text-decoration: none; font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
@@ -156,12 +155,12 @@
             </div>
             <div class="step-card">
                 <div class="step-num">2</div>
-                <h3 id="step2-t">Devis</h3>
+                <h3 id="step2-t">Tarif</h3>
                 <p id="step2-d"></p>
             </div>
             <div class="step-card">
                 <div class="step-num">3</div>
-                <h3 id="step3-t">Résultat</h3>
+                <h3 id="step3-t">Crédit d'impôt</h3>
                 <p id="step3-d"></p>
             </div>
         </div>
@@ -176,7 +175,7 @@
         </div>
         <div class="calc-result" id="calc-res" style="margin-top: 20px;">
             Total : <span id="totalPrice">50</span>€<br>
-            <span id="calc-after">Coût réel после SAP :</span> <b><span id="netPrice">25</span>€</b>
+            <span id="calc-after">Coût réel après crédit d'impôt :</span> <b><span id="netPrice">25</span>€</b>
         </div>
     </div>
 
@@ -199,11 +198,13 @@
     </div>
 
     <div class="footer">
-        <div class="footer-brand" id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 15px;">Paul — Votre artisan multiservice</div>
-        <div class="footer-zones" id="zones-list" style="margin-bottom: 25px; opacity: 0.9;"></div>
-        <div class="legal-mentions" style="font-size: 0.85rem; line-height: 1.8; opacity: 0.8;">
-            <p><strong>EI Pavlo Pashkin</strong> | SIRET : <span class="siret-number">10000226000014</span></p>
-            <p>TVA non applicable, art. 293 B du CGI | Rennes, 35700</p>
+        <div class="footer-brand" id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 10px;">Paul — Votre artisan multiservice</div>
+        <div id="footer-city" style="font-weight: 600; letter-spacing: 1px; margin-bottom: 15px;">Rennes, 35700</div>
+        <div class="footer-zones" id="zones-list" style="margin-bottom: 25px; opacity: 0.9; font-size: 0.85rem;"></div>
+        <hr style="border: 0; border-top: 1px solid rgba(212, 175, 55, 0.2); width: 40%; margin: 20px auto;">
+        <div class="legal-mentions" style="font-size: 0.75rem; line-height: 1.6; opacity: 0.7;">
+            <p style="margin: 5px 0;"><strong>EI Pavlo Pashkin</strong> | SIRET : 10000226000014</p>
+            <p style="margin: 5px 0;">TVA non applicable, art. 293 B du CGI</p>
         </div>
     </div>
 
@@ -215,9 +216,9 @@
                 wa: "WhatsApp 💬", tg: "Telegram Bot", mail: "E-mail", call: "Appeler", save: "Enregistrer", share: "Partager", cop: "Copié !",
                 cb_msg: "Bonjour, je vous contacte pour vos services...",
                 nav_how: "Étapes", nav_calc: "Simulateur", nav_serv: "Services", nav_faq: "FAQ",
-                how_t: "Comment ça marche ?", s1t: "1. Contact", s1d: "Expliquez votre besoin via WhatsApp ou téléphone.",
-                s2t: "2. Tarif fixe", s2d: "Forfait minimum d'une heure (50€) pour toute intervention.",
-                s3t: "3. Service SAP", s3d: "Travail pro + facture pour 50% de crédit d'impôt.",
+                how_t: "Comment ça marche ?", s1t: "1. Contact", s1d: "Décrivez votre besoin par message ou téléphone.",
+                s2t: "2. Tarif clair", s2d: "Forfait d'une heure (50€) minimum pour chaque déplacement.",
+                s3t: "3. Service SAP", s3d: "Facture pro ouvrant droit à 50% de crédit d'impôt.",
                 calc_t: "Simulateur Crédit d'Impôt", calc_min: "Commande minimale : 1 heure (50€)", calc_h: "Heures :", calc_a: "Net après crédit d'impôt :",
                 it_t: "Web & Informatique", it_l: "<li>Création de sites (Landing, Vitrine)</li><li>Installation OS & Logiciels</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Box</li>",
                 br_t: "Bricolage à domicile", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, cadres</li><li>Petit dépannage (robinet, serrure)</li><li>Installation électroménager</li>",
@@ -226,8 +227,10 @@
                 zones: "<b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Betton, Bruz, Pacé, Cesson-Sévigné...",
                 faq_t: "Questions fréquentes",
                 faq_items: [
-                    {q: "Quelle est la durée minimale ?", a: "Toute intervention est facturée au minimum une heure (50€)."},
-                    {q: "Quels paiements acceptez-vous ?", a: "Espèces, virement, chèque et chèques CESU préfinancés."}
+                    {q: "Où obtenir des chèques CESU ?", a: "Ils sont fournis par votre employeur, CSE ou mutuelle. Ils sont parfaits pour régler mes prestations !"},
+                    {q: "Le tarif de 50€ est-il fixe ?", a: "Oui, c'est le minimum pour tout déplacement, incluant la première heure de travail."},
+                    {q: "Dois-je fournir les outils ?", a: "Non, je dispose de tout l'outillage professionnel. Prévoyez juste l'objet à installer."},
+                    {q: "Comment fonctionne le crédit d'impôt ?", a: "Grâce à mon agrément SAP, vous déduisez 50% du montant de vos impôts l'année suivante."}
                 ]
             },
             ru: {
@@ -245,11 +248,53 @@
                 zones: "<b>Зона охвата:</b> Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 faq_t: "Частые вопросы",
                 faq_items: [
-                    {q: "Минимальная длительность?", a: "Первый час всегда оплачивается полностью (50€), даже если работа заняла 15 минут."},
-                    {q: "Как работает возврат 50%?", a: "Я выдаю официальный счет SAP. В следующем году государство вернет вам половину стоимости."}
+                    {q: "Где взять чеки CESU?", a: "Чеки CESU обычно выдает ваш работодатель (CSE), страховая или пенсионный фонд как бонус. Проверьте свой соцпакет!"},
+                    {q: "Почему минимум 50€?", a: "Это фиксированная стоимость выезда и первого часа работы. Это покрывает транспорт и подготовку."},
+                    {q: "Нужно ли мне иметь свои инструменты?", a: "Нет, у меня есть весь необходимый профессиональный инструмент. С вас только сама мебель или техника."},
+                    {q: "Как работает возврат 50%?", a: "Я выдаю официальный счет SAP. В следующем году государство вернет вам половину стоимости услуг."}
+                ]
+            },
+            ua: {
+                wa: "WhatsApp 💬", tg: "Telegram Бот", mail: "E-mail", call: "Дзвінок", save: "Зберегти", share: "Поділитися", cop: "Скопійовано!",
+                cb_msg: "Доброго дня, я щодо ваших послуг...",
+                nav_how: "Процес", nav_calc: "Калькулятор", nav_serv: "Послуги", nav_faq: "Питання",
+                how_t: "Як це працює?", s1t: "1. Зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте. Обговоримо завдання.",
+                s2t: "2. Мін. замовлення", s2d: "Мінімальна вартість виклику — 1 година роботи (50€).",
+                s3t: "3. Вигода", s3d: "Якісна робота та офіційний рахунок для повернення 50% (SAP).",
+                calc_t: "Калькулятор вигоди SAP", calc_min: "Мінімальне замовлення: 1 година (50€)", calc_h: "Годин:", calc_a: "Ціна після повернення 50%:",
+                it_t: "Web та IT послуги", it_l: "<li>Створення сайтів (Landing, Візитки)</li><li>Встановлення ОС та програм</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi та мереж</li>",
+                br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA тощо)</li><li>Встановлення люстр, ТБ, полиць</li><li>Дрібний ремонт (крани, замки)</li><li>Підключення побутової техніки</li>",
+                p1: "Мін. 1-ша год: 50€", p2: "Наступні: 40€/год", name: "Paul — Ваш майстер у Ренні",
+                sap: "Повернення 50% податків (SAP)",
+                zones: "<b>Зона обслуговування:</b> Ренн та передмістя (Betton, Saint-Grégoire, Bruz...)",
+                faq_t: "Часті запитання",
+                faq_items: [
+                    {q: "Де взяти чеки CESU?", a: "Чеки CESU зазвичай видає ваш роботодавець, профспілка (CSE) або страхова компанія як соціальний бонус."},
+                    {q: "Чи потрібно мені мати свій інструмент?", a: "Ні, я приїжджаю з власним професійним обладнанням. Вам потрібно лише підготувати об'єкт для роботи."},
+                    {q: "Як отримати податковий кредит?", a: "На основі моїх рахунків SAP ви вказуєте суму в декларації та отримуєте 50% повернення коштів."}
+                ]
+            },
+            en: {
+                wa: "WhatsApp 💬", tg: "Telegram Bot", mail: "E-mail", call: "Call", save: "Save", share: "Share", cop: "Copied!",
+                cb_msg: "Hello, I am contacting you regarding your services...",
+                nav_how: "Steps", nav_calc: "Calculator", nav_serv: "Services", nav_faq: "FAQ",
+                how_t: "How it works?", s1t: "1. Contact", s1d: "Describe your needs via WhatsApp or phone.",
+                s2t: "2. Clear Price", s2d: "Minimum fee of one hour (50€) for any intervention.",
+                s3t: "3. Benefits", s3d: "Professional service + invoice for 50% tax credit.",
+                calc_t: "Tax Credit Simulator", calc_min: "Minimum order: 1 hour (50€)", calc_h: "Hours:", calc_a: "Net after tax credit:",
+                it_t: "Web & IT Services", it_l: "<li>Website Creation (Landing, Showcase)</li><li>OS & Software Installation</li><li>Virus Removal & Optimization</li><li>Wi-Fi & Box Setup</li>",
+                br_t: "Handyman Services", br_l: "<li>Furniture Assembly (IKEA, etc.)</li><li>Lighting, TV & Shelf mounting</li><li>Small repairs (faucets, locks)</li><li>Appliance installation</li>",
+                p1: "Min. 1st hour: 50€", p2: "Next: 40€/h", name: "Paul — Your multiservice artisan",
+                sap: "Personal services: 50% tax credit",
+                zones: "<b>Service area:</b> Rennes, Saint-Grégoire, Betton, Bruz, Pacé...",
+                faq_t: "Frequently Asked Questions",
+                faq_items: [
+                    {q: "Where to get CESU checks?", a: "CESU vouchers are usually provided by your employer or insurance. They are a great way to pay for my services!"},
+                    {q: "Is the 50€ fee fixed?", a: "Yes, it is the minimum charge for any visit, covering the first hour of work."},
+                    {q: "Do I need to provide tools?", a: "No, I come with all the necessary professional equipment."},
+                    {q: "How does the tax credit work?", a: "Thanks to the SAP scheme, you can deduct 50% of the total cost from your income tax next year."}
                 ]
             }
-            // UA и EN добавляются аналогично по структуре выше
         };
 
         function changeLang(lang) {
@@ -267,7 +312,10 @@
 
             for (const [id, value] of Object.entries(ids)) {
                 const el = document.getElementById(id);
-                if (el) { if (id.includes('list') || id.includes('zones')) el.innerHTML = value; else el.innerText = value; }
+                if (el) { 
+                    if (id.includes('list') || id.includes('zones')) el.innerHTML = value; 
+                    else el.innerText = value; 
+                }
             }
 
             const faqContainer = document.getElementById('faq-container');
@@ -279,11 +327,14 @@
                 faqContainer.appendChild(div);
             });
             localStorage.setItem('preferredLang', lang);
+            updateCalc();
         }
 
         function toggleFaq(el) {
             const ans = el.nextElementSibling;
-            ans.style.display = (ans.style.display === 'block') ? 'none' : 'block';
+            const isOpen = ans.style.display === 'block';
+            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+            ans.style.display = isOpen ? 'none' : 'block';
         }
 
         function updateCalc() {
@@ -299,8 +350,9 @@
             navigator.clipboard.writeText("paulmultiservice7@gmail.com").then(() => {
                 const lang = localStorage.getItem('preferredLang') || 'fr';
                 const btn = document.getElementById('mail-text');
+                const originalText = translations[lang].mail;
                 btn.innerText = translations[lang].cop;
-                setTimeout(() => { btn.innerText = translations[lang].mail; }, 2000);
+                setTimeout(() => { btn.innerText = originalText; }, 2000);
             });
         }
 
