@@ -38,6 +38,9 @@
             --gold-light: #f4d06f;
             --white: #ffffff; 
             --wa-green: #25D366;
+            --tg-blue: #0088cc;
+            --mail-gray: #6c757d;
+            --share-dark: #4a4a4a;
             /* Динамические переменные темы */
             --bg-color: var(--dark-green);
             --text-color: var(--white);
@@ -47,7 +50,6 @@
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Полная инверсия для светлой темы */
         body.light-theme {
             --bg-color: #ffffff;
             --text-color: #1a1a1a;
@@ -66,14 +68,14 @@
             overflow-x: hidden; transition: background var(--transition), color var(--transition);
         }
 
-        /* Кнопка переключения темы (Фиксированная) */
+        /* Кнопка переключения темы */
         .theme-toggle {
             position: fixed; top: 15px; right: 15px;
-            background: var(--card-bg); border: 1px solid var(--gold);
+            background: var(--card-bg); border: 2px solid var(--gold);
             color: var(--gold); width: 45px; height: 45px; border-radius: 50%;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             font-size: 1.4rem; z-index: 2000; transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         .theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: var(--gold); color: white; }
 
@@ -85,17 +87,34 @@
         }
         .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--gold); }
 
+        /* ОЖИВЛЕННЫЕ КНОПКИ */
+        .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto 20px; max-width: 360px; padding: 0 20px; }
+        
         .msg-btn { 
             display: flex; align-items: center; justify-content: center; 
             padding: 16px 5px; border-radius: 12px; text-decoration: none; 
             color: white; font-weight: bold; font-size: 0.85rem; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: none; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: none; 
             cursor: pointer; transition: var(--transition); 
         }
-        .msg-btn:hover { transform: translateY(-4px); filter: brightness(1.15); }
 
+        .wa-btn-main { grid-column: span 2; background: var(--wa-green); font-size: 1.05rem !important; }
+        .tg-btn { background: var(--tg-blue); } 
+        .call-btn { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
+        .mail-btn { background: var(--mail-gray); }
+        .vcard-btn { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
+        .share-btn { grid-column: span 2; background: var(--share-dark); }
+
+        .msg-btn:hover { 
+            transform: translateY(-3px) scale(1.02); 
+            filter: brightness(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-pills-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(10px); transition: background var(--transition); }
+        .nav-pills { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 0 15px; }
         .nav-pill { 
-            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--border-color); 
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); 
             color: var(--gold); padding: 10px 18px; border-radius: 30px; 
             text-decoration: none; font-size: 0.85rem; font-weight: 600; 
             transition: var(--transition);
@@ -109,15 +128,6 @@
         .owner-name { color: var(--gold-light); font-size: clamp(1.1rem, 4vw, 1.6rem); font-family: 'Playfair Display', serif; font-weight: 600; margin-bottom: 5px; display: block; }
         .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.15); color: var(--gold); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 25px; border: 1px solid var(--border-color); }
         
-        .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto 20px; max-width: 360px; padding: 0 20px; }
-        .wa-btn-main { grid-column: span 2; background: var(--wa-green); }
-        .tg-btn { background: #0088cc; } 
-        .call-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
-        .share-btn { grid-column: span 2; background: #4a4a4a; }
-
-        .nav-pills-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(10px); transition: background var(--transition); }
-        .nav-pills { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 0 15px; }
-
         .step-card, .calc-box, .card, .faq-item {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -147,7 +157,6 @@
         .back-to-top { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; text-decoration: none; z-index: 1001; }
         .footer { margin-top: 60px; padding: 40px 20px; background: rgba(0, 0, 0, 0.05); border-top: 1px solid var(--border-color); }
         
-        /* Улучшение теней в светлой теме */
         body.light-theme .card, body.light-theme .step-card, body.light-theme .calc-box {
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
@@ -274,8 +283,8 @@
                 faq_items: [
                     {q: "Où obtenir des chèques CESU ?", a: "Ils sont fournis par votre employeur, CSE ou mutuelle. Ils sont parfaits pour régler mes prestations !"},
                     {q: "Le tarif de 50€ est-il fixe ?", a: "Oui, c'est le minimum pour tout déplacement, incluant la première heure de travail."},
-                    {q: "Dois-je fournir les outils ?", a: "No, я привожу все инструменты с собой."},
-                    {q: "Comment fonctionne le crédit d'impôt ?", a: "Grâce à mon agrément SAP, vous déдуisez 50% du montant de vos impôts l'année suivante."}
+                    {q: "Dois-je fournir les outils ?", a: "Non, je viens avec tout mon matériel professionnel."},
+                    {q: "Comment fonctionne le crédit d'impôt ?", a: "Grâce à mon agrément SAP, vous déduisez 50% du montant de vos impôts l'année suivante."}
                 ]
             },
             ru: {
