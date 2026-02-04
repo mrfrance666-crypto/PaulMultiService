@@ -8,6 +8,26 @@
     <title>Paul — Artisan Multiservice | Rennes | Bricolage & Informatique</title>
     <meta name="description" content="Besoin d'aide à Rennes ? Montage meubles IKEA, installation de lusters, fixation TV, dépannage informatique. 50% de crédit d'impôt.">
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "PaulMultiService",
+      "image": "https://mrfrance666-crypto.github.io/PaulMultiService/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Betton",
+        "addressLocality": "Rennes",
+        "postalCode": "35700",
+        "addressCountry": "FR"
+      },
+      "url": "https://mrfrance666-crypto.github.io/PaulMultiService/",
+      "telephone": "+33745625007",
+      "priceRange": "$$",
+      "areaServed": ["Rennes", "Betton", "Saint-Grégoire", "Cesson-Sévigné"]
+    }
+    </script>
+
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     
@@ -18,13 +38,27 @@
             --gold-light: #f4d06f;
             --white: #ffffff; 
             --wa-green: #25D366;
+            --bg-color: var(--dark-green);
+            --text-color: var(--white);
+            --card-bg: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Автоматическая светлая тема, если у пользователя в системе стоит Light Mode */
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-color: #f4f7f6;
+                --text-color: #0a2e1f;
+                --card-bg: #ffffff;
+            }
+            .lang-switcher { background: rgba(244, 247, 246, 0.9) !important; }
+            .card, .step-card, .calc-box, .trust-box { box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         }
         
         body { 
             margin: 0; font-family: 'Montserrat', sans-serif; 
-            background-color: var(--dark-green); color: var(--white); 
+            background-color: var(--bg-color); color: var(--text-color); 
             text-align: center; min-height: 100vh; padding-bottom: 50px; 
-            overflow-x: hidden;
+            overflow-x: hidden; transition: background 0.3s ease;
         }
         
         .lang-switcher { 
@@ -34,12 +68,12 @@
         }
         
         .lang-btn { 
-            background: rgba(255,255,255,0.05); border: 1px solid var(--gold); 
-            color: white; padding: 7px 15px; margin: 0 4px; cursor: pointer; 
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); 
+            color: var(--text-color); padding: 7px 15px; margin: 0 4px; cursor: pointer; 
             border-radius: 8px; font-weight: 600; transition: 0.3s; 
         }
         
-        .lang-btn:hover { background: var(--gold); color: var(--dark-green); box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+        .lang-btn:hover { background: var(--gold); color: white; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
         
         .brand-name { 
             font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.2rem); 
@@ -63,7 +97,7 @@
         .sap-badge {
             display: inline-block;
             background: rgba(212, 175, 55, 0.15);
-            color: var(--gold-light);
+            color: var(--gold);
             padding: 8px 20px;
             border-radius: 50px;
             font-size: 0.9rem;
@@ -72,14 +106,9 @@
             border: 1px solid rgba(212, 175, 55, 0.3);
         }
         
-        /* СЕТКА КНОПОК */
         .messenger-wrapper { 
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 10px auto 30px;
-            max-width: 360px;
-            padding: 0 20px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+            margin: 10px auto 30px; max-width: 360px; padding: 0 20px;
         }
         
         .msg-btn { 
@@ -90,52 +119,37 @@
             border: none; cursor: pointer;
         }
         
-        /* WhatsApp во всю ширину */
-        .wa-btn-main { 
-            grid-column: span 2; 
-            background: var(--wa-green); 
-            font-size: 1.05rem !important;
-        }
-        
+        .wa-btn-main { grid-column: span 2; background: var(--wa-green); font-size: 1.05rem !important; }
         .tg-btn { background: #0088cc; } 
-        .call-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid var(--gold); color: var(--gold); }
-        .mail-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+        .call-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold); }
+        .mail-btn { background: #6c757d; }
         .vcard-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
-        
-        /* Поделиться во всю ширину */
-        .share-btn { 
-            grid-column: span 2; 
-            background: #6c757d; 
-            margin-top: 5px; 
-        }
-        
+        .share-btn { grid-column: span 2; background: #4a4a4a; margin-top: 5px; }
         .msg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
 
         .how-it-works { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
         .steps-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
         .step-card { 
-            flex: 1; min-width: 250px; padding: 25px; background: rgba(255,255,255,0.03); 
+            flex: 1; min-width: 250px; padding: 25px; background: var(--card-bg); 
             border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.1); 
         }
         .step-num { 
-            width: 40px; height: 40px; background: var(--gold); color: var(--dark-green); 
+            width: 40px; height: 40px; background: var(--gold); color: white; 
             border-radius: 50%; display: flex; align-items: center; justify-content: center; 
             margin: 0 auto 15px; font-weight: bold; 
         }
 
         .calc-box {
             max-width: 400px; margin: 40px auto; padding: 25px;
-            background: rgba(255,255,255,0.05); border: 1px solid var(--gold);
+            background: var(--card-bg); border: 1px solid var(--gold);
             border-radius: 20px;
         }
         .calc-title { color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
-        .calc-input-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; }
         .calc-input-group input { 
             width: 80px; padding: 10px; border-radius: 10px; border: 1px solid var(--gold);
-            background: var(--dark-green); color: white; text-align: center; font-size: 1.1rem;
+            background: transparent; color: var(--text-color); text-align: center; font-size: 1.1rem;
         }
-        .calc-result { font-size: 1.1rem; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.2); margin-top: 15px; }
-        .calc-result b { color: var(--gold-light); font-size: 1.3rem; }
+        .calc-result b { color: var(--gold); font-size: 1.3rem; }
 
         .services-grid { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
@@ -143,40 +157,19 @@
         }
         .card { 
             border: 1px solid rgba(212, 175, 55, 0.3); padding: 30px; border-radius: 20px; 
-            background: rgba(255, 255, 255, 0.04); text-align: left; transition: 0.4s; 
+            background: var(--card-bg); text-align: left; transition: 0.4s; 
             opacity: 0; transform: translateY(20px);
         }
         .card.show { opacity: 1; transform: translateY(0); }
-        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: 15px; line-height: 1.4; }
-        .sap-math { font-size: 0.9rem; color: #8ecae6; font-style: italic; display: block; margin-top: 5px; }
+        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: 15px; }
 
-        .trust-box { 
-            background: rgba(212, 175, 55, 0.05); border: 1px solid var(--gold); 
-            border-radius: 20px; padding: 30px; margin: 40px 25px; max-width: 800px; display: inline-block;
-        }
-        .trust-list { text-align: left; display: inline-block; margin-top: 15px; line-height: 1.8; list-style: none; padding: 0; }
-        .trust-list li::before { content: "✓ "; color: var(--gold); font-weight: bold; margin-right: 10px; }
+        .faq-section { max-width: 800px; margin: 60px auto; padding: 0 20px; text-align: left; }
+        .faq-item { background: var(--card-bg); border: 1px solid rgba(212,175,55,0.2); border-radius: 15px; margin-bottom: 10px; overflow: hidden; }
+        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold-light); }
+        .faq-answer { padding: 0 20px 20px; display: none; line-height: 1.6; opacity: 0.9; }
 
-        .footer { 
-            margin-top: 60px; padding: 40px 20px; background: rgba(0, 0, 0, 0.2); 
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        .footer-brand { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.4rem; margin-bottom: 10px; }
-        .footer-zones { font-size: 0.85rem; margin-bottom: 20px; color: var(--gold-light); max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6; }
-        .footer-contact-info { font-size: 0.9rem; margin-bottom: 25px; opacity: 0.9; }
-        .legal-mentions { 
-            font-size: 0.75rem; opacity: 0.6; line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 15px; max-width: 600px; margin: 0 auto; 
-        }
-
-        .siret-number {
-            color: var(--gold) !important;
-            text-decoration: none !important;
-            font-weight: 600;
-            background: none;
-            padding: 0;
-            display: inline;
-        }
+        .footer { margin-top: 60px; padding: 40px 20px; background: rgba(0, 0, 0, 0.1); border-top: 1px solid rgba(212, 175, 55, 0.2); }
+        .siret-number { color: var(--gold); font-weight: 600; }
 
         @media (max-width: 400px) { .messenger-wrapper { max-width: 100%; padding: 0 10px; } }
     </style>
@@ -197,38 +190,17 @@
     <div class="sap-badge" id="sap-info">Services à la personne : 50% de crédit d'impôt</div>
 
     <div class="messenger-wrapper">
-        <a href="" target="_blank" class="msg-btn wa-btn-main" id="wa-link">
-            <span id="wa-text">WhatsApp — Написать мне 💬</span>
-        </a>
-        
+        <a href="" target="_blank" class="msg-btn wa-btn-main" id="wa-link"><span id="wa-text">WhatsApp 💬</span></a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
-        
         <a href="mailto:paulmultiservice7@gmail.com" onclick="copyEmail(event)" class="msg-btn mail-btn" id="mail-text">E-mail</a>
         <button onclick="downloadVCard()" class="msg-btn vcard-btn" id="save-text">Enregistrer</button>
-        
         <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager le site</button>
     </div>
 
-    <div class="how-it-works">
-        <h2 id="how-title">Comment ça marche ?</h2>
-        <div class="steps-container">
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <h3 id="step1-t">Contact</h3>
-                <p id="step1-d">Expliquez votre problème par WhatsApp, Telegram ou téléphone.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <h3 id="step2-t">Devis & RDV</h3>
-                <p id="step2-d">Nous fixons ensemble le prix et l'heure de l'intervention.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <h3 id="step3-t">Résultat</h3>
-                <p id="step3-d">J'interviens chez vous. Travail soigné et facture SAP (crédit 50%).</p>
-            </div>
-        </div>
+    <div class="faq-section">
+        <h2 id="faq-title" style="text-align: center; color: var(--gold);">Questions fréquentes</h2>
+        <div id="faq-container"></div>
     </div>
 
     <div class="calc-box">
@@ -247,47 +219,21 @@
         <div class="card" style="transition-delay: 0.1s;">
             <h2 id="it-title">Informatique</h2>
             <ul id="it-list"></ul>
-            <span class="price-tag">
-                <span id="p1-it">Forfait 1ère h : 50€</span><br>
-                <span id="p2-it">Suivantes : 40€/h</span>
-            </span>
-            <span class="sap-math">
-                <span id="m1-it">Soit 25€ (SAP)</span> | <span id="m2-it">20€/h (SAP)</span>
-            </span>
+            <span class="price-tag"><span id="p1-it"></span><br><span id="p2-it"></span></span>
         </div>
-
         <div class="card" style="transition-delay: 0.3s;">
             <h2 id="br-title">Petit Bricolage</h2>
             <ul id="br-list"></ul>
-            <span class="price-tag">
-                <span id="p1-br">Forfait 1ère h : 50€</span><br>
-                <span id="p2-br">Suivantes : 40€/h</span>
-            </span>
-            <span class="sap-math">
-                <span id="m1-br">Soit 25€ (SAP)</span> | <span id="m2-br">20€/h (SAP)</span>
-            </span>
+            <span class="price-tag"><span id="p1-br"></span><br><span id="p2-br"></span></span>
         </div>
-    </div>
-
-    <div class="trust-box">
-        <h2 id="why-title">Почему мне доверяют?</h2>
-        <p id="why-desc" style="font-weight: 600; color: var(--gold-light);"></p>
-        <ul id="trust-list" class="trust-list">
-        </ul>
     </div>
 
     <div class="footer">
         <div class="footer-brand">Paul — Votre artisan multiservice</div>
-        <div class="footer-zones" id="zones-list">
-            <b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques-de-la-Lande.
-        </div>
-        <div class="footer-contact-info">
-            paulmultiservice7@gmail.com
-        </div>
+        <div class="footer-zones" id="zones-list"></div>
         <div class="legal-mentions">
             <p>EI Pavlo Pashkin | SIRET : <span class="siret-number">10000226000014</span></p>
-            <p>TVA non applicable, art. 293 B du CGI</p>
-            <p>Rennes, 35700</p>
+            <p>TVA non applicable, art. 293 B du CGI | Rennes, 35700</p>
         </div>
     </div>
 
@@ -295,69 +241,106 @@
         const translations = {
             fr: {
                 wa: "WhatsApp — Écrivez-moi 💬", tg: "Telegram Bot", mail: "E-mail", call: "Appeler", save: "Enregistrer", share: "Partager", cop: "Copié !",
-                cb_msg: "Bonjour, je vous contacte pour vos services. Pourriez-vous m'aider pour...",
-                how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliquez votre besoin via WhatsApp ou téléphone pour une response immédiate.",
-                s2t: "2. Prix fixe", s2d: "Nous convenons du tarif et du RDV. Pas de frais cachés.",
-                s3t: "3. Service SAP", s3d: "Travail pro + facture ouvrant droit à 50% de crédit d'impôt.",
+                cb_msg: "Bonjour, я пишу по поводу ваших услуг...",
+                faq_t: "Questions fréquentes",
+                faq_items: [
+                    {q: "Est-ce que vous acceptez les chèques CESU ?", a: "Oui, en tant qu'auto-entrepreneur SAP, j'accepte les chèques CESU préfinancés."},
+                    {q: "Dois-je fournir le matériel ?", a: "Je ramène mes outils pro. Les fournitures (vis, luminaires, pièces) sont à votre charge."},
+                    {q: "Intervenez-vous en dehors de Rennes ?", a: "Oui, je couvre Rennes et sa périphérie (Betton, Saint-Grégoire, etc.) sans frais de port excessifs."}
+                ],
                 calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :",
-                it_t: "Assistance Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Box</li>",
-                br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Installation de lustres & luminaires</li><li>Fixation TV & Supports muraux</li><li>Branchement électroménager</li>",
-                p1: "Min. 1ère heure : 50€", p2: "Suivantes : 40€/h", m1: "Soit 25€ (SAP)", m2: "20€/h (SAP)",
-                why_t: "Pourquoi me choisir ?", why_d: "Basé à Rennes • Intervention rapide • Agrément SAP (50% remboursés)",
-                trust_l: "<li><b>Forfait minimum :</b> La 1ère heure est due intégralement pour tout déplacement (50€).</li><li><b>Propreté :</b> Je nettoie toujours après mon intervention.</li><li><b>Outils :</b> Matériel professionnel complet.</li><li><b>Ponctualité :</b> Arrivée à l'heure convenue.</li>",
-                name: "Paul — Votre artisan multiservice",
+                it_t: "Assistance Informatique", it_l: "<li>Installation OS</li><li>Nettoyage virus</li><li>Config Wi-Fi</li>",
+                br_t: "Petit Bricolage", br_l: "<li>Montage meubles</li><li>Lustres & TV</li><li>Électroménager</li>",
+                p1: "Min. 1ère heure : 50€", p2: "Suivantes : 40€/h", name: "Paul — Votre artisan multiservice",
                 sap: "Services à la personne : 50% de crédit d'impôt",
-                zones: "<b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques-de-la-Lande."
+                zones: "<b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Chantepie, Betton, Bruz, Pacé..."
             },
             en: {
                 wa: "WhatsApp — Message me 💬", tg: "Telegram Bot", mail: "E-mail", call: "Call", save: "Save", share: "Share", cop: "Copied!",
-                cb_msg: "Hello, I'm contacting you about your services. Could you help me with...",
-                how_t: "How it works?", s1t: "1. Contact", s1d: "Message me on WhatsApp or call to discuss your project.",
-                s2t: "2. Quote", s2d: "We agree on the price and time. No hidden costs.",
-                s3t: "3. Tax Credit", s3d: "Quality work + invoice for 50% tax credit (SAP).",
+                cb_msg: "Hello, I'm contacting you about your services...",
+                faq_t: "FAQ",
+                faq_items: [
+                    {q: "Do you accept CESU vouchers?", a: "Yes, I accept pre-financed CESU vouchers for all services."},
+                    {q: "Do I need to provide tools?", a: "I bring professional tools. Parts and consumables are provided by you."},
+                    {q: "Which areas do you cover?", a: "Rennes and surrounding suburbs (Betton, Pacé, Bruz, etc.)."}
+                ],
                 calc_t: "Tax Credit Simulator", calc_h: "Hours:", calc_a: "Real cost after 50% tax credit:",
-                it_t: "IT Support", it_l: "<li>Windows / MacOS setup</li><li>Virus removal</li><li>Wi-Fi configuration</li>",
-                br_t: "Handyman", br_l: "<li>Furniture assembly</li><li>Lighting installation</li><li>TV wall mounting</li><li>Appliance setup</li>",
-                p1: "Min. 1st hour: 50€", p2: "Next: 40€/h", m1: "Only 25€ (after SAP)", m2: "20€/h (after SAP)",
-                why_t: "Why choose me?", why_d: "Based in Rennes • Quick response • 50% Tax Credit (SAP)",
-                trust_l: "<li><b>Min. fee:</b> The 1st hour is fully charged (50€).</li><li><b>Cleanliness:</b> I clean up after work.</li><li><b>Tools:</b> Pro equipment.</li><li><b>Punctuality:</b> Always on time.</li>",
-                name: "Paul — Your Handyman in Rennes",
+                it_t: "IT Support", it_l: "<li>OS Installation</li><li>Virus removal</li><li>Wi-Fi setup</li>",
+                br_t: "Handyman", br_l: "<li>Furniture assembly</li><li>Lighting & TV mounting</li><li>Appliances</li>",
+                p1: "Min. 1st hour: 50€", p2: "Next: 40€/h", name: "Paul — Your Handyman in Rennes",
                 sap: "Personal services: 50% tax credit",
-                zones: "<b>Service area:</b> Rennes and suburbs (Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques)."
+                zones: "<b>Service area:</b> Rennes and suburbs (Saint-Grégoire, Betton, Bruz...)"
             },
             ua: {
                 wa: "WhatsApp — Написати мені 💬", tg: "Telegram Бот", mail: "E-mail", call: "Дзвінок", save: "Зберегти", share: "Поділитися", cop: "Скопійовано!",
-                cb_msg: "Доброго дня, я щодо ваших послуг. Підкажіть, будь ласка...",
-                how_t: "Як це працює?", s1t: "1. Зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте для консультації.",
-                s2t: "2. Ціна", s2d: "Узгоджуємо вартість до початку робіт. Все прозоро.",
-                s3t: "3. Вигода", s3d: "Якісна робота + рахунок для повернення 50% коштів (SAP).",
+                cb_msg: "Доброго дня, я щодо ваших послуг...",
+                faq_t: "Часті питання",
+                faq_items: [
+                    {q: "Ви приймаєте чеки CESU?", a: "Так, я приймаю чеки CESU як офіційний сервіс SAP."},
+                    {q: "Чи потрібно мені мати свій інструмент?", a: "Ні, я привожу весь професійний інструмент із собою."},
+                    {q: "Яка ваша зона виїзду?", a: "Ренн та передмістя (Betton, Saint-Grégoire, Bruz тощо)."}
+                ],
                 calc_t: "Калькулятор вигоди SAP", calc_h: "Годин роботи:", calc_a: "Ціна після повернення 50%:",
-                it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi</li>",
-                br_t: "Майстер на годину", br_l: "<li>Збірка меблів</li><li>Встановлення люстр</li><li>Монтаж ТБ</li><li>Підключення техніки</li>",
-                p1: "Мін. 1-ша год: 50€", p2: "Наступні: 40€/год", m1: "Лише 25€ (через SAP)", m2: "Лише 20€/год (SAP)",
-                why_t: "Чому обирають мене?", why_d: "Живу в Rennes • Швидкий виїзд • Скидка 50% (SAP)",
-                trust_l: "<li><b>Мінімальний виїзд:</b> Перша година (50€) оплачується повністю.</li><li><b>Чистота:</b> Прибираю після роботи.</li><li><b>Інструмент:</b> Маю все необхідне.</li><li><b>Пунктуальність:</b> Приїжджаю вчасно.</li>",
-                name: "Paul — Майстер у Rennes",
+                it_t: "IT Послуги", it_l: "<li>Встановлення Windows</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi</li>",
+                br_t: "Майстер на годину", br_l: "<li>Збірка меблів</li><li>Встановлення люстр</li><li>Монтаж ТБ</li>",
+                p1: "Мін. 1-ша год: 50€", p2: "Наступні: 40€/год", name: "Paul — Майстер у Rennes",
                 sap: "Повернення 50% податків (SAP)",
-                zones: "<b>Зона обслуговування:</b> Ренн та передмістя (Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques)."
+                zones: "<b>Зона обслуговування:</b> Ренн та передмістя (Betton, Saint-Grégoire, Bruz...)"
             },
             ru: {
                 wa: "WhatsApp — Написать мне 💬", tg: "Telegram Бот", mail: "E-mail", call: "Позвонить", save: "Сохранить", share: "Поделиться", cop: "Скопировано!",
-                cb_msg: "Здравствуйте, я по поводу ваших услуг. Подскажите, пожалуйста...",
-                how_t: "Как это работает?", s1t: "1. Связь", s1d: "Напишите в WhatsApp или позвоните. Отвечаю сразу.",
-                s2t: "2. Цена", s2d: "Фиксируем стоимость до выезда. Без скрытых доплат.",
-                s3t: "3. Выгода", s3d: "Профессиональный ремонт + возврат 50% налогов (SAP).",
+                cb_msg: "Здравствуйте, я по поводу ваших услуг...",
+                faq_t: "Частые вопросы",
+                faq_items: [
+                    {q: "Вы принимаете чеки CESU?", a: "Да, я принимаю чеки CESU для всех видов услуг."},
+                    {q: "Нужно ли мне давать инструменты?", a: "Я привожу свой профи-инструмент. С вас — только детали (болты, люстры)."},
+                    {q: "Куда вы выезжаете?", a: "Ренн и пригороды (Betton, Saint-Grégoire, Pacé и др.)."}
+                ],
                 calc_t: "Калькулятор экономии SAP", calc_h: "Количество часов:", calc_a: "Цена после возврата 50%:",
-                it_t: "ИT Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов</li><li>Настройка интернета</li>",
-                br_t: "Мастер на час", br_l: "<li>Сборка мебели</li><li>Установка люстр</li><li>Монтаж ТВ</li><li>Подключение техники</li>",
-                p1: "Мин. 1-й час: 50€", p2: "Послед.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "Итого 20€/ч (SAP)",
-                why_t: "Почему я?", why_d: "Живу в Rennes • Быстрый выезд • Скидка 50% (SAP)",
-                trust_l: "<li><b>Минимальный заказ:</b> Первый час (50€) оплачивается полностью.</li><li><b>Чистота:</b> Убираю за собой.</li><li><b>Инструмент:</b> Весь профи-инструмент с собой.</li><li><b>Пунктуальность:</b> Приезжаю точно в срок.</li>",
-                name: "Paul — Ваш мастер в Rennes",
+                it_t: "ИT Услуги", it_l: "<li>Установка систем</li><li>Очистка от вирусов</li><li>Настройка интернета</li>",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели</li><li>Установка люстр</li><li>Монтаж ТВ</li>",
+                p1: "Мин. 1-й час: 50€", p2: "Послед.: 40€/ч", name: "Paul — Ваш мастер в Rennes",
                 sap: "Налоговый вычет 50% на все услуги",
-                zones: "<b>Зона охвата:</b> Ренн и пригород (Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques)."
+                zones: "<b>Зона охвата:</b> Ренн и пригород (Betton, Saint-Grégoire, Pacé...)"
             }
         };
+
+        function changeLang(lang) {
+            const t = translations[lang] || translations['fr'];
+            document.getElementById('wa-link').href = `https://wa.me/33745625007?text=${encodeURIComponent(t.cb_msg)}`;
+            
+            const ids = {
+                'wa-text': t.wa, 'tg-text': t.tg, 'mail-text': t.mail, 'call-text': t.call, 'save-text': t.save, 'share-text': t.share,
+                'calc-t': t.calc_t, 'calc-h': t.calc_h, 'calc-after': t.calc_a, 'it-title': t.it_t, 'it-list': t.it_l,
+                'br-title': t.br_t, 'br-list': t.br_l, 'p1-it': t.p1, 'p2-it': t.p2, 'p1-br': t.p1, 'p2-br': t.p2,
+                'display-name': t.name, 'sap-info': t.sap, 'zones-list': t.zones, 'faq-title': t.faq_t
+            };
+
+            for (const [id, value] of Object.entries(ids)) {
+                const el = document.getElementById(id);
+                if (el) { if (id.includes('list') || id.includes('zones')) el.innerHTML = value; else el.innerText = value; }
+            }
+
+            // Рендерим FAQ
+            const faqContainer = document.getElementById('faq-container');
+            faqContainer.innerHTML = '';
+            t.faq_items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'faq-item';
+                div.innerHTML = `<div class="faq-question" onclick="toggleFaq(this)">${item.q} <span>+</span></div><div class="faq-answer">${item.a}</div>`;
+                faqContainer.appendChild(div);
+            });
+
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        function toggleFaq(el) {
+            const ans = el.nextElementSibling;
+            const span = el.querySelector('span');
+            const isOpen = ans.style.display === 'block';
+            ans.style.display = isOpen ? 'none' : 'block';
+            span.innerText = isOpen ? '+' : '−';
+        }
 
         function updateCalc() {
             const h = parseInt(document.getElementById('hoursInput').value) || 0;
@@ -367,61 +350,23 @@
         }
 
         function copyEmail(e) {
-            const email = "paulmultiservice7@gmail.com";
-            const lang = localStorage.getItem('preferredLang') || 'fr';
-            navigator.clipboard.writeText(email).then(() => {
+            navigator.clipboard.writeText("paulmultiservice7@gmail.com").then(() => {
+                const lang = localStorage.getItem('preferredLang') || 'fr';
                 const btn = document.getElementById('mail-text');
-                const originalText = translations[lang].mail;
                 btn.innerText = translations[lang].cop;
-                setTimeout(() => { btn.innerText = originalText; }, 2000);
+                setTimeout(() => { btn.innerText = translations[lang].mail; }, 2000);
             });
         }
 
         function downloadVCard() {
-            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul (PaulMultiService)\nORG:PaulMultiService\nTEL;TYPE=CELL,VOICE:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nADR;TYPE=HOME:;;Rennes;35700;;France\nEND:VCARD";
-            const lang = localStorage.getItem('preferredLang') || 'fr';
-            const btn = document.getElementById('save-text');
-            const originalText = translations[lang].save;
-            const base64Vcard = btoa(unescape(encodeURIComponent(vcard)));
-            const dataUri = 'data:text/vcard;charset=utf-8;base64,' + base64Vcard;
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul (PaulMultiService)\nTEL;TYPE=CELL,VOICE:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD";
             const link = document.createElement("a");
-            link.href = dataUri; link.download = "Paul_MultiService.vcf";
-            document.body.appendChild(link); link.click();
-            setTimeout(() => { document.body.removeChild(link); }, 100);
+            link.href = 'data:text/vcard;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(vcard)));
+            link.download = "Paul_MultiService.vcf";
+            link.click();
         }
 
-        async function shareSite() {
-            if (navigator.share) {
-                try { await navigator.share({ title: 'PaulMultiService', url: window.location.href }); } catch (err) {}
-            } else { alert(window.location.href); }
-        }
-
-        function changeLang(lang) {
-            const t = translations[lang] || translations['fr'];
-            
-            const waLink = document.getElementById('wa-link');
-            waLink.href = `https://wa.me/33745625007?text=${encodeURIComponent(t.cb_msg)}`;
-            
-            const ids = {
-                'wa-text': t.wa, 'tg-text': t.tg, 'mail-text': t.mail, 'call-text': t.call, 'save-text': t.save, 'share-text': t.share,
-                'how-title': t.how_t, 'step1-t': t.s1t, 'step1-d': t.s1d, 'step2-t': t.s2t,
-                'step2-d': t.s2d, 'step3-t': t.s3t, 'step3-d': t.s3d, 'calc-t': t.calc_t,
-                'calc-h': t.calc_h, 'calc-after': t.calc_a, 'it-title': t.it_t, 'it-list': t.it_l,
-                'br-title': t.br_t, 'br-list': t.br_l, 
-                'p1-it': t.p1, 'p2-it': t.p2, 'm1-it': t.m1, 'm2-it': t.m2,
-                'p1-br': t.p1, 'p2-br': t.p2, 'm1-br': t.m1, 'm2-br': t.m2, 
-                'why-title': t.why_t, 'why-desc': t.why_d, 'display-name': t.name,
-                'sap-info': t.sap, 'zones-list': t.zones, 'trust-list': t.trust_l
-            };
-            for (const [id, value] of Object.entries(ids)) {
-                const el = document.getElementById(id);
-                if (el) {
-                    if (id.includes('list') || id.includes('zones')) el.innerHTML = value;
-                    else el.innerText = value;
-                }
-            }
-            localStorage.setItem('preferredLang', lang);
-        }
+        async function shareSite() { if (navigator.share) { try { await navigator.share({ title: 'PaulMultiService', url: window.location.href }); } catch (err) {} } }
 
         window.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('preferredLang') || 'fr';
