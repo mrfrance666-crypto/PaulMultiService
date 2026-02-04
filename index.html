@@ -43,20 +43,39 @@
             --card-bg: rgba(255, 255, 255, 0.04);
         }
 
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg-color: #f8faf9;
-                --text-color: #051a11;
-                --card-bg: #ffffff;
-                --gold: #a6892c; 
-                --gold-light: #856a1d;
-            }
-            .lang-switcher, .nav-pills-container { background: rgba(248, 250, 249, 0.95) !important; border-bottom: 1px solid rgba(166, 137, 44, 0.2); }
-            .card, .step-card, .calc-box, .faq-item { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(166, 137, 44, 0.15); }
-            .msg-btn.call-btn, .msg-btn.vcard-btn { background: rgba(166, 137, 44, 0.05); }
-            .sap-badge { background: rgba(166, 137, 44, 0.1); color: #856a1d; border-color: rgba(166, 137, 44, 0.3); }
-            .faq-question { color: var(--text-color) !important; }
+        /* Стили для светлой темы, когда активирован класс .light-theme */
+        body.light-theme {
+            --bg-color: #f8faf9;
+            --text-color: #051a11;
+            --card-bg: #ffffff;
+            --gold: #a6892c; 
+            --gold-light: #856a1d;
         }
+
+        body.light-theme .lang-switcher, 
+        body.light-theme .nav-pills-container { 
+            background: rgba(248, 250, 249, 0.95) !important; 
+            border-bottom: 1px solid rgba(166, 137, 44, 0.2); 
+        }
+
+        body.light-theme .card, 
+        body.light-theme .step-card, 
+        body.light-theme .calc-box, 
+        body.light-theme .faq-item { 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            border: 1px solid rgba(166, 137, 44, 0.15); 
+        }
+
+        body.light-theme .msg-btn.call-btn, 
+        body.light-theme .msg-btn.vcard-btn { background: rgba(166, 137, 44, 0.05); }
+
+        body.light-theme .sap-badge { 
+            background: rgba(166, 137, 44, 0.1); 
+            color: #856a1d; 
+            border-color: rgba(166, 137, 44, 0.3); 
+        }
+
+        body.light-theme .faq-question { color: var(--text-color) !important; }
         
         html { scroll-behavior: smooth; }
         body { 
@@ -64,6 +83,27 @@
             background-color: var(--bg-color); color: var(--text-color); 
             text-align: center; min-height: 100vh; padding-bottom: 50px; 
             overflow-x: hidden; transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Кнопка темы */
+        .theme-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            z-index: 1002;
         }
         
         .lang-switcher { position: relative; padding: 15px; z-index: 1001; }
@@ -113,6 +153,8 @@
     </style>
 </head>
 <body>
+
+    <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon">🌙</button>
 
     <div class="lang-switcher">
         <button class="lang-btn" onclick="changeLang('fr')">FR</button>
@@ -198,13 +240,15 @@
     </div>
 
     <div class="footer">
-        <div class="footer-brand" id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 10px;">Paul — Votre artisan multiservice</div>
-        <div id="footer-city" style="font-weight: 600; letter-spacing: 1px; margin-bottom: 15px;">Rennes, 35700</div>
+        <div class="footer-brand" id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 20px;">Paul — Votre artisan multiservice</div>
         <div class="footer-zones" id="zones-list" style="margin-bottom: 25px; opacity: 0.9; font-size: 0.85rem;"></div>
         <hr style="border: 0; border-top: 1px solid rgba(212, 175, 55, 0.2); width: 40%; margin: 20px auto;">
         <div class="legal-mentions" style="font-size: 0.75rem; line-height: 1.6; opacity: 0.7;">
             <p style="margin: 5px 0;"><strong>EI Pavlo Pashkin</strong> | SIRET : 10000226000014</p>
-            <p style="margin: 5px 0;">TVA non applicable, art. 293 B du CGI</p>
+            <p style="margin: 5px 0;">
+                TVA non applicable, art. 293 B du CGI<br>
+                Rennes, 35700
+            </p>
         </div>
     </div>
 
@@ -243,7 +287,7 @@
                 calc_t: "Калькулятор выгоды SAP", calc_min: "Минимальный заказ: 1 час (50€)", calc_h: "Часов:", calc_a: "Цена после вычета 50%:",
                 it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing, Визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка Wi-Fi и сетей</li>",
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
-                p1: "Мин. 1-й час: 50€", p2: "След.: 40€/ч", name: "Paul — Ваш мастер в Ренне",
+                p1: "Мин. 1-й час: 50€", p2: "След.: 40€/ч", name: "Paul — Ваш мастер",
                 sap: "Налоговый вычет 50% на все услуги",
                 zones: "<b>Зона охвата:</b> Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 faq_t: "Частые вопросы",
@@ -264,7 +308,7 @@
                 calc_t: "Калькулятор вигоди SAP", calc_min: "Мінімальне замовлення: 1 година (50€)", calc_h: "Годин:", calc_a: "Ціна після повернення 50%:",
                 it_t: "Web та IT послуги", it_l: "<li>Створення сайтів (Landing, Візитки)</li><li>Встановлення ОС та програм</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi та мереж</li>",
                 br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA тощо)</li><li>Встановлення люстр, ТБ, полиць</li><li>Дрібний ремонт (крани, замки)</li><li>Підключення побутової техніки</li>",
-                p1: "Мін. 1-ша год: 50€", p2: "Наступні: 40€/год", name: "Paul — Ваш майстер у Ренні",
+                p1: "Мін. 1-ша год: 50€", p2: "Наступні: 40€/год", name: "Paul — Ваш майстер",
                 sap: "Повернення 50% податків (SAP)",
                 zones: "<b>Зона обслуговування:</b> Ренн та передмістя (Betton, Saint-Grégoire, Bruz...)",
                 faq_t: "Часті запитання",
@@ -284,7 +328,7 @@
                 calc_t: "Tax Credit Simulator", calc_min: "Minimum order: 1 hour (50€)", calc_h: "Hours:", calc_a: "Net after tax credit:",
                 it_t: "Web & IT Services", it_l: "<li>Website Creation (Landing, Showcase)</li><li>OS & Software Installation</li><li>Virus Removal & Optimization</li><li>Wi-Fi & Box Setup</li>",
                 br_t: "Handyman Services", br_l: "<li>Furniture Assembly (IKEA, etc.)</li><li>Lighting, TV & Shelf mounting</li><li>Small repairs (faucets, locks)</li><li>Appliance installation</li>",
-                p1: "Min. 1st hour: 50€", p2: "Next: 40€/h", name: "Paul — Your multiservice artisan",
+                p1: "Min. 1st hour: 50€", p2: "Next: 40€/h", name: "Paul — Your artisan",
                 sap: "Personal services: 50% tax credit",
                 zones: "<b>Service area:</b> Rennes, Saint-Grégoire, Betton, Bruz, Pacé...",
                 faq_t: "Frequently Asked Questions",
@@ -296,6 +340,24 @@
                 ]
             }
         };
+
+        // ЛОГИКА ТЕМЫ (ДЕНЬ/НОЧЬ)
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('light-theme');
+            const isLight = body.classList.contains('light-theme');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            document.getElementById('theme-icon').innerText = isLight ? '☀️' : '🌙';
+        }
+
+        // При загрузке страницы проверяем тему
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                document.getElementById('theme-icon').innerText = '☀️';
+            }
+        }
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
@@ -373,6 +435,7 @@
         };
 
         window.addEventListener('DOMContentLoaded', () => {
+            loadTheme(); // Сначала грузим тему
             const savedLang = localStorage.getItem('preferredLang') || 'fr';
             changeLang(savedLang);
             setTimeout(() => { document.querySelectorAll('.card').forEach(c => c.classList.add('show')); }, 200);
