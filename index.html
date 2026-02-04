@@ -43,21 +43,41 @@
             --card-bg: rgba(255, 255, 255, 0.04);
         }
 
+        /* Улучшенная светлая тема */
         @media (prefers-color-scheme: light) {
             :root {
-                --bg-color: #f4f7f6;
-                --text-color: #0a2e1f;
+                --bg-color: #f8faf9;
+                --text-color: #051a11;
                 --card-bg: #ffffff;
+                --gold: #a6892c; /* Более контрастное золото для белого фона */
+                --gold-light: #856a1d;
             }
-            .lang-switcher { background: rgba(244, 247, 246, 0.9) !important; }
-            .card, .step-card, .calc-box, .faq-item { box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+            .lang-switcher { 
+                background: rgba(248, 250, 249, 0.95) !important; 
+                border-bottom: 1px solid rgba(166, 137, 44, 0.2);
+            }
+            .card, .step-card, .calc-box, .faq-item { 
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+                border: 1px solid rgba(166, 137, 44, 0.15);
+            }
+            .msg-btn.call-btn, .msg-btn.vcard-btn {
+                background: rgba(166, 137, 44, 0.05);
+            }
+            .sap-badge {
+                background: rgba(166, 137, 44, 0.1);
+                color: #856a1d;
+                border-color: rgba(166, 137, 44, 0.3);
+            }
+            .faq-question {
+                color: var(--text-color) !important;
+            }
         }
         
         body { 
             margin: 0; font-family: 'Montserrat', sans-serif; 
             background-color: var(--bg-color); color: var(--text-color); 
             text-align: center; min-height: 100vh; padding-bottom: 50px; 
-            overflow-x: hidden; transition: background 0.3s ease;
+            overflow-x: hidden; transition: background 0.3s ease, color 0.3s ease;
         }
         
         .lang-switcher { 
@@ -204,7 +224,7 @@
             <div class="step-card">
                 <div class="step-num">1</div>
                 <h3 id="step1-t">Contact</h3>
-                <p id="step1-d">Expliquez votre problème par WhatsApp ou téléphone.</p>
+                <p id="step1-d">Expliquez votre problème par WhatsApp или téléphone.</p>
             </div>
             <div class="step-card">
                 <div class="step-num">2</div>
@@ -268,8 +288,8 @@
                 s3t: "3. Service SAP", s3d: "Travail pro + facture pour 50% de crédit d'impôt.",
                 faq_t: "Questions fréquentes",
                 faq_items: [
-                    {q: "Comment préparer mon rendez-vous ?", a: "Pour gagner du temps : dégagez l'espace de travail, protégez vos sols и préparez les notices de montage. Moins de préparation pour moi = moins d'heures pour vous !"},
-                    {q: "Est-ce que vous acceptez les chèques CESU ?", a: "Oui, j'accepте les chèques CESU préfinancés pour toutes mes prestations SAP."},
+                    {q: "Comment préparer mon rendez-vous ?", a: "Pour gagner du temps : dégagez l'espace de travail, protégez vos sols et préparez les notices de montage. Moins de préparation pour moi = moins d'heures pour vous !"},
+                    {q: "Est-ce que vous acceptez les chèques CESU ?", a: "Oui, j'accepte les chèques CESU préfinancés pour toutes mes prestations SAP."},
                     {q: "Dois-je fournir le matériel ?", a: "Je ramène mes outils pro. Vous ne fournissez que les matériaux (vis spécifiques, meubles, luminaires)."}
                 ],
                 calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :",
