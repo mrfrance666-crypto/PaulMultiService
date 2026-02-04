@@ -6,7 +6,7 @@
     <meta name="format-detection" content="telephone=no">
     
     <title>Paul — Artisan Multiservice | Rennes | Bricolage & Informatique</title>
-    <meta name="description" content="Besoin d'aide à Rennes ? Montage meubles IKEA, installation de lustres, fixation TV, branchement lave-linge et dépannage informatique. 50% de crédit d'impôt.">
+    <meta name="description" content="Besoin d'aide à Rennes ? Montage meubles IKEA, installation de lusters, fixation TV, dépannage informatique. 50% de crédit d'impôt.">
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
@@ -85,8 +85,9 @@
         
         .wa-btn { background: #25D366; } 
         .tg-btn { background: #0088cc; } 
-        .call-btn { background: var(--gold); color: var(--dark-green); }
-        .mail-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; }
+        .callback-btn { background: var(--gold); color: var(--dark-green); min-width: 100%; max-width: 340px; font-size: 1rem; }
+        .call-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid var(--gold); color: var(--gold); }
+        .mail-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
         .vcard-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
         .share-btn { background: #6c757d; width: 100%; max-width: 340px; margin-top: 5px; }
         
@@ -132,9 +133,11 @@
         .sap-math { font-size: 0.9rem; color: #8ecae6; font-style: italic; display: block; margin-top: 5px; }
 
         .trust-box { 
-            background: rgba(212, 175, 55, 0.1); border: 2px solid var(--gold); 
-            border-radius: 20px; padding: 30px; margin: 40px 25px; max-width: 1050px; display: inline-block;
+            background: rgba(212, 175, 55, 0.05); border: 1px solid var(--gold); 
+            border-radius: 20px; padding: 30px; margin: 40px 25px; max-width: 800px; display: inline-block;
         }
+        .trust-list { text-align: left; display: inline-block; margin-top: 15px; line-height: 1.8; list-style: none; padding: 0; }
+        .trust-list li::before { content: "✓ "; color: var(--gold); font-weight: bold; margin-right: 10px; }
 
         .footer { 
             margin-top: 60px; padding: 40px 20px; background: rgba(0, 0, 0, 0.2); 
@@ -157,7 +160,7 @@
             display: inline;
         }
 
-        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .share-btn { max-width: 100%; } }
+        @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .share-btn, .callback-btn { max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -176,10 +179,14 @@
     <div class="sap-badge" id="sap-info">Services à la personne : 50% de crédit d'impôt</div>
 
     <div class="messenger-wrapper">
+        <a href="" target="_blank" class="msg-btn callback-btn" id="callback-link">
+            <span id="callback-text">Написать мне</span>
+        </a>
+        
         <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
-        <a href="mailto:paulmultiservice7@gmail.com" onclick="copyEmail(event)" class="msg-btn mail-btn" id="mail-text">E-mail</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
+        <a href="mailto:paulmultiservice7@gmail.com" onclick="copyEmail(event)" class="msg-btn mail-btn" id="mail-text">E-mail</a>
         <button onclick="downloadVCard()" class="msg-btn vcard-btn" id="save-text">Ajouter aux contacts</button>
         <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager le site</button>
     </div>
@@ -222,7 +229,7 @@
             <h2 id="it-title">Informatique</h2>
             <ul id="it-list"></ul>
             <span class="price-tag">
-                <span id="p1-it">1ère heure : 50€</span><br>
+                <span id="p1-it">Forfait 1ère h : 50€</span><br>
                 <span id="p2-it">Suivantes : 40€/h</span>
             </span>
             <span class="sap-math">
@@ -234,7 +241,7 @@
             <h2 id="br-title">Petit Bricolage</h2>
             <ul id="br-list"></ul>
             <span class="price-tag">
-                <span id="p1-br">1ère heure : 50€</span><br>
+                <span id="p1-br">Forfait 1ère h : 50€</span><br>
                 <span id="p2-br">Suivantes : 40€/h</span>
             </span>
             <span class="sap-math">
@@ -245,7 +252,9 @@
 
     <div class="trust-box">
         <h2 id="why-title">Pourquoi me faire confiance ?</h2>
-        <p id="why-desc">Intervention rapide à Rennes • 50% de crédit d'impôt • Travail soigné</p>
+        <p id="why-desc" style="font-weight: 600; color: var(--gold-light);"></p>
+        <ul id="trust-list" class="trust-list">
+        </ul>
     </div>
 
     <div class="footer">
@@ -266,57 +275,65 @@
     <script>
         const translations = {
             fr: {
-                wa: "WhatsApp", tg: "Telegram Bot", mail: "Envoyer un E-mail", call: "M'appeler", save: "Enregistrer le contact", share: "Partager le site", cop: "Copié !",
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "Envoyer un E-mail", call: "Appeler", save: "Enregistrer le contact", share: "Partager le site", cop: "Copié !",
+                cb: "Écrivez-moi 💬", cb_msg: "Bonjour, je vous contacte pour vos services. Pourriez-vous m'aider pour...",
                 how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliquez votre besoin via WhatsApp ou téléphone pour une réponse immédiate.",
                 s2t: "2. Prix fixe", s2d: "Nous convenons du tarif et du RDV. Pas de frais cachés, tout est clair.",
                 s3t: "3. Service SAP", s3d: "Travail pro + facture officielle ouvrant droit à 50% de crédit d'impôt.",
                 calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :",
                 it_t: "Assistance Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Box</li>",
                 br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Installation de lustres & luminaires</li><li>Fixation TV & Supports muraux</li><li>Branchement lave-linge & Électroménager</li>",
-                p1: "1ère heure : 50€", p2: "Suivantes : 40€/h", m1: "Soit 25€ (SAP)", m2: "20€/h (SAP)",
-                why_t: "Pourquoi me choisir ?", why_d: "Intervention rapide à Rennes • Agrément SAP (50% remboursés) • Travail soigné",
+                p1: "Min. 1ère heure : 50€", p2: "Suivantes : 40€/h", m1: "Soit 25€ (SAP)", m2: "20€/h (SAP)",
+                why_t: "Pourquoi me choisir ?", why_d: "Basé à Rennes • Intervention rapide • Agrément SAP (50% remboursés)",
+                trust_l: "<li><b>Forfait minimum :</b> La 1ère heure est due intégralement pour tout déplacement.</li><li><b>Propreté :</b> Je nettoie toujours après mon intervention.</li><li><b>Outils :</b> Je dispose de tout le matériel professionnel nécessaire.</li><li><b>Ponctualité :</b> Arrivée à l'heure convenue.</li>",
                 name: "Paul — Votre artisan multiservice",
                 sap: "Services à la personne : 50% de crédit d'impôt",
                 zones: "<b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques-de-la-Lande."
             },
             en: {
-                wa: "WhatsApp", tg: "Telegram Bot", mail: "Send E-mail", call: "Call me", save: "Save Contact", share: "Share Website", cop: "Copied!",
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "Send E-mail", call: "Call", save: "Save Contact", share: "Share Website", cop: "Copied!",
+                cb: "Message me 💬", cb_msg: "Hello, I'm contacting you about your services. Could you help me with...",
                 how_t: "How it works?", s1t: "1. Quick Contact", s1d: "Message me on WhatsApp or call to discuss your project immediately.",
                 s2t: "2. Fixed Quote", s2d: "We agree on the price and time. No hidden costs, total transparency.",
                 s3t: "3. Tax Benefit", s3d: "Quality work + official invoice for 50% tax credit (SAP scheme).",
                 calc_t: "Tax Credit Simulator (SAP)", calc_h: "Number of hours:", calc_a: "Real cost after 50% tax credit:",
                 it_t: "IT Support", it_l: "<li>Windows / MacOS installation</li><li>Virus removal & Speed-up</li><li>Wi-Fi & Network setup</li>",
                 br_t: "Handyman Services", br_l: "<li>Furniture assembly (IKEA etc.)</li><li>Lustre & Lighting installation</li><li>TV & Wall mount fixing</li><li>Washing machine connection</li>",
-                p1: "1st hour: 50€", p2: "Next: 40€/h", m1: "Only 25€ (after SAP)", m2: "20€/h (after SAP)",
-                why_t: "Why choose me?", why_d: "Fast response in Rennes • 50% Tax Credit (SAP) • Professional results",
+                p1: "Min. 1st hour: 50€", p2: "Next: 40€/h", m1: "Only 25€ (after SAP)", m2: "20€/h (after SAP)",
+                why_t: "Why choose me?", why_d: "Based in Rennes • Fast response • 50% Tax Credit (SAP)",
+                trust_l: "<li><b>Minimum fee:</b> The 1st hour is fully charged for any intervention.</li><li><b>Cleanliness:</b> I always clean up after the work is done.</li><li><b>Tools:</b> I bring all necessary professional equipment.</li><li><b>Punctuality:</b> I arrive exactly at the agreed time.</li>",
                 name: "Paul — Your Multiservice Specialist",
                 sap: "Personal services: 50% tax credit",
                 zones: "<b>Service area:</b> Rennes, Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques-de-la-Lande."
             },
             ua: {
-                wa: "WhatsApp", tg: "Telegram Бот", mail: "Надіслати E-mail", call: "Зателефонувати", save: "Зберегти контакт", share: "Поділитися", cop: "Скопійовано!",
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Надіслати E-mail", call: "Дзвінок", save: "Зберегти контакт", share: "Поділитися", cop: "Скопійовано!",
+                cb: "Написати мені 💬", cb_msg: "Доброго дня, я щодо ваших послуг. Підкажіть, будь ласка...",
                 how_t: "Як це працює?", s1t: "1. Прямий зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте для швидкої консультації.",
                 s2t: "2. Фіксована ціна", s2d: "Ми узгоджуємо вартість до початку робіт. Жодних сюрпризів.",
                 s3t: "3. Офіційна вигода", s3d: "Якісна робота + рахунок для повернення 50% коштів (через SAP).",
                 calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин роботи:", calc_a: "Реальна вартість після повернення 50%:",
                 it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів та прискорення</li><li>Налаштування Wi-Fi та мереж</li>",
                 br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр та світильників</li><li>Монтаж ТБ та кронштейнів</li><li>Підключення пральних машин</li>",
-                p1: "1-ша година: 50€", p2: "Наступні: 40€/год", m1: "Лише 25€ (через SAP)", m2: "Лише 20€/год (SAP)",
-                why_t: "Чому обирають мене?", why_d: "Швидкий виїзд у Rennes • Податкова знижка 50% (SAP) • Гарантія якості",
+                p1: "Мін. 1-ша год: 50€", p2: "Наступні: 40€/год", m1: "Лише 25€ (через SAP)", m2: "Лише 20€/год (SAP)",
+                why_t: "Чому обирають мене?", why_d: "Живу в Rennes • Швидкий виїзд • Податкова знижка 50% (SAP)",
+                trust_l: "<li><b>Мінімальний виїзд:</b> Перша година оплачується повністю (50€) незалежно від тривалості.</li><li><b>Чистота:</b> Завжди прибираю робоче місце після завершення.</li><li><b>Інструмент:</b> Маю весь необхідний професійний інструмент.</li><li><b>Пунктуальність:</b> Приїжджаю точно в обумовлений час.</li>",
                 name: "Paul — Ваш надійний майстер у Rennes",
                 sap: "Побутові послуги: повернення 50% податків",
                 zones: "<b>Зона обслуговування:</b> Rennes, Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques-de-la-Lande."
             },
             ru: {
                 wa: "WhatsApp", tg: "Telegram Бот", mail: "Отправить E-mail", call: "Позвонить", save: "Сохранить контакт", share: "Поделиться", cop: "Скопировано!",
+                cb: "Написать мне 💬", cb_msg: "Здравствуйте, я по поводу ваших услуг. Подскажите, пожалуйста...",
                 how_t: "Как это работает?", s1t: "1. Быстрая связь", s1d: "Напишите в WhatsApp или позвоните. Отвечаю моментально.",
                 s2t: "2. Честная цена", s2d: "Фиксируем стоимость до выезда. Без сюрпризов в чеке.",
                 s3t: "3. Ваша выгода", s3d: "Профессиональный ремонт + счет для возврата 50% налогов (SAP).",
                 calc_t: "Калькулятор экономии SAP", calc_h: "Количество часов:", calc_a: "Реальная цена после возврата 50%:",
                 it_t: "ИT Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов и настройка</li><li>Настройка Wi-Fi и интернета</li>",
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр и светильников</li><li>Монтаж ТВ и кронштейнов</li><li>Подключение стиральных машин</li>",
-                p1: "1-й час: 50€", p2: "Послед.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "Итого 20€/ч (SAP)",
-                why_t: "Почему стоит выбрать меня?", why_d: "Оперативный выезд в Rennes • Скидка 50% (налоговый вычет) • Качество",
+                p1: "Мин. 1-й час: 50€", p2: "Послед.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "Итого 20€/ч (SAP)",
+                why_t: "Почему стоит выбрать меня?", why_d: "Живу в Rennes • Оперативный выезд • Скидка 50% (SAP)",
+                trust_l: "<li><b>Минимальный заказ:</b> Первый час оплачивается полностью (50€) при любой длительности работ.</li><li><b>Чистота:</b> Всегда убираю за собой после работы.</li><li><b>Инструмент:</b> Весь необходимый профи-инструмент с собой.</li><li><b>Пунктуальность:</b> Приезжаю точно в назначенное время.</li>",
                 name: "Paul — Ваш мастер на все руки в Rennes",
                 sap: "Бытовые услуги: налоговый вычет 50%",
                 zones: "<b>Зона охвата:</b> Rennes, Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques-de-la-Lande."
@@ -362,8 +379,12 @@
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
+            
+            const cbLink = document.getElementById('callback-link');
+            cbLink.href = `https://wa.me/33745625007?text=${encodeURIComponent(t.cb_msg)}`;
+            
             const ids = {
-                'wa-text': t.wa, 'tg-text': t.tg, 'mail-text': t.mail, 'call-text': t.call, 'save-text': t.save, 'share-text': t.share,
+                'callback-text': t.cb, 'wa-text': t.wa, 'tg-text': t.tg, 'mail-text': t.mail, 'call-text': t.call, 'save-text': t.save, 'share-text': t.share,
                 'how-title': t.how_t, 'step1-t': t.s1t, 'step1-d': t.s1d, 'step2-t': t.s2t,
                 'step2-d': t.s2d, 'step3-t': t.s3t, 'step3-d': t.s3d, 'calc-t': t.calc_t,
                 'calc-h': t.calc_h, 'calc-after': t.calc_a, 'it-title': t.it_t, 'it-list': t.it_l,
@@ -371,7 +392,7 @@
                 'p1-it': t.p1, 'p2-it': t.p2, 'm1-it': t.m1, 'm2-it': t.m2,
                 'p1-br': t.p1, 'p2-br': t.p2, 'm1-br': t.m1, 'm2-br': t.m2, 
                 'why-title': t.why_t, 'why-desc': t.why_d, 'display-name': t.name,
-                'sap-info': t.sap, 'zones-list': t.zones
+                'sap-info': t.sap, 'zones-list': t.zones, 'trust-list': t.trust_l
             };
             for (const [id, value] of Object.entries(ids)) {
                 const el = document.getElementById(id);
