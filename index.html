@@ -43,7 +43,6 @@
             --card-bg: rgba(255, 255, 255, 0.04);
         }
 
-        /* Автоматическая светлая тема, если у пользователя в системе стоит Light Mode */
         @media (prefers-color-scheme: light) {
             :root {
                 --bg-color: #f4f7f6;
@@ -51,7 +50,7 @@
                 --card-bg: #ffffff;
             }
             .lang-switcher { background: rgba(244, 247, 246, 0.9) !important; }
-            .card, .step-card, .calc-box, .trust-box { box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+            .card, .step-card, .calc-box, .faq-item { box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         }
         
         body { 
@@ -164,7 +163,8 @@
         .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: 15px; }
 
         .faq-section { max-width: 800px; margin: 60px auto; padding: 0 20px; text-align: left; }
-        .faq-item { background: var(--card-bg); border: 1px solid rgba(212,175,55,0.2); border-radius: 15px; margin-bottom: 10px; overflow: hidden; }
+        .faq-item { background: var(--card-bg); border: 1px solid rgba(212,175,55,0.2); border-radius: 15px; margin-bottom: 10px; overflow: hidden; transition: 0.3s; }
+        .faq-item:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.08); }
         .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold-light); }
         .faq-answer { padding: 0 20px 20px; display: none; line-height: 1.6; opacity: 0.9; }
 
@@ -198,9 +198,25 @@
         <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager le site</button>
     </div>
 
-    <div class="faq-section">
-        <h2 id="faq-title" style="text-align: center; color: var(--gold);">Questions fréquentes</h2>
-        <div id="faq-container"></div>
+    <div class="how-it-works">
+        <h2 id="how-title" style="font-family: 'Playfair Display', serif; color: var(--gold);">Comment ça marche ?</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h3 id="step1-t">Contact</h3>
+                <p id="step1-d">Expliquez votre problème par WhatsApp ou téléphone.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h3 id="step2-t">Devis</h3>
+                <p id="step2-d">Nous fixons le prix et l'heure de l'intervention.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h3 id="step3-t">Résultat</h3>
+                <p id="step3-d">Travail pro et facture pour 50% de crédit d'impôt.</p>
+            </div>
+        </div>
     </div>
 
     <div class="calc-box">
@@ -228,6 +244,11 @@
         </div>
     </div>
 
+    <div class="faq-section">
+        <h2 id="faq-title" style="text-align: center; color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 30px;">Questions fréquentes</h2>
+        <div id="faq-container"></div>
+    </div>
+
     <div class="footer">
         <div class="footer-brand">Paul — Votre artisan multiservice</div>
         <div class="footer-zones" id="zones-list"></div>
@@ -241,28 +262,34 @@
         const translations = {
             fr: {
                 wa: "WhatsApp — Écrivez-moi 💬", tg: "Telegram Bot", mail: "E-mail", call: "Appeler", save: "Enregistrer", share: "Partager", cop: "Copié !",
-                cb_msg: "Bonjour, я пишу по поводу ваших услуг...",
+                cb_msg: "Bonjour, je vous contacte pour vos services...",
+                how_t: "Comment ça marche ?", s1t: "1. Contact", s1d: "Expliquez votre besoin via WhatsApp ou téléphone.",
+                s2t: "2. Devis", s2d: "Nous fixons le tarif et le RDV. Pas de frais cachés.",
+                s3t: "3. Service SAP", s3d: "Travail pro + facture pour 50% de crédit d'impôt.",
                 faq_t: "Questions fréquentes",
                 faq_items: [
-                    {q: "Est-ce que vous acceptez les chèques CESU ?", a: "Oui, en tant qu'auto-entrepreneur SAP, j'accepte les chèques CESU préfinancés."},
-                    {q: "Dois-je fournir le matériel ?", a: "Je ramène mes outils pro. Les fournitures (vis, luminaires, pièces) sont à votre charge."},
-                    {q: "Intervenez-vous en dehors de Rennes ?", a: "Oui, je couvre Rennes et sa périphérie (Betton, Saint-Grégoire, etc.) sans frais de port excessifs."}
+                    {q: "Comment préparer mon rendez-vous ?", a: "Pour gagner du temps : dégagez l'espace de travail, protégez vos sols и préparez les notices de montage. Moins de préparation pour moi = moins d'heures pour vous !"},
+                    {q: "Est-ce que vous acceptez les chèques CESU ?", a: "Oui, j'accepте les chèques CESU préfinancés pour toutes mes prestations SAP."},
+                    {q: "Dois-je fournir le matériel ?", a: "Je ramène mes outils pro. Vous ne fournissez que les matériaux (vis spécifiques, meubles, luminaires)."}
                 ],
                 calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :",
                 it_t: "Assistance Informatique", it_l: "<li>Installation OS</li><li>Nettoyage virus</li><li>Config Wi-Fi</li>",
                 br_t: "Petit Bricolage", br_l: "<li>Montage meubles</li><li>Lustres & TV</li><li>Électroménager</li>",
                 p1: "Min. 1ère heure : 50€", p2: "Suivantes : 40€/h", name: "Paul — Votre artisan multiservice",
                 sap: "Services à la personne : 50% de crédit d'impôt",
-                zones: "<b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Chantepie, Betton, Bruz, Pacé..."
+                zones: "<b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Betton, Bruz, Pacé..."
             },
             en: {
                 wa: "WhatsApp — Message me 💬", tg: "Telegram Bot", mail: "E-mail", call: "Call", save: "Save", share: "Share", cop: "Copied!",
                 cb_msg: "Hello, I'm contacting you about your services...",
+                how_t: "How it works?", s1t: "1. Contact", s1d: "Message me on WhatsApp or call to discuss your project.",
+                s2t: "2. Quote", s2d: "We agree on the price and time. No hidden costs.",
+                s3t: "3. Tax Credit", s3d: "Quality work + invoice for 50% tax credit.",
                 faq_t: "FAQ",
                 faq_items: [
+                    {q: "How should I prepare for the appointment?", a: "To save time: clear the work area and have assembly instructions ready. Less prep time means fewer billable hours for you!"},
                     {q: "Do you accept CESU vouchers?", a: "Yes, I accept pre-financed CESU vouchers for all services."},
-                    {q: "Do I need to provide tools?", a: "I bring professional tools. Parts and consumables are provided by you."},
-                    {q: "Which areas do you cover?", a: "Rennes and surrounding suburbs (Betton, Pacé, Bruz, etc.)."}
+                    {q: "Do I need to provide tools?", a: "No, I bring my own professional tools. You only provide the materials."}
                 ],
                 calc_t: "Tax Credit Simulator", calc_h: "Hours:", calc_a: "Real cost after 50% tax credit:",
                 it_t: "IT Support", it_l: "<li>OS Installation</li><li>Virus removal</li><li>Wi-Fi setup</li>",
@@ -274,11 +301,14 @@
             ua: {
                 wa: "WhatsApp — Написати мені 💬", tg: "Telegram Бот", mail: "E-mail", call: "Дзвінок", save: "Зберегти", share: "Поділитися", cop: "Скопійовано!",
                 cb_msg: "Доброго дня, я щодо ваших послуг...",
+                how_t: "Як це працює?", s1t: "1. Зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте для консультації.",
+                s2t: "2. Ціна", s2d: "Узгоджуємо вартість до початку робіт. Все прозоро.",
+                s3t: "3. Вигода", s3d: "Якісна робота + рахунок для повернення 50% (SAP).",
                 faq_t: "Часті питання",
                 faq_items: [
+                    {q: "Як підготуватися до вашого візиту?", a: "Щоб зекономити час: звільніть місце для роботи та підготуйте інструкції. Чим швидше я почну, тим менше ви заплатите!"},
                     {q: "Ви приймаєте чеки CESU?", a: "Так, я приймаю чеки CESU як офіційний сервіс SAP."},
-                    {q: "Чи потрібно мені мати свій інструмент?", a: "Ні, я привожу весь професійний інструмент із собою."},
-                    {q: "Яка ваша зона виїзду?", a: "Ренн та передмістя (Betton, Saint-Grégoire, Bruz тощо)."}
+                    {q: "Чи потрібен мій інструмент?", a: "Ні, у мене з собою весь професійний набір. З вас тільки самі матеріали."}
                 ],
                 calc_t: "Калькулятор вигоди SAP", calc_h: "Годин роботи:", calc_a: "Ціна після повернення 50%:",
                 it_t: "IT Послуги", it_l: "<li>Встановлення Windows</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi</li>",
@@ -290,11 +320,14 @@
             ru: {
                 wa: "WhatsApp — Написать мне 💬", tg: "Telegram Бот", mail: "E-mail", call: "Позвонить", save: "Сохранить", share: "Поделиться", cop: "Скопировано!",
                 cb_msg: "Здравствуйте, я по поводу ваших услуг...",
+                how_t: "Как это работает?", s1t: "1. Связь", s1d: "Напишите в WhatsApp или позвоните. Отвечаю сразу.",
+                s2t: "2. Цена", s2d: "Фиксируем стоимость до выезда. Без скрытых доплат.",
+                s3t: "3. Выгода", s3d: "Профессиональный ремонт + возврат 50% налогов (SAP).",
                 faq_t: "Частые вопросы",
                 faq_items: [
+                    {q: "Как подготовиться к вашему визиту?", a: "Чтобы сэкономить время: освободите место для работы и подготовьте инструкции. Чем меньше времени на подготовку, тем меньше часов вы оплатите!"},
                     {q: "Вы принимаете чеки CESU?", a: "Да, я принимаю чеки CESU для всех видов услуг."},
-                    {q: "Нужно ли мне давать инструменты?", a: "Я привожу свой профи-инструмент. С вас — только детали (болты, люстры)."},
-                    {q: "Куда вы выезжаете?", a: "Ренн и пригороды (Betton, Saint-Grégoire, Pacé и др.)."}
+                    {q: "Нужны ли мои инструменты?", a: "Нет, я привожу свой профи-инструмент. С вас только материалы (мебель, люстры)."}
                 ],
                 calc_t: "Калькулятор экономии SAP", calc_h: "Количество часов:", calc_a: "Цена после возврата 50%:",
                 it_t: "ИT Услуги", it_l: "<li>Установка систем</li><li>Очистка от вирусов</li><li>Настройка интернета</li>",
@@ -311,6 +344,7 @@
             
             const ids = {
                 'wa-text': t.wa, 'tg-text': t.tg, 'mail-text': t.mail, 'call-text': t.call, 'save-text': t.save, 'share-text': t.share,
+                'how-title': t.how_t, 'step1-t': t.s1t, 'step1-d': t.s1d, 'step2-t': t.s2t, 'step2-d': t.s2d, 'step3-t': t.s3t, 'step3-d': t.s3d,
                 'calc-t': t.calc_t, 'calc-h': t.calc_h, 'calc-after': t.calc_a, 'it-title': t.it_t, 'it-list': t.it_l,
                 'br-title': t.br_t, 'br-list': t.br_l, 'p1-it': t.p1, 'p2-it': t.p2, 'p1-br': t.p1, 'p2-br': t.p2,
                 'display-name': t.name, 'sap-info': t.sap, 'zones-list': t.zones, 'faq-title': t.faq_t
@@ -321,7 +355,6 @@
                 if (el) { if (id.includes('list') || id.includes('zones')) el.innerHTML = value; else el.innerText = value; }
             }
 
-            // Рендерим FAQ
             const faqContainer = document.getElementById('faq-container');
             faqContainer.innerHTML = '';
             t.faq_items.forEach(item => {
@@ -330,14 +363,13 @@
                 div.innerHTML = `<div class="faq-question" onclick="toggleFaq(this)">${item.q} <span>+</span></div><div class="faq-answer">${item.a}</div>`;
                 faqContainer.appendChild(div);
             });
-
             localStorage.setItem('preferredLang', lang);
         }
 
         function toggleFaq(el) {
             const ans = el.nextElementSibling;
             const span = el.querySelector('span');
-            const isOpen = ans.style.display === 'block';
+            const isOpen = (ans.style.display === 'block');
             ans.style.display = isOpen ? 'none' : 'block';
             span.innerText = isOpen ? '+' : '−';
         }
