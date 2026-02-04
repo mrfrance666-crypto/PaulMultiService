@@ -140,14 +140,15 @@
             padding-top: 15px; max-width: 600px; margin: 0 auto; 
         }
 
+        /* Номер SIRET: чисто черный цвет без фона */
         .siret-number {
-            background: var(--gold);
             color: #000000;
-            padding: 1px 5px;
-            border-radius: 4px;
-            font-weight: bold;
-            display: inline-block;
-            opacity: 1;
+            font-weight: 600;
+            background: none;
+            padding: 0;
+            display: inline;
+            /* Легкая тень, чтобы черный текст читался на темном фоне */
+            text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.3);
         }
 
         @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .share-btn { max-width: 100%; } }
@@ -211,8 +212,7 @@
     <div class="services-grid">
         <div class="card" style="transition-delay: 0.1s;">
             <h2 id="it-title">Informatique</h2>
-            <ul id="it-list">
-                </ul>
+            <ul id="it-list"></ul>
             <span class="price-tag">
                 <span id="p1-it">1ère heure : 50€</span><br>
                 <span id="p2-it">Suivantes : 40€/h</span>
@@ -224,8 +224,7 @@
 
         <div class="card" style="transition-delay: 0.3s;">
             <h2 id="br-title">Petit Bricolage</h2>
-            <ul id="br-list">
-                </ul>
+            <ul id="br-list"></ul>
             <span class="price-tag">
                 <span id="p1-br">1ère heure : 50€</span><br>
                 <span id="p2-br">Suivantes : 40€/h</span>
