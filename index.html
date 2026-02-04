@@ -291,7 +291,7 @@
                 s2t: "2. Честная цена", s2d: "Фиксируем стоимость до выезда. Без сюрпризов в чеке.",
                 s3t: "3. Ваша выгода", s3d: "Профессиональный ремонт + счет для возврата 50% налогов (SAP).",
                 calc_t: "Калькулятор экономии SAP", calc_h: "Количество часов:", calc_a: "Реальная цена после возврата 50%:",
-                it_t: "ИT Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов и настройка</li><li>Настройка Wi-Fi и интернета</li>",
+                it_t: "IT Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов и настройка</li><li>Настройка Wi-Fi и интернета</li>",
                 br_t: "Мастер на час", br_l: "<li>Сборка любой мебели</li><li>Монтаж ТВ, полок и карнизов</li><li>Мелкий домашний ремонт</li>",
                 p1: "1-й час: 50€", p2: "След.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "20€/ч (SAP)",
                 why_t: "Почему стоит выбрать меня?", why_d: "Оперативный выезд в Ренне • Скидка 50% (налоговый вычет) • Качество",
@@ -318,11 +318,30 @@
         }
 
         function downloadVCard() {
-            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul (PaulMultiService)\nTEL;TYPE=CELL:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD";
-            const blob = new Blob([vcard], { type: "text/vcard" });
+            const vcard = "BEGIN:VCARD\n" +
+                          "VERSION:3.0\n" +
+                          "FN:Paul (PaulMultiService)\n" +
+                          "ORG:PaulMultiService\n" +
+                          "TEL;TYPE=CELL,VOICE:+33745625007\n" +
+                          "EMAIL:paulmultiservice7@gmail.com\n" +
+                          "ADR;TYPE=HOME:;;Rennes;35700;;France\n" +
+                          "END:VCARD";
+
+            const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
-            a.href = url; a.download = "Paul_MultiService.vcf"; a.click();
+            
+            a.style.display = "none";
+            a.href = url;
+            a.download = "Paul_MultiService.vcf";
+            
+            document.body.appendChild(a);
+            a.click();
+            
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
         }
 
         async function shareSite() {
