@@ -120,8 +120,8 @@
             opacity: 0; transform: translateY(20px);
         }
         .card.show { opacity: 1; transform: translateY(0); }
-        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: 15px; }
-        .sap-math { font-size: 0.9rem; color: #8ecae6; font-style: italic; }
+        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: 15px; line-height: 1.4; }
+        .sap-math { font-size: 0.9rem; color: #8ecae6; font-style: italic; display: block; margin-top: 5px; }
 
         .trust-box { 
             background: rgba(212, 175, 55, 0.1); border: 2px solid var(--gold); 
@@ -179,7 +179,7 @@
             </div>
             <div class="step-card">
                 <div class="step-num">3</div>
-                <h3 id="step3-t">Результат</h3>
+                <h3 id="step3-t">Résultat</h3>
                 <p id="step3-d">J'interviens chez vous. Travail soigné et facture SAP (crédit 50%).</p>
             </div>
         </div>
@@ -205,8 +205,13 @@
                 <li>Nettoyage virus & Optimisation</li>
                 <li>Configuration Wi-Fi</li>
             </ul>
-            <span class="price-tag" id="p1-it">1ère heure : 50€</span>
-            <span class="sap-math" id="m1-it">Soit 25€ (SAP)</span>
+            <span class="price-tag">
+                <span id="p1-it">1ère heure : 50€</span><br>
+                <span id="p2-it">Suivantes : 40€/h</span>
+            </span>
+            <span class="sap-math">
+                <span id="m1-it">Soit 25€ (SAP)</span> | <span id="m2-it">20€/h (SAP)</span>
+            </span>
         </div>
 
         <div class="card" style="transition-delay: 0.3s;">
@@ -216,8 +221,13 @@
                 <li>Pose d'étagères & Tableaux</li>
                 <li>Petites réparations</li>
             </ul>
-            <span class="price-tag" id="p1-br">1ère heure : 50€</span>
-            <span class="sap-math" id="m1-br">Soit 25€ (SAP)</span>
+            <span class="price-tag">
+                <span id="p1-br">1ère heure : 50€</span><br>
+                <span id="p2-br">Suivantes : 40€/h</span>
+            </span>
+            <span class="sap-math">
+                <span id="m1-br">Soit 25€ (SAP)</span> | <span id="m2-br">20€/h (SAP)</span>
+            </span>
         </div>
     </div>
 
@@ -240,52 +250,52 @@
     <script>
         const translations = {
             fr: {
-                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Appeler", save: "Ajouter aux contacts", share: "Partager le site", cop: "Copié !",
-                how_t: "Comment ça marche ?", s1t: "Contact", s1d: "Expliquez votre problème par WhatsApp, Telegram ou téléphone.",
-                s2t: "Devis & RDV", s2d: "Nous fixons ensemble le prix et l'heure de l'intervention.",
-                s3t: "Résultat", s3d: "J'interviens chez vous. Travail soigné et facture SAP (crédit 50%).",
-                calc_t: "Simulateur Crédit d'Impôt", calc_h: "Nombre d'heures :", calc_a: "Coût réel après SAP :",
-                it_t: "Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus</li><li>Configuration Wi-Fi</li>",
-                br_t: "Petit Bricolage", br_l: "<li>Montage de meubles</li><li>Pose d'étagères</li><li>Petites réparations</li>",
-                p1: "1ère heure : 50€", m1: "Soit 25€ (SAP)",
-                why_t: "Pourquoi me faire confiance ?", why_d: "Intervention rapide à Rennes • 50% de crédit d'impôt • Travail soigné",
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "Envoyer un E-mail", call: "M'appeler", save: "Enregistrer le contact", share: "Partager le site", cop: "Copié !",
+                how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliquez votre besoin via WhatsApp ou téléphone pour une réponse immédiate.",
+                s2t: "2. Prix fixe", s2d: "Nous convenons du tarif и du RDV. Pas de frais cachés, tout est clair.",
+                s3t: "3. Service SAP", s3d: "Travail pro + facture officielle ouvrant droit à 50% de crédit d'impôt.",
+                calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :",
+                it_t: "Assistance Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Box</li>",
+                br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Pose d'étagères & Supports TV</li><li>Petites réparations à domicile</li>",
+                p1: "1ère heure : 50€", p2: "Suivantes : 40€/h", m1: "Soit 25€ (SAP)", m2: "20€/h (SAP)",
+                why_t: "Pourquoi me choisir ?", why_d: "Intervention rapide à Rennes • Agrément SAP (50% remboursés) • Travail soigné",
                 name: "Paul — Votre artisan multiservice"
             },
             en: {
-                wa: "WhatsApp", tg: "Telegram Bot", mail: "E-mail", call: "Call me", save: "Add to contacts", share: "Share website", cop: "Copied!",
-                how_t: "How it works?", s1t: "Contact", s1d: "Describe your problem via WhatsApp, Telegram, or phone.",
-                s2t: "Quote & Appt", s2d: "We agree on the price and the time of the intervention.",
-                s3t: "Result", s3d: "I come to your place. Quality work and SAP invoice (50% credit).",
-                calc_t: "Tax Credit Simulator", calc_h: "Number of hours:", calc_a: "Real cost after SAP:",
-                it_t: "IT Services", it_l: "<li>Windows / MacOS setup</li><li>Virus removal</li><li>Wi-Fi configuration</li>",
-                br_t: "Handyman Tasks", br_l: "<li>Furniture assembly</li><li>Shelves & TV mounting</li><li>Small home repairs</li>",
-                p1: "1st hour: 50€", m1: "Only 25€ (after SAP)",
-                why_t: "Why choose me?", why_d: "Fast response in Rennes • 50% tax credit (SAP) • Professional work",
-                name: "Paul — Your multiservice artisan"
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "Send E-mail", call: "Call me", save: "Save Contact", share: "Share Website", cop: "Copied!",
+                how_t: "How it works?", s1t: "1. Quick Contact", s1d: "Message me on WhatsApp or call to discuss your project immediately.",
+                s2t: "2. Fixed Quote", s2d: "We agree on the price and time. No hidden costs, total transparency.",
+                s3t: "3. Tax Benefit", s3d: "Quality work + official invoice for 50% tax credit (SAP scheme).",
+                calc_t: "Tax Credit Simulator (SAP)", calc_h: "Number of hours:", calc_a: "Real cost after 50% tax credit:",
+                it_t: "IT Support", it_l: "<li>Windows / MacOS installation</li><li>Virus removal & Speed-up</li><li>Wi-Fi & Network setup</li>",
+                br_t: "Handyman Services", br_l: "<li>Furniture assembly</li><li>TV & Shelf mounting</li><li>Minor home repairs</li>",
+                p1: "1st hour: 50€", p2: "Next: 40€/h", m1: "Only 25€ (after SAP)", m2: "20€/h (after SAP)",
+                why_t: "Why choose me?", why_d: "Fast response in Rennes • 50% Tax Credit (SAP) • Professional results",
+                name: "Paul — Your Multiservice Specialist"
             },
             ua: {
-                wa: "WhatsApp", tg: "Telegram Бот", mail: "Пошта", call: "Дзвінок", save: "Додати в контакти", share: "Поділитися", cop: "Скопійовано!",
-                how_t: "Як це працює?", s1t: "Зв'язок", s1d: "Опишіть проблему через WhatsApp, Telegram або по телефону.",
-                s2t: "Ціна та Час", s2d: "Ми узгоджуємо вартість та зручний для вас час візиту.",
-                s3t: "Результат", s3d: "Я приїжджаю та все лагоджу. Ви отримуєте знижку 50% (SAP).",
-                calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин:", calc_a: "Реальна вартість (після SAP):",
-                it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi</li>",
-                br_t: "Мастер на годину", br_l: "<li>Збірка меблів</li><li>Монтаж полиць та ТВ</li><li>Дрібний ремонт</li>",
-                p1: "1-ша година: 50€", m1: "Лише 25€ (SAP)",
-                why_t: "Чому варто обрати мене?", why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Якісна робота",
-                name: "Paul — Ваш майстер на всі руки"
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Надіслати E-mail", call: "Зателефонувати", save: "Зберегти контакт", share: "Поділитися", cop: "Скопійовано!",
+                how_t: "Ваш шлях до результату", s1t: "1. Миттєвий зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте для швидкої консультації.",
+                s2t: "2. Прозора ціна", s2d: "Узгоджуємо вартість до початку робіт. Жодних прихованих платежів.",
+                s3t: "3. Офіційна вигода", s3d: "Якісна робота + рахунок для повернення 50% коштів (через SAP).",
+                calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин роботи:", calc_a: "Реальна вартість після повернення 50%:",
+                it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів та прискорення</li><li>Налаштування Wi-Fi та мереж</li>",
+                br_t: "Мастер на годину", br_l: "<li>Професійна збірка меблів</li><li>Монтаж ТБ, полиць та декору</li><li>Дрібний побутовий ремонт</li>",
+                p1: "1-ша година: 50€", p2: "Наступні: 40€/год", m1: "Лише 25€ (через SAP)", m2: "Лише 20€/год (SAP)",
+                why_t: "Чому обирають мене?", why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Гарантія якості",
+                name: "Paul — Ваш надійний майстер у Ренні"
             },
             ru: {
-                wa: "WhatsApp", tg: "Telegram Бот", mail: "Почта", call: "Позвонить", save: "Добавить в контакты", share: "Поделиться", cop: "Скопировано!",
-                how_t: "Как это работает?", s1t: "Связь", s1d: "Опишите проблему через WhatsApp, Telegram или по телефону.",
-                s2t: "Цена и Время", s2d: "Мы согласовываем стоимость и удобное для вас время визита.",
-                s3t: "Результат", s3d: "Я приезжаю и всё исправляю. Вы получаете скидку 50% (SAP).",
-                calc_t: "Калькулятор выгоды SAP", calc_h: "Количество часов:", calc_a: "Реальная стоимость (после SAP):",
-                it_t: "ИТ Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов</li><li>Настройка Wi-Fi</li>",
-                br_t: "Мастер на час", br_l: "<li>Сборка мебели</li><li>Монтаж полок и ТВ</li><li>Мелкий ремонт</li>",
-                p1: "1-й час: 50€", m1: "Итого 25€ (SAP)",
-                why_t: "Почему стоит выбрать меня?", why_d: "Быстрый выезд в Ренне • Налоговый вычет 50% (SAP) • Качественная работа",
-                name: "Paul — Ваш мастер на все руки"
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Отправить E-mail", call: "Позвонить", save: "Сохранить контакт", share: "Поделиться", cop: "Скопировано!",
+                how_t: "Как это работает?", s1t: "1. Быстрая связь", s1d: "Напишите в WhatsApp или позвоните. Отвечаю моментально.",
+                s2t: "2. Честная цена", s2d: "Фиксируем стоимость до выезда. Без сюрпризов в чеке.",
+                s3t: "3. Ваша выгода", s3d: "Профессиональный ремонт + счет для возврата 50% налогов (SAP).",
+                calc_t: "Калькулятор экономии SAP", calc_h: "Количество часов:", calc_a: "Реальная цена после возврата 50%:",
+                it_t: "IT Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов и настройка</li><li>Настройка Wi-Fi и интернета</li>",
+                br_t: "Мастер на час", br_l: "<li>Сборка любой мебели</li><li>Монтаж ТВ, полок и карнизов</li><li>Мелкий домашний ремонт</li>",
+                p1: "1-й час: 50€", p2: "След.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "20€/ч (SAP)",
+                why_t: "Почему стоит выбрать меня?", why_d: "Оперативный выезд в Ренне • Скидка 50% (налоговый вычет) • Качество",
+                name: "Paul — Ваш мастер на все руки в Ренне"
             }
         };
 
@@ -328,8 +338,10 @@
                 'how-title': t.how_t, 'step1-t': t.s1t, 'step1-d': t.s1d, 'step2-t': t.s2t,
                 'step2-d': t.s2d, 'step3-t': t.s3t, 'step3-d': t.s3d, 'calc-t': t.calc_t,
                 'calc-h': t.calc_h, 'calc-after': t.calc_a, 'it-title': t.it_t, 'it-list': t.it_l,
-                'br-title': t.br_t, 'br-list': t.br_l, 'p1-it': t.p1, 'm1-it': t.m1,
-                'p1-br': t.p1, 'm1-br': t.m1, 'why-title': t.why_t, 'why-desc': t.why_d,
+                'br-title': t.br_t, 'br-list': t.br_l, 
+                'p1-it': t.p1, 'p2-it': t.p2, 'm1-it': t.m1, 'm2-it': t.m2,
+                'p1-br': t.p1, 'p2-br': t.p2, 'm1-br': t.m1, 'm2-br': t.m2, 
+                'why-title': t.why_t, 'why-desc': t.why_d,
                 'display-name': t.name
             };
             for (const [id, value] of Object.entries(ids)) {
