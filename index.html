@@ -327,20 +327,36 @@
                           "ADR;TYPE=HOME:;;Rennes;35700;;France\n" +
                           "END:VCARD";
 
-            const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
+            const lang = localStorage.getItem('preferredLang') || 'fr';
+            const btn = document.getElementById('save-text');
+            const originalText = translations[lang].save;
+
+            // Используем Base64 для максимальной совместимости с Android Chrome
+            const base64Vcard = btoa(unescape(encodeURIComponent(vcard)));
+            const dataUri = 'data:text/vcard;charset=utf-8;base64,' + base64Vcard;
+
+            const link = document.createElement("a");
+            link.href = dataUri;
+            link.download = "Paul_MultiService.vcf";
             
-            a.style.display = "none";
-            a.href = url;
-            a.download = "Paul_MultiService.vcf";
+            // Обязательно добавляем в DOM для Android
+            document.body.appendChild(link);
+            link.click();
             
-            document.body.appendChild(a);
-            a.click();
-            
+            // Если это Android, показываем подсказку
+            if (/Android/i.test(navigator.userAgent)) {
+                const guide = { 
+                    fr: "Ouvrez le fichier", 
+                    en: "Open the file", 
+                    ua: "Відкрийте файл", 
+                    ru: "Откройте файл" 
+                };
+                btn.innerText = guide[lang] || guide.fr;
+                setTimeout(() => { btn.innerText = originalText; }, 4000);
+            }
+
             setTimeout(() => {
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
+                document.body.removeChild(link);
             }, 100);
         }
 
