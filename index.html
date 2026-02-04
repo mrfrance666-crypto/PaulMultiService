@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Paul — Votre artisan multiservice | Rennes</title>
-    <meta name="description" content="Petit bricolage et assistance informatique à Rennes. Profitez de 50% de crédit d'impôt (SAP). Interventions rapides par un artisan professionnel.">
-    <meta property="og:title" content="Paul — Votre artisan multiservice">
-    <meta property="og:description" content="Informatique et Bricolage à Rennes. 50% de réduction d'impôt via SAP.">
+    <title>Paul — Artisan Multiservice | Rennes | Bricolage & Informatique</title>
+    <meta name="description" content="Besoin d'aide à Rennes ? Montage meubles IKEA, installation de lustres, fixation TV, branchement lave-linge et dépannage informatique. 50% de crédit d'impôt.">
+    
+    <meta property="og:title" content="Paul — Votre artisan multiservice à Rennes">
+    <meta property="og:description" content="Bricolage, Montage meubles, Lustres, TV et Informatique. 50% remboursés via SAP.">
     <meta property="og:image" content="https://mrfrance666-crypto.github.io/PaulMultiService/logo.png">
     <meta property="og:url" content="https://mrfrance666-crypto.github.io/PaulMultiService/">
     <meta property="og:type" content="website">
@@ -134,17 +135,19 @@
         }
         .footer-brand { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.4rem; margin-bottom: 10px; }
         .footer-contact-info { font-size: 0.9rem; margin-bottom: 25px; opacity: 0.9; }
-        
-        /* ОБНОВЛЕННЫЙ ЦВЕТ SIRET */
         .legal-mentions { 
-            font-size: 0.75rem; 
-            color: #000000; /* Чистый черный */
-            opacity: 1;    /* Полная непрозрачность */
-            line-height: 1.4; 
-            border-top: 1px solid rgba(255,255,255,0.2); /* Линия чуть ярче */
-            padding-top: 15px; 
-            max-width: 600px; 
-            margin: 0 auto; 
+            font-size: 0.75rem; opacity: 0.6; line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 15px; max-width: 600px; margin: 0 auto; 
+        }
+
+        .siret-number {
+            background: var(--gold);
+            color: #000000;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            opacity: 1;
         }
 
         @media (max-width: 600px) { .messenger-wrapper { flex-direction: column; } .share-btn { max-width: 100%; } }
@@ -178,7 +181,7 @@
             <div class="step-card">
                 <div class="step-num">1</div>
                 <h3 id="step1-t">Contact</h3>
-                <p id="step1-d">Expliqueз votre problème par WhatsApp, Telegram ou téléphone.</p>
+                <p id="step1-d">Expliquez votre problème par WhatsApp, Telegram ou téléphone.</p>
             </div>
             <div class="step-card">
                 <div class="step-num">2</div>
@@ -209,10 +212,7 @@
         <div class="card" style="transition-delay: 0.1s;">
             <h2 id="it-title">Informatique</h2>
             <ul id="it-list">
-                <li>Installation Windows / MacOS</li>
-                <li>Nettoyage virus & Optimisation</li>
-                <li>Configuration Wi-Fi</li>
-            </ul>
+                </ul>
             <span class="price-tag">
                 <span id="p1-it">1ère heure : 50€</span><br>
                 <span id="p2-it">Suivantes : 40€/h</span>
@@ -225,10 +225,7 @@
         <div class="card" style="transition-delay: 0.3s;">
             <h2 id="br-title">Petit Bricolage</h2>
             <ul id="br-list">
-                <li>Montage de meubles</li>
-                <li>Pose d'étagères & Tableaux</li>
-                <li>Petites réparations</li>
-            </ul>
+                </ul>
             <span class="price-tag">
                 <span id="p1-br">1ère heure : 50€</span><br>
                 <span id="p2-br">Suivantes : 40€/h</span>
@@ -250,7 +247,7 @@
             <span>Rennes, 35700</span> • <span>paulmultiservice7@gmail.com</span>
         </div>
         <div class="legal-mentions">
-            <p>EI Pavlo Pashkin | SIRET : 10000226000014</p>
+            <p>EI Pavlo Pashkin | SIRET : <span class="siret-number">10000226000014</span></p>
             <p>TVA non applicable, art. 293 B du CGI</p>
         </div>
     </div>
@@ -259,12 +256,12 @@
         const translations = {
             fr: {
                 wa: "WhatsApp", tg: "Telegram Bot", mail: "Envoyer un E-mail", call: "M'appeler", save: "Enregistrer le contact", share: "Partager le site", cop: "Copié !",
-                how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliquez votre besoin via WhatsApp ou téléphone pour une response immédiate.",
-                s2t: "2. Prix fixe", s2d: "Nous convenons du tarif и du RDV. Pas de frais cachés, tout est clair.",
+                how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliquez votre besoin via WhatsApp ou téléphone pour une réponse immédiate.",
+                s2t: "2. Prix fixe", s2d: "Nous convenons du tarif et du RDV. Pas de frais cachés, tout est clair.",
                 s3t: "3. Service SAP", s3d: "Travail pro + facture officielle ouvrant droit à 50% de crédit d'impôt.",
                 calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :",
                 it_t: "Assistance Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Box</li>",
-                br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Pose d'étagères & Supports TV</li><li>Petites réparations à domicile</li>",
+                br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Installation de lustres & luminaires</li><li>Fixation TV & Supports muraux</li><li>Branchement lave-linge & Électroménager</li>",
                 p1: "1ère heure : 50€", p2: "Suivantes : 40€/h", m1: "Soit 25€ (SAP)", m2: "20€/h (SAP)",
                 why_t: "Pourquoi me choisir ?", why_d: "Intervention rapide à Rennes • Agrément SAP (50% remboursés) • Travail soigné",
                 name: "Paul — Votre artisan multiservice"
@@ -276,7 +273,7 @@
                 s3t: "3. Tax Benefit", s3d: "Quality work + official invoice for 50% tax credit (SAP scheme).",
                 calc_t: "Tax Credit Simulator (SAP)", calc_h: "Number of hours:", calc_a: "Real cost after 50% tax credit:",
                 it_t: "IT Support", it_l: "<li>Windows / MacOS installation</li><li>Virus removal & Speed-up</li><li>Wi-Fi & Network setup</li>",
-                br_t: "Handyman Services", br_l: "<li>Furniture assembly</li><li>TV & Shelf mounting</li><li>Minor home repairs</li>",
+                br_t: "Handyman Services", br_l: "<li>Furniture assembly (IKEA etc.)</li><li>Lustre & Lighting installation</li><li>TV & Wall mount fixing</li><li>Washing machine connection</li>",
                 p1: "1st hour: 50€", p2: "Next: 40€/h", m1: "Only 25€ (after SAP)", m2: "20€/h (after SAP)",
                 why_t: "Why choose me?", why_d: "Fast response in Rennes • 50% Tax Credit (SAP) • Professional results",
                 name: "Paul — Your Multiservice Specialist"
@@ -288,7 +285,7 @@
                 s3t: "3. Офіційна вигода", s3d: "Якісна робота + рахунок для повернення 50% коштів (через SAP).",
                 calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин роботи:", calc_a: "Реальна вартість після повернення 50%:",
                 it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів та прискорення</li><li>Налаштування Wi-Fi та мереж</li>",
-                br_t: "Мастер на годину", br_l: "<li>Професійна збірка меблів</li><li>Монтаж ТБ, полиць та декору</li><li>Дрібний побутовий ремонт</li>",
+                br_t: "Мастер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр та світильників</li><li>Монтаж ТБ та кронштейнів</li><li>Підключення пральних машин</li>",
                 p1: "1-ша година: 50€", p2: "Наступні: 40€/год", m1: "Лише 25€ (через SAP)", m2: "Лише 20€/год (SAP)",
                 why_t: "Чому обирають мене?", why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Гарантія якості",
                 name: "Paul — Ваш надійний майстер у Ренні"
@@ -300,7 +297,7 @@
                 s3t: "3. Ваша выгода", s3d: "Профессиональный ремонт + счет для возврата 50% налогов (SAP).",
                 calc_t: "Калькулятор экономии SAP", calc_h: "Количество часов:", calc_a: "Реальная цена после возврата 50%:",
                 it_t: "ИT Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов и настройка</li><li>Настройка Wi-Fi и интернета</li>",
-                br_t: "Мастер на час", br_l: "<li>Сборка любой мебели</li><li>Монтаж ТВ, полок и карнизов</li><li>Мелкий домашний ремонт</li>",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр и светильников</li><li>Монтаж ТВ и кронштейнов</li><li>Подключение стиральных машин</li>",
                 p1: "1-й час: 50€", p2: "Послед.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "Итого 20€/ч (SAP)",
                 why_t: "Почему стоит выбрать меня?", why_d: "Оперативный выезд в Ренне • Скидка 50% (налоговый вычет) • Качество",
                 name: "Paul — Ваш мастер на все руки в Ренне"
@@ -326,35 +323,20 @@
         }
 
         function downloadVCard() {
-            const vcard = "BEGIN:VCARD\n" +
-                          "VERSION:3.0\n" +
-                          "FN:Paul (PaulMultiService)\n" +
-                          "ORG:PaulMultiService\n" +
-                          "TEL;TYPE=CELL,VOICE:+33745625007\n" +
-                          "EMAIL:paulmultiservice7@gmail.com\n" +
-                          "ADR;TYPE=HOME:;;Rennes;35700;;France\n" +
-                          "END:VCARD";
-
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul (PaulMultiService)\nORG:PaulMultiService\nTEL;TYPE=CELL,VOICE:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nADR;TYPE=HOME:;;Rennes;35700;;France\nEND:VCARD";
             const lang = localStorage.getItem('preferredLang') || 'fr';
             const btn = document.getElementById('save-text');
             const originalText = translations[lang].save;
-
             const base64Vcard = btoa(unescape(encodeURIComponent(vcard)));
             const dataUri = 'data:text/vcard;charset=utf-8;base64,' + base64Vcard;
-
             const link = document.createElement("a");
-            link.href = dataUri;
-            link.download = "Paul_MultiService.vcf";
-            
-            document.body.appendChild(link);
-            link.click();
-            
+            link.href = dataUri; link.download = "Paul_MultiService.vcf";
+            document.body.appendChild(link); link.click();
             if (/Android/i.test(navigator.userAgent)) {
                 const guide = { fr: "Ouvrez le fichier", en: "Open the file", ua: "Відкрийте файл", ru: "Откройте файл" };
                 btn.innerText = guide[lang] || guide.fr;
                 setTimeout(() => { btn.innerText = originalText; }, 4000);
             }
-
             setTimeout(() => { document.body.removeChild(link); }, 100);
         }
 
@@ -374,8 +356,7 @@
                 'br-title': t.br_t, 'br-list': t.br_l, 
                 'p1-it': t.p1, 'p2-it': t.p2, 'm1-it': t.m1, 'm2-it': t.m2,
                 'p1-br': t.p1, 'p2-br': t.p2, 'm1-br': t.m1, 'm2-br': t.m2, 
-                'why-title': t.why_t, 'why-desc': t.why_d,
-                'display-name': t.name
+                'why-title': t.why_t, 'why-desc': t.why_d, 'display-name': t.name
             };
             for (const [id, value] of Object.entries(ids)) {
                 const el = document.getElementById(id);
