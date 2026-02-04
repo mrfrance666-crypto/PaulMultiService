@@ -3,187 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no">
     <title>Paul — Artisan Multiservice | Rennes</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --dark-green: #0a2e1f; --gold: #d4af37; --gold-light: #f4d06f; --white: #ffffff; --wa-green: linear-gradient(135deg, #25D366 0%, #128C7E 100%); --tg-blue: linear-gradient(135deg, #0088cc 0%, #005580 100%); --call-gold: linear-gradient(135deg, #d4af37 0%, #a6892c 100%); --mail-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%); --save-mint: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); --share-carbon: linear-gradient(135deg, #434343 0%, #000000 100%); --bg-color: var(--dark-green); --text-color: var(--white); --card-bg: rgba(255,255,255,0.04); --border-color: rgba(212,175,55,0.2); --nav-bg: rgba(10,46,31,0.95); --transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
-        body.light-theme { --bg-color: #ffffff; --text-color: #1a1a1a; --card-bg: #f9f9f9; --border-color: rgba(0,0,0,0.1); --nav-bg: rgba(255,255,255,0.95); --gold: #a6892c; --gold-light: #444444; }
+        :root { 
+            --dark-green: #0a2e1f; --gold: #d4af37; --gold-light: #f4d06f; --white: #ffffff; 
+            --wa-green: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
+            --tg-blue: linear-gradient(135deg, #0088cc 0%, #005580 100%);
+            --call-gold: linear-gradient(135deg, #d4af37 0%, #a6892c 100%);
+            --mail-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --save-mint: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+            --share-carbon: linear-gradient(135deg, #434343 0%, #000000 100%);
+            --bg-color: var(--dark-green); --text-color: var(--white); 
+            --card-bg: rgba(255,255,255,0.04); --border-color: rgba(212,175,55,0.2);
+            --nav-bg: rgba(10,46,31,0.95); --transition: 0.3s ease;
+        }
+        body.light-theme { 
+            --bg-color: #ffffff; --text-color: #1a1a1a; 
+            --card-bg: #f9f9f9; --border-color: rgba(0,0,0,0.1); 
+            --nav-bg: rgba(255,255,255,0.95); --gold: #a6892c; 
+        }
         html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; min-height: 100vh; padding-bottom: 50px; overflow-x: hidden; transition: background var(--transition), color var(--transition); }
-        .theme-toggle { position: fixed; top: 15px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold); color: var(--gold); width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .main-logo { width: 170px; height: 170px; border-radius: 50%; margin: 20px auto 15px; display: block; border: 3px solid var(--gold); box-shadow: 0 10px 25px rgba(0,0,0,0.4); object-fit: cover; cursor: pointer; }
-        .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto 25px; max-width: 380px; padding: 0 20px; }
-        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 16px 5px; border-radius: 14px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25); border: none; cursor: pointer; transition: var(--transition); text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .wa-btn-main { grid-column: span 2; background: var(--wa-green); font-size: 1.05rem !important; }
-        .tg-btn { background: var(--tg-blue); } .call-btn { background: var(--call-gold); } .mail-btn { background: var(--mail-purple); } .vcard-btn { background: var(--save-mint); } .share-btn { grid-column: span 2; background: var(--share-carbon); margin-top: 5px; }
-        .msg-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: background var(--transition); overflow-x: hidden; }
+        
+        /* Стили калькулятора и Селекта */
+        select { 
+            appearance: none; 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 10px center; background-size: 15px;
+            padding-right: 30px !important; cursor: pointer;
+        }
+        select option { background-color: var(--dark-green); color: white; }
+        body.light-theme select option { background-color: white; color: black; }
+
+        .theme-toggle { position: fixed; top: 15px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold); color: var(--gold); width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 2000; font-size: 1.2rem; }
+        .main-logo { width: 150px; height: 150px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); cursor: pointer; transition: 0.5s; }
+        .main-logo:hover { transform: scale(1.05); }
+        
+        .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 400px; margin: 20px auto; padding: 0 15px; }
+        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white; font-weight: 700; font-size: 0.85rem; border: none; cursor: pointer; }
+        .wa-btn-main { grid-column: span 2; background: var(--wa-green); font-size: 1rem; }
+        .tg-btn { background: var(--tg-blue); } .call-btn { background: var(--call-gold); }
+        .mail-btn { background: var(--mail-purple); } .vcard-btn { background: var(--save-mint); }
+        .share-btn { grid-column: span 2; background: var(--share-carbon); }
+
         .nav-pills-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(10px); }
-        .nav-pills { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 0 15px; }
-        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 10px 18px; border-radius: 30px; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
-        .lang-switcher { padding: 15px; }
-        .lang-btn { background: var(--card-bg); border: 1px solid var(--gold); color: var(--text-color); padding: 7px 15px; margin: 0 4px; cursor: pointer; border-radius: 8px; font-weight: 600; }
-        .brand-name { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.2rem); color: var(--gold); margin: 40px 0 5px; text-transform: uppercase; letter-spacing: 4px; }
-        .owner-name { color: var(--gold-light); font-size: clamp(1.1rem, 4vw, 1.6rem); font-family: 'Playfair Display', serif; font-weight: 600; margin-bottom: 5px; display: block; }
-        .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.15); color: var(--gold); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 25px; border: 1px solid var(--border-color); }
-        .step-card, .calc-box, .card, .faq-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; }
-        .how-it-works { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .steps-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
-        .step-card { flex: 1; min-width: 250px; max-width: 320px; padding: 25px; }
-        .step-num { width: 40px; height: 40px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold; }
-        .calc-box { max-width: 450px; width: 90%; margin: 60px auto; padding: 25px; }
-        .calc-input-group { display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 15px 0; }
-        .calc-input-group input, .calc-input-group select { width: 100%; max-width: 220px; padding: 12px; border-radius: 10px; border: 1px solid var(--gold); background: var(--card-bg); color: var(--text-color); text-align: center; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1100px; margin: 60px auto; padding: 0 25px; }
-        .card { padding: 30px; text-align: left; opacity: 0; transform: translateY(20px); transition: 0.6s; display: flex; flex-direction: column; }
-        .card.show { opacity: 1; transform: translateY(0); }
-        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border-color); }
+        .nav-pills { display: flex; justify-content: center; gap: 10px; overflow-x: auto; padding: 0 10px; }
+        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 0.8rem; white-space: nowrap; }
+
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 30px 0 5px; letter-spacing: 2px; }
+        .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.1); color: var(--gold); padding: 10px 20px; border-radius: 50px; font-size: 0.9rem; border: 1px solid var(--border-color); margin: 20px 0; }
+        
+        .calc-box { max-width: 400px; margin: 40px auto; padding: 25px; border-radius: 20px; background: var(--card-bg); border: 1px solid var(--border-color); }
+        .calc-input-group { margin: 15px 0; }
+        .calc-input-group input, .calc-input-group select { width: 100%; max-width: 200px; padding: 10px; border-radius: 10px; border: 1px solid var(--gold); background: transparent; color: var(--text-color); text-align: center; margin-top: 5px; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; display: flex; flex-direction: column; }
+        .card h2 { color: var(--gold); font-family: 'Playfair Display', serif; margin-top: 0; }
+        .card ul { padding-left: 20px; line-height: 1.8; margin-bottom: 20px; }
+        .price-tag { margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border-color); color: var(--gold); font-weight: 700; line-height: 1.4; }
+
         .faq-section { max-width: 800px; margin: 60px auto; padding: 0 20px; text-align: left; }
-        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold); }
-        .faq-answer { padding: 0 20px 20px; display: none; line-height: 1.6; opacity: 0.9; }
-        .footer { margin-top: 60px; padding: 40px 20px; background: rgba(0,0,0,0.05); border-top: 1px solid var(--border-color); }
-        .back-to-top { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; text-decoration: none; z-index: 1001; }
+        .faq-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 15px; margin-bottom: 10px; overflow: hidden; }
+        .faq-question { padding: 15px 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold); }
+        .faq-answer { padding: 0 20px 15px; display: none; opacity: 0.9; line-height: 1.5; font-size: 0.9rem; }
+
+        .footer { padding: 40px 20px; border-top: 1px solid var(--border-color); opacity: 0.8; font-size: 0.85rem; }
+        .back-to-top { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: white; width: 40px; height: 40px; border-radius: 50%; display: none; align-items: center; justify-content: center; text-decoration: none; }
     </style>
 </head>
 <body>
     <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon">🌙</button>
-    <div class="lang-switcher">
+    <div style="padding-top: 20px;">
         <button class="lang-btn" onclick="changeLang('fr')">FR</button>
         <button class="lang-btn" onclick="changeLang('en')">EN</button>
         <button class="lang-btn" onclick="changeLang('ua')">UA</button>
         <button class="lang-btn" onclick="changeLang('ru')">RU</button>
     </div>
+
     <p class="brand-name">PaulMultiService</p>
     <img src="logo.png" alt="Logo" class="main-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-    <span class="owner-name" id="display-name">Paul — Votre artisan multiservice</span>
+    <div id="display-name" style="font-weight: 600; font-size: 1.2rem;">Paul — Ваш мастер в Ренне</div>
     <div class="sap-badge" id="sap-info">Services à la personne : 50% de crédit d'impôt</div>
+
     <div class="messenger-wrapper">
-        <a href="" target="_blank" class="msg-btn wa-btn-main" id="wa-link"><span id="wa-text">WhatsApp 💬</span></a>
-        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
+        <a href="" target="_blank" class="msg-btn wa-btn-main" id="wa-link">WhatsApp 💬</a>
+        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="mail-text">E-mail</button>
         <button onclick="downloadVCard()" class="msg-btn vcard-btn" id="save-text">Enregistrer</button>
         <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager le site</button>
     </div>
+
     <div class="nav-pills-container">
         <div class="nav-pills">
-            <a href="#how-it-works" class="nav-pill" id="nav-how">Étapes</a>
             <a href="#calc" class="nav-pill" id="nav-calc">Simulateur</a>
             <a href="#services" class="nav-pill" id="nav-serv">Services</a>
             <a href="#faq" class="nav-pill" id="nav-faq">FAQ</a>
         </div>
     </div>
-    <div id="how-it-works" class="how-it-works">
-        <h2 id="how-title" style="font-family: 'Playfair Display', serif; color: var(--gold);">Comment ça marche ?</h2>
-        <div class="steps-container">
-            <div class="step-card"><div class="step-num">1</div><h3 id="step1-t">Contact</h3><p id="step1-d"></p></div>
-            <div class="step-card"><div class="step-num">2</div><h3 id="step2-t">Tarif</h3><p id="step2-d"></p></div>
-            <div class="step-card"><div class="step-num">3</div><h3 id="step3-t">Crédit d'impôt</h3><p id="step3-d"></p></div>
-        </div>
-    </div>
+
     <div id="calc" class="calc-box">
-        <div id="calc-t" style="color: var(--gold); font-weight: 600; font-size: 1.2rem;">Simulateur Crédit d'Impôt</div>
-        <p id="calc-min" style="font-size: 0.8rem; color: var(--gold); opacity: 0.8;"></p>
+        <h3 id="calc-t" style="color: var(--gold); margin-top: 0;">Simulateur Crédit d'Impôt</h3>
         <div class="calc-input-group">
-            <label id="calc-day-label" style="font-size: 0.8rem;">Jour :</label>
+            <label id="calc-day-label">День работы:</label><br>
             <select id="daySelect" onchange="updateCalc()">
-                <option value="1" id="opt-weekday">Semaine</option>
-                <option value="2" id="opt-sat">Samedi (x2)</option>
-                <option value="3" id="opt-sun">Dimanche (x3)</option>
+                <option value="1" id="opt-weekday">Будни</option>
+                <option value="2" id="opt-sat">Суббота (x2)</option>
+                <option value="3" id="opt-sun">Воскресенье (x3)</option>
             </select>
-            <label id="calc-h" style="font-size: 0.8rem;">Heures :</label>
+        </div>
+        <div class="calc-input-group">
+            <label id="calc-h">Кол-во часов:</label><br>
             <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
         </div>
-        <div style="margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
-            Total : <span id="totalPrice">50</span>€<br>
-            <span id="calc-after">Coût réel :</span> <b><span id="netPrice">25</span>€</b>
+        <div style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+            Total: <span id="totalPrice">50</span>€ | <span id="calc-after">Net :</span> <b><span id="netPrice">25</span>€</b>
         </div>
     </div>
+
     <div id="services" class="services-grid">
-        <div class="card"><h2 id="it-title">Web & IT</h2><ul id="it-list"></ul><span class="price-tag"><span id="p1-it"></span><br><span id="p2-it"></span></span></div>
-        <div class="card"><h2 id="br-title">Bricolage</h2><ul id="br-list"></ul><span class="price-tag"><span id="p1-br"></span><br><span id="p2-br"></span></span></div>
+        <div class="card">
+            <h2 id="it-title">Web & IT</h2>
+            <ul id="it-list"></ul>
+            <div class="price-tag" id="it-price"></div>
+        </div>
+        <div class="card">
+            <h2 id="br-title">Bricolage</h2>
+            <ul id="br-list"></ul>
+            <div class="price-tag" id="br-price"></div>
+        </div>
     </div>
-    <div id="faq" class="faq-section"><h2 id="faq-title" style="text-align: center; color: var(--gold); font-family: 'Playfair Display', serif;">FAQ</h2><div id="faq-container"></div></div>
+
+    <div id="faq" class="faq-section">
+        <h2 id="faq-title" style="text-align: center; color: var(--gold);">FAQ</h2>
+        <div id="faq-container"></div>
+    </div>
+
     <div class="footer">
-        <div id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 20px;">Paul</div>
-        <div id="zones-list" style="font-size: 0.9rem; margin-bottom: 15px;"></div>
-        <p><strong>EI Pavlo Pashkin</strong> | <span style="color: var(--gold); font-weight: 600;">SIRET : 10000226000014</span></p>
-        <p style="color: var(--gold); font-weight: 600;">Service à la Personne (SAP)</p>
-        <p style="opacity: 0.7; font-size: 0.8rem;">TVA non applicable | Rennes, 35700</p>
+        <p><strong>EI Pavlo Pashkin</strong> | SIRET : 10000226000014</p>
+        <p id="zones-list"></p>
+        <p>Rennes, France 🇫🇷</p>
     </div>
+
     <a href="#" class="back-to-top" id="backToTop">↑</a>
+
     <script>
         const translations = {
-            fr: {
-                wa: "WhatsApp 💬", tg: "Telegram Bot", mail: "E-mail", call: "Appeler", save: "Enregistrer", share: "Partager", cop: "Copié !", cb_msg: "Bonjour, je vous contacte pour vos services...",
-                nav_how: "Étapes", nav_calc: "Simulateur", nav_serv: "Services", nav_faq: "FAQ",
-                how_t: "Comment ça marche ?", s1t: "1. Contact", s1d: "Décrivez votre besoin par message или телефон.",
-                s2t: "2. Tarifs & Weekend", s2d: "Semaine: 50€/h. Samedi: x2. Dimanche/Férié: x3. Min. 1h.",
-                s3t: "3. Service SAP", s3d: "Facture pro ouvrant droit à 50% de crédit d'impôt.",
-                calc_t: "Simulateur Crédit d'Impôt", calc_min: "Commande minimale : 1 heure", calc_h: "Heures :", calc_a: "Net après crédit d'impôt :",
-                calc_day: "Jour de l'intervention :", opt_wd: "Semaine (Lundi-Vendredi)", opt_sat: "Samedi (Tarif x2)", opt_sun: "Dimanche / Férié (Tarif x3)",
-                it_t: "Web & Informatique", it_l: "<li>Création de sites</li><li>Installation OS & Logiciels</li><li>Nettoyage virus</li><li>Configuration Wi-Fi</li>",
-                br_t: "Petit Bricolage", br_l: "<li>Montage meubles</li><li>Installation luminaires, TV</li><li>Petit dépannage</li><li>Électroménager</li>",
-                p1: "Semaine : 50€ (1ère h)", p2: "Heures suivantes : 40€/h", name: "Paul — Votre artisan multiservice",
-                sap: "Services à la personne : 50% de crédit d'impôt", zones: "Rennes et sa périphérie (Betton, Saint-Grégoire, Bruz, Pacé...)",
-                faq_t: "Questions fréquentes", faq_items: [{q:"Le crédit d'impôt weekend ?", a:"Oui ! Même avec le tarif majoré (x2/x3), vous bénéficiez de 50% de réduction fiscale."}, {q:"Outils ?", a:"Je viens avec tout mon matériel professionnel."}]
-            },
             ru: {
-                wa: "WhatsApp 💬", tg: "Telegram Бот", mail: "E-mail", call: "Позвонить", save: "Сохранить", share: "Поделиться", cop: "Скопировано!", cb_msg: "Здравствуйте, я по поводу ваших услуг...",
-                nav_how: "Процесс", nav_calc: "Калькулятор", nav_serv: "Услуги", nav_faq: "Вопросы",
-                how_t: "Как это работает?", s1t: "1. Связь", s1d: "Напишите в WhatsApp или позвоните. Обсудим детали.",
-                s2t: "2. Тарифы и выходные", s2d: "Будни: 50€/ч. Суббота: x2. Воскресенье/Праздники: x3. Мин. заказ 1ч.",
-                s3t: "3. Выгода", s3d: "Профессиональный сервис + возврат 50% налогов (SAP).",
-                calc_t: "Калькулятор выгоды SAP", calc_min: "Минимальный заказ: 1 час", calc_h: "Часов:", calc_a: "Цена после возврата 50%:",
-                calc_day: "День работы:", opt_wd: "Будни (Пн-Пт)", opt_sat: "Суббота (Тариф x2)", opt_sun: "Воскресенье (x3)",
-                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов</li><li>Установка программ</li><li>Чистка от вирусов</li><li>Настройка сетей</li>",
-                br_t: "Мастер на час", br_l: "<li>Сборка мебели</li><li>Установка люстр, ТВ</li><li>Мелкий ремонт</li><li>Техника</li>",
-                p1: "Будни: 50€ (1-й час)", p2: "След. часы: 40€/ч", name: "Paul — Ваш мастер",
-                sap: "Налоговый вычет 50% на все услуги", zones: "Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
-                faq_t: "Частые вопросы", faq_items: [{q:"Вычет в выходные?", a:"Да! Государство возвращает 50% от любой итоговой суммы."}, {q:"Инструменты?", a:"У меня есть весь необходимый профи-инструмент."}]
+                name: "Paul — Ваш мастер в Ренне", sap: "Налоговый вычет 50% на все услуги",
+                call: "Позвонить", mail: "E-mail", save: "Сохранить", share: "Поделиться",
+                nav_calc: "Калькулятор", nav_serv: "Услуги", nav_faq: "Вопросы",
+                calc_t: "Калькулятор выгоды SAP", calc_day: "День работы:", calc_h: "Кол-во часов:", calc_after: "Цена с вычетом:",
+                opt_wd: "Будни (Пн-Пт)", opt_sat: "Суббота (x2)", opt_sun: "Воскресенье/Праздник (x3)",
+                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing, Визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка Wi-Fi и сетей</li>",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
+                price_f: "Мин. 1-й час: 50€<br>След.: 40€/ч",
+                faq_t: "Частые вопросы", faq_items: [
+                    {q:"Как работает возврат 50%?", a:"Вы оплачиваете услугу полностью, а государство возвращает 50% суммы в виде налогового вычета (SAP)."},
+                    {q:"Где взять чеки CESU?", a:"В вашем банке или на сайте cesu.urssaf.fr. Это удобный способ оплаты услуг."},
+                    {q:"Почему минимум 50€?", a:"Минимальный заказ (1 час) покрывает расходы на транспорт и подготовку оборудования."},
+                    {q:"Нужно ли мне иметь свои инструменты?", a:"Нет, я привожу всё необходимое профессиональное оборудование с собой."},
+                    {q:"Вычет в выходные?", a:"Да! Даже при тарифах x2/x3 вы получаете 50% возврата от итогового счета."}
+                ],
+                zones: "Ренн и пригород (Betton, Saint-Grégoire, Bruz...)", cop: "Скопировано!", msg: "Здравствуйте, я по поводу услуг..."
             },
             ua: {
-                wa: "WhatsApp 💬", tg: "Telegram Бот", mail: "E-mail", call: "Дзвінок", save: "Зберегти", share: "Поділитися", cop: "Скопійовано!", cb_msg: "Доброго дня, я щодо ваших послуг...",
-                nav_how: "Процес", nav_calc: "Калькулятор", nav_serv: "Послуги", nav_faq: "Питання",
-                how_t: "Як це працює?", s1t: "1. Зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте. Обговоримо деталі.",
-                s2t: "2. Тарифи та вихідні", s2d: "Будні: 50€/год. Субота: x2. Неділя/Свята: x3. Мін. замовлення 1 год.",
-                s3t: "3. Вигода", s3d: "Якісна робота та повернення 50% коштів (SAP).",
-                calc_t: "Калькулятор вигоди SAP", calc_min: "Мінімальне замовлення: 1 година", calc_h: "Годин:", calc_a: "Ціна після повернення 50%:",
-                calc_day: "День роботи:", opt_wd: "Будні (Пн-Пт)", opt_sat: "Субота (Тариф x2)", opt_sun: "Неділя (x3)",
-                it_t: "Web та IT послуги", it_l: "<li>Створення сайтів</li><li>Встановлення програм</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi</li>",
-                br_t: "Майстер на годину", br_l: "<li>Збірка меблів</li><li>Встановлення люстр, ТБ</li><li>Дрібний ремонт</li><li>Побутова техніка</li>",
-                p1: "Будні: 50€ (1-ша год)", p2: "Наступні: 40€/год", name: "Paul — Ваш майстер",
-                sap: "Повернення 50% податків (SAP)", zones: "Ренн та передмістя (Betton, Saint-Grégoire, Bruz...)",
-                faq_t: "Часті запитання", faq_items: [{q:"Чи діє вичет у вихідні?", a:"Так! Навіть при тарифах x2 або x3 ви отримуєте 50% повернення."}, {q:"Інструменти?", a:"Я маю власний професійний інструмент."}]
+                name: "Paul — Ваш майстер у Ренні", sap: "Повернення 50% податків (SAP)",
+                call: "Дзвінок", mail: "E-mail", save: "Зберегти", share: "Поділитися",
+                nav_calc: "Калькулятор", nav_serv: "Послуги", nav_faq: "Питання",
+                calc_t: "Калькулятор вигоди SAP", calc_day: "День роботи:", calc_h: "Кількість годин:", calc_after: "Ціна з вичетом:",
+                opt_wd: "Будні (Пн-Пт)", opt_sat: "Субота (x2)", opt_sun: "Неділя/Свята (x3)",
+                it_t: "Web та IT послуги", it_l: "<li>Створення сайтів (Landing, Візитки)</li><li>Встановлення ОС та програм</li><li>Чистка від вірусів та прискорення</li><li>Налаштування Wi-Fi та мереж</li>",
+                br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібний ремонт (крани, замки)</li><li>Підключення побутової техніки</li>",
+                price_f: "Мін. 1-ша год: 50€<br>Наст.: 40€/год",
+                faq_t: "Часті запитання", faq_items: [
+                    {q:"Як працює повернення 50%?", a:"Ви сплачуєте повну вартість, а держава повертає 50% суми через податкову знижку (SAP)."},
+                    {q:"Де взяти чеки CESU?", a:"У вашому банку або на сайті cesu.urssaf.fr."},
+                    {q:"Чому мінімум 50€?", a:"Мінімальне замовлення (1 година) покриває транспортні витрати та амортизацію інструментів."},
+                    {q:"Чи потрібні мої інструменти?", a:"Ні, я маю весь необхідний професійний інструмент."},
+                    {q:"Чи діє вичет у вихідні?", a:"Так! Повернення 50% діє на будь-яку суму в офіційному рахунку."}
+                ],
+                zones: "Ренн та передмістя (Betton, Saint-Grégoire, Bruz...)", cop: "Скопійовано!", msg: "Добрий день, я щодо ваших послуг..."
+            },
+            fr: {
+                name: "Paul — Votre artisan à Rennes", sap: "Services à la personne : 50% de crédit d'impôt",
+                call: "Appeler", mail: "E-mail", save: "Enregistrer", share: "Partager",
+                nav_calc: "Simulateur", nav_serv: "Services", nav_faq: "FAQ",
+                calc_t: "Simulateur Crédit d'Impôt", calc_day: "Jour :", calc_h: "Heures :", calc_after: "Coût réel :",
+                opt_wd: "Semaine", opt_sat: "Samedi (x2)", opt_sun: "Dimanche/Férié (x3)",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites</li><li>Installation OS & Logiciels</li><li>Nettoyage virus</li><li>Configuration Wi-Fi</li>",
+                br_t: "Petit Bricolage", br_l: "<li>Montage meubles</li><li>Installation luminaires, TV</li><li>Petit dépannage</li><li>Électroménager</li>",
+                price_f: "Min. 1ère h : 50€<br>Suiv. : 40€/h",
+                faq_t: "Questions fréquentes", faq_items: [
+                    {q:"Comment fonctionne le crédit d'impôt ?", a:"50% des sommes versées vous sont remboursés par l'État via le dispositif SAP."},
+                    {q:"Chèques CESU ?", a:"J'accepte les chèques CESU préfinancés ou déclaratifs."},
+                    {q:"Pourquoi un minimum de 50€ ?", a:"Cela couvre le déplacement et la mise en place du matériel."},
+                    {q:"Outils ?", a:"Je viens avec tout mon matériel professionnel."}
+                ],
+                zones: "Rennes et périphérie", cop: "Copié !", msg: "Bonjour, je vous contacte..."
             }
         };
 
-        function toggleTheme() { document.body.classList.toggle('light-theme'); const isLight = document.body.classList.contains('light-theme'); localStorage.setItem('theme', isLight?'light':'dark'); document.getElementById('theme-icon').innerText = isLight?'☀️':'🌙'; }
-        function loadTheme() { if(localStorage.getItem('theme')==='light') toggleTheme(); }
-        function changeLang(lang) {
-            const t = translations[lang] || translations['fr'];
-            document.getElementById('wa-link').href = `https://wa.me/33745625007?text=${encodeURIComponent(t.cb_msg)}`;
-            const ids = {'wa-text':t.wa,'tg-text':t.tg,'mail-text':t.mail,'call-text':t.call,'save-text':t.save,'share-text':t.share,'nav-how':t.nav_how,'nav-calc':t.nav_calc,'nav-serv':t.nav_serv,'nav-faq':t.nav_faq,'how-title':t.how_t,'step1-t':t.s1t,'step1-d':t.s1d,'step2-t':t.s2t,'step2-d':t.s2d,'step3-t':t.s3t,'step3-d':t.s3d,'calc-t':t.calc_t,'calc-min':t.calc_min,'calc-h':t.calc_h,'calc-after':t.calc_a,'calc-day-label':t.calc_day,'opt-weekday':t.opt_wd,'opt-sat':t.opt_sat,'opt-sun':t.opt_sun,'it-title':t.it_t,'it-list':t.it_l,'br-title':t.br_t,'br-list':t.br_l,'p1-it':t.p1,'p2-it':t.p2,'p1-br':t.p1,'p2-br':t.p2,'display-name':t.name,'footer-name':t.name,'sap-info':t.sap,'zones-list':t.zones,'faq-title':t.faq_t};
-            for (const [id, val] of Object.entries(ids)) { const el = document.getElementById(id); if(el) id.includes('list')?el.innerHTML=val:el.innerText=val; }
-            const faq = document.getElementById('faq-container'); faq.innerHTML = '';
-            t.faq_items.forEach(i => { const d = document.createElement('div'); d.className='faq-item'; d.innerHTML=`<div class="faq-question" onclick="toggleFaq(this)">${i.q} <span>+</span></div><div class="faq-answer">${i.a}</div>`; faq.appendChild(d); });
-            localStorage.setItem('preferredLang', lang); updateCalc();
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const isLight = document.body.classList.contains('light-theme');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            document.getElementById('theme-icon').innerText = isLight ? '☀️' : '🌙';
         }
-        function toggleFaq(el) { const ans = el.nextElementSibling; const isOpen = ans.style.display==='block'; document.querySelectorAll('.faq-answer').forEach(a=>a.style.display='none'); ans.style.display = isOpen?'none':'block'; }
+
+        function changeLang(lang) {
+            const t = translations[lang] || translations['ru'];
+            document.getElementById('display-name').innerText = t.name;
+            document.getElementById('sap-info').innerText = t.sap;
+            document.getElementById('call-text').innerText = t.call;
+            document.getElementById('mail-text').innerText = t.mail;
+            document.getElementById('save-text').innerText = t.save;
+            document.getElementById('share-text').innerText = t.share;
+            document.getElementById('nav-calc').innerText = t.nav_calc;
+            document.getElementById('nav-serv').innerText = t.nav_serv;
+            document.getElementById('nav-faq').innerText = t.nav_faq;
+            document.getElementById('calc-t').innerText = t.calc_t;
+            document.getElementById('calc-day-label').innerText = t.calc_day;
+            document.getElementById('calc-h').innerText = t.calc_h;
+            document.getElementById('calc-after').innerText = t.calc_after;
+            document.getElementById('opt-weekday').innerText = t.opt_wd;
+            document.getElementById('opt-sat').innerText = t.opt_sat;
+            document.getElementById('opt-sun').innerText = t.opt_sun;
+            document.getElementById('it-title').innerText = t.it_t;
+            document.getElementById('it-list').innerHTML = t.it_l;
+            document.getElementById('br-title').innerText = t.br_t;
+            document.getElementById('br-list').innerHTML = t.br_l;
+            document.getElementById('it-price').innerHTML = t.price_f;
+            document.getElementById('br-price').innerHTML = t.price_f;
+            document.getElementById('faq-title').innerText = t.faq_t;
+            document.getElementById('zones-list').innerText = t.zones;
+            document.getElementById('wa-link').href = `https://wa.me/33745625007?text=${encodeURIComponent(t.msg)}`;
+
+            const faqBox = document.getElementById('faq-container');
+            faqBox.innerHTML = '';
+            t.faq_items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'faq-item';
+                div.innerHTML = `<div class="faq-question" onclick="toggleFaq(this)">${item.q} <span>+</span></div><div class="faq-answer">${item.a}</div>`;
+                faqBox.appendChild(div);
+            });
+            localStorage.setItem('lang', lang);
+            updateCalc();
+        }
+
+        function toggleFaq(el) {
+            const ans = el.nextElementSibling;
+            const isOpen = ans.style.display === 'block';
+            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+            ans.style.display = isOpen ? 'none' : 'block';
+        }
+
         function updateCalc() {
             let h = parseFloat(document.getElementById('hoursInput').value) || 0;
             const mult = parseInt(document.getElementById('daySelect').value) || 1;
-            if(h<1 && h>0) h=1;
-            let total = h>=1 ? (50 + (Math.ceil(h)-1)*40)*mult : 0;
+            if (h > 0 && h < 1) h = 1;
+            let total = h >= 1 ? (50 + (Math.ceil(h) - 1) * 40) * mult : 0;
             document.getElementById('totalPrice').innerText = total;
-            document.getElementById('netPrice').innerText = (total/2).toFixed(0);
+            document.getElementById('netPrice').innerText = (total / 2).toFixed(0);
         }
-        function copyEmail() { const email = "paulmultiservice7@gmail.com"; navigator.clipboard.writeText(email).then(() => { const lang = localStorage.getItem('preferredLang')||'fr'; const btn = document.getElementById('mail-text'); btn.innerText = translations[lang].cop; setTimeout(()=>{btn.innerText=translations[lang].mail;},2000); }); }
-        function downloadVCard() { const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul\nTEL;TYPE=CELL,VOICE:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD"; const link = document.createElement("a"); link.href = 'data:text/vcard;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(vcard))); link.download = "Paul_MultiService.vcf"; link.click(); }
-        async function shareSite() { if(navigator.share) try { await navigator.share({title:'PaulMultiService', url:window.location.href}); } catch(e){} }
-        window.onscroll = () => { const b = document.getElementById("backToTop"); b.style.display = (window.scrollY>300)?"flex":"none"; };
-        window.addEventListener('DOMContentLoaded', () => { loadTheme(); changeLang(localStorage.getItem('preferredLang')||'fr'); setTimeout(() => { document.querySelectorAll('.card').forEach(c=>c.classList.add('show')); }, 200); });
+
+        function copyEmail() {
+            navigator.clipboard.writeText("paulmultiservice7@gmail.com");
+            const btn = document.getElementById('mail-text');
+            const old = btn.innerText;
+            btn.innerText = "Copié !";
+            setTimeout(() => btn.innerText = old, 2000);
+        }
+
+        function downloadVCard() {
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul\nTEL:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD";
+            const blob = new Blob([vcard], { type: "text/vcard" });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = "Paul_Artisan.vcf"; a.click();
+        }
+
+        async function shareSite() {
+            if (navigator.share) navigator.share({ title: 'Paul MultiService', url: window.location.href });
+        }
+
+        window.onscroll = () => { document.getElementById("backToTop").style.display = (window.scrollY > 300) ? "flex" : "none"; };
+        
+        window.onload = () => {
+            if (localStorage.getItem('theme') === 'light') toggleTheme();
+            changeLang(localStorage.getItem('lang') || 'ru');
+        };
     </script>
 </body>
 </html>
