@@ -38,18 +38,24 @@
             --gold-light: #f4d06f;
             --white: #ffffff; 
             --wa-green: #25D366;
+            /* Динамические переменные темы */
             --bg-color: var(--dark-green);
             --text-color: var(--white);
             --card-bg: rgba(255, 255, 255, 0.04);
+            --border-color: rgba(212, 175, 55, 0.2);
+            --nav-bg: rgba(10, 46, 31, 0.95);
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Полная инверсия для светлой темы */
         body.light-theme {
-            --bg-color: #f8faf9;
-            --text-color: #051a11;
-            --card-bg: #ffffff;
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --card-bg: #f9f9f9;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --nav-bg: rgba(255, 255, 255, 0.95);
             --gold: #a6892c; 
-            --gold-light: #856a1d;
+            --gold-light: #444444;
         }
 
         html { scroll-behavior: smooth; }
@@ -60,21 +66,25 @@
             overflow-x: hidden; transition: background var(--transition), color var(--transition);
         }
 
-        /* --- ЭФФЕКТЫ ХОВЕРА (НАВЕДЕНИЯ) --- */
-        
-        /* Логотип: увеличение и свечение */
+        /* Кнопка переключения темы (Фиксированная) */
+        .theme-toggle {
+            position: fixed; top: 15px; right: 15px;
+            background: var(--card-bg); border: 1px solid var(--gold);
+            color: var(--gold); width: 45px; height: 45px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; z-index: 2000; transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: var(--gold); color: white; }
+
         .main-logo { 
-            width: 170px; height: 170px; border-radius: 50%; margin: 0 auto 15px; 
+            width: 170px; height: 170px; border-radius: 50%; margin: 20px auto 15px; 
             display: block; border: 3px solid var(--gold); 
             box-shadow: 0 10px 25px rgba(0,0,0,0.4); 
             object-fit: cover; transition: var(--transition); cursor: pointer;
         }
-        .main-logo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--gold);
-        }
+        .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--gold); }
 
-        /* Кнопки мессенджеров: всплытие и яркость */
         .msg-btn { 
             display: flex; align-items: center; justify-content: center; 
             padding: 16px 5px; border-radius: 12px; text-decoration: none; 
@@ -82,85 +92,65 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: none; 
             cursor: pointer; transition: var(--transition); 
         }
-        .msg-btn:hover { 
-            transform: translateY(-4px); 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
-            filter: brightness(1.15);
-        }
-        .msg-btn:active { transform: translateY(-1px); }
+        .msg-btn:hover { transform: translateY(-4px); filter: brightness(1.15); }
 
-        /* Навигационные кнопки: смена цвета */
         .nav-pill { 
-            background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); 
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--border-color); 
             color: var(--gold); padding: 10px 18px; border-radius: 30px; 
             text-decoration: none; font-size: 0.85rem; font-weight: 600; 
-            white-space: nowrap; transition: var(--transition);
+            transition: var(--transition);
         }
         .nav-pill:hover { background: var(--gold); color: white; }
 
-        /* Языковые кнопки и переключатель темы */
-        .lang-btn, .theme-toggle { transition: var(--transition); }
-        .lang-btn:hover, .theme-toggle:hover { 
-            background: var(--gold); 
-            color: white; 
-            transform: translateY(-2px); 
-        }
-
-        /* --- ОСТАЛЬНЫЕ СТИЛИ --- */
-        .theme-toggle {
-            position: absolute; top: 15px; right: 15px;
-            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold);
-            color: var(--gold); padding: 8px; border-radius: 50%;
-            cursor: pointer; width: 40px; height: 40px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; z-index: 1002;
-        }
-        
         .lang-switcher { position: relative; padding: 15px; z-index: 1001; }
-        .lang-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--text-color); padding: 7px 15px; margin: 0 4px; cursor: pointer; border-radius: 8px; font-weight: 600; }
+        .lang-btn { background: var(--card-bg); border: 1px solid var(--gold); color: var(--text-color); padding: 7px 15px; margin: 0 4px; cursor: pointer; border-radius: 8px; font-weight: 600; transition: var(--transition); }
         
         .brand-name { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.2rem); color: var(--gold); margin: 40px 0 5px; text-transform: uppercase; letter-spacing: 4px; }
         .owner-name { color: var(--gold-light); font-size: clamp(1.1rem, 4vw, 1.6rem); font-family: 'Playfair Display', serif; font-weight: 600; margin-bottom: 5px; display: block; }
-        .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.15); color: var(--gold); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 25px; border: 1px solid rgba(212, 175, 55, 0.3); }
+        .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.15); color: var(--gold); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 25px; border: 1px solid var(--border-color); }
         
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto 20px; max-width: 360px; padding: 0 20px; }
-        .wa-btn-main { grid-column: span 2; background: var(--wa-green); font-size: 1.05rem !important; }
+        .wa-btn-main { grid-column: span 2; background: var(--wa-green); }
         .tg-btn { background: #0088cc; } 
-        .call-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold); }
-        .mail-btn { background: #6c757d; }
-        .vcard-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
-        .share-btn { grid-column: span 2; background: #4a4a4a; margin-top: 5px; }
+        .call-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+        .share-btn { grid-column: span 2; background: #4a4a4a; }
 
-        .nav-pills-container { position: sticky; top: 0; z-index: 1000; background: var(--bg-color); padding: 10px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
-        .nav-pills { display: flex; justify-content: center; gap: 8px; flex-wrap: nowrap; overflow-x: auto; padding: 0 15px; }
+        .nav-pills-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(10px); transition: background var(--transition); }
+        .nav-pills { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 0 15px; }
+
+        .step-card, .calc-box, .card, .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
 
         .how-it-works { max-width: 1000px; margin: 40px auto 60px; padding: 0 20px; }
         .steps-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
-        .step-card { flex: 1; min-width: 250px; max-width: 320px; padding: 25px; background: var(--card-bg); border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.1); }
+        .step-card { flex: 1; min-width: 250px; max-width: 320px; padding: 25px; }
         .step-num { width: 40px; height: 40px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold; }
 
-        .calc-box { max-width: 450px; width: 90%; margin: 60px auto; padding: 25px; background: var(--card-bg); border: 1px solid var(--gold); border-radius: 20px; box-sizing: border-box; }
+        .calc-box { max-width: 450px; width: 90%; margin: 60px auto; padding: 25px; box-sizing: border-box; }
         .calc-input-group input { width: 80px; padding: 10px; border-radius: 10px; border: 1px solid var(--gold); background: transparent; color: var(--text-color); text-align: center; font-size: 1.1rem; }
 
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1100px; margin: 60px auto; padding: 0 25px; }
-        .card { border: 1px solid rgba(212, 175, 55, 0.3); padding: 30px; border-radius: 20px; background: var(--card-bg); text-align: left; transition: 0.4s; opacity: 0; transform: translateY(20px); display: flex; flex-direction: column; }
+        .card { padding: 30px; text-align: left; opacity: 0; transform: translateY(20px); display: flex; flex-direction: column; }
         .card.show { opacity: 1; transform: translateY(0); }
-        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: auto; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.1); }
+        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border-color); }
 
         .faq-section { max-width: 800px; margin: 60px auto; padding: 0 20px; text-align: left; }
-        .faq-item { background: var(--card-bg); border: 1px solid rgba(212,175,55,0.2); border-radius: 15px; margin-bottom: 10px; overflow: hidden; }
-        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold-light); }
+        .faq-item { margin-bottom: 10px; overflow: hidden; border-radius: 15px; }
+        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold); }
         .faq-answer { padding: 0 20px 20px; display: none; line-height: 1.6; opacity: 0.9; }
 
         .back-to-top { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; text-decoration: none; z-index: 1001; }
-        .footer { margin-top: 60px; padding: 40px 20px; background: rgba(0, 0, 0, 0.15); border-top: 1px solid rgba(212, 175, 55, 0.2); }
-
-        /* Светлая тема - корректировки */
-        body.light-theme .lang-switcher, body.light-theme .nav-pills-container { background: rgba(248, 250, 249, 0.95) !important; border-bottom: 1px solid rgba(166, 137, 44, 0.2); }
-        body.light-theme .card, body.light-theme .step-card, body.light-theme .calc-box, body.light-theme .faq-item { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(166, 137, 44, 0.15); }
-        body.light-theme .msg-btn.call-btn, body.light-theme .msg-btn.vcard-btn { background: rgba(166, 137, 44, 0.05); }
-        body.light-theme .sap-badge { background: rgba(166, 137, 44, 0.1); color: #856a1d; border-color: rgba(166, 137, 44, 0.3); }
-        body.light-theme .faq-question { color: var(--text-color) !important; }
+        .footer { margin-top: 60px; padding: 40px 20px; background: rgba(0, 0, 0, 0.05); border-top: 1px solid var(--border-color); }
+        
+        /* Улучшение теней в светлой теме */
+        body.light-theme .card, body.light-theme .step-card, body.light-theme .calc-box {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body>
@@ -221,7 +211,7 @@
 
     <div id="calc" class="calc-box">
         <div class="calc-title" id="calc-t" style="color: var(--gold); font-size: 1.2rem; margin-bottom: 5px; font-weight: 600;">Simulateur Crédit d'Impôt</div>
-        <p id="calc-min" style="font-size: 0.8rem; color: var(--gold-light); margin-bottom: 15px;"></p>
+        <p id="calc-min" style="font-size: 0.8rem; color: var(--gold); opacity: 0.8; margin-bottom: 15px;"></p>
         <div class="calc-input-group">
             <label id="calc-h">Nombre d'heures :</label>
             <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
@@ -253,7 +243,7 @@
     <div class="footer">
         <div class="footer-brand" id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 20px;">Paul — Votre artisan multiservice</div>
         <div class="footer-zones" id="zones-list" style="margin-bottom: 25px; opacity: 0.9; font-size: 0.85rem;"></div>
-        <hr style="border: 0; border-top: 1px solid rgba(212, 175, 55, 0.2); width: 40%; margin: 20px auto;">
+        <hr style="border: 0; border-top: 1px solid var(--border-color); width: 40%; margin: 20px auto;">
         <div class="legal-mentions" style="font-size: 0.75rem; line-height: 1.6; opacity: 0.7;">
             <p style="margin: 5px 0;"><strong>EI Pavlo Pashkin</strong> | SIRET : 10000226000014</p>
             <p style="margin: 5px 0;">
@@ -284,7 +274,7 @@
                 faq_items: [
                     {q: "Où obtenir des chèques CESU ?", a: "Ils sont fournis par votre employeur, CSE ou mutuelle. Ils sont parfaits pour régler mes prestations !"},
                     {q: "Le tarif de 50€ est-il fixe ?", a: "Oui, c'est le minimum pour tout déplacement, incluant la première heure de travail."},
-                    {q: "Dois-je fournir les outils ?", a: "Non, je dispose de tout l'outillage professionnel. Prévoyez juste l'objet à installer."},
+                    {q: "Dois-je fournir les outils ?", a: "No, я привожу все инструменты с собой."},
                     {q: "Comment fonctionne le crédit d'impôt ?", a: "Grâce à mon agrément SAP, vous déдуisez 50% du montant de vos impôts l'année suivante."}
                 ]
             },
@@ -344,20 +334,22 @@
                 zones: "<b>Service area:</b> Rennes, Saint-Grégoire, Betton, Bruz, Pacé...",
                 faq_t: "Frequently Asked Questions",
                 faq_items: [
-                    {q: "Where to get CESU checks?", a: "CESU vouchers are usually provided by your employer or insurance. They are a great way to pay for my services!"},
+                    {q: "Where to get CESU checks?", a: "CESU vouchers are provided by your employer. They are a great way to pay for my services!"},
                     {q: "Is the 50€ fee fixed?", a: "Yes, it is the minimum charge for any visit, covering the first hour of work."},
                     {q: "Do I need to provide tools?", a: "No, I come with all the necessary professional equipment."},
-                    {q: "How does the tax credit work?", a: "Thanks to the SAP scheme, you can deduct 50% of the total cost from your income tax next year."}
+                    {q: "How does the tax credit work?", a: "Thanks to the SAP scheme, you can deduct 50% of the cost from your income tax."}
                 ]
             }
         };
 
         function toggleTheme() {
             const body = document.body;
+            const icon = document.getElementById('theme-icon');
             body.classList.toggle('light-theme');
+            
             const isLight = body.classList.contains('light-theme');
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
-            document.getElementById('theme-icon').innerText = isLight ? '☀️' : '🌙';
+            icon.innerText = isLight ? '☀️' : '🌙';
         }
 
         function loadTheme() {
