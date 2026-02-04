@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
     
     <title>Paul — Artisan Multiservice | Rennes | Bricolage & Informatique</title>
     <meta name="description" content="Besoin d'aide à Rennes ? Montage meubles IKEA, installation de lustres, fixation TV, branchement lave-linge et dépannage informatique. 50% de crédit d'impôt.">
@@ -140,14 +141,15 @@
             padding-top: 15px; max-width: 600px; margin: 0 auto; 
         }
 
-        /* Номер SIRET: чисто черный цвет без фона */
+        /* Номер SIRET: строго черный цвет, принудительно отключаем декор */
         .siret-number {
-            color: #000000;
+            color: #000000 !important;
+            text-decoration: none !important;
             font-weight: 600;
             background: none;
             padding: 0;
             display: inline;
-            /* Легкая тень, чтобы черный текст читался на темном фоне */
+            /* Легкая тень для читаемости на темном фоне */
             text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.3);
         }
 
