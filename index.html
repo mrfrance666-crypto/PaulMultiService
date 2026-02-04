@@ -59,7 +59,6 @@
             margin-bottom: 5px; display: block; letter-spacing: 1px;
         }
 
-        /* Стиль для той самой надписи про 50% */
         .sap-badge {
             display: inline-block;
             background: rgba(212, 175, 55, 0.15);
@@ -142,6 +141,7 @@
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
         .footer-brand { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.4rem; margin-bottom: 10px; }
+        .footer-zones { font-size: 0.85rem; margin-bottom: 20px; color: var(--gold-light); max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6; }
         .footer-contact-info { font-size: 0.9rem; margin-bottom: 25px; opacity: 0.9; }
         .legal-mentions { 
             font-size: 0.75rem; opacity: 0.6; line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.05);
@@ -250,12 +250,16 @@
 
     <div class="footer">
         <div class="footer-brand">Paul — Votre artisan multiservice</div>
+        <div class="footer-zones" id="zones-list">
+            <b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques-de-la-Lande.
+        </div>
         <div class="footer-contact-info">
-            <span>Rennes, 35700</span> • <span>paulmultiservice7@gmail.com</span>
+            paulmultiservice7@gmail.com
         </div>
         <div class="legal-mentions">
             <p>EI Pavlo Pashkin | SIRET : <span class="siret-number">10000226000014</span></p>
             <p>TVA non applicable, art. 293 B du CGI</p>
+            <p>Rennes, 35700</p>
         </div>
     </div>
 
@@ -263,7 +267,7 @@
         const translations = {
             fr: {
                 wa: "WhatsApp", tg: "Telegram Bot", mail: "Envoyer un E-mail", call: "M'appeler", save: "Enregistrer le contact", share: "Partager le site", cop: "Copié !",
-                how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliquez votre besoin via WhatsApp ou téléphone pour une réponse immédiate.",
+                how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliqueз votre besoin via WhatsApp ou téléphone pour une réponse immédiate.",
                 s2t: "2. Prix fixe", s2d: "Nous convenons du tarif et du RDV. Pas de frais cachés, tout est clair.",
                 s3t: "3. Service SAP", s3d: "Travail pro + facture officielle ouvrant droit à 50% de crédit d'impôt.",
                 calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :",
@@ -272,7 +276,8 @@
                 p1: "1ère heure : 50€", p2: "Suivantes : 40€/h", m1: "Soit 25€ (SAP)", m2: "20€/h (SAP)",
                 why_t: "Pourquoi me choisir ?", why_d: "Intervention rapide à Rennes • Agrément SAP (50% remboursés) • Travail soigné",
                 name: "Paul — Votre artisan multiservice",
-                sap: "Services à la personne : 50% de crédit d'impôt"
+                sap: "Services à la personne : 50% de crédit d'impôt",
+                zones: "<b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton, Bruz, Pacé, Saint-Jacques-de-la-Lande."
             },
             en: {
                 wa: "WhatsApp", tg: "Telegram Bot", mail: "Send E-mail", call: "Call me", save: "Save Contact", share: "Share Website", cop: "Copied!",
@@ -285,12 +290,13 @@
                 p1: "1st hour: 50€", p2: "Next: 40€/h", m1: "Only 25€ (after SAP)", m2: "20€/h (after SAP)",
                 why_t: "Why choose me?", why_d: "Fast response in Rennes • 50% Tax Credit (SAP) • Professional results",
                 name: "Paul — Your Multiservice Specialist",
-                sap: "Personal services: 50% tax credit"
+                sap: "Personal services: 50% tax credit",
+                zones: "<b>Service area:</b> Rennes and surrounding suburbs (Saint-Grégoire, Chantepie, Cesson-Sévigné, etc.)."
             },
             ua: {
                 wa: "WhatsApp", tg: "Telegram Бот", mail: "Надіслати E-mail", call: "Зателефонувати", save: "Зберегти контакт", share: "Поділитися", cop: "Скопійовано!",
-                how_t: "Ваш шлях до результату", s1t: "1. Миттєвий зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте для швидкої консультації.",
-                s2t: "2. Прозора ціна", s2d: "Узгоджуємо вартість до початку робіт. Жодних прихованих платежів.",
+                how_t: "Як це працює?", s1t: "1. Прямий зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте для швидкої консультації.",
+                s2t: "2. Фіксована ціна", s2d: "Ми узгоджуємо вартість до початку робіт. Жодних сюрпризів.",
                 s3t: "3. Офіційна вигода", s3d: "Якісна робота + рахунок для повернення 50% коштів (через SAP).",
                 calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин роботи:", calc_a: "Реальна вартість після повернення 50%:",
                 it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів та прискорення</li><li>Налаштування Wi-Fi та мереж</li>",
@@ -298,7 +304,8 @@
                 p1: "1-ша година: 50€", p2: "Наступні: 40€/год", m1: "Лише 25€ (через SAP)", m2: "Лише 20€/год (SAP)",
                 why_t: "Чому обирають мене?", why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Гарантія якості",
                 name: "Paul — Ваш надійний майстер у Ренні",
-                sap: "Побутові послуги: повернення 50% податків"
+                sap: "Побутові послуги: повернення 50% податків",
+                zones: "<b>Зона обслуговування:</b> Ренн та передмістя (Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton та ін.)."
             },
             ru: {
                 wa: "WhatsApp", tg: "Telegram Бот", mail: "Отправить E-mail", call: "Позвонить", save: "Сохранить контакт", share: "Поделиться", cop: "Скопировано!",
@@ -311,7 +318,8 @@
                 p1: "1-й час: 50€", p2: "Послед.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "Итого 20€/ч (SAP)",
                 why_t: "Почему стоит выбрать меня?", why_d: "Оперативный выезд в Ренне • Скидка 50% (налоговый вычет) • Качество",
                 name: "Paul — Ваш мастер на все руки в Ренне",
-                sap: "Бытовые услуги: налоговый вычет 50%"
+                sap: "Бытовые услуги: налоговый вычет 50%",
+                zones: "<b>Зона охвата:</b> Ренн и ближайшие пригороды (Saint-Grégoire, Chantepie, Cesson-Sévigné, Betton и др.)."
             }
         };
 
@@ -363,12 +371,12 @@
                 'p1-it': t.p1, 'p2-it': t.p2, 'm1-it': t.m1, 'm2-it': t.m2,
                 'p1-br': t.p1, 'p2-br': t.p2, 'm1-br': t.m1, 'm2-br': t.m2, 
                 'why-title': t.why_t, 'why-desc': t.why_d, 'display-name': t.name,
-                'sap-info': t.sap
+                'sap-info': t.sap, 'zones-list': t.zones
             };
             for (const [id, value] of Object.entries(ids)) {
                 const el = document.getElementById(id);
                 if (el) {
-                    if (id.includes('list')) el.innerHTML = value;
+                    if (id.includes('list') || id.includes('zones')) el.innerHTML = value;
                     else el.innerText = value;
                 }
             }
