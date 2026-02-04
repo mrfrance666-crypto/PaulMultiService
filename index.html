@@ -56,12 +56,25 @@
         .owner-name { 
             color: var(--gold-light); font-size: clamp(1.1rem, 4vw, 1.6rem); 
             font-family: 'Playfair Display', serif; font-weight: 600; 
-            margin-bottom: 30px; display: block; letter-spacing: 1px;
+            margin-bottom: 5px; display: block; letter-spacing: 1px;
+        }
+
+        /* Стиль для той самой надписи про 50% */
+        .sap-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold-light);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
         
         .messenger-wrapper { 
             display: flex; flex-wrap: wrap; justify-content: center; 
-            gap: 12px; margin: 30px auto; max-width: 900px; padding: 0 20px; 
+            gap: 12px; margin: 10px auto 30px; max-width: 900px; padding: 0 20px; 
         }
         
         .msg-btn { 
@@ -135,7 +148,6 @@
             padding-top: 15px; max-width: 600px; margin: 0 auto; 
         }
 
-        /* Номер SIRET: ЗОЛОТОЙ ЦВЕТ (как и название бренда) */
         .siret-number {
             color: var(--gold) !important;
             text-decoration: none !important;
@@ -160,6 +172,8 @@
     <p class="brand-name">PaulMultiService</p>
     <img src="logo.png" alt="Logo" class="main-logo">
     <span class="owner-name" id="display-name">Paul — Votre artisan multiservice</span>
+    
+    <div class="sap-badge" id="sap-info">Services à la personne : 50% de crédit d'impôt</div>
 
     <div class="messenger-wrapper">
         <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-text">WhatsApp</a>
@@ -246,12 +260,59 @@
     </div>
 
     <script>
-        // Скрипты без изменений
         const translations = {
-            fr: { wa: "WhatsApp", tg: "Telegram Bot", mail: "Envoyer un E-mail", call: "M'appeler", save: "Enregistrer le contact", share: "Partager le site", cop: "Copié !", how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliquez votre besoin via WhatsApp ou téléphone pour une réponse immédiate.", s2t: "2. Prix fixe", s2d: "Nous convenons du tarif et du RDV. Pas de frais cachés, tout est clair.", s3t: "3. Service SAP", s3d: "Travail pro + facture officielle ouvrant droit à 50% de crédit d'impôt.", calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :", it_t: "Assistance Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Box</li>", br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Installation de lustres & luminaires</li><li>Fixation TV & Supports muraux</li><li>Branchement lave-linge & Électroménager</li>", p1: "1ère heure : 50€", p2: "Suivantes : 40€/h", m1: "Soit 25€ (SAP)", m2: "20€/h (SAP)", why_t: "Pourquoi me choisir ?", why_d: "Intervention rapide à Rennes • Agrément SAP (50% remboursés) • Travail soigné", name: "Paul — Votre artisan multiservice" },
-            en: { wa: "WhatsApp", tg: "Telegram Bot", mail: "Send E-mail", call: "Call me", save: "Save Contact", share: "Share Website", cop: "Copied!", how_t: "How it works?", s1t: "1. Quick Contact", s1d: "Message me on WhatsApp or call to discuss your project immediately.", s2t: "2. Fixed Quote", s2d: "We agree on the price and time. No hidden costs, total transparency.", s3t: "3. Tax Benefit", s3d: "Quality work + official invoice for 50% tax credit (SAP scheme).", calc_t: "Tax Credit Simulator (SAP)", calc_h: "Number of hours:", calc_a: "Real cost after 50% tax credit:", it_t: "IT Support", it_l: "<li>Windows / MacOS installation</li><li>Virus removal & Speed-up</li><li>Wi-Fi & Network setup</li>", br_t: "Handyman Services", br_l: "<li>Furniture assembly (IKEA etc.)</li><li>Lustre & Lighting installation</li><li>TV & Wall mount fixing</li><li>Washing machine connection</li>", p1: "1st hour: 50€", p2: "Next: 40€/h", m1: "Only 25€ (after SAP)", m2: "20€/h (after SAP)", why_t: "Why choose me?", why_d: "Fast response in Rennes • 50% Tax Credit (SAP) • Professional results", name: "Paul — Your Multiservice Specialist" },
-            ua: { wa: "WhatsApp", tg: "Telegram Бот", mail: "Надіслати E-mail", call: "Зателефонувати", save: "Зберегти контакт", share: "Поділитися", cop: "Скопійовано!", how_t: "Ваш шлях до результату", s1t: "1. Миттєвий зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте для швидкої консультації.", s2t: "2. Прозора ціна", s2d: "Узгоджуємо вартість до початку робіт. Жодних прихованих платежів.", s3t: "3. Офіційна вигода", s3d: "Якісна робота + рахунок для повернення 50% коштів (через SAP).", calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин роботи:", calc_a: "Реальна вартість після повернення 50%:", it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів та прискорення</li><li>Налаштування Wi-Fi та мереж</li>", br_t: "Мастер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр та світильників</li><li>Монтаж ТБ та кронштейнів</li><li>Підключення пральних машин</li>", p1: "1-ша година: 50€", p2: "Наступні: 40€/год", m1: "Лише 25€ (через SAP)", m2: "Лише 20€/год (SAP)", why_t: "Чому обирають мене?", why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Гарантія якості", name: "Paul — Ваш надійний майстер у Ренні" },
-            ru: { wa: "WhatsApp", tg: "Telegram Бот", mail: "Отправить E-mail", call: "Позвонить", save: "Сохранить контакт", share: "Поделиться", cop: "Скопировано!", how_t: "Как это работает?", s1t: "1. Быстрая связь", s1d: "Напишите в WhatsApp или позвоните. Отвечаю моментально.", s2t: "2. Честная цена", s2d: "Фиксируем стоимость до выезда. Без сюрпризов в чеке.", s3t: "3. Ваша выгода", s3d: "Профессиональный ремонт + счет для возврата 50% налогов (SAP).", calc_t: "Калькулятор экономии SAP", calc_h: "Количество часов:", calc_a: "Реальная цена после возврата 50%:", it_t: "ИT Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов и настройка</li><li>Настройка Wi-Fi и интернета</li>", br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр и светильников</li><li>Монтаж ТВ и кронштейнов</li><li>Подключение стиральных машин</li>", p1: "1-й час: 50€", p2: "Послед.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "Итого 20€/ч (SAP)", why_t: "Почему стоит выбрать меня?", why_d: "Оперативный выезд в Ренне • Скидка 50% (налоговый вычет) • Качество", name: "Paul — Ваш мастер на все руки в Ренне" }
+            fr: {
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "Envoyer un E-mail", call: "M'appeler", save: "Enregistrer le contact", share: "Partager le site", cop: "Copié !",
+                how_t: "Comment ça marche ?", s1t: "1. Contact direct", s1d: "Expliquez votre besoin via WhatsApp ou téléphone pour une réponse immédiate.",
+                s2t: "2. Prix fixe", s2d: "Nous convenons du tarif et du RDV. Pas de frais cachés, tout est clair.",
+                s3t: "3. Service SAP", s3d: "Travail pro + facture officielle ouvrant droit à 50% de crédit d'impôt.",
+                calc_t: "Simulateur d'économie SAP", calc_h: "Nombre d'heures :", calc_a: "Coût réel après crédit d'impôt :",
+                it_t: "Assistance Informatique", it_l: "<li>Installation Windows / MacOS</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Box</li>",
+                br_t: "Petit Bricolage", br_l: "<li>Montage de meubles (IKEA, etc.)</li><li>Installation de lustres & luminaires</li><li>Fixation TV & Supports muraux</li><li>Branchement lave-linge & Électroménager</li>",
+                p1: "1ère heure : 50€", p2: "Suivantes : 40€/h", m1: "Soit 25€ (SAP)", m2: "20€/h (SAP)",
+                why_t: "Pourquoi me choisir ?", why_d: "Intervention rapide à Rennes • Agrément SAP (50% remboursés) • Travail soigné",
+                name: "Paul — Votre artisan multiservice",
+                sap: "Services à la personne : 50% de crédit d'impôt"
+            },
+            en: {
+                wa: "WhatsApp", tg: "Telegram Bot", mail: "Send E-mail", call: "Call me", save: "Save Contact", share: "Share Website", cop: "Copied!",
+                how_t: "How it works?", s1t: "1. Quick Contact", s1d: "Message me on WhatsApp or call to discuss your project immediately.",
+                s2t: "2. Fixed Quote", s2d: "We agree on the price and time. No hidden costs, total transparency.",
+                s3t: "3. Tax Benefit", s3d: "Quality work + official invoice for 50% tax credit (SAP scheme).",
+                calc_t: "Tax Credit Simulator (SAP)", calc_h: "Number of hours:", calc_a: "Real cost after 50% tax credit:",
+                it_t: "IT Support", it_l: "<li>Windows / MacOS installation</li><li>Virus removal & Speed-up</li><li>Wi-Fi & Network setup</li>",
+                br_t: "Handyman Services", br_l: "<li>Furniture assembly (IKEA etc.)</li><li>Lustre & Lighting installation</li><li>TV & Wall mount fixing</li><li>Washing machine connection</li>",
+                p1: "1st hour: 50€", p2: "Next: 40€/h", m1: "Only 25€ (after SAP)", m2: "20€/h (after SAP)",
+                why_t: "Why choose me?", why_d: "Fast response in Rennes • 50% Tax Credit (SAP) • Professional results",
+                name: "Paul — Your Multiservice Specialist",
+                sap: "Personal services: 50% tax credit"
+            },
+            ua: {
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Надіслати E-mail", call: "Зателефонувати", save: "Зберегти контакт", share: "Поділитися", cop: "Скопійовано!",
+                how_t: "Ваш шлях до результату", s1t: "1. Миттєвий зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте для швидкої консультації.",
+                s2t: "2. Прозора ціна", s2d: "Узгоджуємо вартість до початку робіт. Жодних прихованих платежів.",
+                s3t: "3. Офіційна вигода", s3d: "Якісна робота + рахунок для повернення 50% коштів (через SAP).",
+                calc_t: "Калькулятор вигоди SAP", calc_h: "Кількість годин роботи:", calc_a: "Реальна вартість після повернення 50%:",
+                it_t: "IT Послуги", it_l: "<li>Встановлення Windows / MacOS</li><li>Очищення від вірусів та прискорення</li><li>Налаштування Wi-Fi та мереж</li>",
+                br_t: "Мастер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр та світильників</li><li>Монтаж ТБ та кронштейнів</li><li>Підключення пральних машин</li>",
+                p1: "1-ша година: 50€", p2: "Наступні: 40€/год", m1: "Лише 25€ (через SAP)", m2: "Лише 20€/год (SAP)",
+                why_t: "Чому обирають мене?", why_d: "Швидкий виїзд у Ренні • Податкова знижка 50% (SAP) • Гарантія якості",
+                name: "Paul — Ваш надійний майстер у Ренні",
+                sap: "Побутові послуги: повернення 50% податків"
+            },
+            ru: {
+                wa: "WhatsApp", tg: "Telegram Бот", mail: "Отправить E-mail", call: "Позвонить", save: "Сохранить контакт", share: "Поделиться", cop: "Скопировано!",
+                how_t: "Как это работает?", s1t: "1. Быстрая связь", s1d: "Напишите в WhatsApp или позвоните. Отвечаю моментально.",
+                s2t: "2. Честная цена", s2d: "Фиксируем стоимость до выезда. Без сюрпризов в чеке.",
+                s3t: "3. Ваша выгода", s3d: "Профессиональный ремонт + счет для возврата 50% налогов (SAP).",
+                calc_t: "Калькулятор экономии SAP", calc_h: "Количество часов:", calc_a: "Реальная цена после возврата 50%:",
+                it_t: "ИT Услуги", it_l: "<li>Установка Windows / MacOS</li><li>Очистка от вирусов и настройка</li><li>Настройка Wi-Fi и интернета</li>",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр и светильников</li><li>Монтаж ТВ и кронштейнов</li><li>Подключение стиральных машин</li>",
+                p1: "1-й час: 50€", p2: "Послед.: 40€/ч", m1: "Итого 25€ (через SAP)", m2: "Итого 20€/ч (SAP)",
+                why_t: "Почему стоит выбрать меня?", why_d: "Оперативный выезд в Ренне • Скидка 50% (налоговый вычет) • Качество",
+                name: "Paul — Ваш мастер на все руки в Ренне",
+                sap: "Бытовые услуги: налоговый вычет 50%"
+            }
         };
 
         function updateCalc() {
@@ -301,7 +362,8 @@
                 'br-title': t.br_t, 'br-list': t.br_l, 
                 'p1-it': t.p1, 'p2-it': t.p2, 'm1-it': t.m1, 'm2-it': t.m2,
                 'p1-br': t.p1, 'p2-br': t.p2, 'm1-br': t.m1, 'm2-br': t.m2, 
-                'why-title': t.why_t, 'why-desc': t.why_d, 'display-name': t.name
+                'why-title': t.why_t, 'why-desc': t.why_d, 'display-name': t.name,
+                'sap-info': t.sap
             };
             for (const [id, value] of Object.entries(ids)) {
                 const el = document.getElementById(id);
