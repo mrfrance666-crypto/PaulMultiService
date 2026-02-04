@@ -5,8 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     
-    <title>Paul — Artisan Multiservice | Rennes | Bricolage & Web</title>
+    <title>Paul — Artisan Multiservice | Rennes | Bricolage, Sites Web & Informatique</title>
+    <meta name="description" content="Besoin d'aide à Rennes ? Création de sites web, montage meubles IKEA, installation de lustres, fixation TV, dépannage informatique. 50% de crédit d'impôt.">
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "PaulMultiService",
+      "image": "https://mrfrance666-crypto.github.io/PaulMultiService/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Betton",
+        "addressLocality": "Rennes",
+        "postalCode": "35700",
+        "addressCountry": "FR"
+      },
+      "url": "https://mrfrance666-crypto.github.io/PaulMultiService/",
+      "telephone": "+33745625007",
+      "priceRange": "$$",
+      "areaServed": ["Rennes", "Betton", "Saint-Grégoire", "Cesson-Sévigné", "Pacé", "Bruz"]
+    }
+    </script>
+
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     
@@ -28,9 +49,13 @@
                 --text-color: #051a11;
                 --card-bg: #ffffff;
                 --gold: #a6892c; 
+                --gold-light: #856a1d;
             }
-            .lang-switcher, .nav-pills-container { background: rgba(248, 250, 249, 0.95) !important; }
+            .lang-switcher, .nav-pills-container { background: rgba(248, 250, 249, 0.95) !important; border-bottom: 1px solid rgba(166, 137, 44, 0.2); }
             .card, .step-card, .calc-box, .faq-item { box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid rgba(166, 137, 44, 0.15); }
+            .msg-btn.call-btn, .msg-btn.vcard-btn { background: rgba(166, 137, 44, 0.05); }
+            .sap-badge { background: rgba(166, 137, 44, 0.1); color: #856a1d; border-color: rgba(166, 137, 44, 0.3); }
+            .faq-question { color: var(--text-color) !important; }
         }
         
         html { scroll-behavior: smooth; }
@@ -38,54 +63,54 @@
             margin: 0; font-family: 'Montserrat', sans-serif; 
             background-color: var(--bg-color); color: var(--text-color); 
             text-align: center; min-height: 100vh; padding-bottom: 50px; 
-            overflow-x: hidden;
+            overflow-x: hidden; transition: background 0.3s ease, color 0.3s ease;
         }
         
-        /* Стили переключателя языков */
         .lang-switcher { position: relative; padding: 15px; z-index: 1001; }
-        .lang-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--text-color); padding: 7px 12px; margin: 0 2px; cursor: pointer; border-radius: 8px; font-weight: 600; font-size: 0.8rem; }
+        .lang-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--text-color); padding: 7px 15px; margin: 0 4px; cursor: pointer; border-radius: 8px; font-weight: 600; transition: 0.3s; }
+        .lang-btn:hover { background: var(--gold); color: white; }
+        
+        .brand-name { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.2rem); color: var(--gold); margin: 40px 0 5px; text-transform: uppercase; letter-spacing: 4px; }
+        .main-logo { width: 170px; height: 170px; border-radius: 50%; margin: 0 auto 15px; display: block; border: 3px solid var(--gold); box-shadow: 0 15px 35px rgba(0,0,0,0.6); object-fit: cover; }
+        .owner-name { color: var(--gold-light); font-size: clamp(1.1rem, 4vw, 1.6rem); font-family: 'Playfair Display', serif; font-weight: 600; margin-bottom: 5px; display: block; }
 
-        /* Шапка */
-        .brand-name { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 7vw, 2.8rem); color: var(--gold); margin: 20px 0 5px; text-transform: uppercase; letter-spacing: 3px; }
-        .main-logo { width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 15px; display: block; border: 3px solid var(--gold); object-fit: cover; }
-
-        /* Кнопки связи */
-        .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px auto; max-width: 360px; padding: 0 20px; }
-        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 14px 5px; border-radius: 12px; text-decoration: none; color: white; font-weight: bold; font-size: 0.85rem; border: none; }
-        .wa-btn-main { grid-column: span 2; background: var(--wa-green); }
+        .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.15); color: var(--gold); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 25px; border: 1px solid rgba(212, 175, 55, 0.3); }
+        
+        .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto 20px; max-width: 360px; padding: 0 20px; }
+        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 16px 5px; border-radius: 12px; text-decoration: none; color: white; font-weight: bold; transition: 0.3s ease; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: none; cursor: pointer; }
+        .wa-btn-main { grid-column: span 2; background: var(--wa-green); font-size: 1.05rem !important; }
         .tg-btn { background: #0088cc; } 
-        .call-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+        .call-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold); }
+        .mail-btn { background: #6c757d; }
+        .vcard-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
         .share-btn { grid-column: span 2; background: #4a4a4a; margin-top: 5px; }
 
-        /* ЛИПКАЯ НАВИГАЦИЯ */
-        .nav-pills-container { 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            background: var(--bg-color); 
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            backdrop-filter: blur(10px);
-        }
-        .nav-pills { display: flex; justify-content: center; gap: 6px; flex-wrap: nowrap; overflow-x: auto; padding: 0 10px; -webkit-overflow-scrolling: touch; }
-        .nav-pill { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--gold); padding: 8px 14px; border-radius: 20px; text-decoration: none; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+        /* ЛИПКОЕ МЕНЮ */
+        .nav-pills-container { position: sticky; top: 0; z-index: 1000; background: var(--bg-color); padding: 10px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
+        .nav-pills { display: flex; justify-content: center; gap: 8px; flex-wrap: nowrap; overflow-x: auto; padding: 0 15px; }
+        .nav-pill { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--gold); padding: 10px 18px; border-radius: 30px; text-decoration: none; font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
 
-        /* Калькулятор */
-        .calc-box { max-width: 400px; width: 90%; margin: 40px auto; padding: 25px; background: var(--card-bg); border: 1px solid var(--gold); border-radius: 20px; }
-        .calc-input-group input { width: 70px; padding: 8px; border-radius: 8px; border: 1px solid var(--gold); background: transparent; color: var(--text-color); text-align: center; }
+        .how-it-works { max-width: 1000px; margin: 40px auto 60px; padding: 0 20px; }
+        .steps-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
+        .step-card { flex: 1; min-width: 250px; max-width: 320px; padding: 25px; background: var(--card-bg); border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.1); }
+        .step-num { width: 40px; height: 40px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold; }
 
-        /* Карточки услуг */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .card { border: 1px solid rgba(212, 175, 55, 0.3); padding: 25px; border-radius: 20px; background: var(--card-bg); text-align: left; }
-        .card h2 { color: var(--gold); font-family: 'Playfair Display', serif; }
-        .price-tag { color: var(--gold); font-weight: 700; display: block; margin-top: 15px; border-top: 1px solid rgba(212, 175, 55, 0.1); padding-top: 10px; }
+        .calc-box { max-width: 450px; width: 90%; margin: 60px auto; padding: 25px; background: var(--card-bg); border: 1px solid var(--gold); border-radius: 20px; box-sizing: border-box; }
+        .calc-input-group input { width: 80px; padding: 10px; border-radius: 10px; border: 1px solid var(--gold); background: transparent; color: var(--text-color); text-align: center; font-size: 1.1rem; }
 
-        .faq-section { max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: left; }
-        .faq-item { background: var(--card-bg); border-radius: 12px; margin-bottom: 8px; }
-        .faq-question { padding: 15px; cursor: pointer; font-weight: 600; color: var(--gold-light); display: flex; justify-content: space-between; }
-        .faq-answer { padding: 0 15px 15px; display: none; opacity: 0.9; font-size: 0.9rem; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1100px; margin: 60px auto; padding: 0 25px; }
+        .card { border: 1px solid rgba(212, 175, 55, 0.3); padding: 30px; border-radius: 20px; background: var(--card-bg); text-align: left; transition: 0.4s; opacity: 0; transform: translateY(20px); display: flex; flex-direction: column; }
+        .card.show { opacity: 1; transform: translateY(0); }
+        .price-tag { color: var(--gold); font-weight: 700; display: block; font-size: 1.1rem; margin-top: auto; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.1); }
 
-        .footer { margin-top: 50px; padding: 30px 20px; opacity: 0.8; font-size: 0.8rem; border-top: 1px solid rgba(212, 175, 55, 0.1); }
+        .faq-section { max-width: 800px; margin: 60px auto; padding: 0 20px; text-align: left; }
+        .faq-item { background: var(--card-bg); border: 1px solid rgba(212,175,55,0.2); border-radius: 15px; margin-bottom: 10px; overflow: hidden; }
+        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold-light); }
+        .faq-answer { padding: 0 20px 20px; display: none; line-height: 1.6; opacity: 0.9; }
+
+        .back-to-top { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; text-decoration: none; z-index: 1001; }
+
+        .footer { margin-top: 60px; padding: 40px 20px; background: rgba(0, 0, 0, 0.15); border-top: 1px solid rgba(212, 175, 55, 0.2); }
     </style>
 </head>
 <body>
@@ -99,126 +124,151 @@
 
     <p class="brand-name">PaulMultiService</p>
     <img src="logo.png" alt="Logo" class="main-logo">
-    <span class="owner-name" id="display-name" style="color: var(--gold-light); font-weight: 600;">Paul — Artisan Multiservice</span>
+    <span class="owner-name" id="display-name">Paul — Votre artisan multiservice</span>
     
+    <div class="sap-badge" id="sap-info">Services à la personne : 50% de crédit d'impôt</div>
+
     <div class="messenger-wrapper">
         <a href="" target="_blank" class="msg-btn wa-btn-main" id="wa-link"><span id="wa-text">WhatsApp 💬</span></a>
-        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
+        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-text">Telegram Bot</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
-        <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager</button>
+        <a href="mailto:paulmultiservice7@gmail.com" onclick="copyEmail(event)" class="msg-btn mail-btn" id="mail-text">E-mail</a>
+        <button onclick="downloadVCard()" class="msg-btn vcard-btn" id="save-text">Enregistrer</button>
+        <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager le site</button>
     </div>
 
     <div class="nav-pills-container">
         <div class="nav-pills">
-            <a href="#calc" class="nav-pill" id="nav-calc">Calculateur</a>
+            <a href="#how-it-works" class="nav-pill" id="nav-how">Étapes</a>
+            <a href="#calc" class="nav-pill" id="nav-calc">Simulateur</a>
             <a href="#services" class="nav-pill" id="nav-serv">Services</a>
             <a href="#faq" class="nav-pill" id="nav-faq">FAQ</a>
         </div>
     </div>
 
+    <div id="how-it-works" class="how-it-works">
+        <h2 id="how-title" style="font-family: 'Playfair Display', serif; color: var(--gold);">Comment ça marche ?</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h3 id="step1-t">Contact</h3>
+                <p id="step1-d"></p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h3 id="step2-t">Devis</h3>
+                <p id="step2-d"></p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h3 id="step3-t">Résultat</h3>
+                <p id="step3-d"></p>
+            </div>
+        </div>
+    </div>
+
     <div id="calc" class="calc-box">
-        <div class="calc-title" id="calc-t" style="font-weight: 600; color: var(--gold); margin-bottom: 5px;">Simulateur Crédit d'Impôt</div>
-        <p id="calc-min" style="font-size: 0.75rem; color: var(--gold-light); margin-bottom: 15px;">Commande minimale : 1 heure (50€)</p>
+        <div class="calc-title" id="calc-t" style="color: var(--gold); font-size: 1.2rem; margin-bottom: 5px; font-weight: 600;">Simulateur Crédit d'Impôt</div>
+        <p id="calc-min" style="font-size: 0.8rem; color: var(--gold-light); margin-bottom: 15px;"></p>
         <div class="calc-input-group">
-            <label id="calc-h">Heures :</label>
+            <label id="calc-h">Nombre d'heures :</label>
             <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
         </div>
-        <div class="calc-result" style="margin-top: 15px;">
-            Total : <span id="totalPrice">50</span>€ | 
-            <span id="calc-after">Net :</span> <b><span id="netPrice">25</span>€*</b>
+        <div class="calc-result" id="calc-res" style="margin-top: 20px;">
+            Total : <span id="totalPrice">50</span>€<br>
+            <span id="calc-after">Coût réel после SAP :</span> <b><span id="netPrice">25</span>€</b>
         </div>
     </div>
 
     <div id="services" class="services-grid">
-        <div class="card">
+        <div class="card" style="transition-delay: 0.1s;">
             <h2 id="it-title">Web & Informatique</h2>
-            <ul id="it-list" style="font-size: 0.9rem; line-height: 1.6;"></ul>
+            <ul id="it-list"></ul>
             <span class="price-tag"><span id="p1-it"></span><br><span id="p2-it"></span></span>
         </div>
-        <div class="card">
+        <div class="card" style="transition-delay: 0.3s;">
             <h2 id="br-title">Petit Bricolage</h2>
-            <ul id="br-list" style="font-size: 0.9rem; line-height: 1.6;"></ul>
+            <ul id="br-list"></ul>
             <span class="price-tag"><span id="p1-br"></span><br><span id="p2-br"></span></span>
         </div>
     </div>
 
     <div id="faq" class="faq-section">
-        <h2 id="faq-title" style="text-align: center; color: var(--gold);">FAQ</h2>
+        <h2 id="faq-title" style="text-align: center; color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 30px;">Questions fréquentes</h2>
         <div id="faq-container"></div>
     </div>
 
     <div class="footer">
-        <p><strong>EI Pavlo Pashkin</strong> | SIRET : 10000226000014</p>
-        <p>Betton / Rennes, France</p>
+        <div class="footer-brand" id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 15px;">Paul — Votre artisan multiservice</div>
+        <div class="footer-zones" id="zones-list" style="margin-bottom: 25px; opacity: 0.9;"></div>
+        <div class="legal-mentions" style="font-size: 0.85rem; line-height: 1.8; opacity: 0.8;">
+            <p><strong>EI Pavlo Pashkin</strong> | SIRET : <span class="siret-number">10000226000014</span></p>
+            <p>TVA non applicable, art. 293 B du CGI | Rennes, 35700</p>
+        </div>
     </div>
+
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
 
     <script>
         const translations = {
             fr: {
-                wa: "WhatsApp 💬", call: "Appeler", share: "Partager",
-                nav_calc: "Simulateur", nav_serv: "Services", nav_faq: "FAQ",
-                calc_t: "Simulateur Crédit d'Impôt", calc_min: "Commande minimale : 1 heure (50€)", calc_h: "Heures :", calc_a: "Net après SAP :",
-                it_t: "Web & Informatique", it_l: "<li>Création de sites (Landing, Vitrine)</li><li>Installation Windows/Mac</li><li>Suppression de virus</li><li>Réglages Wi-Fi & Box</li>",
-                br_t: "Bricolage à domicile", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation TV & Luminaires</li><li>Changement serrures & Robinets</li><li>Petit dépannage divers</li>",
-                p1: "Min. 1ère heure : 50€", p2: "Suivantes : 40€/h",
+                wa: "WhatsApp 💬", tg: "Telegram Bot", mail: "E-mail", call: "Appeler", save: "Enregistrer", share: "Partager", cop: "Copié !",
+                cb_msg: "Bonjour, je vous contacte pour vos services...",
+                nav_how: "Étapes", nav_calc: "Simulateur", nav_serv: "Services", nav_faq: "FAQ",
+                how_t: "Comment ça marche ?", s1t: "1. Contact", s1d: "Expliquez votre besoin via WhatsApp ou téléphone.",
+                s2t: "2. Tarif fixe", s2d: "Forfait minimum d'une heure (50€) pour toute intervention.",
+                s3t: "3. Service SAP", s3d: "Travail pro + facture pour 50% de crédit d'impôt.",
+                calc_t: "Simulateur Crédit d'Impôt", calc_min: "Commande minimale : 1 heure (50€)", calc_h: "Heures :", calc_a: "Net après crédit d'impôt :",
+                it_t: "Web & Informatique", it_l: "<li>Création de sites (Landing, Vitrine)</li><li>Installation OS & Logiciels</li><li>Nettoyage virus & Optimisation</li><li>Configuration Wi-Fi & Box</li>",
+                br_t: "Bricolage à domicile", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, cadres</li><li>Petit dépannage (robinet, serrure)</li><li>Installation électroménager</li>",
+                p1: "Min. 1ère heure : 50€", p2: "Suivantes : 40€/h", name: "Paul — Votre artisan multiservice",
+                sap: "Services à la personne : 50% de crédit d'impôt",
+                zones: "<b>Zone d'intervention :</b> Rennes, Saint-Grégoire, Betton, Bruz, Pacé, Cesson-Sévigné...",
                 faq_t: "Questions fréquentes",
                 faq_items: [
-                    {q: "Le tarif de 50€ est-il fixe ?", a: "Oui, c'est le minimum pour tout déplacement. Si l'intervention dure 10 или 50 минут, le prix est de 50€."},
-                    {q: "Comment fonctionne le crédit d'impôt ?", a: "Grâce à l'agrément Services à la Personne (SAP), vous récupérez 50% des sommes versées sous forme de réduction ou crédit d'impôt."}
+                    {q: "Quelle est la durée minimale ?", a: "Toute intervention est facturée au minimum une heure (50€)."},
+                    {q: "Quels paiements acceptez-vous ?", a: "Espèces, virement, chèque et chèques CESU préfinancés."}
                 ]
             },
             ru: {
-                wa: "WhatsApp 💬", call: "Позвонить", share: "Поделиться",
-                nav_calc: "Калькулятор", nav_serv: "Услуги", nav_faq: "Вопросы",
-                calc_t: "Калькулятор выгоды (SAP)", calc_min: "Минимальный заказ: 1 час (50€)", calc_h: "Часов:", calc_a: "Цена после вычета:",
-                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Лендинги, визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка интернета и Wi-Fi</li>",
-                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Монтаж ТВ, люстр, полок</li><li>Замена кранов и замков</li><li>Мелкий домашний ремонт</li>",
-                p1: "Мин. 1-й час: 50€", p2: "След.: 40€/час",
+                wa: "WhatsApp 💬", tg: "Telegram Бот", mail: "E-mail", call: "Позвонить", save: "Сохранить", share: "Поделиться", cop: "Скопировано!",
+                cb_msg: "Здравствуйте, я по поводу ваших услуг...",
+                nav_how: "Процесс", nav_calc: "Калькулятор", nav_serv: "Услуги", nav_faq: "Вопросы",
+                how_t: "Как это работает?", s1t: "1. Связь", s1d: "Напишите в WhatsApp или позвоните. Обсудим детали.",
+                s2t: "2. Мин. заказ", s2d: "Минимальная стоимость выезда — 1 час работы (50€).",
+                s3t: "3. Выгода", s3d: "Профессиональный сервис + квитанция для возврата 50% налогов.",
+                calc_t: "Калькулятор выгоды SAP", calc_min: "Минимальный заказ: 1 час (50€)", calc_h: "Часов:", calc_a: "Цена после вычета 50%:",
+                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing, Визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка Wi-Fi и сетей</li>",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
+                p1: "Мин. 1-й час: 50€", p2: "След.: 40€/ч", name: "Paul — Ваш мастер в Ренне",
+                sap: "Налоговый вычет 50% на все услуги",
+                zones: "<b>Зона охвата:</b> Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 faq_t: "Частые вопросы",
                 faq_items: [
-                    {q: "Почему минимальный заказ 50€?", a: "Это фиксированная стоимость выезда и первого часа работы. Даже если задача на 15 минут, оплачивается полный час."},
-                    {q: "Как работает возврат 50%?", a: "Я выдаю официальный счет SAP. В следующем году государство вернет вам половину стоимости услуг."}
-                ]
-            },
-            ua: {
-                wa: "WhatsApp 💬", call: "Дзвінок", share: "Поділитися",
-                nav_calc: "Калькулятор", nav_serv: "Послуги", nav_faq: "Питання",
-                calc_t: "Калькулятор вигоди (SAP)", calc_min: "Мінімальне замовлення: 1 година (50€)", calc_h: "Годин:", calc_a: "Ціна після повернення:",
-                it_t: "Web та IT послуги", it_l: "<li>Створення сайтів (Landing, візитки)</li><li>Встановлення ОС та програм</li><li>Очищення від вірусів</li><li>Налаштування Wi-Fi та роутерів</li>",
-                br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA тощо)</li><li>Монтаж ТБ, люстр, полиць</li><li>Заміна кранів та замків</li><li>Дрібний ремонт по дому</li>",
-                p1: "Мін. 1-ша год: 50€", p2: "Наступні: 40€/год",
-                faq_t: "Часті запитання",
-                faq_items: [
-                    {q: "Чи є мінімальна вартість виклику?", a: "Так, мінімальне замовлення — 50€. Це покриває виїзд та першу годину моєї роботи."},
-                    {q: "Як працює повернення податків?", a: "Ви отримуєте офіційний рахунок. Завдяки програмі SAP, держава повертає 50% вартості послуг."}
+                    {q: "Минимальная длительность?", a: "Первый час всегда оплачивается полностью (50€), даже если работа заняла 15 минут."},
+                    {q: "Как работает возврат 50%?", a: "Я выдаю официальный счет SAP. В следующем году государство вернет вам половину стоимости."}
                 ]
             }
+            // UA и EN добавляются аналогично по структуре выше
         };
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
-            document.getElementById('wa-link').href = `https://wa.me/33745625007?text=Bonjour`;
+            document.getElementById('wa-link').href = `https://wa.me/33745625007?text=${encodeURIComponent(t.cb_msg)}`;
             
-            document.getElementById('display-name').innerText = (lang === 'fr') ? "Paul — Votre artisan multiservice" : "Paul — Ваш майстер у Ренні";
-            document.getElementById('wa-text').innerText = t.wa;
-            document.getElementById('call-text').innerText = t.call;
-            document.getElementById('share-text').innerText = t.share;
-            document.getElementById('nav-calc').innerText = t.nav_calc;
-            document.getElementById('nav-serv').innerText = t.nav_serv;
-            document.getElementById('nav-faq').innerText = t.nav_faq;
-            document.getElementById('calc-t').innerText = t.calc_t;
-            document.getElementById('calc-min').innerText = t.calc_min;
-            document.getElementById('calc-h').innerText = t.calc_h;
-            document.getElementById('calc-after').innerText = t.calc_a;
-            document.getElementById('it-title').innerText = t.it_t;
-            document.getElementById('it-list').innerHTML = t.it_l;
-            document.getElementById('br-title').innerText = t.br_t;
-            document.getElementById('br-list').innerHTML = t.br_l;
-            document.getElementById('p1-it').innerText = t.p1;
-            document.getElementById('p2-it').innerText = t.p2;
-            document.getElementById('p1-br').innerText = t.p1;
-            document.getElementById('p2-br').innerText = t.p2;
-            document.getElementById('faq-title').innerText = t.faq_t;
+            const ids = {
+                'wa-text': t.wa, 'tg-text': t.tg, 'mail-text': t.mail, 'call-text': t.call, 'save-text': t.save, 'share-text': t.share,
+                'nav-how': t.nav_how, 'nav-calc': t.nav_calc, 'nav-serv': t.nav_serv, 'nav-faq': t.nav_faq,
+                'how-title': t.how_t, 'step1-t': t.s1t, 'step1-d': t.s1d, 'step2-t': t.s2t, 'step2-d': t.s2d, 'step3-t': t.s3t, 'step3-d': t.s3d,
+                'calc-t': t.calc_t, 'calc-min': t.calc_min, 'calc-h': t.calc_h, 'calc-after': t.calc_a, 'it-title': t.it_t, 'it-list': t.it_l,
+                'br-title': t.br_t, 'br-list': t.br_l, 'p1-it': t.p1, 'p2-it': t.p2, 'p1-br': t.p1, 'p2-br': t.p2,
+                'display-name': t.name, 'footer-name': t.name, 'sap-info': t.sap, 'zones-list': t.zones, 'faq-title': t.faq_t
+            };
+
+            for (const [id, value] of Object.entries(ids)) {
+                const el = document.getElementById(id);
+                if (el) { if (id.includes('list') || id.includes('zones')) el.innerHTML = value; else el.innerText = value; }
+            }
 
             const faqContainer = document.getElementById('faq-container');
             faqContainer.innerHTML = '';
@@ -228,6 +278,7 @@
                 div.innerHTML = `<div class="faq-question" onclick="toggleFaq(this)">${item.q} <span>+</span></div><div class="faq-answer">${item.a}</div>`;
                 faqContainer.appendChild(div);
             });
+            localStorage.setItem('preferredLang', lang);
         }
 
         function toggleFaq(el) {
@@ -237,20 +288,43 @@
 
         function updateCalc() {
             let h = parseFloat(document.getElementById('hoursInput').value) || 0;
-            if (h < 1 && h > 0) h = 1; // Защита: минимум 1 час
+            if (h < 1 && h > 0) h = 1; 
             let total = 0;
             if (h >= 1) total = 50 + (Math.ceil(h) - 1) * 40;
             document.getElementById('totalPrice').innerText = total;
             document.getElementById('netPrice').innerText = total / 2;
         }
 
-        async function shareSite() {
-            if (navigator.share) {
-                await navigator.share({ title: 'PaulMultiService', url: window.location.href });
-            }
+        function copyEmail(e) {
+            navigator.clipboard.writeText("paulmultiservice7@gmail.com").then(() => {
+                const lang = localStorage.getItem('preferredLang') || 'fr';
+                const btn = document.getElementById('mail-text');
+                btn.innerText = translations[lang].cop;
+                setTimeout(() => { btn.innerText = translations[lang].mail; }, 2000);
+            });
         }
 
-        window.addEventListener('DOMContentLoaded', () => changeLang('fr'));
+        function downloadVCard() {
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul (PaulMultiService)\nTEL;TYPE=CELL,VOICE:+33745625007\nEMAIL:paulmultiservice7@gmail.com\nEND:VCARD";
+            const link = document.createElement("a");
+            link.href = 'data:text/vcard;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(vcard)));
+            link.download = "Paul_MultiService.vcf";
+            link.click();
+        }
+
+        async function shareSite() { if (navigator.share) { try { await navigator.share({ title: 'PaulMultiService', url: window.location.href }); } catch (err) {} } }
+
+        window.onscroll = function() {
+            const btn = document.getElementById("backToTop");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) btn.style.display = "flex";
+            else btn.style.display = "none";
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLang') || 'fr';
+            changeLang(savedLang);
+            setTimeout(() => { document.querySelectorAll('.card').forEach(c => c.classList.add('show')); }, 200);
+        });
     </script>
 </body>
 </html>
