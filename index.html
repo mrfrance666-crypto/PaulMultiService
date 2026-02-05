@@ -34,7 +34,6 @@
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
         }
         
-        /* Глобальный золотой для цен и итогов */
         #totalPrice, .total-currency, #l-total, #netPrice { 
             color: var(--gold) !important; 
         }
@@ -74,41 +73,29 @@
 
         .payment-methods { grid-column: span 2; margin-top: 5px; font-size: 0.85rem; font-weight: 600; color: var(--gold); }
 
-        /* Карточки */
-        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; align-items: stretch; }
-        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
-        .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
-        
-        /* --- ИСПРАВЛЕННЫЙ КАЛЬКУЛЯТОР (ЗОЛОТЫЕ ЦИФРЫ) --- */
+        /* Калькулятор с ЗОЛОТЫМИ цифрами */
         .calc-row select, .calc-row input { 
             padding: 12px; border-radius: 8px; border: 2px solid var(--gold); 
-            background: rgba(255,255,255,0.05); 
-            color: var(--gold) !important; /* ВСЕГДА ЗОЛОТОЙ */
-            font-weight: 800; 
-            width: 100%; font-size: 1.1rem; outline: none; box-sizing: border-box;
-            transition: 0.3s;
-            appearance: none; -webkit-appearance: none; /* Убираем системные стили */
+            background: rgba(255,255,255,0.05); color: var(--gold) !important; 
+            font-weight: 800; width: 100%; font-size: 1.1rem; outline: none; box-sizing: border-box;
+            transition: 0.3s; appearance: none; -webkit-appearance: none;
         }
         
-        /* Убираем белый фон у выпадающего списка в хроме */
         .calc-row select option { background: var(--dark-green); color: var(--gold); }
         
         body.light-theme .calc-row select, 
         body.light-theme .calc-row input {
             background-color: #f0ede4; 
-            color: #b08d1a !important; /* Темно-золотой для светлой темы */
+            color: #b08d1a !important; 
         }
         
         body.light-theme .calc-row select option { background: #ffffff; color: #b08d1a; }
 
-        .calc-row select:focus, .calc-row input:focus {
-            box-shadow: 0 0 10px var(--gold);
-            border-color: var(--gold-light);
-        }
-        /* ----------------------------------------------- */
-
         .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem; align-items: center; justify-content: center; }
+        
+        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
+        .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
         
         .price-tag { font-weight: 700; color: var(--gold); margin-top: auto; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.9rem; }
         
@@ -116,7 +103,7 @@
         .faq-q { font-weight: 700; color: var(--gold); display: flex; justify-content: space-between; align-items: center; }
         .faq-a { font-size: 0.95rem; margin-top: 12px; display: none; line-height: 1.6; color: var(--text-color); }
         
-        .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; background: rgba(10, 46, 31, 0.03); }
+        .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; }
         .footer-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; display: block; }
         .gold-text { color: var(--gold) !important; font-weight: 700; margin: 5px 0; }
     </style>
@@ -204,9 +191,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42643.08581373562!2d-1.71616145!3d48.11470005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.77169477028!2d-1.7485208945484082!3d48.11591147587841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca4cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1710000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://maps.app.goo.gl/1" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -224,26 +211,26 @@
                 name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
                 h_zone: "Zone d'intervention: Rennes & alentours (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
-                l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
+                l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu",
                 how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp или par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réсеaux</li>",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total :",
-                zt: "Zone d'intervention", zd: "Rayon de 20 км inclus autour de Rennes.",
+                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes.",
                 ft: "Questions fréquentes",
                 faq: [
                     {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel. Cependant, les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, etc.) sont à votre charge. Si besoin, je peux les acheter pour vous (facturé séparément)."},
                     {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul..."
             },
@@ -266,7 +253,7 @@
                 ft: "Частые вопросы",
                 faq: [
                     {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это минимальный неделимый тариф (forfait), который покрывает транспортные расходы и подготовку."},
-                    {q: "Нужны ли мои инструменты?", a: "Нет, я привожу всё профессиональное оборудование с собой. Расходные материалы (дюбели, винты и т.д.) оплачиваются вами."},
+                    {q: "Нужны ли мои инструменты?", a: "Нет, я привожу всё профессиональное оборудование с собой. Расходные материалы (дюбели, винты и т.д.) оплачиваются вами. Если чего-то не хватает, я могу докупить это сам за отдельную плату."},
                     {q: "Где взять чеки CESU?", a: "На сайте cesu.urssaf.fr или в вашем банке."},
                     {q: "Действует ли SAP в выходные?", a: "Да, налоговый вычет 50% сохраняется при работе в субботу и воскресенье."},
                     {q: "Как работает возврат?", a: "Я выдаю официальную фактуру SAP. Государство возвращает вам 50% суммы при подаче ежегодной декларации."},
@@ -288,12 +275,12 @@
                 it_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
                 br_t: "Майстер на годину", br_l: "<li>Збирання меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібна сантехніка та замки</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
-                ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Суббота (x2)", osun: "Неділя (x3)", l_total: "Загальна вартість:",
+                ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Загальна вартість:",
                 zt: "Зона охоплення", zd: "Радіус 20 км навколо Ренна включено у вартість.",
                 ft: "Поширені питання",
                 faq: [
                     {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний неподільний тариф, що покриває виїзд та підготовку інструментів."},
-                    {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все необхідне професійне обладнання. Витратні матеріали (шурупи, дюбелі тощо) надаються замовником."},
+                    {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все необхідне професійне обладнання. Витратні матеріали (шурупи, дюбелі тощо) надаються замовником. Якщо чогось бракує, я можу докупити це сам за окрему плату."},
                     {q: "Де взяти чеки CESU?", a: "На офіційному сайті cesu.urssaf.fr або у вашому банку."},
                     {q: "Чи діє SAP у вихідні?", a: "Так, податкова знижка 50% діє також у суботу та неділю."},
                     {q: "Як працює повернення коштів?", a: "Я видаю офіційну фактуру SAP. Держава повертає вам 50% суми під час подання щорічної декларації."},
@@ -320,7 +307,7 @@
                 ft: "FAQ",
                 faq: [
                     {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum flat rate (forfait) covering travel and tool preparation."},
-                    {q: "Do I need to provide tools?", a: "No, I bring all professional tools. Consumables (screws, wall plugs, etc.) are at your expense."},
+                    {q: "Do I need to provide tools?", a: "No, I bring all professional tools. Consumables (screws, wall plugs, etc.) are at your expense. If anything is missing, I can buy it for you (charged separately)."},
                     {q: "Where to get CESU cheques?", a: "At cesu.urssaf.fr or from your bank."},
                     {q: "Does SAP work on weekends?", a: "Yes, the 50% tax credit applies on Saturdays and Sundays too."},
                     {q: "How does the refund work?", a: "I issue a SAP invoice, and the state refunds you 50% via tax credit on your annual return."},
@@ -330,18 +317,6 @@
             }
         };
 
-        function checkSystemTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-                document.body.classList.remove('light-theme');
-                document.getElementById('theme-btn').innerText = '☀️';
-            } else {
-                document.body.classList.add('light-theme');
-                document.getElementById('theme-btn').innerText = '🌙';
-            }
-        }
-
         function toggleTheme() { 
             document.body.classList.toggle('light-theme'); 
             const isLight = document.body.classList.contains('light-theme');
@@ -350,9 +325,8 @@
         }
 
         function changeLang(lang) {
-            const t = translations[lang] || translations['fr'];
+            const t = translations[lang];
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-'+lang));
-            
             document.getElementById('display-name').innerText = t.name;
             document.getElementById('f-name').innerText = t.name;
             document.getElementById('sap-info').innerText = t.sap;
@@ -414,12 +388,8 @@
         function copyEmail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Copié!"); }
         
         function shareSite() { 
-            if (navigator.share) {
-                navigator.share({title:'Paul Service', url:location.href}); 
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Lien copié!");
-            }
+            if (navigator.share) { navigator.share({title:'Paul Service', url:location.href}); } 
+            else { navigator.clipboard.writeText(window.location.href); alert("Lien copié!"); }
         }
 
         function downloadVCard() { 
@@ -428,9 +398,8 @@
             const url = window.URL.createObjectURL(blob); 
             const a = document.createElement("a"); 
             a.href = url; a.download = "Paul.vcf"; 
-            a.setAttribute('data-downloadurl', ["text/vcard", a.download, a.href].join(':'));
             document.body.appendChild(a); a.click(); 
-            setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100);
+            document.body.removeChild(a); 
         }
         
         function reveal() { 
@@ -439,7 +408,12 @@
         }
 
         window.addEventListener("scroll", reveal);
-        window.onload = () => { checkSystemTheme(); changeLang('fr'); reveal(); };
+        window.onload = () => { 
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') document.body.classList.add('light-theme');
+            changeLang('fr'); 
+            reveal(); 
+        };
     </script>
 </body>
 </html>
