@@ -67,7 +67,6 @@
         .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; }
         .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
         
-        /* Исправление стрелочек калькулятора (Золотые!) */
         .calc-row select { 
             appearance: none; 
             -webkit-appearance: none; 
@@ -91,7 +90,6 @@
             box-sizing: border-box;
         }
 
-        /* Золотые стрелочки для input number (Chrome/Safari) */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -99,7 +97,6 @@
             background: transparent;
         }
         
-        /* Добавляем кастомную золотую иконку для поля ввода часов */
         input[type="number"] {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 11l5 5 5-5M7 7l5-5 5 5'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -203,9 +200,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600; color: var(--gold-light);"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42637.28892182054!2d-1.714275066922906!3d48.111330364121945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85268.04616258414!2d-1.748135!3d48.114700!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2c40c8df4f%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1710000000000" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -256,7 +253,7 @@
                 h1t: "Связь", h1d: "Напишите в WhatsApp или позвоните. Обсудим вашу задачу.",
                 h2t: "Тариф", h2d: "Минимальный выезд (первый час) — 50€, даже если работа заняла меньше времени. След. часы: 40€/ч. Суббота: x2. Воскресенье: x3.",
                 h3t: "Выгода", h3d: "Фактура SAP позволяет вернуть 50% затрат через налоги.",
-                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing, Визитка)</li><li>Установка ОС и программ</li><li>Чистка от вирусов</li><li>Настройка Wi-Fi и сетей</li>",
+                it_t: "Web и ИT услуги", it_l: "<li>Создание сайтов (Landing, Визитка)</li><li>Установка ОС и программ</li><li>Чистка от вирусов</li><li>Настройка Wi-Fi и сетей</li>",
                 it_p: "Мин. выезд: 50€<br>След.: 40€/ч",
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
                 br_p: "Мин. выезд: 50€<br>След.: 40€/ч",
@@ -329,16 +326,20 @@
             }
         };
 
-        // Автоматическая проверка системной темы
+        // Улучшенная проверка темы для автоматического переключения
         function checkSystemTheme() {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                document.body.classList.add('light-theme');
-                document.getElementById('theme-btn').innerText = '🌙';
-            } else {
+            const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (isDark) {
                 document.body.classList.remove('light-theme');
                 document.getElementById('theme-btn').innerText = '☀️';
+            } else {
+                document.body.classList.add('light-theme');
+                document.getElementById('theme-btn').innerText = '🌙';
             }
         }
+
+        // Слушатель изменений темы в самой ОС
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', checkSystemTheme);
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
@@ -407,9 +408,11 @@
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { btn.style.display = "flex"; } else { btn.style.display = "none"; }
         };
 
-        function copyEmail() { navigator.clipboard.writeText("paulmultiservice7@gmail.com"); alert("Copié!"); }
+        // Почта заменена на новую
+        function copyEmail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Copié!"); }
+        
         function shareSite() { navigator.share({title:'Paul Service', url:location.href}); }
-        function downloadVCard() { const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEND:VCARD"; const blob = new Blob([vcard], {type:"text/vcard"}); const url = window.URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "Paul.vcf"; a.click(); }
+        function downloadVCard() { const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nEND:VCARD"; const blob = new Blob([vcard], {type:"text/vcard"}); const url = window.URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "Paul.vcf"; a.click(); }
         
         function reveal() { 
             var reveals = document.querySelectorAll(".reveal"); 
@@ -418,7 +421,7 @@
 
         window.addEventListener("scroll", reveal);
         window.onload = () => { 
-            checkSystemTheme(); // Сначала проверяем тему
+            checkSystemTheme(); 
             changeLang('fr'); 
             reveal(); 
         };
