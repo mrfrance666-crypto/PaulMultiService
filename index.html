@@ -103,10 +103,35 @@
         .gold-text { color: var(--gold) !important; font-weight: 700; }
 
         .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        /* Кнопка наверх */
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: var(--gold);
+            color: white;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            z-index: 2000;
+            box-shadow: var(--gold-glow);
+            font-size: 1.5rem;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        #backToTop:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
     <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
+    <button id="backToTop" onclick="scrollToTop()">↑</button>
 
     <div class="nav-container">
         <button class="lang-btn" id="btn-fr" onclick="changeLang('fr')">FR</button>
@@ -187,30 +212,33 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600; color: var(--gold-light);"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.77531776518!2d-1.7588258282361114!3d48.11593361099684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1710000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.60623393663!2d-1.761899120612177!3d48.11592358980894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715600000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
-        <span class="footer-name" id="f-name">Paul — Ваш майстер</span>
+        <span class="footer-name" id="f-name"></span>
         <div id="footer-zone-text" style="color: var(--gold); font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
         <p>EI Pavlo Pashkin | <span class="gold-text">SIRET : 10000226000014</span></p>
         <p class="gold-text" id="f-rc">RC Pro incluse</p>
         <p class="gold-text">Service à la Personne (SAP)</p>
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.6;">TVA non applicable, art. 293 B du CGI | 35700 Rennes</p>
+        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.6;">TVA non applicable, art. 293 B du CGI<br>
+        
+        
+        35700 Rennes</p>
     </div>
 
     <script>
         const translations = {
             fr: {
-                name: "Paul — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
+                name: "Paul — Votre artisan", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
                 h_zone: "Zone d'intervention: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu",
                 how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
-                h1t: "Contact", h1d: "Contactez-moi par WhatsApp или по телефону, чтобы обсудить задачу.",
+                h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de la tâche.",
                 h2t: "Tarif", h2d: "Semaine: 50€/h. Samedi: x2. Dimanche: x3. Tout est transparent.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle.",
                 it_t: "Web & IT Services", it_l: "<li>Sites Web & Landing</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Wi-Fi & Réseaux</li>",
@@ -219,7 +247,7 @@
                 br_p: "Min. 1ère heure : 50€<br>Suivante : 40€/h",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total",
                 zt: "Zone d'intervention", zd: "Rayon de 20 km inclus. Au-delà, sur demande.",
-                ft: "Questions fréquentes", f_name: "Paul — Ваш мастер",
+                ft: "Questions fréquentes",
                 faq: [
                     {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или в вашем банке. Это официальный способ оплаты."},
                     {q: "SAP fonctionne le week-end ?", a: "Да, налоговый вычет 50% действует также в субботу и воскресенье."},
@@ -245,7 +273,7 @@
                 br_p: "Мин. 1-й час: 50€<br>След.: 40€/ч",
                 ct: "Калькулятор", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого",
                 zt: "Зона охвата", zd: "Зона охвата 20 км включена. Если дальше — по договоренности.",
-                ft: "Частые вопросы", f_name: "Paul — Ваш мастер",
+                ft: "Частые вопросы",
                 faq: [
                     {q: "Где взять чеки CESU ?", a: "На сайте cesu.urssaf.fr или в вашем банке. Это официальный способ оплаты услуг."},
                     {q: "SAP работает в выходные ?", a: "Да, налоговый вычет 50% применяется также к работам в субботу и воскресенье."},
@@ -271,7 +299,7 @@
                 br_p: "Мін. 1-ша год: 50€<br>Наст.: 40€/год",
                 ct: "Калькулятор", cnet: "Ціна з вичетом:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Разом",
                 zt: "Зона охоплення", zd: "Зона охоплення 20 км включена. Далі — за домовленістю.",
-                ft: "Питання", f_name: "Paul — Ваш майстер",
+                ft: "Питання",
                 faq: [
                     {q: "Де взяти чеки CESU ?", a: "На сайті cesu.urssaf.fr або у вашому банку. Це офіційний спосіб оплати."},
                     {q: "SAP діє у вихідні ?", a: "Так, податковий вичет 50% діє також у суботу та неділю."},
@@ -282,7 +310,7 @@
                 msg: "Добрий день, Павле..."
             },
             en: {
-                name: "Paul — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
+                name: "Paul — Your handyman", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
                 h_zone: "Service Area: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Call", l_mail: "E-mail", l_save: "Save", l_share: "Share", l_route: "Route",
@@ -297,7 +325,7 @@
                 br_p: "Min. 1st hour: 50€<br>Next: 40€/h",
                 ct: "Calculator", cnet: "Real cost (SAP):", owd: "Weekday", osat: "Saturday (x2)", osun: "Sunday (x3)", l_total: "Total",
                 zt: "Service Area", zd: "20 km radius included. Further on request.",
-                ft: "FAQ", f_name: "Paul — Ваш мастер",
+                ft: "FAQ",
                 faq: [
                     {q: "Where to get CESU ?", a: "On cesu.urssaf.fr or at your bank. It's an official payment method."},
                     {q: "SAP on weekends ?", a: "Yes, the 50% tax credit applies on Saturdays and Sundays too."},
@@ -314,6 +342,7 @@
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-'+lang));
             
             document.getElementById('display-name').innerText = t.name;
+            document.getElementById('f-name').innerText = t.name;
             document.getElementById('sap-info').innerText = t.sap;
             document.getElementById('footer-zone-text').innerText = t.h_zone;
             document.getElementById('n-how').innerText = t.n_how;
@@ -337,7 +366,6 @@
             document.getElementById('c-t').innerText = t.ct; document.getElementById('c-net').innerText = t.cnet;
             document.getElementById('o-wd').innerText = t.owd; document.getElementById('o-sat').innerText = t.osat; document.getElementById('o-sun').innerText = t.osun;
             document.getElementById('f-t').innerText = t.ft; document.getElementById('z-t').innerText = t.zt; document.getElementById('z-desc').innerText = t.zd;
-            document.getElementById('f-name').innerText = t.f_name;
             document.getElementById('wa-link').href = `https://wa.me/33745625007?text=${encodeURIComponent(t.msg)}`;
             
             const faqBox = document.getElementById('faq-container'); 
@@ -368,6 +396,19 @@
             document.body.classList.toggle('light-theme'); 
             document.getElementById('theme-btn').innerText = document.body.classList.contains('light-theme') ? '🌙' : '☀️'; 
         }
+
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        window.onscroll = function() {
+            const btn = document.getElementById("backToTop");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "flex";
+            } else {
+                btn.style.display = "none";
+            }
+        };
 
         function copyEmail() { navigator.clipboard.writeText("paulmultiservice7@gmail.com"); alert("Copié!"); }
         function shareSite() { navigator.share({title:'Paul Service', url:location.href}); }
