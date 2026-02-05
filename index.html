@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Paul — Artisan Multiservice</title>
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta property="og:title" content="Paul — Artisan Multiservice">
+    <meta property="og:description" content="Bricolage, Montage meubles, Services IT à Rennes. -50% de crédit d'impôt (SAP).">
+    <meta property="og:image" content="https://paulmultiservice.fr/logo.png">
+    <meta property="og:url" content="https://paulmultiservice.fr">
+    <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -30,9 +38,7 @@
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: 0.3s; overflow-x: hidden; }
         
-        #how, #services, #faq, #zone {
-            scroll-margin-top: 130px;
-        }
+        #how, #services, #faq, #zone { scroll-margin-top: 130px; }
 
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -45,17 +51,8 @@
         .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
         .nav-pill:hover { background: var(--gold); color: white; box-shadow: var(--gold-glow); }
 
-        .main-logo { 
-            width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; 
-            border: 3px solid var(--gold); 
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); 
-            display: block; 
-            transition: 0.4s; 
-        }
-        .main-logo:hover {
-            box-shadow: var(--gold-glow);
-            transform: scale(1.05);
-        }
+        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); display: block; transition: 0.4s; }
+        .main-logo:hover { box-shadow: var(--gold-glow); transform: scale(1.05); }
 
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
         .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.3s; cursor: pointer; }
@@ -72,17 +69,7 @@
 
         .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; align-items: stretch; }
         
-        .generic-card { 
-            background: var(--card-bg); 
-            border: 1.5px solid var(--border-color); 
-            border-radius: 20px; 
-            padding: 25px; 
-            text-align: left; 
-            transition: 0.3s; 
-            display: flex; 
-            flex-direction: column;
-            box-sizing: border-box;
-        }
+        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; }
         .generic-card h2, .generic-card h4 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; }
         
         .calc-row { display: flex; gap: 10px; justify-content: center; margin: 15px 0; }
@@ -100,25 +87,7 @@
 
         .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        #backToTop {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: var(--gold);
-            color: white;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            display: none;
-            z-index: 2000;
-            box-shadow: var(--gold-glow);
-            font-size: 1.5rem;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
+        #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; box-shadow: var(--gold-glow); font-size: 1.5rem; align-items: center; justify-content: center; transition: 0.3s; }
     </style>
 </head>
 <body>
@@ -152,7 +121,7 @@
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
         <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save"></button>
         <button onclick="shareSite()" class="msg-btn share-btn" id="l-share"></button>
-        <div class="payment-methods" id="l-pay">Espèces / Virement / Chèque / Cesu</div>
+        <div class="payment-methods" id="l-pay"></div>
     </div>
 
     <h2 id="how-title" class="reveal" style="color: var(--gold); margin-top: 40px; font-family: 'Playfair Display', serif;"></h2>
@@ -204,9 +173,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600; color: var(--gold-light);"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.70617309997!2d-1.7588339174092476!3d48.115923058814755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715600000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.29742491686!2d-1.745638101419796!3d48.115923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715690000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://maps.app.goo.gl/uXyY" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -222,27 +191,27 @@
         const translations = {
             fr: {
                 name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
-                h_zone: "Zone d'intervention: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
+                h_zone: "Zone d'intervention: Rennes & alentours (Betton, Pacé, Bruz...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu",
                 how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
-                h1t: "Contact", h1d: "Contactez-moi par WhatsApp или по телефону, чтобы обсудить задачу.",
+                h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "Semaine: 50€/h. Samedi: x2. Dimanche: x3. Tout est transparent.",
-                h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle.",
-                it_t: "Web & IT Services", it_l: "<li>Sites Web & Landing</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Wi-Fi & Réseaux</li>",
+                h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
+                it_t: "Web & IT Services", it_l: "<li>Sites Web & Landing pages</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
                 it_p: "Min. 1ère heure : 50€<br>Suivante : 40€/h",
-                br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Luminaires, TV, étagères</li><li>Petites réparations (robinets, verrous)</li><li>Branchement électroménager</li>",
-                br_p: "Min. 1ère heure : 50€<br>Suivante : 40€/h",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
+                br_p: "Мин. 1-й час: 50€<br>След.: 40€/ч",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total",
-                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus. Au-delà, sur demande.",
+                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes.",
                 ft: "Questions fréquentes",
                 faq: [
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non. J'apporte mes propres outils professionnels. Cependant, les consommables (vis, chevilles, joints, etc.) sont à votre charge. Si vous ne les avez pas, je peux les fournir, mais c'est un service à part (recherche, achat et livraison)."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или в вашем банке. Это официальный способ оплаты."},
-                    {q: "SAP fonctionne le week-end ?", a: "Да, налоговый вычет 50% действует также в субботу и воскресенье."},
-                    {q: "Comment fonctionne le remboursement ?", a: "Я выдаю официальную фактуру SAP. Государство возвращает вам половину через налоги."},
-                    {q: "Moyens de paiement ?", a: "Наличные, банковский перевод, чеки или CESU."}
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non. J'apporte mes propres outils professionnels. Cependant, les consommables (vis, chevilles, joints, etc.) sont à votre charge. Si vous ne les avez pas, je peux les fournir, mais la recherche, l'achat et la livraison sont un service séparé."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque. C'est un moyen de paiement officiel."},
+                    {q: "SAP fonctionne le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également aux travaux effectués le samedi et le dimanche."},
+                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% de la somme via votre crédit d'impôt."},
+                    {q: "Moyens de paiement ?", a: "Espèces, virement, chèques bancaires ou chèques CESU."}
                 ],
                 msg: "Bonjour Paul..."
             },
@@ -274,7 +243,7 @@
             },
             ua: {
                 name: "Paul — Ваш майстер", sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)",
-                h_zone: "Зона охоплення: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
+                h_zone: "Зона охоплення: Ренн та околиці (Betton, Pacé, Bruz...)",
                 n_how: "Процес", n_serv: "Послуги", n_faq: "Питання", n_zone: "Зона",
                 l_call: "Дзвінок", l_mail: "Пошта", l_save: "Зберегти", l_share: "Поділитись", l_route: "Маршрут",
                 l_pay: "Готівка / Переказ / Чеки / Cesu",
@@ -286,7 +255,7 @@
                 it_p: "Мін. 1-ша год: 50€<br>Наст.: 40€/год",
                 br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібний ремонт (крани, замки)</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. 1-ша год: 50€<br>Наст.: 40€/год",
-                ct: "Калькулятор", cnet: "Ціна з вичетом:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Разом",
+                ct: "Калькулятор", cnet: "Ціна з вичетом:", owd: "Будні", osat: "Суббота (x2)", osun: "Неділя (x3)", l_total: "Разом",
                 zt: "Зона охоплення", zd: "Зона охоплення 20 км включена. Далі — за домовленістю.",
                 ft: "Питання",
                 faq: [
@@ -300,7 +269,7 @@
             },
             en: {
                 name: "Paul — Your handyman", sap: "50% TAX REDUCTION (SAP)",
-                h_zone: "Service Area: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
+                h_zone: "Service Area: Rennes & surroundings (Betton, Pacé, Bruz...)",
                 n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Call", l_mail: "E-mail", l_save: "Save", l_share: "Share", l_route: "Route",
                 l_pay: "Cash / Transfer / Cheque / Cesu",
@@ -313,7 +282,7 @@
                 br_t: "Handyman", br_l: "<li>Furniture assembly (IKEA, etc.)</li><li>Lights, TV, shelves</li><li>Minor repairs (taps, locks)</li><li>Appliance connection</li>",
                 br_p: "Min. 1st hour: 50€<br>Next: 40€/h",
                 ct: "Calculator", cnet: "Real cost (SAP):", owd: "Weekday", osat: "Saturday (x2)", osun: "Sunday (x3)", l_total: "Total",
-                zt: "Service Area", zd: "20 km radius included. Further on request.",
+                zt: "Service Area", zd: "20 km radius included around Rennes.",
                 ft: "FAQ",
                 faq: [
                     {q: "Do I need to have my own tools?", a: "No, I bring all professional tools with me. However, consumables (screws, wall plugs, gaskets, etc.) should be provided by you. If you don't have them, I can provide them, but sourcing and delivering materials is a separate service."},
@@ -386,17 +355,11 @@
             document.getElementById('theme-btn').innerText = document.body.classList.contains('light-theme') ? '🌙' : '☀️'; 
         }
 
-        function scrollToTop() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
+        function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
         window.onscroll = function() {
             const btn = document.getElementById("backToTop");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "flex";
-            } else {
-                btn.style.display = "none";
-            }
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { btn.style.display = "flex"; } else { btn.style.display = "none"; }
         };
 
         function copyEmail() { navigator.clipboard.writeText("paulmultiservice7@gmail.com"); alert("Copié!"); }
@@ -405,9 +368,7 @@
         
         function reveal() { 
             var reveals = document.querySelectorAll(".reveal"); 
-            for (var i = 0; i < reveals.length; i++) { 
-                if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) reveals[i].classList.add("active"); 
-            } 
+            for (var i = 0; i < reveals.length; i++) { if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) reveals[i].classList.add("active"); } 
         }
 
         window.addEventListener("scroll", reveal);
