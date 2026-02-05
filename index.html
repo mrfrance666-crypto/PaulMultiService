@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="color-scheme" content="light dark"> 
     <title>Paul — Artisan Multiservice | Rennes</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
@@ -18,16 +19,29 @@
             --bg-color: var(--dark-green); --text-color: var(--white); 
             --card-bg: rgba(255,255,255,0.04); --border-color: rgba(212,175,55,0.2);
             --nav-bg: rgba(10,46,31,0.98); --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Переменные для форм (Калькулятор) */
+            --input-bg: #0f3d2b; /* Темно-зеленый фон для полей */
+            --input-text: var(--gold);
+            --input-border: var(--gold);
         }
         body.light-theme { 
             --bg-color: #ffffff; --text-color: #1a1a1a; 
             --card-bg: #f9f9f9; --border-color: rgba(0,0,0,0.1); 
             --nav-bg: rgba(255,255,255,0.98); --gold: #a6892c; 
+            
+            /* Светлая тема форм */
+            --input-bg: #ffffff;
+            --input-text: #000000;
+            --input-border: #000000;
         }
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: background var(--transition); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         
-        /* Липкая навигация (меню) */
+        /* Верхняя полоса языков */
+        .top-lang-bar { padding: 15px 0 5px; display: flex; justify-content: center; gap: 8px; }
+
+        /* Липкая навигация */
         .nav-sticky-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 8px 0; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(15px); }
         .nav-lang-switcher { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; }
         
@@ -39,7 +53,7 @@
         .nav-pill { background: rgba(212,175,55,0.05); border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 0.75rem; font-weight: 600; white-space: nowrap; transition: 0.3s; }
         .nav-pill:hover, .nav-pill:active { background: var(--gold); color: var(--bg-color); box-shadow: 0 0 15px rgba(212,175,55,0.5); }
 
-        /* Кнопка темы теперь FIXED (всегда видна) */
+        /* Кнопка темы */
         .theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 1100; background: var(--card-bg); border: 2px solid var(--gold); color: var(--gold); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         
         .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 10px auto; border: 3px solid var(--gold); cursor: pointer; transition: 0.4s; }
@@ -54,7 +68,7 @@
         .mail-btn { background: var(--mail-purple); } .vcard-btn { background: var(--save-mint); }
         .share-btn { grid-column: span 2; background: var(--share-carbon); }
 
-        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin: 40px 0 5px; letter-spacing: 1px; }
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin: 10px 0 5px; letter-spacing: 1px; }
         .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.1); color: var(--gold); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; border: 1px solid var(--border-color); margin-bottom: 20px; }
         
         .how-it-works { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
@@ -62,11 +76,22 @@
         .step-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 20px; flex: 1; min-width: 260px; }
         .step-num { width: 30px; height: 30px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; }
         
-        /* Стили калькулятора */
+        /* ПРОФЕССИОНАЛЬНЫЙ СТИЛЬ КАЛЬКУЛЯТОРА */
         .calc-box { max-width: 380px; margin: 40px auto; padding: 25px; border-radius: 24px; background: var(--card-bg); border: 1px solid var(--border-color); }
-        .calc-input-group select, .calc-input-group input { width: 100%; max-width: 220px; padding: 12px; border-radius: 12px; border: 1px solid var(--gold); background: var(--card-bg); color: var(--gold); text-align: center; font-family: inherit; font-size: 1rem; margin-top: 8px; font-weight: 600; }
-        body.light-theme .calc-input-group select, 
-        body.light-theme .calc-input-group input { border-color: #000; color: #000; }
+        
+        /* Стили инпутов адаптируются под переменную темы */
+        .calc-input-group select, 
+        .calc-input-group input { 
+            width: 100%; max-width: 220px; padding: 12px; border-radius: 12px; 
+            border: 1px solid var(--input-border); 
+            background-color: var(--input-bg); 
+            color: var(--input-text); 
+            text-align: center; font-family: inherit; font-size: 1rem; margin-top: 8px; font-weight: 600; 
+            outline: none; -webkit-appearance: none;
+        }
+        /* Фикс для выпадающего списка в браузере */
+        option { background-color: #0a2e1f; color: #d4af37; }
+        body.light-theme option { background-color: #ffffff; color: #000000; }
 
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 25px; text-align: left; transition: 0.3s; }
@@ -84,15 +109,15 @@
 <body>
     <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon">🌙</button>
 
-    <p class="brand-name">PaulMultiService</p>
-    
-    <div style="margin-bottom: 10px; display: flex; justify-content: center; gap: 8px;">
+    <div class="top-lang-bar">
         <button class="lang-btn" onclick="changeLang('fr')">FR</button>
         <button class="lang-btn" onclick="changeLang('en')">EN</button>
         <button class="lang-btn" onclick="changeLang('ua')">UA</button>
         <button class="lang-btn" onclick="changeLang('ru')">RU</button>
     </div>
 
+    <p class="brand-name">PaulMultiService</p>
+    
     <img src="logo.png" alt="Logo" class="main-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
     
     <div id="display-name" style="font-weight: 600; font-size: 1.2rem; color: var(--gold-light);">Paul — Ваш мастер</div>
@@ -196,8 +221,8 @@
                 price_f: "Min. 1ère h : 50€<br>Suivantes : 40€/h",
                 faq_t: "Questions fréquentes", faq_items: [
                     {q:"Où obtenir des chèques CESU ?", a:"Vous pouvez obtenir des CESU préfinancés auprès de votre employeur, comité d'entreprise ou conseil départemental."},
-                    {q:"Pourquoi un minimum de 50€ ?", a:"Cela couvre le déplacement, l'assurance et la préparation du matériel для качества сервиса."},
-                    {q:"Dois-je avoir mes propres outils ?", a:"Non, я прихожу со всем необходимым профессиональным оборудованием."},
+                    {q:"Pourquoi un minimum de 50€ ?", a:"Cela couvre le déplacement, l'assurance et la préparation du matériel pour garantir la qualité."},
+                    {q:"Dois-je avoir mes propres outils ?", a:"Non, j'apporte tout le matériel professionnel nécessaire."},
                     {q:"Comment fonctionne le crédit d'impôt ?", a:"50% des sommes versées vous sont remboursés par l'État via le dispositif Service à la Personne."}
                 ],
                 zones: "Rennes et sa périphérie (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Bonjour, je vous contacte pour vos services..."
@@ -237,7 +262,6 @@
                 faq_t: "Часті запитання", faq_items: [
                     {q:"Де взяти чеки CESU?", a:"Ви можете отримати CESU через роботодавця або соціальні служби."},
                     {q:"Чому мінімум 50€?", a:"Це покриває виїзд, страховку та підготовку інструментів."},
-                    /* ИСПРАВЛЕННЫЕ ПУНКТЫ */
                     {q:"Чи потрібні мені інструменти?", a:"Ні, я приїжджаю зі своїм професійним обладнанням."},
                     {q:"Як працює повернення?", a:"Держава повертає 50% вартості через систему SAP."}
                 ],
