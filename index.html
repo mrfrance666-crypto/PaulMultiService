@@ -34,15 +34,9 @@
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
         }
         
+        /* Глобальный золотой для цен и итогов */
         #totalPrice, .total-currency, #l-total, #netPrice { 
             color: var(--gold) !important; 
-        }
-
-        body.light-theme #totalPrice, 
-        body.light-theme .total-currency,
-        body.light-theme #l-total,
-        body.light-theme #netPrice { 
-            color: #b08d1a !important; 
         }
 
         html { scroll-behavior: smooth; }
@@ -69,8 +63,6 @@
         /* Кнопки мессенджеров */
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
         .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.3s; cursor: pointer; }
-        
-        /* Исправленный Hover для кнопок */
         .msg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); filter: brightness(1.1); }
 
         .wa-btn { grid-column: span 2; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
@@ -87,20 +79,33 @@
         .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
         .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
         
-        /* Поля ввода (Калькулятор) */
+        /* --- ИСПРАВЛЕННЫЙ КАЛЬКУЛЯТОР (ЗОЛОТЫЕ ЦИФРЫ) --- */
         .calc-row select, .calc-row input { 
             padding: 12px; border-radius: 8px; border: 2px solid var(--gold); 
-            background: rgba(255,255,255,0.1); color: #ffffff; font-weight: 700; 
-            width: 100%; font-size: 1rem; outline: none; box-sizing: border-box;
+            background: rgba(255,255,255,0.05); 
+            color: var(--gold) !important; /* ВСЕГДА ЗОЛОТОЙ */
+            font-weight: 800; 
+            width: 100%; font-size: 1.1rem; outline: none; box-sizing: border-box;
             transition: 0.3s;
+            appearance: none; -webkit-appearance: none; /* Убираем системные стили */
         }
         
-        /* Исправление цвета текста для светлой темы */
+        /* Убираем белый фон у выпадающего списка в хроме */
+        .calc-row select option { background: var(--dark-green); color: var(--gold); }
+        
         body.light-theme .calc-row select, 
         body.light-theme .calc-row input {
             background-color: #f0ede4; 
-            color: #0a2e1f !important; /* Темный текст для видимости */
+            color: #b08d1a !important; /* Темно-золотой для светлой темы */
         }
+        
+        body.light-theme .calc-row select option { background: #ffffff; color: #b08d1a; }
+
+        .calc-row select:focus, .calc-row input:focus {
+            box-shadow: 0 0 10px var(--gold);
+            border-color: var(--gold-light);
+        }
+        /* ----------------------------------------------- */
 
         .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem; align-items: center; justify-content: center; }
@@ -176,11 +181,11 @@
                 </select>
                 <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
             </div>
-            <div style="font-weight: 700; margin: 15px 0; font-size: 1.3rem;">
+            <div style="font-weight: 800; margin: 15px 0; font-size: 1.4rem;">
                 <span id="l-total"></span> <span id="totalPrice">50</span><span class="total-currency">€</span>
             </div>
             <div class="price-tag" style="background: rgba(212,175,55,0.1); padding: 10px; border-radius: 10px; border: none;">
-                <span id="c-net"></span> <span id="netPrice" style="font-size: 1.5rem;">25</span><span class="total-currency">€</span>
+                <span id="c-net"></span> <span id="netPrice" style="font-size: 1.6rem;">25</span><span class="total-currency">€</span>
             </div>
         </div>
 
@@ -199,9 +204,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/dir/?api=1&destination=Rennes3" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42643.08581373562!2d-1.71616145!3d48.11470005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes4" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -225,12 +230,12 @@
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp или par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réсеaux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total :",
-                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes.",
+                zt: "Zone d'intervention", zd: "Rayon de 20 км inclus autour de Rennes.",
                 ft: "Questions fréquentes",
                 faq: [
                     {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
