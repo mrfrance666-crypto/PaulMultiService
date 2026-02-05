@@ -30,6 +30,11 @@
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: 0.3s; overflow-x: hidden; }
         
+        /* Исправление прыжка навигации */
+        #how, #services, #faq, #zone {
+            scroll-margin-top: 130px;
+        }
+
         /* Animation Classes */
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -135,6 +140,7 @@
         <img src="logo.png" alt="Logo" class="main-logo">
         <div id="display-name" style="font-weight: 700; font-size: 1.3rem; color: var(--gold-light);"></div>
         <div id="sap-info" style="margin-top:10px; color: var(--gold); font-weight: 600;"></div>
+        <div id="header-zone" style="margin-top:5px; font-size: 0.9rem; opacity: 0.8; padding: 0 10px;"></div>
     </div>
 
     <div class="messenger-wrapper reveal">
@@ -195,7 +201,8 @@
 
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold); box-shadow: var(--gold-glow);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85217.15170366657!2d-1.74811345!3d48.1159239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1710000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <p id="z-desc" style="margin-bottom: 20px; font-weight: 600; color: var(--gold-light);"></p>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold); box-shadow: var(--gold-glow);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.05278788358!2d-1.748384488836526!3d48.11124434947983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2686866299%3A0x6e9a6560938e2181!2sRennes!5e0!3m2!1sfr!2sfr!4v1715600000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
@@ -212,7 +219,8 @@
     <script>
         const translations = {
             fr: {
-                name: "Paul — Votre artisan", sap: "50% DE CRÉDIT D'IMPÔT (SAP)",
+                name: "Paul — Ваш мастер", sap: "50% DE CRÉDIT D'IMPÔT (SAP)",
+                h_zone: "Zone d'intervention: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu",
@@ -225,18 +233,20 @@
                 br_t: "Bricolage", br_l: "<li>Montage meubles</li><li>Luminaires & TV</li><li>Plomberie légère</li><li>Électroménager</li>",
                 br_p: "Min. 1ère heure : 50€<br>Suivante : 40€/h",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)",
-                zt: "Zone d'intervention: Rennes et prigorod (Betton, Saint-Grégoire, Bruz, Pacé...)", ft: "Questions fréquentes", f_name: "Paul — Ваш мастер", f_area: "Rennes et agglomération",
+                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus. Au-delà, sur demande.",
+                ft: "Questions fréquentes", f_name: "Paul — Ваш мастер", f_area: "Rennes et agglomération",
                 faq: [
                     {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque. C'est un moyen de paiement officiel pour les services à la personne."},
-                    {q: "SAP fonctionne le week-end ?", a: "Oui, le crédit d'impôt de 50% s'applique aussi le samedi et dimanche, même si le tarif est majoré."},
-                    {q: "Outils ?", a: "Je fournis mes propres outils professionnels. Les consommables (vis, chevilles, pièces) sont à votre charge."},
-                    {q: "Comment fonctionne le remboursement de 50% ?", a: "Je délivre une facture SAP officielle. Vous déclarez le montant et l'État vous rembourse la moitié via crédit d'impôt."},
+                    {q: "SAP fonctionne le week-end ?", a: "Oui, le crédit d'impôt de 50% s'applique aussi le samedi et dimanche."},
+                    {q: "Outils ?", a: "Je fournis mes propres outils professionnels. Les consommables sont à votre charge."},
+                    {q: "Comment fonctionne le remboursement de 50% ?", a: "Je délivre une facture SAP officielle. L'État vous rembourse la moitié via crédit d'impôt."},
                     {q: "Moyens de paiement ?", a: "J'accepte les espèces, les virements bancaires, les chèques bancaires et les chèques CESU (papier ou dématérialisés)."}
                 ],
                 msg: "Bonjour Paul..."
             },
             ru: {
                 name: "Paul — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
+                h_zone: "Зона охвата: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 n_how: "Процесс", n_serv: "Услуги", n_faq: "Вопросы", n_zone: "Зона",
                 l_call: "Позвонить", l_mail: "Почта", l_save: "Сохранить", l_share: "Поделиться", l_route: "Маршрут",
                 l_pay: "Наличные / Перевод / Чеки / Cesu",
@@ -249,18 +259,20 @@
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
                 br_p: "Мин. 1-й час: 50€<br>След.: 40€/ч",
                 ct: "Калькулятор", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)",
-                zt: "Зона охвата: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)", ft: "Частые вопросы", f_name: "Paul — Ваш мастер", f_area: "Ренн и пригород",
+                zt: "Зона охвата", zd: "Зона охвата 20 км. Если дальше — по договоренности.",
+                ft: "Частые вопросы", f_name: "Paul — Ваш мастер", f_area: "Ренн и пригород",
                 faq: [
                     {q: "Где взять чеки CESU ?", a: "На сайте cesu.urssaf.fr или в вашем банке. Это официально и удобно для оплаты услуг дома."},
-                    {q: "SAP работает на выходных ?", a: "Да, налоговый вычет 50% действует и в субботу, и в воскресенье, несмотря на тариф."},
-                    {q: "Инструменты ?", a: "Инструменты мои. Расходники (болты, запчасти) оплачиваются вами или через мою услугу закупки."},
+                    {q: "SAP работает на выходных ?", a: "Да, налоговый вычет 50% действует и в субботу, и в воскресенье."},
+                    {q: "Инструменты ?", a: "Инструменты мои. Расходники оплачиваются вами или через мою услугу закупки."},
                     {q: "Как работает возврат 50% ?", a: "Я выдаю официальную фактуру SAP. В конце года вы вносите сумму в декларацию и государство возвращает половину."},
-                    {q: "Способы оплаты ?", a: "Вы можете оплатить услуги наличными, банковским переводом, обычным банковским чеком или чеками CESU (включая электронные версии)."}
+                    {q: "Способы оплаты ?", a: "Вы можете оплатить услуги наличными, банковским переводом, обычным банковским чеком или чеками CESU."}
                 ],
                 msg: "Здравствуйте, Павел..."
             },
             en: {
-                name: "Paul — Your Handyman", sap: "50% TAX CREDIT (SAP)",
+                name: "Paul — Ваш мастер", sap: "50% TAX CREDIT (SAP)",
+                h_zone: "Service Area: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Call", l_mail: "E-mail", l_save: "Save", l_share: "Share", l_route: "Route",
                 l_pay: "Cash / Transfer / Cheque / Cesu",
@@ -273,18 +285,20 @@
                 br_t: "Handyman services", br_l: "<li>Furniture assembly (IKEA etc.)</li><li>Lights, TV, Shelves mounting</li><li>Minor repairs (taps, locks)</li><li>Appliances connection</li>",
                 br_p: "Min. 1st hour: 50€<br>Next: 40€/h",
                 ct: "Calculator", cnet: "Real cost (SAP):", owd: "Weekday", osat: "Saturday (x2)", osun: "Sunday (x3)",
-                zt: "Service Area: Rennes and prigorod (Betton, Saint-Grégoire, Bruz, Pacé...)", ft: "FAQ", f_name: "Paul — Your Handyman", f_area: "Rennes and area",
+                zt: "Service Area", zd: "20 km coverage zone. Further distances by agreement.",
+                ft: "FAQ", f_name: "Paul — Ваш мастер", f_area: "Rennes and area",
                 faq: [
-                    {q: "Where to get CESU?", a: "On cesu.urssaf.fr or at your bank. It's the official way to pay for home services."},
+                    {q: "Where to get CESU?", a: "On cesu.urssaf.fr or at your bank. Official way to pay for home services."},
                     {q: "SAP on weekends?", a: "Yes, the 50% tax credit applies to Saturday and Sunday work as well."},
-                    {q: "Tools?", a: "I bring my own professional tools. Materials are paid by you or via my shopping service."},
-                    {q: "How does the 50% refund work?", a: "I provide an official SAP invoice. You declare it and receive 50% back via tax credit."},
-                    {q: "Payment methods?", a: "I accept cash, bank transfers, standard bank cheques, and CESU cheques (paper or digital)."}
+                    {q: "Tools?", a: "I bring my own professional tools. Materials are paid by you."},
+                    {q: "How does the 50% refund work?", a: "I provide an official SAP invoice. State refunds 50% via tax credit."},
+                    {q: "Payment methods?", a: "I accept cash, bank transfers, standard bank cheques, and CESU cheques."}
                 ],
                 msg: "Hello Paul..."
             },
             ua: {
                 name: "Paul — Ваш майстер", sap: "ПОДАТКОВИЙ ВИЧЕТ 50% (SAP)",
+                h_zone: "Зона охоплення: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
                 n_how: "Процес", n_serv: "Послуги", n_faq: "Питання", n_zone: "Зона",
                 l_call: "Дзвінок", l_mail: "Пошта", l_save: "Зберегти", l_share: "Поділитись", l_route: "Маршрут",
                 l_pay: "Готівка / Переказ / Чек / Cesu",
@@ -297,13 +311,14 @@
                 br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібний ремонт (крани, замки)</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. 1-ша год: 50€<br>Наст.: 40€/год",
                 ct: "Калькулятор", cnet: "Ціна з вичетом:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)",
-                zt: "Зона охоплення: Rennes та prigorod (Betton, Saint-Grégoire, Bruz, Pacé...)", ft: "Питання", f_name: "Paul — Ваш майстер", f_area: "Ренн та передмістя",
+                zt: "Зона охоплення", zd: "Зона охоплення 20 км. Якщо далі — за домовленістю.",
+                ft: "Питання", f_name: "Paul — Ваш майстер", f_area: "Ренн та передмістя",
                 faq: [
-                    {q: "Де взяти чеки CESU?", a: "На сайті cesu.urssaf.fr або у вашому банку. Це зручний та офіційний спосіб оплати."},
-                    {q: "SAP на вихідних?", a: "Так, вичет діє і в суботу, і в неділю, незважаючи на зміну тарифу."},
-                    {q: "Інструменти?", a: "Інструменти мої. Розхідні матеріали ваші або через мою закупку за потреби."},
-                    {q: "Як працює повернення 50%?", a: "Я видаю офіційну фактуру SAP. Ви вносите її в декларацію і отримуєте повернення від держави."},
-                    {q: "Способи оплати?", a: "Я приймаю готівку, банківські перекази, чеки або чеки CESU (паперові чи електронні)."}
+                    {q: "Де взяти чеки CESU?", a: "На сайті cesu.urssaf.fr або у вашому банку. Це офіційний спосіб оплати."},
+                    {q: "SAP на вихідних?", a: "Так, вичет діє і в суботу, і в неділю."},
+                    {q: "Інструменти?", a: "Інструменти мої. Розхідні матеріали ваші або через мою закупку."},
+                    {q: "Як працює повернення 50%?", a: "Я видаю офіційну фактуру SAP. Ви отримуєте повернення від держави."},
+                    {q: "Способи оплати?", a: "Я приймаю готівку, банківські перекази, чеки або чеки CESU."}
                 ],
                 msg: "Добрий день, Павле..."
             }
@@ -315,6 +330,7 @@
             
             document.getElementById('display-name').innerText = t.name;
             document.getElementById('sap-info').innerText = t.sap;
+            document.getElementById('header-zone').innerText = t.h_zone;
             document.getElementById('n-how').innerText = t.n_how;
             document.getElementById('n-serv').innerText = t.n_serv;
             document.getElementById('n-faq').innerText = t.n_faq;
@@ -348,6 +364,7 @@
             
             document.getElementById('f-t').innerText = t.ft; 
             document.getElementById('z-t').innerText = t.zt;
+            document.getElementById('z-desc').innerText = t.zd;
             document.getElementById('f-name').innerText = t.f_name;
             document.getElementById('f-area').innerText = t.f_area;
             
