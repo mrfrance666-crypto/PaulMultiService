@@ -71,7 +71,7 @@
         .faq-answer { padding: 0 20px 16px; display: none; opacity: 0.85; font-size: 0.9rem; line-height: 1.6; }
         
         .map-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .map-frame { width: 100%; height: 300px; border-radius: 24px; border: 1px solid var(--border-color); filter: grayscale(0.5); }
+        .map-frame { width: 100%; height: 350px; border-radius: 24px; border: 1px solid var(--border-color); filter: grayscale(0.5); }
         body.light-theme .map-frame { filter: none; }
 
         .footer { padding: 50px 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; opacity: 0.9; }
@@ -91,7 +91,7 @@
 
     <p class="brand-name">PaulMultiService</p>
     <img src="logo.png" alt="Logo" class="main-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-    <div id="display-name" style="font-weight: 600; font-size: 1.2rem; color: var(--gold-light);">Paul — Ваш мастер</div>
+    <div id="display-name" style="font-weight: 600; font-size: 1.2rem; color: var(--gold-light);">Paul — Votre artisan</div>
     <div class="sap-badge" id="sap-info">Services à la personne : 50% de crédit d'impôt</div>
 
     <div class="messenger-wrapper">
@@ -106,7 +106,7 @@
     <div class="trust-bar">
         <div class="trust-item"><span class="trust-icon">🛡️</span><span id="trust-ins">Assurance RC Pro</span></div>
         <div class="trust-item"><span class="trust-icon">✨</span><span id="trust-qual">Travail Soigné</span></div>
-        <div class="trust-item"><span class="trust-icon">💳</span><span id="trust-pay">Espèces / Virement / CESU</span></div>
+        <div class="trust-item"><span class="trust-icon">💳</span><span id="trust-pay">Espèces / Virement / Chèques / CESU</span></div>
     </div>
 
     <div class="nav-sticky-container">
@@ -172,11 +172,11 @@
     <div class="map-container">
         <h3 id="map-title" style="color: var(--gold); margin-bottom: 5px;">Zone d'intervention</h3>
         <p id="map-subtitle" style="font-size: 0.95rem; font-weight: 500; opacity: 0.9; margin-bottom: 15px; color: var(--gold-light);"></p>
-        <iframe class="map-frame" src="http://googleusercontent.com/maps.google.com/5" allowfullscreen="" loading="lazy"></iframe>
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m3!1d42637.3694030615!2d-1.7061466657905814!3d48.11133036417742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
     </div>
 
     <div class="footer">
-        <div id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 10px;">Paul — Ваш мастер</div>
+        <div id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 10px;">Paul — Votre artisan</div>
         <p id="zones-list" style="font-weight: 600; margin-bottom: 20px;"></p>
         <div style="line-height: 1.8;">
             <p><strong>EI Pavlo Pashkin</strong> | <span class="gold-text">SIRET : 10000226000014</span></p>
@@ -194,8 +194,8 @@
                 name: "Paul — Votre artisan", sap: "Services à la personne : 50% de crédit d'impôt",
                 call: "Appeler", mail: "E-mail", save: "Enregistrer", share: "Partager", wa: "WhatsApp 💬",
                 nav_how: "Étapes", nav_calc: "Simulateur", nav_serv: "Services", nav_faq: "FAQ",
-                t_ins: "Assurance RC Pro", t_qual: "Travail Soigné", t_pay: "Espèces / Virement / CESU",
-                s1t: "Contact", s1d: "Contactez-moi par WhatsApp ou téléphone pour discuter du проект.",
+                t_ins: "Assurance RC Pro", t_qual: "Travail Soigné", t_pay: "Espèces / Virement / Chèques / CESU",
+                s1t: "Contact", s1d: "Contactez-moi par WhatsApp ou téléphone pour discuter du projet.",
                 s2t: "Tarif", s2d: "Semaine : 50€/h. Samedi : x2. Dimanche/Férié : x3. Min. 1h.",
                 s3t: "Avantage", s3d: "Facture SAP ouvrant droit à 50% de crédit d'impôt.",
                 calc_t: "Simulateur Crédit d'Impôt", calc_day: "Jour de travail :", calc_h: "Nombre d'heures :", calc_after: "Coût réel :",
@@ -207,18 +207,17 @@
                     {q:"Quels modes de paiement acceptez-vous ?", a:"J'accepte les espèces, les virements bancaires immédiats, les chèques bancaires et les chèques CESU préfinancés."},
                     {q:"Où obtenir des chèques CESU ?", a:"Vous pouvez obtenir des CESU préfinancés auprès de votre employeur, comité d'entreprise ou conseil départemental."},
                     {q:"Pourquoi un minimum de 50€ ?", a:"Cela couvre le déplacement, l'assurance et la préparation du matériel pour garantir la qualité."},
-                    {q:"Dois-je avoir mes propres outils ?", a:"Non, j'apporte tout le matériel professionnel nécessaire."},
-                    {q:"How does the tax credit work?", a:"50% des sommes versées vous sont remboursés par l'État via le dispositif Service à la Personne."}
+                    {q:"Dois-je avoir mes propres outils ?", a:"No, j'apporte tout le matériel professionnel nécessaire."},
+                    {q:"Comment fonctionne le crédit d'impôt ?", a:"50% des sommes versées vous sont remboursés par l'État via le dispositif Service à la Personne."}
                 ],
-                map_t: "Zone d'intervention", 
-                map_sub: "Rayon de 20 km autour de Rennes (plus sur demande)",
+                map_t: "Zone d'intervention", map_sub: "Rayon de 20 km autour de Rennes (plus sur demande)",
                 zones: "Rennes et sa périphérie (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Bonjour, je vous contacte pour vos services..."
             },
             ru: {
                 name: "Paul — Ваш мастер", sap: "Налоговый вычет 50% на все услуги",
                 call: "Позвонить", mail: "E-mail", save: "Сохранить", share: "Поделиться", wa: "WhatsApp 💬",
                 nav_how: "Процесс", nav_calc: "Калькулятор", nav_serv: "Услуги", nav_faq: "Вопросы",
-                t_ins: "Страховка RC Pro", t_qual: "Чистая работа", t_pay: "Наличные / Перевод / CESU",
+                t_ins: "Страховка RC Pro", t_qual: "Чистая работа", t_pay: "Наличные / Перевод / Чеки / CESU",
                 s1t: "Связь", s1d: "Напишите в WhatsApp или позвоните. Обсудим детали.",
                 s2t: "Тариф", s2d: "Будни: 50€/ч. Суббота: x2. Праздники: x3. Мин. заказ 1ч.",
                 s3t: "Выгода", s3d: "Вы получаете фактуру SAP и возвращаете 50% налогов.",
@@ -234,20 +233,19 @@
                     {q:"Нужно ли мне иметь свои инструменты?", a:"Нет, я привожу все инструменты с собой."},
                     {q:"Как работает возврат 50%?", a:"Вы оплачиваете услугу, а государство возвращает 50% суммы в виде вычета (SAP)."}
                 ],
-                map_t: "Зона обслуживания", 
-                map_sub: "Радиус 20 км вокруг Ренна (дальше — по договоренности)",
+                map_t: "Зона обслуживания", map_sub: "Радиус 20 км вокруг Ренна (дальше — по договоренности)",
                 zones: "Зона охвата: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Здравствуйте, я по поводу услуг..."
             },
             ua: {
                 name: "Paul — Майстер", sap: "Повернення 50% податків (SAP)",
                 call: "Дзвінок", mail: "E-mail", save: "Зберегти", share: "Поділитися", wa: "WhatsApp 💬",
                 nav_how: "Процес", nav_calc: "Калькулятор", nav_serv: "Послуги", nav_faq: "Питання",
-                t_ins: "Страховка RC Pro", t_qual: "Якісна робота", t_pay: "Готівка / Переказ / CESU",
+                t_ins: "Страховка RC Pro", t_qual: "Якісна робота", t_pay: "Готівка / Переказ / Чеки / CESU",
                 s1t: "Зв'язок", s1d: "Напишіть у WhatsApp або зателефонуйте. Обговоримо деталі.",
-                s2t: "Тариф", s2d: "Будни: 50€/год. Субота: x2. Неділя: x3. Мін. 1 год.",
+                s2t: "Тариф", s2d: "Будні: 50€/год. Субота: x2. Неділя: x3. Мін. 1 год.",
                 s3t: "Вигода", s3d: "Якісна робота та офіційне повернення 50% коштів.",
                 calc_t: "Калькулятор вигоди SAP", calc_day: "День роботи:", calc_h: "Годин:", calc_after: "Ціна з вичетом:",
-                opt_wd: "Будні (Пн-Пт)", opt_sat: "Суббота (x2)", opt_sun: "Неділя/Свята (x3)",
+                opt_wd: "Будні (Пн-Пт)", opt_sat: "Субота (x2)", opt_sun: "Неділя/Свята (x3)",
                 it_t: "Web та ІТ послуги", it_l: "<li>Створення сайтів</li><li>Встановлення ОС</li><li>Чистка від вірусів</li><li>Налаштування Wi-Fi</li>",
                 br_t: "Майстер на годину", br_l: "<li>Збірка меблів</li><li>Встановлення люстр</li><li>Дрібний ремонт</li><li>Побутова техніка</li>",
                 price_f: "Мін. 1-ша год: 50€<br>Наст.: 40€/год",
@@ -257,15 +255,14 @@
                     {q:"Чому мінімум 50€?", a:"Це покриває виїзд, страховку та підготовку інструментів."},
                     {q:"Як працює повернення?", a:"Держава повертає 50% вартості через систему SAP."}
                 ],
-                map_t: "Зона охоплення", 
-                map_sub: "Радіус 20 км навколо Ренна (далі — за домовленістю)",
+                map_t: "Зона охоплення", map_sub: "Радіус 20 км навколо Ренна (далі — за домовленістю)",
                 zones: "Зона охоплення: Ренн та передмістя (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Добрий день, я щодо послуг..."
             },
             en: {
                 name: "Paul — Your Craftsman", sap: "Service à la personne: 50% Tax Credit",
                 call: "Call", mail: "E-mail", save: "Save", share: "Share", wa: "WhatsApp 💬",
                 nav_how: "Process", nav_calc: "Simulator", nav_serv: "Services", nav_faq: "FAQ",
-                t_ins: "RC Pro Insurance", t_qual: "Quality Work", t_pay: "Cash / Transfer / CESU",
+                t_ins: "RC Pro Insurance", t_qual: "Quality Work", t_pay: "Cash / Transfer / Checks / CESU",
                 s1t: "Contact", s1d: "Message me on WhatsApp or call to discuss your needs.",
                 s2t: "Rates", s2d: "Week: 50€/h. Saturday: x2. Sunday/Public Hol.: x3. Min 1h.",
                 s3t: "Benefits", s3d: "Professional invoice (SAP) for a 50% tax credit.",
@@ -280,8 +277,7 @@
                     {q:"Why 50€ minimum?", a:"It covers travel expenses, insurance, and professional tools preparation."},
                     {q:"How does the tax credit work?", a:"You get 50% back as a tax credit from the State (SAP)."}
                 ],
-                map_t: "Area covered", 
-                map_sub: "20 km radius around Rennes (further upon request)",
+                map_t: "Area covered", map_sub: "20 km radius around Rennes (further upon request)",
                 zones: "Area: Rennes and suburbs (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Hello, I'm contacting you regarding your services..."
             }
         };
@@ -332,7 +328,7 @@
             document.getElementById('br-price').innerHTML = t.price_f;
             document.getElementById('faq-title').innerText = t.faq_t;
             document.getElementById('map-title').innerText = t.map_t;
-            document.getElementById('map-subtitle').innerText = t.map_sub; // Интегрировано
+            document.getElementById('map-subtitle').innerText = t.map_sub;
             document.getElementById('zones-list').innerText = t.zones;
             document.getElementById('wa-link').href = `https://wa.me/33745625007?text=${encodeURIComponent(t.msg)}`;
 
