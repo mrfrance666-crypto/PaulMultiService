@@ -27,7 +27,7 @@
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: background var(--transition); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         
-        /* Липкая навигация */
+        /* Липкая навигация (меню) */
         .nav-sticky-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 8px 0; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(15px); }
         .nav-lang-switcher { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; }
         
@@ -36,14 +36,15 @@
 
         .nav-pills { display: flex; justify-content: center; gap: 5px; overflow-x: auto; padding: 0 10px; -ms-overflow-style: none; scrollbar-width: none; }
         .nav-pills::-webkit-scrollbar { display: none; }
-        .nav-pill { background: rgba(212,175,55,0.05); border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+        .nav-pill { background: rgba(212,175,55,0.05); border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 0.75rem; font-weight: 600; white-space: nowrap; transition: 0.3s; }
+        .nav-pill:hover, .nav-pill:active { background: var(--gold); color: var(--bg-color); box-shadow: 0 0 15px rgba(212,175,55,0.5); }
 
-        /* Лого с подсветкой как раньше */
-        .theme-toggle { position: absolute; top: 15px; right: 15px; background: var(--card-bg); border: 2px solid var(--gold); color: var(--gold); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto 10px; border: 3px solid var(--gold); cursor: pointer; transition: 0.4s; }
+        /* Кнопка темы теперь FIXED (всегда видна) */
+        .theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 1100; background: var(--card-bg); border: 2px solid var(--gold); color: var(--gold); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        
+        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 10px auto; border: 3px solid var(--gold); cursor: pointer; transition: 0.4s; }
         .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--gold); }
         
-        /* Мессенджеры */
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 400px; margin: 20px auto; padding: 0 15px; }
         .msg-btn { display: flex; align-items: center; justify-content: center; padding: 16px 5px; border-radius: 14px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .msg-btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
@@ -56,20 +57,27 @@
         .brand-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin: 40px 0 5px; letter-spacing: 1px; }
         .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.1); color: var(--gold); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; border: 1px solid var(--border-color); margin-bottom: 20px; }
         
-        /* Стили карточек и калькулятора */
         .how-it-works { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         .steps-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
         .step-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 20px; flex: 1; min-width: 260px; }
         .step-num { width: 30px; height: 30px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; }
+        
+        /* Стили калькулятора */
         .calc-box { max-width: 380px; margin: 40px auto; padding: 25px; border-radius: 24px; background: var(--card-bg); border: 1px solid var(--border-color); }
-        .calc-input-group select, .calc-input-group input { width: 100%; max-width: 220px; padding: 12px; border-radius: 12px; border: 1px solid var(--gold); background: transparent; color: var(--text-color); text-align: center; font-family: inherit; font-size: 1rem; margin-top: 8px; }
+        .calc-input-group select, .calc-input-group input { width: 100%; max-width: 220px; padding: 12px; border-radius: 12px; border: 1px solid var(--gold); background: var(--card-bg); color: var(--gold); text-align: center; font-family: inherit; font-size: 1rem; margin-top: 8px; font-weight: 600; }
+        body.light-theme .calc-input-group select, 
+        body.light-theme .calc-input-group input { border-color: #000; color: #000; }
+
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 25px; text-align: left; transition: 0.3s; }
         .price-tag { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); color: var(--gold); font-weight: 700; }
         .faq-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; margin-bottom: 8px; overflow: hidden; text-align: left; max-width: 800px; margin-inline: auto; }
         .faq-question { padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold); }
         .faq-answer { padding: 0 20px 16px; display: none; opacity: 0.85; font-size: 0.9rem; line-height: 1.6; }
+        
         .footer { padding: 50px 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; opacity: 0.9; }
+        .gold-text { color: var(--gold); font-weight: 600; }
+
         .back-to-top { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; text-decoration: none; z-index: 999; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
     </style>
 </head>
@@ -77,15 +85,16 @@
     <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon">🌙</button>
 
     <p class="brand-name">PaulMultiService</p>
-    <img src="logo.png" alt="Logo" class="main-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
     
-    <div style="margin-bottom: 20px; display: flex; justify-content: center; gap: 8px;">
+    <div style="margin-bottom: 10px; display: flex; justify-content: center; gap: 8px;">
         <button class="lang-btn" onclick="changeLang('fr')">FR</button>
         <button class="lang-btn" onclick="changeLang('en')">EN</button>
         <button class="lang-btn" onclick="changeLang('ua')">UA</button>
         <button class="lang-btn" onclick="changeLang('ru')">RU</button>
     </div>
 
+    <img src="logo.png" alt="Logo" class="main-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    
     <div id="display-name" style="font-weight: 600; font-size: 1.2rem; color: var(--gold-light);">Paul — Ваш мастер</div>
     <div class="sap-badge" id="sap-info">Services à la personne : 50% de crédit d'impôt</div>
 
@@ -95,7 +104,7 @@
         <a href="tel:+33745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="mail-text">E-mail</button>
         <button onclick="downloadVCard()" class="msg-btn vcard-btn" id="save-text">Enregistrer</button>
-        <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager le site</button>
+        <button onclick="shareSite()" class="msg-btn share-btn" id="share-text">Partager</button>
     </div>
 
     <div class="nav-sticky-container">
@@ -162,8 +171,8 @@
         <div id="footer-name" style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 10px;">Paul — Ваш мастер</div>
         <p id="zones-list" style="font-weight: 600; margin-bottom: 20px;"></p>
         <div style="line-height: 1.8;">
-            <p><strong>EI Pavlo Pashkin</strong> | <span style="color: var(--gold);">SIRET : 10000226000014</span></p>
-            <p>Organisme déclaré "Service à la Personne"</p>
+            <p><strong>EI Pavlo Pashkin</strong> | <span class="gold-text">SIRET : 10000226000014</span></p>
+            <p class="gold-text">Organisme déclaré "Service à la Personne"</p>
             <p>TVA non applicable, art. 293 B du CGI</p>
             <p style="margin-top: 10px; font-weight: 600;">Rennes, 35700</p>
         </div>
@@ -191,7 +200,7 @@
                     {q:"Dois-je avoir mes propres outils ?", a:"Non, я прихожу со всем необходимым профессиональным оборудованием."},
                     {q:"Comment fonctionne le crédit d'impôt ?", a:"50% des sommes versées vous sont remboursés par l'État via le dispositif Service à la Personne."}
                 ],
-                zones: "Rennes et sa périphérie (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Bonjour, я по поводу услуг..."
+                zones: "Rennes et sa périphérie (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Bonjour, je vous contacte pour vos services..."
             },
             ru: {
                 name: "Paul — Ваш мастер", sap: "Налоговый вычет 50% на все услуги",
@@ -228,8 +237,9 @@
                 faq_t: "Часті запитання", faq_items: [
                     {q:"Де взяти чеки CESU?", a:"Ви можете отримати CESU через роботодавця або соціальні служби."},
                     {q:"Чому мінімум 50€?", a:"Це покриває виїзд, страховку та підготовку інструментів."},
-                    {q:"Чи потрібні мої інструменти?", a:"Ні, я приїжджаю зі своїм професійним обладнанням."},
-                    {q:"Як працює вичет?", a:"Держава повертає 50% вартості через систему SAP."}
+                    /* ИСПРАВЛЕННЫЕ ПУНКТЫ */
+                    {q:"Чи потрібні мені інструменти?", a:"Ні, я приїжджаю зі своїм професійним обладнанням."},
+                    {q:"Як працює повернення?", a:"Держава повертає 50% вартості через систему SAP."}
                 ],
                 zones: "Зона охоплення: Ренн та передмістя (Betton, Bruz, Pacé...)", msg: "Добрий день, я щодо послуг..."
             },
@@ -274,6 +284,7 @@
             document.getElementById('sap-info').innerText = t.sap;
             document.getElementById('call-text').innerText = t.call;
             document.getElementById('save-text').innerText = t.save;
+            document.getElementById('share-text').innerText = t.share;
             document.getElementById('wa-text').innerText = t.wa;
             document.getElementById('nav-how').innerText = t.nav_how;
             document.getElementById('nav-calc').innerText = t.nav_calc;
