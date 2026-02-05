@@ -170,8 +170,9 @@
     </div>
 
     <div class="map-container">
-        <h3 id="map-title" style="color: var(--gold); margin-bottom: 15px;">Zone d'intervention</h3>
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42636.568326280435!2d-1.7161864819777174!3d48.111231454558235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <h3 id="map-title" style="color: var(--gold); margin-bottom: 5px;">Zone d'intervention</h3>
+        <p id="map-subtitle" style="font-size: 0.95rem; font-weight: 500; opacity: 0.9; margin-bottom: 15px; color: var(--gold-light);"></p>
+        <iframe class="map-frame" src="http://googleusercontent.com/maps.google.com/5" allowfullscreen="" loading="lazy"></iframe>
     </div>
 
     <div class="footer">
@@ -207,9 +208,11 @@
                     {q:"Où obtenir des chèques CESU ?", a:"Vous pouvez obtenir des CESU préfinancés auprès de votre employeur, comité d'entreprise ou conseil départemental."},
                     {q:"Pourquoi un minimum de 50€ ?", a:"Cela couvre le déplacement, l'assurance et la préparation du matériel pour garantir la qualité."},
                     {q:"Dois-je avoir mes propres outils ?", a:"Non, j'apporte tout le matériel professionnel nécessaire."},
-                    {q:"Comment fonctionne le crédit d'impôt ?", a:"50% des sommes versées vous sont remboursés par l'État via le dispositif Service à la Personne."}
+                    {q:"How does the tax credit work?", a:"50% des sommes versées vous sont remboursés par l'État via le dispositif Service à la Personne."}
                 ],
-                map_t: "Zone d'intervention", zones: "Rennes et sa périphérie (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Bonjour, je vous contacte pour vos services..."
+                map_t: "Zone d'intervention", 
+                map_sub: "Rayon de 20 km autour de Rennes (plus sur demande)",
+                zones: "Rennes et sa périphérie (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Bonjour, je vous contacte pour vos services..."
             },
             ru: {
                 name: "Paul — Ваш мастер", sap: "Налоговый вычет 50% на все услуги",
@@ -231,7 +234,9 @@
                     {q:"Нужно ли мне иметь свои инструменты?", a:"Нет, я привожу все инструменты с собой."},
                     {q:"Как работает возврат 50%?", a:"Вы оплачиваете услугу, а государство возвращает 50% суммы в виде вычета (SAP)."}
                 ],
-                map_t: "Зона обслуживания", zones: "Зона охвата: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Здравствуйте, я по поводу услуг..."
+                map_t: "Зона обслуживания", 
+                map_sub: "Радиус 20 км вокруг Ренна (дальше — по договоренности)",
+                zones: "Зона охвата: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Здравствуйте, я по поводу услуг..."
             },
             ua: {
                 name: "Paul — Майстер", sap: "Повернення 50% податків (SAP)",
@@ -242,7 +247,7 @@
                 s2t: "Тариф", s2d: "Будни: 50€/год. Субота: x2. Неділя: x3. Мін. 1 год.",
                 s3t: "Вигода", s3d: "Якісна робота та офіційне повернення 50% коштів.",
                 calc_t: "Калькулятор вигоди SAP", calc_day: "День роботи:", calc_h: "Годин:", calc_after: "Ціна з вичетом:",
-                opt_wd: "Будні (Пн-Пт)", opt_sat: "Субота (x2)", opt_sun: "Неділя/Свята (x3)",
+                opt_wd: "Будні (Пн-Пт)", opt_sat: "Суббота (x2)", opt_sun: "Неділя/Свята (x3)",
                 it_t: "Web та ІТ послуги", it_l: "<li>Створення сайтів</li><li>Встановлення ОС</li><li>Чистка від вірусів</li><li>Налаштування Wi-Fi</li>",
                 br_t: "Майстер на годину", br_l: "<li>Збірка меблів</li><li>Встановлення люстр</li><li>Дрібний ремонт</li><li>Побутова техніка</li>",
                 price_f: "Мін. 1-ша год: 50€<br>Наст.: 40€/год",
@@ -252,7 +257,9 @@
                     {q:"Чому мінімум 50€?", a:"Це покриває виїзд, страховку та підготовку інструментів."},
                     {q:"Як працює повернення?", a:"Держава повертає 50% вартості через систему SAP."}
                 ],
-                map_t: "Зона охоплення", zones: "Зона охоплення: Ренн та передмістя (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Добрий день, я щодо послуг..."
+                map_t: "Зона охоплення", 
+                map_sub: "Радіус 20 км навколо Ренна (далі — за домовленістю)",
+                zones: "Зона охоплення: Ренн та передмістя (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Добрий день, я щодо послуг..."
             },
             en: {
                 name: "Paul — Your Craftsman", sap: "Service à la personne: 50% Tax Credit",
@@ -273,7 +280,9 @@
                     {q:"Why 50€ minimum?", a:"It covers travel expenses, insurance, and professional tools preparation."},
                     {q:"How does the tax credit work?", a:"You get 50% back as a tax credit from the State (SAP)."}
                 ],
-                map_t: "Area covered", zones: "Area: Rennes and suburbs (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Hello, I'm contacting you regarding your services..."
+                map_t: "Area covered", 
+                map_sub: "20 km radius around Rennes (further upon request)",
+                zones: "Area: Rennes and suburbs (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Hello, I'm contacting you regarding your services..."
             }
         };
 
@@ -323,6 +332,7 @@
             document.getElementById('br-price').innerHTML = t.price_f;
             document.getElementById('faq-title').innerText = t.faq_t;
             document.getElementById('map-title').innerText = t.map_t;
+            document.getElementById('map-subtitle').innerText = t.map_sub; // Интегрировано
             document.getElementById('zones-list').innerText = t.zones;
             document.getElementById('wa-link').href = `https://wa.me/33745625007?text=${encodeURIComponent(t.msg)}`;
 
