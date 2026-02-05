@@ -168,7 +168,7 @@
                 <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
             </div>
             <div style="font-weight: 700; margin: 10px 0; font-size: 1.2rem;">
-                <span id="l-total">Total</span>: <span id="totalPrice">50</span><span class="total-currency">€</span>
+                <span id="l-total"></span> <span id="totalPrice">50</span><span class="total-currency">€</span>
             </div>
             <div class="price-tag">
                 <span id="c-net"></span> <span id="netPrice" style="font-size: 1.4rem;">25</span><span class="total-currency">€</span>
@@ -190,7 +190,7 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600; color: var(--gold-light);"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.27985448098!2d-1.7481541460517525!3d48.11593504443912!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d591d5%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715690000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.27894951167!2d-1.7451000673461413!3d48.1113387140807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
@@ -215,21 +215,21 @@
                 how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
-                h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fourние.",
+                h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
                 it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
-                ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total",
+                ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total :",
                 zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes.",
                 ft: "Questions fréquentes",
                 faq: [
                     {q: "Le 1er heure est-elle toujours 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "No, j'apporte mes propres outils professionnels. Cependant, les consommables (vis, chevilles, joints, câbles) sont à votre charge."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel nécessaire. Cependant, les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge. Si vous ne les avez pas, je peux m'occuper de l'achat et de la livraison : c'est un service supplémentaire facturé à part."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
                     {q: "SAP fonctionne le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements bancaires, les chèques bancaires et les chèques CESU."}
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements bancaires, les chèques bancaires et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul..."
             },
@@ -247,12 +247,12 @@
                 it_p: "Мин. выезд: 50€<br>След.: 40€/ч",
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
                 br_p: "Мин. выезд: 50€<br>След.: 40€/ч",
-                ct: "Калькулятор", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого",
+                ct: "Калькулятор", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого :",
                 zt: "Зона охвата", zd: "Зона охвата 20 км включена. Если дальше — по договоренности.",
                 ft: "Частые вопросы",
                 faq: [
                     {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это минимальный неделимый тариф (forfait), который покрывает расходы на дорогу, подготовку инструментов и саму работу."},
-                    {q: "Нужно ли мне иметь свои инструменты?", a: "Нет, я привожу все инструменты с собой. Однако расходники (шурупы, дюбели и т.д.) предоставляются вами."},
+                    {q: "Нужно ли мне иметь свои инструменты?", a: "Нет, я привожу весь необходимый профессиональный инструмент с собой. Однако расходные материалы (шурупы, дюбели, прокладки, кабели и т.д.) предоставляются вами. Если у вас их нет, я могу взять закупку и доставку материалов на себя — это отдельный платный сервис, который обсуждается заранее."},
                     {q: "Где взять чеки CESU ?", a: "На официальном сайте cesu.urssaf.fr или в вашем банке."},
                     {q: "SAP работает в выходные ?", a: "Да, налоговый вычет 50% сохраняется при работе в субботу и воскресенье."},
                     {q: "Как работает возврат 50% ?", a: "Я выдаю официальную фактуру SAP. При подаче декларации государство возвращает вам 50% суммы."},
@@ -274,12 +274,12 @@
                 it_p: "Мін. виїзд: 50€<br>Наст.: 40€/год",
                 br_t: "Мастер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібний ремонт (крани, замки)</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст.: 40€/год",
-                ct: "Калькулятор", cnet: "Ціна з вичетом:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Разом",
+                ct: "Калькулятор", cnet: "Ціна з вичетом:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Разом :",
                 zt: "Зона охоплення", zd: "Зона охоплення 20 км включена. Далі — за домовленістю.",
                 ft: "Питання",
                 faq: [
-                    {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний тариф (forfait)."},
-                    {q: "Чи потрібно мені мати власні інструменти?", a: "Ні, я привожу всі інструменти з собою."},
+                    {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний тариф (forfait), що покриває виїзд, підготовку інструментів та роботу."},
+                    {q: "Чи потрібно мені мати власні інструменти?", a: "Ні, я привожу весь необхідний професійний інструмент із собою. Проте витратні матеріали (шурупи, дюбелі, прокладки, кабелі тощо) надаєте ви. Якщо їх немає, я можу закупити та доставити матеріали сам — це окрема платна послуга, що оплачується додатково."},
                     {q: "Де взяти чеки CESU ?", a: "На сайті cesu.urssaf.fr або у вашому банку."},
                     {q: "SAP діє у вихідні ?", a: "Так, податковий вичет 50% діє також у суботу та неділю."},
                     {q: "Як працює повернення ?", a: "Я видаю офіційну фактуру SAP. Держава повертає половину суми."},
@@ -301,12 +301,12 @@
                 it_p: "Min. fee: 50€<br>Next: 40€/h",
                 br_t: "Handyman", br_l: "<li>Furniture assembly (IKEA, etc.)</li><li>Lights, TV, shelves</li><li>Minor repairs (taps, locks)</li><li>Appliance connection</li>",
                 br_p: "Min. fee: 50€<br>Next: 40€/h",
-                ct: "Calculator", cnet: "Real cost (SAP):", owd: "Weekday", osat: "Saturday (x2)", osun: "Sunday (x3)", l_total: "Total",
+                ct: "Calculator", cnet: "Real cost (SAP):", owd: "Weekday", osat: "Saturday (x2)", osun: "Sunday (x3)", l_total: "Total :",
                 zt: "Service Area", zd: "20 km radius included around Rennes.",
                 ft: "FAQ",
                 faq: [
-                    {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum flat fee (forfait)."},
-                    {q: "Do I need my own tools?", a: "No, I bring my tools."},
+                    {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum flat fee (forfait) covering travel, tool preparation, and the service itself."},
+                    {q: "Do I need my own tools?", a: "No, I bring all the necessary professional tools. However, consumables (screws, wall plugs, gaskets, cables, etc.) are to be provided by you. If you don't have them, I can handle the purchase and delivery as an additional paid service."},
                     {q: "Where to get CESU ?", a: "At cesu.urssaf.fr or at your bank."},
                     {q: "SAP on weekends ?", a: "Yes, the 50% tax credit applies on Saturdays and Sundays."},
                     {q: "How 50% refund works ?", a: "I issue a SAP invoice, and the state refunds you 50%."},
@@ -428,7 +428,7 @@
             checkSystemTheme(); 
             changeLang('fr'); 
             reveal(); 
-        }; 
+        };
     </script>
 </body>
 </html>
