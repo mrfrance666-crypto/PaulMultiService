@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <title>Paul — Artisan Multiservice</title>
     
     <link rel="icon" type="image/png" href="logo.png">
@@ -173,9 +174,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600; color: var(--gold-light);"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85273.1362086431!2d-1.7501138407481182!3d48.11122340333202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715691234567!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m12!1m3!1d170560.8175402447!2d-1.7820468351651523!3d48.11116246473659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -190,7 +191,7 @@
     <script>
         const translations = {
             fr: {
-                name: "Paul — Ваш мастер", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
+                name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
                 h_zone: "Zone d'intervention: Rennes & alentours (Betton, Pacé, Bruz...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
@@ -199,7 +200,7 @@
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT Services", it_l: "<li>Sites Web & Landing pages</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Визитка)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
                 br_p: "Forfait min. : 50€<br>Sivante : 40€/ч",
@@ -207,11 +208,12 @@
                 zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes.",
                 ft: "Questions fréquentes",
                 faq: [
-                    {q: "Le 1er heure est-elle toujours 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€, couvrant le déplacement et la mise en place, que l'intervention dure 5 ou 55 minutes."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non. J'apporte mes propres outils professionnels. Cependant, les consommables (vis, chevilles, joints, etc.) sont à votre charge."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или в вашем банке. C'est un moyen de paiement officiel."},
-                    {q: "SAP fonctionne le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également aux travaux effectués le samedi et le dimanche."},
-                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourсе 50% via votre crédit d'impôt."}
+                    {q: "Le 1er heure est-elle toujours 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique, qu'elle dure 5 ou 55 minutes."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, j'apporte mes propres outils professionnels (perceuse, tournevis, etc.). Cependant, les consommables (vis, chevilles, joints, câbles) doivent être fournis par vous. Si je dois m'occuper de l'achat des matériaux, cela constitue un service de course séparé."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Vous pouvez les obtenir sur le site officiel cesu.urssaf.fr ou auprès de votre agence bancaire. C'est un excellent moyen de paiement simplifié."},
+                    {q: "SAP fonctionne le week-end ?", a: "Oui, l'avantage fiscal de 50% s'applique également aux prestations réalisées le samedi et le dimanche."},
+                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% de la somme sous forme de crédit d'impôt lors de votre déclaration annuelle."},
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements bancaires, les chèques bancaires et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul..."
             },
@@ -225,7 +227,7 @@
                 h1t: "Связь", h1d: "Напишите в WhatsApp или позвоните. Обсудим вашу задачу.",
                 h2t: "Тариф", h2d: "Минимальный выезд (первый час) — 50€, даже если работа заняла меньше времени. След. часы: 40€/ч. Суббота: x2. Воскресенье: x3.",
                 h3t: "Выгода", h3d: "Фактура SAP позволяет вернуть 50% затрат через налоги.",
-                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing)</li><li>Установка ОС и программ</li><li>Чистка от вирусов</li><li>Настройка Wi-Fi и сетей</li>",
+                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing, Визитка)</li><li>Установка ОС и программ</li><li>Чистка от вирусов</li><li>Настройка Wi-Fi и сетей</li>",
                 it_p: "Мин. выезд: 50€<br>След.: 40€/ч",
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
                 br_p: "Мин. выезд: 50€<br>След.: 40€/ч",
@@ -233,11 +235,12 @@
                 zt: "Зона охвата", zd: "Зона охвата 20 км включена. Если дальше — по договоренности.",
                 ft: "Частые вопросы",
                 faq: [
-                    {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это минимальный неделимый тариф (forfait), который покрывает расходы на дорогу и подготовку, независимо от длительности работы."},
-                    {q: "Нужно ли мне иметь свои инструменты?", a: "Нет, я привожу все необходимые инструменты с собой. Расходные материалы оплачиваются отдельно."},
-                    {q: "Где взять чеки CESU ?", a: "На сайте cesu.urssaf.fr или в вашем банке. Это официальный способ оплаты услуг."},
-                    {q: "SAP работает в выходные ?", a: "Да, налоговый вычет 50% применяется также к работам в субботу и воскресенье."},
-                    {q: "Как работает возврат 50% ?", a: "Я выдаю официальную фактуру SAP. Государство возвращает половину суммы."}
+                    {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это минимальный неделимый тариф (forfait), который покрывает расходы на дорогу, подготовку инструментов и саму работу, независимо от того, длилась она 5 или 55 минут."},
+                    {q: "Нужно ли мне иметь свои инструменты?", a: "Нет, я привожу все необходимые профессиональные инструменты с собой. Однако расходные материалы (шурупы, дюбели, прокладки, кабели и т.д.) должны быть у вас. Если их нет и мне нужно ехать в магазин для их поиска и покупки — это считается отдельным платным сервисом (Service de course)."},
+                    {q: "Где взять чеки CESU ?", a: "На официальном сайте cesu.urssaf.fr или запросить в вашем банке. Это законный способ оплаты услуг на дому во Франции."},
+                    {q: "SAP работает в выходные ?", a: "Да, налоговый вычет 50% сохраняется при работе в субботу и воскресенье."},
+                    {q: "Как работает возврат 50% ?", a: "Я выдаю вам официальную фактуру SAP. При подаче годовой налоговой декларации государство возвращает вам 50% от суммы моих услуг."},
+                    {q: "Какие способы оплаты ?", a: "Я принимаю наличные средства, банковский перевод, чеки и чеки CESU."}
                 ],
                 msg: "Здравствуйте, Павел..."
             },
@@ -251,7 +254,7 @@
                 h1t: "Зв'язок", h1d: "Напишіть у WhatsApp або зателефонуйте. Обговоримо задачу.",
                 h2t: "Тариф", h2d: "Мінімальний виїзд (перша година) — 50€, навіть якщо робота тривала менше. Наст. години: 40€/год. Субота: x2. Неділя: x3.",
                 h3t: "Вигода", h3d: "Фактура SAP дозволяє повернути 50% витрат через податки.",
-                it_t: "Web та IT послуги", it_l: "<li>Створення сайтів</li><li>Встановлення ОС</li><li>Чистка від вірусів</li><li>Налаштування Wi-Fi</li>",
+                it_t: "Web та IT послуги", it_l: "<li>Створення сайтів (Landing, Візитка)</li><li>Встановлення ОС</li><li>Чистка від вірусів</li><li>Налаштування Wi-Fi</li>",
                 it_p: "Мін. виїзд: 50€<br>Наст.: 40€/год",
                 br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібний ремонт (крани, замки)</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст.: 40€/год",
@@ -260,10 +263,11 @@
                 ft: "Питання",
                 faq: [
                     {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний тариф (forfait), що покриває витрати на дорогу та підготовку."},
-                    {q: "Чи потрібно мені мати власні інструменти?", a: "Ні, я привожу всі професійні інструменти з собою."},
-                    {q: "Де взяти чеки CESU ?", a: "На сайті cesu.urssaf.fr або у вашому банку. Це офіційний спосіб оплати."},
+                    {q: "Чи потрібно мені мати власні інструменти?", a: "Ні, я привожу всі професійні інструменти з собою. Але витратні матеріали повинні бути у вас або замовляються як окремий сервіс."},
+                    {q: "Де взяти чеки CESU ?", a: "На сайті cesu.urssaf.fr або у вашому банку."},
                     {q: "SAP діє у вихідні ?", a: "Так, податковий вичет 50% діє також у суботу та неділю."},
-                    {q: "Як працює повернення ?", a: "Я видаю офіційну фактуру SAP. Держава повертає половину суми."}
+                    {q: "Як працює повернення ?", a: "Я видаю офіційну фактуру SAP. Держава повертає половину суми."},
+                    {q: "Які способи оплати ?", a: "Готівка, переказ, банківські чеки або чеки CESU."}
                 ],
                 msg: "Добрий день, Павле..."
             },
@@ -277,7 +281,7 @@
                 h1t: "Contact", h1d: "Message me on WhatsApp or call to discuss your needs.",
                 h2t: "Price", h2d: "1st hour is a flat rate (min. fee) of 50€. Next: 40€/h. Weekdays: base. Sat: x2. Sun: x3.",
                 h3t: "Benefit", h3d: "Get 50% back via SAP tax credit. Official invoice provided.",
-                it_t: "Web & IT services", it_l: "<li>Websites & Landing</li><li>OS & Software</li><li>Virus removal</li><li>Wi-Fi & Networks</li>",
+                it_t: "Web & IT services", it_l: "<li>Websites (Landing, Business card)</li><li>OS & Software</li><li>Virus removal</li><li>Wi-Fi & Networks</li>",
                 it_p: "Min. fee: 50€<br>Next: 40€/h",
                 br_t: "Handyman", br_l: "<li>Furniture assembly (IKEA, etc.)</li><li>Lights, TV, shelves</li><li>Minor repairs (taps, locks)</li><li>Appliance connection</li>",
                 br_p: "Min. fee: 50€<br>Next: 40€/h",
@@ -285,11 +289,12 @@
                 zt: "Service Area", zd: "20 km radius included around Rennes.",
                 ft: "FAQ",
                 faq: [
-                    {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum call-out fee (forfait) of 50€, regardless of whether the job takes 5 or 55 minutes."},
-                    {q: "Do I need my own tools?", a: "No, I bring all professional tools with me."},
-                    {q: "Where to get CESU ?", a: "On cesu.urssaf.fr or at your bank. It's an official payment method."},
-                    {q: "SAP on weekends ?", a: "Yes, the 50% tax credit applies on Saturdays and Sundays too."},
-                    {q: "How 50% refund works ?", a: "I issue an official SAP invoice. The state refunds half via tax credit."}
+                    {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum flat fee (forfait) that covers travel and prep time."},
+                    {q: "Do I need my own tools?", a: "No, I bring my tools. Consumables must be provided by you or bought as an extra service."},
+                    {q: "Where to get CESU ?", a: "At cesu.urssaf.fr or at your bank."},
+                    {q: "SAP on weekends ?", a: "Yes, the 50% tax credit applies on Saturdays and Sundays."},
+                    {q: "How 50% refund works ?", a: "I issue a SAP invoice, and the state refunds you 50% via tax credit."},
+                    {q: "Payment methods ?", a: "Cash, Bank transfer, Cheques, or CESU."}
                 ],
                 msg: "Hello Paul..."
             }
