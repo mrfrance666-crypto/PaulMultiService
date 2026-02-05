@@ -11,47 +11,47 @@
         :root { 
             --dark-green: #0a2e1f; --gold: #d4af37; --gold-light: #f4d06f; --white: #ffffff; 
             --wa-green: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
-            --gold-glow: 0 0 15px rgba(212, 175, 55, 0.6);
+            --gold-glow: 0 0 15px rgba(212, 175, 55, 0.7);
             --bg-color: var(--dark-green); --text-color: var(--white); 
-            --card-bg: rgba(255,255,255,0.06); --border-color: var(--gold);
+            --card-bg: rgba(255,255,255,0.06); --border-color: rgba(212,175,55,0.5);
             --nav-bg: rgba(10,46,31,0.98); --transition: 0.3s ease;
         }
         body.light-theme { 
             --bg-color: #ffffff; --text-color: #1a1a1a; 
-            --card-bg: #f9f9f9; --border-color: #a6892c; 
+            --card-bg: #f9f9f9; --border-color: rgba(166, 137, 44, 0.6); 
             --nav-bg: rgba(255,255,255,0.98);
         }
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: background var(--transition); overflow-x: hidden; }
         
-        /* Золотая подсветка навигации и кнопок */
         .nav-sticky-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 12px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(15px); }
-        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 0.75rem; box-shadow: 0 0 5px rgba(212,175,55,0.3); }
+        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 0.75rem; box-shadow: 0 0 8px rgba(212,175,55,0.4); transition: 0.3s; }
         .lang-btn.active { background: var(--gold); color: white; box-shadow: var(--gold-glow); }
         .nav-pills { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 5px 10px; scrollbar-width: none; }
-        .nav-pill { background: rgba(212,175,55,0.1); border: 1.5px solid var(--gold); color: var(--gold); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 0.75rem; font-weight: 700; box-shadow: 0 0 5px rgba(212,175,55,0.3); }
+        .nav-pill { background: rgba(212,175,55,0.1); border: 1.5px solid var(--gold); color: var(--gold); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 0.75rem; font-weight: 700; box-shadow: 0 0 8px rgba(212,175,55,0.4); transition: 0.3s; }
+        .nav-pill:hover { box-shadow: var(--gold-glow); transform: scale(1.05); }
 
-        /* Логотип */
-        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto 10px; border: 3px solid var(--gold); box-shadow: var(--gold-glow); cursor: pointer; }
+        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto 10px; border: 3px solid var(--gold); box-shadow: var(--gold-glow); cursor: pointer; transition: 0.3s; }
+        .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212,175,55,0.9); }
 
-        /* Общее выравнивание блоков */
-        .section-container { max-width: 400px; margin: 20px auto; padding: 0 15px; box-sizing: border-box; }
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 20px; text-align: left; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .card:hover { box-shadow: var(--gold-glow); transform: translateY(-3px); }
+        .card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 24px; padding: 25px; text-align: left; transition: 0.3s; }
+        .card:hover { border-color: var(--gold); box-shadow: var(--gold-glow); transform: translateY(-5px); }
+        
+        .process-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .calc-box { max-width: 400px; margin: 40px auto; padding: 25px; border-radius: 24px; }
 
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 400px; margin: 20px auto; padding: 0 15px; }
-        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 16px 5px; border-radius: 14px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; }
+        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 16px 5px; border-radius: 14px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; cursor: pointer; }
         .wa-btn-main { grid-column: span 2; background: var(--wa-green); font-size: 1rem; }
-        .tg-btn { background: linear-gradient(135deg, #0088cc 0%, #005580 100%); }
-        .call-btn { background: linear-gradient(135deg, #d4af37 0%, #a6892c 100%); }
         .nav-btn-maps { grid-column: span 2; background: linear-gradient(135deg, #4285F4 0%, #34A853 100%); margin-top: 10px; }
         
-        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin: 10px 0 5px; }
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin: 10px 0 5px; text-shadow: 0 0 10px rgba(212,175,55,0.3); }
         .sap-badge { display: inline-block; background: rgba(212, 175, 55, 0.1); color: var(--gold); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; border: 1px solid var(--gold); margin-bottom: 20px; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
         .price-tag { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); color: var(--gold); font-weight: 700; }
-        .faq-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; margin-bottom: 8px; text-align: left; max-width: 400px; margin-inline: auto; }
-        .faq-question { padding: 14px 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold); }
-        .map-frame { width: 100%; height: 350px; border-radius: 24px; border: 2px solid var(--gold); margin-top: 15px; box-shadow: var(--gold-glow); }
+        .faq-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; margin-bottom: 8px; text-align: left; max-width: 800px; margin-inline: auto; }
+        .faq-question { padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: var(--gold); }
+        .map-frame { width: 100%; height: 350px; border-radius: 24px; border: 2px solid var(--gold); margin-top: 20px; box-shadow: var(--gold-glow); }
         .theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 1100; background: var(--card-bg); border: 2px solid var(--gold); color: var(--gold); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; box-shadow: var(--gold-glow); }
     </style>
 </head>
@@ -81,38 +81,36 @@
 
     <div class="messenger-wrapper">
         <a href="" target="_blank" class="msg-btn wa-btn-main" id="wa-link"><span id="wa-text">WhatsApp 💬</span></a>
-        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
-        <a href="tel:+33745625007" class="msg-btn call-btn" id="call-text">Appeler</a>
-        <button onclick="copyEmail()" class="msg-btn mail-btn" style="background:var(--mail-purple)" id="mail-text">E-mail</button>
-        <button onclick="downloadVCard()" class="msg-btn vcard-btn" style="background:var(--save-mint)" id="save-text">Enregistrer</button>
-        <button onclick="shareSite()" class="msg-btn share-btn" style="background:var(--share-carbon)" id="share-text">Partager</button>
+        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn" style="background:linear-gradient(135deg, #0088cc 0%, #005580 100%)">Telegram</a>
+        <a href="tel:+33745625007" class="msg-btn" style="background:linear-gradient(135deg, #d4af37 0%, #a6892c 100%)" id="call-text">Appeler</a>
+        <button onclick="copyEmail()" class="msg-btn" style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%)" id="mail-text">E-mail</button>
+        <button onclick="downloadVCard()" class="msg-btn" style="background:linear-gradient(135deg, #00b09b 0%, #96c93d 100%)" id="save-text">Enregistrer</button>
+        <button onclick="shareSite()" class="msg-btn" style="background:linear-gradient(135deg, #434343 0%, #000000 100%)" id="share-text">Partager</button>
     </div>
 
-    <div style="font-size: 0.7rem; font-weight: 600; margin-bottom: 25px; opacity: 0.9;" id="trust-pay">
+    <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 30px; color: var(--gold); text-shadow: 0 0 5px rgba(212,175,55,0.2);" id="trust-pay">
         Наличные / Перевод / Чеки / CESU
     </div>
 
-    <div id="how-it-works" class="section-container">
-        <div class="card" style="margin-bottom: 10px;"><h4 id="s1-t"></h4><p id="s1-d"></p></div>
-        <div class="card" style="margin-bottom: 10px;"><h4 id="s2-t"></h4><p id="s2-d"></p></div>
-        <div class="card" style="margin-bottom: 10px;"><h4 id="s3-t"></h4><p id="s3-d"></p></div>
+    <div id="how-it-works" class="process-grid">
+        <div class="card" style="flex:1; min-width:280px;"><h4 id="s1-t"></h4><p id="s1-d"></p></div>
+        <div class="card" style="flex:1; min-width:280px;"><h4 id="s2-t"></h4><p id="s2-d"></p></div>
+        <div class="card" style="flex:1; min-width:280px;"><h4 id="s3-t"></h4><p id="s3-d"></p></div>
     </div>
 
-    <div id="calc" class="section-container">
+    <div id="calc" class="calc-box card" style="margin-inline: auto;">
+        <h3 id="calc-t" style="color: var(--gold); margin-top: 0; text-align: center;"></h3>
+        <select id="daySelect" onchange="updateCalc()" style="width:100%; padding:12px; border-radius:12px; background:var(--bg-color); color:var(--gold); border:1px solid var(--gold); font-weight: 600;">
+            <option value="1" id="opt-weekday"></option>
+            <option value="2" id="opt-sat"></option>
+            <option value="3" id="opt-sun"></option>
+        </select>
+        <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()" style="width:100%; padding:12px; margin-top:10px; border-radius:12px; background:var(--bg-color); color:var(--gold); border:1px solid var(--gold); text-align: center; font-weight: 600;">
+        <div style="margin-top: 20px; font-weight: 600; text-align: center;">Total: <span id="totalPrice">50</span>€ | <span id="calc-after"></span> <b><span id="netPrice">25</span>€</b></div>
+    </div>
+
+    <div id="services" class="services-grid">
         <div class="card">
-            <h3 id="calc-t" style="color: var(--gold); margin: 0 0 15px;"></h3>
-            <select id="daySelect" onchange="updateCalc()" style="width:100%; padding:12px; border-radius:12px; background:var(--bg-color); color:var(--gold); border:1px solid var(--gold);">
-                <option value="1" id="opt-weekday"></option>
-                <option value="2" id="opt-sat"></option>
-                <option value="3" id="opt-sun"></option>
-            </select>
-            <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()" style="width:100%; padding:12px; margin-top:10px; border-radius:12px; background:var(--bg-color); color:var(--gold); border:1px solid var(--gold); text-align: center;">
-            <div style="margin-top: 20px; font-weight: 600;">Total: <span id="totalPrice">50</span>€ | <span id="calc-after"></span> <b><span id="netPrice">25</span>€</b></div>
-        </div>
-    </div>
-
-    <div id="services" class="section-container">
-        <div class="card" style="margin-bottom: 20px;">
             <h2 id="it-title" style="color: var(--gold); margin-top: 0;"></h2>
             <ul id="it-list" style="padding-left: 20px; line-height: 1.8; font-weight: 500;"></ul>
             <div class="price-tag" id="it-price"></div>
@@ -124,22 +122,22 @@
         </div>
     </div>
 
-    <div id="faq" style="padding: 20px 15px;">
-        <h2 id="faq-title" style="color: var(--gold);"></h2>
+    <div id="faq" style="padding: 40px 20px;">
+        <h2 id="faq-title" style="color: var(--gold); margin-bottom: 25px;"></h2>
         <div id="faq-container"></div>
         <div class="messenger-wrapper">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=35700+Rennes" target="_blank" class="msg-btn nav-btn-maps">
+            <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42643.0851890333!2d-1.725997!3d48.117266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v17100000000009" target="_blank" class="msg-btn nav-btn-maps">
                 📍 <span id="nav-maps-text">Itinéraire</span>
             </a>
         </div>
     </div>
 
-    <div id="map-zone" class="section-container">
-        <h3 id="map-title" style="color: var(--gold); margin-bottom: 5px;"></h3>
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42631.7456729221!2d-1.6700!3d48.1173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2s35700%20Rennes%2C%20France!5e0!3m2!1sen!2sfr!4v1710000000000" allowfullscreen="" loading="lazy"></iframe>
+    <div id="map-zone" style="padding: 0 20px 40px; max-width: 1000px; margin: auto;">
+        <h3 id="map-title" style="color: var(--gold); margin-bottom: 10px;"></h3>
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42636.568326280435!2d-1.7161864819777174!3d48.111231454558235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715000000000!5m2!1sfr!2sfr0" allowfullscreen="" loading="lazy"></iframe>
     </div>
 
-    <div class="footer" style="padding: 40px 20px; font-size: 0.8rem; line-height: 1.6; opacity: 0.9;">
+    <div class="footer" style="padding: 50px 20px; font-size: 0.85rem; line-height: 1.8; opacity: 0.9; border-top: 1px solid var(--border-color);">
         <p><strong id="foot-name">Paul — Ваш мастер</strong></p>
         <p id="foot-zone">Зона охвата: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)</p>
         <p><strong>EI Pavlo Pashkin</strong> | <span style="color: var(--gold);">SIRET : 10000226000014</span></p>
@@ -159,14 +157,15 @@
                 s3t: "Avantage", s3d: "Facture SAP ouvrant droit à 50% de crédit d'impôt.",
                 calc_t: "Simulateur Crédit d'Impôt", calc_after: "Coût réel :",
                 opt_wd: "Semaine", opt_sat: "Samedi (x2)", opt_sun: "Dimanche (x3)",
-                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка Wi-Fi и сетей</li>",
+                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing, Визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка Wi-Fi и сетей</li>",
                 br_t: "Petit Bricolage", br_l: "<li>Montage meubles</li><li>Installation luminaires, TV</li><li>Petit dépannage</li><li>Électroménager</li>",
-                price_f: "Min. 1ère h : 50€ | Suivantes : 40€/h",
+                price_f: "Min. 1ère h : 50€<br>Suivantes : 40€/h",
                 faq_t: "Questions fréquentes", faq_items: [
                     {q:"Quels modes de paiement ?", a:"Espèces, virements, chèques et CESU."},
                     {q:"Le CESU fonctionne-t-il le week-end ?", a:"Oui, le CESU est accepté tous les jours, y compris le samedi et le dimanche."},
+                    {q:"Dois-je avoir mes outils ?", a:"Non, j'apporte tout le matériel professionnel nécessaire."},
                     {q:"C'est quoi le CESU ?", a:"Le CESU permet de payer un service à domicile simplement via cesu.urssaf.fr."},
-                    {q:"Comment fonctionne le crédit d'impôt ?", a:"50% de la facture est déduit de vos impôts via le système SAP."}
+                    {q:"Comment fonctionne le crédit d'impôt ?", a:"Grâce au statut SAP, 50% du montant est déduit de vos impôts."}
                 ],
                 map_t: "Zone d'intervention (35700)", nav_text: "Itinéraire", msg: "Bonjour...",
                 f_name: "Paul — Votre artisan", f_zone: "Zone : Rennes et environs (Betton, Saint-Grégoire, Bruz, Pacé...)"
@@ -183,12 +182,13 @@
                 opt_wd: "Будни", opt_sat: "Суббота (x2)", opt_sun: "Воскресенье (x3)",
                 it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing, Визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка Wi-Fi и сетей</li>",
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели</li><li>Установка люстр, ТВ</li><li>Мелкий ремонт</li><li>Бытовая техника</li>",
-                price_f: "Мин. 1-й час: 50€ | След.: 40€/ч",
+                price_f: "Мин. 1-й час: 50€<br>След.: 40€/ч",
                 faq_t: "Частые вопросы", faq_items: [
                     {q:"Как оплатить?", a:"Наличные, перевод, чеки и CESU."},
                     {q:"Работает ли CESU на выходных?", a:"Да, вы можете оплачивать услуги чеками CESU в любой день недели, включая субботу и воскресенье."},
+                    {q:"Нужны инструменты?", a:"Нет, я привожу всё оборудование с собой."},
                     {q:"Что такое CESU?", a:"Государственная система оплаты домашних услуг через cesu.urssaf.fr."},
-                    {q:"Как работает возврат 50%?", a:"Государство возвращает 50% суммы через систему SAP чеком или вычетом."}
+                    {q:"Как работает возврат 50%?", a:"Государство возвращает 50% суммы через систему SAP чеком или налоговым вычетом."}
                 ],
                 map_t: "Зона обслуживания (35700)", nav_text: "Маршрут", msg: "Здравствуйте...",
                 f_name: "Paul — Ваш мастер", f_zone: "Зона охвата: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)"
@@ -204,10 +204,11 @@
                 calc_t: "Калькулятор вигоди SAP", calc_after: "Ціна з вичетом:",
                 it_t: "Web та IT послуги", it_l: "<li>Створення сайтів (Landing, Візитки)</li><li>Установка ОС та програм</li><li>Чистка від вірусів та прискорення</li><li>Налаштування Wi-Fi та мереж</li>",
                 br_t: "Майстер на годину", br_l: "<li>Збірка меблів</li><li>Встановлення люстр</li><li>Дрібний ремонт</li><li>Побутова техніка</li>",
-                price_f: "Мін. 1-ша год: 50€ | Наст.: 40€/год",
+                price_f: "Мін. 1-ша год: 50€<br>Наст.: 40€/год",
                 faq_t: "Часті запитання", faq_items: [
                     {q:"Яка оплата?", a:"Готівка, переказ, чеки та CESU."},
                     {q:"Чи працює CESU на вихідних?", a:"Так, ви можете оплачувати послуги за допомогою CESU у будь-який день, включаючи вихідні."},
+                    {q:"Чи потрібні інструменти?", a:"Ні, я привожу все необхідне з собою."},
                     {q:"Як працює повернення?", a:"Завдяки статусу SAP, 50% суми повертається як податкова пільга."}
                 ],
                 map_t: "Зона обслуговування (35700)", nav_text: "Маршрут", msg: "Добрий день...",
