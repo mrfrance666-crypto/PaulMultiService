@@ -43,7 +43,6 @@
         .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--gold); }
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 400px; margin: 20px auto; padding: 0 15px; }
         .msg-btn { display: flex; align-items: center; justify-content: center; padding: 16px 5px; border-radius: 14px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .msg-btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
         .wa-btn-main { grid-column: span 2; background: var(--wa-green); font-size: 1rem; }
         .tg-btn { background: var(--tg-blue); } .call-btn { background: var(--call-gold); }
         .mail-btn { background: var(--mail-purple); } .vcard-btn { background: var(--save-mint); }
@@ -61,8 +60,6 @@
         .step-num { width: 30px; height: 30px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; }
         .calc-box { max-width: 380px; margin: 40px auto; padding: 25px; border-radius: 24px; background: var(--card-bg); border: 1px solid var(--border-color); }
         .calc-input-group select, .calc-input-group input { width: 100%; max-width: 220px; padding: 12px; border-radius: 12px; border: 1px solid var(--input-border); background-color: var(--input-bg); color: var(--input-text); text-align: center; font-family: inherit; font-size: 1rem; margin-top: 8px; font-weight: 600; outline: none; -webkit-appearance: none; }
-        option { background-color: #0a2e1f; color: #d4af37; }
-        body.light-theme option { background-color: #ffffff; color: #000000; }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 25px; text-align: left; transition: 0.3s; }
         .price-tag { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); color: var(--gold); font-weight: 700; }
@@ -71,8 +68,7 @@
         .faq-answer { padding: 0 20px 16px; display: none; opacity: 0.85; font-size: 0.9rem; line-height: 1.6; }
         
         .map-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .map-frame { width: 100%; height: 350px; border-radius: 24px; border: 1px solid var(--border-color); filter: grayscale(0.5); }
-        body.light-theme .map-frame { filter: none; }
+        .map-frame { width: 100%; height: 350px; border-radius: 24px; border: 1px solid var(--border-color); filter: grayscale(0.2); }
 
         .footer { padding: 50px 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; opacity: 0.9; }
         .gold-text { color: var(--gold); font-weight: 600; }
@@ -172,7 +168,7 @@
     <div class="map-container">
         <h3 id="map-title" style="color: var(--gold); margin-bottom: 5px;">Zone d'intervention</h3>
         <p id="map-subtitle" style="font-size: 0.95rem; font-weight: 500; opacity: 0.9; margin-bottom: 15px; color: var(--gold-light);"></p>
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m3!1d42637.3694030615!2d-1.7061466657905814!3d48.11133036417742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m3!1d85257.43394857796!2d-1.745495535352654!3d48.1159239328243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
     </div>
 
     <div class="footer">
@@ -200,15 +196,14 @@
                 s3t: "Avantage", s3d: "Facture SAP ouvrant droit à 50% de crédit d'impôt.",
                 calc_t: "Simulateur Crédit d'Impôt", calc_day: "Jour de travail :", calc_h: "Nombre d'heures :", calc_after: "Coût réel :",
                 opt_wd: "Semaine", opt_sat: "Samedi (x2)", opt_sun: "Dimanche/Férié (x3)",
-                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Визитки)</li><li>Installation OS & Logiciels</li><li>Nettoyage virus & ускорение</li><li>Configuration Wi-Fi & сетей</li>",
-                br_t: "Petit Bricolage", br_l: "<li>Montage meubles (IKEA, etc)</li><li>Installation luminaires, TV, полок</li><li>Petit dépannage (robinet, замки)</li><li>Électroménager</li>",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites</li><li>Installation OS & Logiciels</li><li>Nettoyage virus & accélération</li><li>Configuration Wi-Fi & réseaux</li>",
+                br_t: "Petit Bricolage", br_l: "<li>Montage meubles (IKEA, etc)</li><li>Installation luminaires, TV, étagères</li><li>Petit dépannage (robinet, verrous)</li><li>Électroménager</li>",
                 price_f: "Min. 1ère h : 50€<br>Suivantes : 40€/h",
                 faq_t: "Questions fréquentes", faq_items: [
-                    {q:"Quels modes de paiement acceptez-vous ?", a:"J'accepte les espèces, les virements bancaires immédiats, les chèques bancaires et les chèques CESU préfinancés."},
-                    {q:"Où obtenir des chèques CESU ?", a:"Vous pouvez obtenir des CESU préfinancés auprès de votre employeur, comité d'entreprise ou conseil départemental."},
-                    {q:"Pourquoi un minimum de 50€ ?", a:"Cela couvre le déplacement, l'assurance et la préparation du matériel pour garantir la qualité."},
-                    {q:"Dois-je avoir mes propres outils ?", a:"No, j'apporte tout le matériel professionnel nécessaire."},
-                    {q:"Comment fonctionne le crédit d'impôt ?", a:"50% des sommes versées vous sont remboursés par l'État via le dispositif Service à la Personne."}
+                    {q:"Quels modes de paiement acceptez-vous ?", a:"J'accepte les espèces, les virements bancaires, les chèques et les chèques CESU."},
+                    {q:"Où obtenir des chèques CESU ?", a:"Vous pouvez en obtenir via votre employeur ou le conseil départemental."},
+                    {q:"Pourquoi un minimum de 50€ ?", a:"Cela couvre le déplacement, l'assurance et le matériel professionnel."},
+                    {q:"Comment fonctionne le crédit d'impôt ?", a:"50% de la facture est déduit de vos impôts via le système SAP."}
                 ],
                 map_t: "Zone d'intervention", map_sub: "Rayon de 20 km autour de Rennes (plus sur demande)",
                 zones: "Rennes et sa périphérie (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Bonjour, je vous contacte pour vos services..."
@@ -223,15 +218,14 @@
                 s3t: "Выгода", s3d: "Вы получаете фактуру SAP и возвращаете 50% налогов.",
                 calc_t: "Калькулятор выгоды SAP", calc_day: "День работы:", calc_h: "Часов:", calc_after: "Цена с вычетом:",
                 opt_wd: "Будни (Пн-Пт)", opt_sat: "Суббота (x2)", opt_sun: "Воскресенье/Праздник (x3)",
-                it_t: "Web и ИТ услуги", it_l: "<li>Создание сайтов (Landing, Визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка Wi-Fi и сетей</li>",
-                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>",
+                it_t: "Web и ИТ услуги", it_l: "<li>Создание сайтов</li><li>Установка ОС и программ</li><li>Чистка от вирусов</li><li>Настройка Wi-Fi и сетей</li>",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Бытовая техника</li>",
                 price_f: "Мин. 1-й час: 50€<br>След.: 40€/ч",
                 faq_t: "Частые вопросы", faq_items: [
-                    {q:"Какие способы оплаты вы принимаете?", a:"Я принимаю наличные, мгновенный банковский перевод, банковские чеки и предоплаченные чеки CESU."},
-                    {q:"Где взять чеки CESU?", a:"Вы можете получить предоплаченные чеки CESU через вашего работодателя или пенсионный фонд."},
-                    {q:"Почему минимум 50€?", a:"Эта сумма покрывает выезд, страховку и подготовку профессионального оборудования."},
-                    {q:"Нужно ли мне иметь свои инструменты?", a:"Нет, я привожу все инструменты с собой."},
-                    {q:"Как работает возврат 50%?", a:"Вы оплачиваете услугу, а государство возвращает 50% суммы в виде вычета (SAP)."}
+                    {q:"Какие способы оплаты вы принимаете?", a:"Я принимаю наличные, банковский перевод, чеки и чеки CESU."},
+                    {q:"Где взять чеки CESU?", a:"Их можно получить через работодателя или пенсионный фонд."},
+                    {q:"Почему минимум 50€?", a:"Эта сумма покрывает выезд, страховку и профессиональный инструмент."},
+                    {q:"Как работает возврат 50%?", a:"Государство возвращает 50% суммы оплаты через систему SAP."}
                 ],
                 map_t: "Зона обслуживания", map_sub: "Радиус 20 км вокруг Ренна (дальше — по договоренности)",
                 zones: "Зона охвата: Ренн и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)", msg: "Здравствуйте, я по поводу услуг..."
@@ -272,9 +266,9 @@
                 br_t: "Handyman Services", br_l: "<li>Furniture assembly</li><li>Mounting TV & lights</li><li>Minor repairs</li><li>Appliance setup</li>",
                 price_f: "Min. 1st hour: 50€<br>Next: 40€/h",
                 faq_t: "FAQ", faq_items: [
-                    {q:"What payment methods do you accept?", a:"I accept cash, instant bank transfers, bank checks, and pre-funded CESU vouchers."},
+                    {q:"What payment methods do you accept?", a:"I accept cash, bank transfers, checks, and CESU vouchers."},
                     {q:"Where to get CESU vouchers?", a:"You can get them through your employer or specialized organizations."},
-                    {q:"Why 50€ minimum?", a:"It covers travel expenses, insurance, and professional tools preparation."},
+                    {q:"Why 50€ minimum?", a:"It covers travel expenses, insurance, and professional tools."},
                     {q:"How does the tax credit work?", a:"You get 50% back as a tax credit from the State (SAP)."}
                 ],
                 map_t: "Area covered", map_sub: "20 km radius around Rennes (further upon request)",
