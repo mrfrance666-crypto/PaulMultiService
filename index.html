@@ -31,19 +31,16 @@
             --nav-bg: rgba(255,255,255,0.95);
         }
         
-        #totalPrice, .total-currency, #l-total { 
+        /* Исправление цвета: всё золото в расчетах теперь одного насыщенного оттенка */
+        #totalPrice, .total-currency, #l-total, #netPrice { 
             color: var(--gold) !important; 
         }
-        #netPrice { 
-            color: var(--gold-light) !important; 
-        }
+
         body.light-theme #totalPrice, 
         body.light-theme .total-currency,
-        body.light-theme #l-total { 
+        body.light-theme #l-total,
+        body.light-theme #netPrice { 
             color: #d4af37 !important;
-        }
-        body.light-theme #netPrice {
-            color: #b8860b !important;
         }
 
         html { scroll-behavior: smooth; }
@@ -83,16 +80,9 @@
         .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
         
         .calc-row select, .calc-row input { 
-            padding: 12px; 
-            border-radius: 8px; 
-            border: 2px solid var(--gold); 
-            background: var(--bg-color); 
-            color: var(--gold); 
-            font-weight: 700; 
-            width: 100%; 
-            font-size: 1rem; 
-            outline: none;
-            box-sizing: border-box;
+            padding: 12px; border-radius: 8px; border: 2px solid var(--gold); 
+            background: var(--bg-color); color: var(--gold); font-weight: 700; 
+            width: 100%; font-size: 1rem; outline: none; box-sizing: border-box;
         }
 
         .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -190,9 +180,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600; color: var(--gold-light);"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.27894951167!2d-1.7451000673461413!3d48.1113387140807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d85250.8443907787!2d-1.6777!3d48.1173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1710000000000" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=48.1173,-1.6777" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -225,7 +215,7 @@
                 ft: "Questions fréquentes",
                 faq: [
                     {q: "Le 1er heure est-elle toujours 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel nécessaire. Cependant, les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge. Si vous ne les avez pas, je peux m'occuper de l'achat et de la livraison : c'est un service supplémentaire facturé à part."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "No, je viens avec tout mon outillage professionnel nécessaire. Cependant, les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge. Si vous ne les avez pas, je peux m'occuper de l'achat et de la livraison : c'est un service supplémentaire facturé à part."},
                     {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
                     {q: "SAP fonctionne le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
@@ -235,7 +225,7 @@
             },
             ru: {
                 name: "Paul — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
-                h_zone: "Зона охвата: Rennes и пригород (Betton, Saint-Grégoire, Bruz, Pacé...)",
+                h_zone: "Зона охвата: Rennes и пригород (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процесс", n_serv: "Услуги", n_faq: "Вопросы", n_zone: "Зона",
                 l_call: "Позвонить", l_mail: "Почта", l_save: "Сохранить", l_share: "Поделиться", l_route: "Маршрут",
                 l_pay: "Наличные / Перевод / Чеки / Cesu",
@@ -274,7 +264,7 @@
                 it_p: "Мін. виїзд: 50€<br>Наст.: 40€/год",
                 br_t: "Мастер на годину", br_l: "<li>Збірка меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібний ремонт (крани, замки)</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст.: 40€/год",
-                ct: "Калькулятор", cnet: "Ціна з вичетом:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Разом :",
+                ct: "Калькулятор", cnet: "Ціна з вичетом:", owd: "Будні", osat: "Суббота (x2)", osun: "Неділя (x3)", l_total: "Разом :",
                 zt: "Зона охоплення", zd: "Зона охоплення 20 км включена. Далі — за домовленістю.",
                 ft: "Питання",
                 faq: [
@@ -408,14 +398,24 @@
             }
         }
 
+        // ПРИНУДИТЕЛЬНОЕ СКАЧИВАНИЕ ДЛЯ ANDROID
         function downloadVCard() { 
-            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nEND:VCARD"; 
-            const blob = new Blob([vcard], {type:"text/vcard"}); 
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
+            const blob = new Blob([vcard], {type: "text/vcard;charset=utf-8"}); 
             const url = window.URL.createObjectURL(blob); 
             const a = document.createElement("a"); 
+            
             a.href = url; 
             a.download = "Paul.vcf"; 
+            a.setAttribute('data-downloadurl', ["text/vcard", a.download, a.href].join(':'));
+            
+            document.body.appendChild(a); 
             a.click(); 
+            
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url); 
+            }, 100);
         }
         
         function reveal() { 
