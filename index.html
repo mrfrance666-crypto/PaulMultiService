@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Paul — Artisan Multiservice</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
             --dark-green: #0a2e1f; --gold: #d4af37; --white: #ffffff; 
-            --card-bg: rgba(255,255,255,0.06); --border-color: rgba(212,175,55,0.5);
+            --card-bg: rgba(255,255,255,0.08); --border-color: rgba(212,175,55,0.5);
             --nav-bg: rgba(10,46,31,0.95);
         }
         body.light-theme { 
@@ -18,32 +19,32 @@
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color, var(--dark-green)); color: var(--text-color, var(--white)); text-align: center; transition: 0.4s; overflow-x: hidden; }
 
-        #display-name { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.8rem; margin-top: 10px; font-weight: 700; }
-
+        .gold-text { font-family: 'Playfair Display', serif; color: var(--gold); font-weight: 700; }
+        
         .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); backdrop-filter: blur(10px); }
         .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; }
         .lang-btn.active { background: var(--gold); color: white; }
-        .nav-pills { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-
-        .main-logo { width: 130px; height: 130px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); display: block; }
+        
+        .main-logo { width: 130px; height: 130px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); display: block; box-shadow: 0 0 20px rgba(212,175,55,0.3); }
+        
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
         .msg-btn { display: flex; align-items: center; justify-content: center; padding: 12px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; }
         .wa-btn { grid-column: span 2; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
         .tg-btn { background: linear-gradient(135deg, #0088cc 0%, #005580 100%); }
         .call-btn { background: linear-gradient(135deg, #d4af37 0%, #a6892c 100%); }
+        .action-btn { background: rgba(212,175,55,0.15); border: 1px solid var(--gold); color: var(--gold) !important; font-size: 0.8rem; margin-top: 5px; }
 
-        .calc-row select, .calc-row input { padding: 8px; border-radius: 8px; border: 1.5px solid var(--gold); background: rgba(255,255,255,0.05); color: var(--gold) !important; font-weight: 700; width: 100%; font-size: 1rem; text-align: center; outline: none; }
-        
         .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1100px; margin: 20px auto; padding: 0 20px; }
-        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; }
-        .generic-card h2 { color: var(--gold); font-family: 'Playfair Display', serif; border-bottom: 1px solid var(--gold); padding-bottom: 10px; }
+        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; }
+        .generic-card h2 { color: var(--gold); font-family: 'Playfair Display', serif; border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-top: 0; }
 
-        .faq-item { text-align: left; border-bottom: 1px solid var(--border-color); padding: 18px 0; cursor: pointer; }
-        .faq-q { font-weight: 700; color: var(--gold); display: flex; justify-content: space-between; align-items: center; }
-        .faq-a { font-size: 0.95rem; margin-top: 12px; display: none; line-height: 1.6; }
+        .calc-row select, .calc-row input { padding: 10px; border-radius: 8px; border: 1.5px solid var(--gold); background: rgba(255,255,255,0.1); color: var(--gold) !important; font-weight: 700; width: 100%; outline: none; }
+        
+        .faq-item { text-align: left; border-bottom: 1px solid var(--border-color); padding: 15px 0; cursor: pointer; }
+        .faq-q { font-weight: 700; color: var(--gold); display: flex; justify-content: space-between; }
+        .faq-a { font-size: 0.9rem; margin-top: 10px; display: none; line-height: 1.5; }
 
-        .footer { padding: 40px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; }
+        .footer { padding: 40px 20px; margin-top: 40px; }
         .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; color: white; }
@@ -58,235 +59,158 @@
         <button class="lang-btn" id="btn-en" onclick="changeLang('en')">EN</button>
         <button class="lang-btn" id="btn-ua" onclick="changeLang('ua')">UA</button>
         <button class="lang-btn" id="btn-ru" onclick="changeLang('ru')">RU</button>
-        <div class="nav-pills">
-            <a href="#how" class="nav-pill" id="n-how">Process</a>
-            <a href="#services" class="nav-pill" id="n-serv">Services</a>
-            <a href="#payment" class="nav-pill" id="n-pay">Paiement</a>
-            <a href="#faq" class="nav-pill" id="n-faq">FAQ</a>
-            <a href="#zone" class="nav-pill" id="n-zone">Zone</a>
-        </div>
     </div>
 
     <div class="reveal">
-        <p style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin: 30px 0 0;">PaulMultiService</p>
+        <p class="gold-text" style="font-size: 2.2rem; margin: 30px 0 0;">PaulMultiService</p>
         <img src="logo.png" alt="Logo" class="main-logo">
-        <div id="display-name"></div>
-        <div id="sap-info" style="margin-top:5px; color: var(--gold); font-size: 0.9rem; font-weight: 700;"></div>
+        <div id="display-name" class="gold-text" style="font-size: 1.8rem;"></div>
+        <div id="sap-info" style="color: var(--gold); font-weight: 700; margin-top: 5px;"></div>
     </div>
 
     <div class="messenger-wrapper reveal">
         <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
+        <button onclick="saveContact()" class="msg-btn action-btn" id="l-save"></button>
+        <button onclick="shareSite()" class="msg-btn action-btn" id="l-share"></button>
     </div>
 
-    <div id="how" class="universal-grid reveal">
-        <div class="generic-card"><h2 id="h1-t"></h2><p id="h1-d"></p></div>
-        <div class="generic-card"><h2 id="h2-t"></h2><p id="h2-d"></p></div>
-        <div class="generic-card"><h2 id="h3-t"></h2><p id="h3-d"></p></div>
-    </div>
-
-    <div class="universal-grid" id="services">
-        <div class="generic-card reveal">
+    <div class="universal-grid reveal">
+        <div class="generic-card">
             <h2 id="it-t"></h2>
-            <ul id="it-l" style="font-size: 0.9rem; line-height: 1.6;"></ul>
-            <div class="price-tag" id="it-p"></div>
+            <ul id="it-l" style="line-height: 1.6; padding-left: 20px;"></ul>
+            <div style="margin-top:15px; border-top: 1px dashed var(--gold); padding-top:10px; font-weight:700; color:var(--gold);" id="it-p"></div>
         </div>
-        <div class="generic-card reveal" style="border: 2px solid var(--gold);">
-            <h2 id="c-t" style="border:none; text-align:center;"></h2>
+
+        <div class="generic-card" style="border: 2px solid var(--gold);">
+            <h2 id="c-t" style="text-align:center; border:none;"></h2>
             <div class="calc-row" style="display: flex; gap: 10px; margin-bottom: 15px;">
                 <select id="daySelect" onchange="updateCalc()">
                     <option value="1" id="o-wd">Semaine</option>
-                    <option value="2" id="o-sat">Samedi</option>
-                    <option value="3" id="o-sun">Dimanche</option>
+                    <option value="2" id="o-sat">Samedi (x2)</option>
+                    <option value="3" id="o-sun">Dimanche (x3)</option>
                 </select>
                 <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
             </div>
             <div style="text-align: center;">
-                <div><span id="l-total"></span> <span id="totalPrice" style="color:var(--gold); font-weight:700;">50</span>€</div>
-                <div style="margin-top: 10px; padding: 10px; background: rgba(212,175,55,0.1); border-radius: 10px;">
+                <div><span id="l-total"></span> <span id="totalPrice" class="gold-text">50</span>€</div>
+                <div style="margin-top: 15px; padding: 15px; background: rgba(212,175,55,0.1); border-radius: 12px; border: 1px solid var(--gold);">
                     <span id="c-net" style="font-size: 0.85rem;"></span><br>
-                    <span id="netPrice" style="font-size: 1.5rem; font-weight: 800; color:var(--gold);">25</span>€
+                    <span id="netPrice" style="font-size: 1.8rem; font-weight: 800; color:var(--gold);">25</span>€
                 </div>
             </div>
         </div>
-        <div class="generic-card reveal">
+
+        <div class="generic-card">
             <h2 id="br-t"></h2>
-            <ul id="br-l" style="font-size: 0.9rem; line-height: 1.6;"></ul>
-            <div class="price-tag" id="br-p"></div>
+            <ul id="br-l" style="line-height: 1.6; padding-left: 20px;"></ul>
+            <div style="margin-top:15px; border-top: 1px dashed var(--gold); padding-top:10px; font-weight:700; color:var(--gold);" id="br-p"></div>
         </div>
     </div>
 
-    <div id="payment" class="reveal" style="padding: 20px; max-width: 800px; margin: 20px auto;">
-        <h2 id="p-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <p id="p-desc" style="font-weight: 600;"></p>
-        <div style="font-size: 2rem; letter-spacing: 15px; margin-top: 10px;">💳 💶 🧾</div>
-    </div>
-
     <div id="faq" class="reveal" style="padding: 20px; max-width: 800px; margin: 0 auto;">
-        <h2 id="f-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
+        <h2 id="f-t" class="gold-text"></h2>
         <div id="faq-container"></div>
     </div>
 
-    <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
-        <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.25200331084!2d-1.745674!3d48.117266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
-        <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
-    </div>
-
     <div class="footer reveal">
-        <span class="footer-name" id="f-name"></span>
-        <p style="color: var(--gold); font-weight: 700; margin: 10px 0;">EI Pavlo Pashkin | SIRET : 93457176500019</p>
-        <p style="color: var(--gold); font-weight: 600;">RC Pro : Gan Assurances | SAP Service</p>
-        <p style="font-size: 0.8rem; opacity: 0.8;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes, France</p>
+        <div class="generic-card" style="max-width: 600px; margin: 0 auto; text-align: center; background: rgba(255,255,255,0.05);">
+            <p class="gold-text" style="font-size: 1.5rem; margin-bottom: 10px;" id="f-name"></p>
+            <p style="font-weight: 700; color: var(--gold);">SIRET : 10000226000014</p>
+            <p>📧 <a href="mailto:contact@paulmultiservice.fr" style="color: inherit; text-decoration: none;">contact@paulmultiservice.fr</a></p>
+            <p style="color: var(--gold); font-weight: 600; margin-top: 10px;">RC Pro : Gan Assurances</p>
+            <p style="color: var(--gold); font-weight: 600;">Service à la Personne (SAP)</p>
+            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 15px;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes, France</p>
+        </div>
     </div>
 
     <script>
         const translations = {
             fr: {
-                name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)", n_how: "Étapes", n_serv: "Services", n_pay: "Paiement", n_faq: "FAQ", n_zone: "Zone", l_call: "Appeler",
-                h1t: "Contact", h1d: "Contactez-moi par WhatsApp или par téléphone pour discuter de votre projet.",
-                h2t: "Tarif", h2d: "1ère heure : 50€. Suivantes : 40€/h. Samedi : x2, Dimanche : x3.",
-                h3t: "Avantage", h3d: "50% de crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT", it_l: "<li>Sites Web</li><li>Installation OS</li><li>Virus & Wi-Fi</li>", it_p: "Min. : 50€ | 40€/h",
-                br_t: "Bricolage", br_l: "<li>Montage meubles</li><li>Luminaires & TV</li><li>Petite plomberie</li>", br_p: "Min. : 50€ | 40€/h",
-                ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total :",
-                pt: "Méthodes de paiement", pdesc: "Espèces, Carte Bancaire (Stripe), Chèques CESU.",
-                ft: "Questions fréquentes",
+                name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)", l_call: "Appeler", l_save: "Enregistrer", l_share: "Partager",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing)</li><li>Installation OS & Softs</li><li>Virus & Performance</li><li>Configuration Wi-Fi</li>", it_p: "Min. 1h: 50€ | Suivant: 40€/h",
+                br_t: "Bricolage / Handyman", br_l: "<li>Montage meubles (IKEA)</li><li>Luminaires, TV, étagères</li><li>Petite plomberie (robinets)</li><li>Électroménager</li>", br_p: "Min. 1h: 50€ | Suivant: 40€/h",
+                ct: "Simulateur SAP", cnet: "Coût réel (après crédit d'impôt):", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total:", f_t: "FAQ",
                 faq: [
-                    {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation et l'intervention."},
-                    {q: "Ai-je besoin de mes propres outils ?", a: "Non, je viens avec tout mon matériel professionnel. Les consommables (vis, chevilles, etc.) sont à votre charge. Si besoin, je peux les acheter (facturé séparément)."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
+                    {q: "La 1ère heure est à 50€ ?", a: "Oui, forfait minimum pour déplacement et intervention."},
+                    {q: "Besoin de mes outils ?", a: "Non, je viens avec mon matériel. Consommables à votre charge."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
-                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Comment puis-je payer les services ?", a: "Vous pouvez régler par espèces, carte bancaire (via lien Stripe) или chèques CESU."}
-                ],
-                zt: "Zone d'intervention", zdesc: "Rennes и alentours (20km).", lroute: "Ouvrir l'itinéraire"
+                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt."},
+                    {q: "Comment puis-je payer les services ?", a: "Espèces, Carte (Stripe), Chèques CESU."}
+                ]
             },
             ru: {
-                name: "Павел — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)", n_how: "Процесс", n_serv: "Услуги", n_pay: "Оплата", n_faq: "Вопросы", n_zone: "Зона", l_call: "Позвонить",
-                h1t: "Связь", h1d: "Напишите в WhatsApp или позвоните. Мы обсудим задачу и время.",
-                h2t: "Тариф", h2d: "Первый час — 50€. Далее — 40€/час. Суббота: x2, Воскресенье: x3.",
-                h3t: "Выгода", h3d: "Возврат 50% через налоговый вычет SAP. Официальная фактура.",
-                it_t: "Web и IT", it_l: "<li>Создание сайтов</li><li>Установка ОС</li><li>Чистка от вирусов</li>", it_p: "Мин. : 50€ | 40€/ч",
-                br_t: "Мастер на час", br_l: "<li>Сборка мебели</li><li>Установка люстр</li><li>Сантехника</li>", br_p: "Мин. : 50€ | 40€/ч",
-                ct: "Калькулятор SAP", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого:",
-                pt: "Способы оплаты", pdesc: "Наличные, банковская карта (Stripe), чеки CESU.",
-                ft: "Частые вопросы",
+                name: "Павел — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)", l_call: "Позвонить", l_save: "Сохранить", l_share: "Поделиться",
+                it_t: "Web и IT услуги", it_l: "<li>Создание сайтов (Landing, Визитки)</li><li>Установка ОС и программ</li><li>Чистка от вирусов и ускорение</li><li>Настройка Wi-Fi и сетей</li>", it_p: "Мин. 1-й час: 50€ | След.: 40€/ч",
+                br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкий ремонт (краны, замки)</li><li>Подключение бытовой техники</li>", br_p: "Мин. 1-й час: 50€ | След.: 40€/ч",
+                ct: "Калькулятор SAP", cnet: "Чистая стоимость для вас:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого:", f_t: "Частые вопросы",
                 faq: [
-                    {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это фиксированный неделимый тариф (forfait), который покрывает транспорт и подготовку."},
-                    {q: "Нужны ли мои инструменты?", a: "Нет, я привожу всё профессиональное оборудование с собой. Расходные материалы (дюбели, винты и т.д.) оплачиваются вами. Если чего-то не хватает, я могу докупить это сам за отдельную плату."},
+                    {q: "Оплата за первый час всегда 50€?", a: "Да, это фиксированный неделимый тариф (forfait), который покрывает транспорт и подготовку."},
+                    {q: "Нужны ли мои инструменты?", a: "Нет, я привожу всё профессиональное оборудование с собой. Расходные материалы оплачиваются вами."},
                     {q: "Где взять чеки CESU?", a: "На сайте cesu.urssaf.fr или в вашем банке."},
                     {q: "Действует ли SAP в выходные?", a: "Да, налоговый вычет 50% сохраняется при работе в субботу и воскресенье."},
                     {q: "Как работает возврат?", a: "Я выдаю официальную фактуру SAP. Государство возвращает вам 50% суммы при подаче ежегодной декларации."},
-                    {q: "Как можно оплатить услуги?", a: "Вы можете оплатить наличными, банковской картой (через Stripe) или чеками CESU."}
-                ],
-                zt: "Зона работы", zdesc: "Rennes и пригород (до 20км).", lroute: "Открыть маршрут"
+                    {q: "Как можно оплатить услуги?", a: "Наличные, банковская карта (через Stripe) или чеки CESU."}
+                ]
             },
             ua: {
-                name: "Павло — Ваш майстер", sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)", n_how: "Процес", n_serv: "Послуги", n_pay: "Оплата", n_faq: "Питання", n_zone: "Зона", l_call: "Дзвінок",
-                h1t: "Зв'язок", h1d: "Напишіть у WhatsApp або зателефонуйте. Обговоримо задачу.",
-                h2t: "Тариф", h2d: "Перша година — 50€. Далі — 40€/год. Субота: x2, Неділя: x3.",
-                h3t: "Вигода", h3d: "Повернення 50% через SAP. Офіційна фактура.",
-                it_t: "Web та IT", it_l: "<li>Сайти</li><li>ОС</li><li>Віруси</li>", it_p: "Мін. : 50€ | 40€/год",
-                br_t: "Майстер на годину", br_l: "<li>Меблі</li><li>Люстри</li><li>Сантехніка</li>", br_p: "Мін. : 50€ | 40€/год",
-                ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Субота", osun: "Неділя", l_total: "Разом:",
-                pt: "Способи оплати", pdesc: "Готівка, картка (Stripe), чеки CESU.",
-                ft: "Поширені питання",
+                name: "Павло — Ваш майстер", sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)", l_call: "Дзвінок", l_save: "Зберегти", l_share: "Поділитись",
+                it_t: "Web та IT послуги", it_l: "<li>Створення сайтів (Landing)</li><li>Встановлення ОС та програм</li><li>Чистка від вірусів</li><li>Налаштування Wi-Fi</li>", it_p: "Мін. 1 год: 50€ | Далі: 40€/год",
+                br_t: "Майстер на годину", br_l: "<li>Збірка меблів (IKEA)</li><li>Люстри, ТВ, полиці</li><li>Мелкий ремонт</li><li>Побутова техніка</li>", br_p: "Мін. 1 год: 50€ | Далі: 40€/год",
+                ct: "Калькулятор SAP", cnet: "Ціна після повернення:", owd: "Будні", osat: "Суббота (x2)", osun: "Неділя (x3)", l_total: "Разом:", f_t: "Питання",
                 faq: [
-                    {q: "Оплата за першу годину завжди 50€?", a: "Так, це мінімальний тариф, що покриває виїзд та підготовку."},
-                    {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все своє професійне обладнання. Витратні матеріали за ваш рахунок. Якщо чогось бракує, можу докупити (оплата окремо)."},
+                    {q: "Оплата за першу годину 50€?", a: "Так, це мінімальний тариф, що покриває виїзд та роботу."},
+                    {q: "Чи потрібні інструменти?", a: "Ні, я маю все своє професійне обладнання."},
                     {q: "Де взяти CESU?", a: "На сайті cesu.urssaf.fr або у вашому банку."},
-                    {q: "Чи діє SAP у вихідні?", a: "Так, податкова знижка 50% діє також у суботу та неділю."},
-                    {q: "Як працює повернення?", a: "Я видаю офіційну фактуру SAP. Держава повертає 50% суми при подачі декларації."},
+                    {q: "Чи діє SAP у вихідні?", a: "Так, знижка 50% діє і у вихідні."},
+                    {q: "Як працює повернення?", a: "Видаю офіційну фактуру SAP. Держава повертає 50%."},
                     {q: "Як оплатити послуги?", a: "Готівка, карта (Stripe) або чеки CESU."}
-                ],
-                zt: "Зона", zdesc: "Rennes та передмістя (20km).", lroute: "Маршрут"
-            },
-            en: {
-                name: "Paul — Your Artisan", sap: "50% TAX CREDIT (SAP)", n_how: "Process", n_serv: "Services", n_pay: "Payment", n_faq: "FAQ", n_zone: "Zone", l_call: "Call",
-                h1t: "Contact", h1d: "Message me on WhatsApp or call to discuss your project.",
-                h2t: "Pricing", h2d: "1st hour: 50€. Next: 40€/h. Sat: x2, Sun: x3.",
-                h3t: "Benefit", h3d: "Get 50% back via SAP tax credit. Official invoice provided.",
-                it_t: "Web & IT", it_l: "<li>Websites</li><li>OS Install</li><li>Wi-Fi</li>", it_p: "Min. : 50€ | 40€/h",
-                br_t: "Handyman", br_l: "<li>Furniture</li><li>Lights & TV</li><li>Plumbing</li>", br_p: "Min. : 50€ | 40€/h",
-                ct: "SAP Calculator", cnet: "Cost after SAP:", owd: "Weekday", osat: "Saturday", osun: "Sunday", l_total: "Total:",
-                pt: "Payment methods", pdesc: "Cash, Credit Card (Stripe), CESU checks.",
-                ft: "FAQ",
-                faq: [
-                    {q: "1st hour always 50€?", a: "Yes, it's a minimum flat fee covering travel and prep."},
-                    {q: "Do I need tools?", a: "No, I bring my own professional equipment. Materials at your expense."},
-                    {q: "Where to get CESU?", a: "At cesu.urssaf.fr or from your bank."},
-                    {q: "SAP on weekends?", a: "Yes, the 50% credit applies on Saturdays and Sundays."},
-                    {q: "How does refund work?", a: "I issue a SAP invoice. You get 50% back as tax credit."},
-                    {q: "How can I pay?", a: "Cash, card (via Stripe link) or CESU checks."}
-                ],
-                zt: "Service Zone", zdesc: "Rennes area (20km).", lroute: "Open maps"
+                ]
             }
         };
 
         function toggleTheme() { document.body.classList.toggle('light-theme'); }
-
         function changeLang(lang) {
-            const t = translations[lang];
+            const t = translations[lang] || translations['fr'];
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-'+lang));
-            
             document.getElementById('display-name').innerText = t.name;
             document.getElementById('f-name').innerText = t.name;
             document.getElementById('sap-info').innerText = t.sap;
-            
-            document.getElementById('n-how').innerText = t.n_how;
-            document.getElementById('n-serv').innerText = t.n_serv;
-            document.getElementById('n-pay').innerText = t.n_pay;
-            document.getElementById('n-faq').innerText = t.n_faq;
-            document.getElementById('n-zone').innerText = t.n_zone;
             document.getElementById('l-call').innerText = t.l_call;
-
-            document.getElementById('h1-t').innerText = t.h1t; document.getElementById('h1-d').innerText = t.h1d;
-            document.getElementById('h2-t').innerText = t.h2t; document.getElementById('h2-d').innerText = t.h2d;
-            document.getElementById('h3-t').innerText = t.h3t; document.getElementById('h3-d').innerText = t.h3d;
-
-            document.getElementById('it-t').innerText = t.it_t; document.getElementById('it-l').innerHTML = t.it_l; document.getElementById('it-p').innerHTML = t.it_p;
-            document.getElementById('br-t').innerText = t.br_t; document.getElementById('br-l').innerHTML = t.br_l; document.getElementById('br-p').innerHTML = t.br_p;
-
+            document.getElementById('l-save').innerText = "💾 " + t.l_save;
+            document.getElementById('l-share').innerText = "🔗 " + t.l_share;
+            document.getElementById('it-t').innerText = t.it_t; document.getElementById('it-l').innerHTML = t.it_l; document.getElementById('it-p').innerText = t.it_p;
+            document.getElementById('br-t').innerText = t.br_t; document.getElementById('br-l').innerHTML = t.br_l; document.getElementById('br-p').innerText = t.br_p;
             document.getElementById('c-t').innerText = t.ct; document.getElementById('c-net').innerText = t.cnet;
             document.getElementById('o-wd').innerText = t.owd; document.getElementById('o-sat').innerText = t.osat; document.getElementById('o-sun').innerText = t.osun;
-            document.getElementById('l-total').innerText = t.l_total;
-
-            document.getElementById('p-t').innerText = t.pt; document.getElementById('p-desc').innerText = t.pdesc;
-            document.getElementById('f-t').innerText = t.ft;
-            document.getElementById('z-t').innerText = t.zt; document.getElementById('z-desc').innerText = t.zdesc;
-            document.getElementById('l-route').innerText = t.lroute;
-
-            const faqBox = document.getElementById('faq-container'); 
-            faqBox.innerHTML = '';
-            t.faq.forEach(item => { 
-                faqBox.innerHTML += `
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-q">${item.q} <span>+</span></div>
-                        <div class="faq-a">${item.a}</div>
-                    </div>`; 
-            });
+            document.getElementById('l-total').innerText = t.l_total; document.getElementById('f-t').innerText = t.f_t;
+            const faqBox = document.getElementById('faq-container'); faqBox.innerHTML = '';
+            t.faq.forEach(item => { faqBox.innerHTML += `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`; });
             updateCalc();
         }
-
-        function toggleFaq(el) { 
-            const a = el.querySelector('.faq-a'); 
-            const open = a.style.display === 'block'; 
-            a.style.display = open ? 'none' : 'block'; 
-            el.querySelector('span').innerText = open ? '+' : '−';
+        function toggleFaq(el) {
+            const a = el.querySelector('.faq-a'); const isOpen = a.style.display === 'block';
+            a.style.display = isOpen ? 'none' : 'block'; el.querySelector('span').innerText = isOpen ? '+' : '−';
         }
-
-        function updateCalc() { 
-            let h = Math.max(1, document.getElementById('hoursInput').value); 
-            let m = document.getElementById('daySelect').value; 
-            let total = (50 + (h-1)*40) * m; 
-            document.getElementById('totalPrice').innerText = total; 
-            document.getElementById('netPrice').innerText = total / 2; 
+        function updateCalc() {
+            let h = Math.max(1, document.getElementById('hoursInput').value);
+            let m = document.getElementById('daySelect').value;
+            let total = (50 + (h-1)*40) * m;
+            document.getElementById('totalPrice').innerText = total;
+            document.getElementById('netPrice').innerText = total / 2;
         }
-
+        function saveContact() {
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul MultiService\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nADR:;;35700 Rennes;France\nEND:VCARD";
+            const blob = new Blob([vcard], { type: "text/vcard" });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'Paul_MultiService.vcf'; a.click();
+        }
+        function shareSite() {
+            if (navigator.share) { navigator.share({ title: 'Paul MultiService', url: window.location.href }); }
+            else { alert("Link: " + window.location.href); }
+        }
         function reveal() { document.querySelectorAll(".reveal").forEach(r => { if(r.getBoundingClientRect().top < window.innerHeight - 50) r.classList.add("active"); }); }
         window.addEventListener("scroll", reveal);
         window.onload = () => { changeLang('fr'); reveal(); };
