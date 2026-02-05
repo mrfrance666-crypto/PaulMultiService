@@ -31,7 +31,6 @@
             --nav-bg: rgba(255,255,255,0.95);
         }
         
-        /* Исправление цветов в калькуляторе для обеих тем */
         #totalPrice, .total-currency { 
             color: var(--gold) !important; 
         }
@@ -40,10 +39,10 @@
         }
         body.light-theme #totalPrice, 
         body.light-theme .total-currency { 
-            color: #d4af37 !important; /* Насыщенное золото для светлого фона */
+            color: #d4af37 !important;
         }
         body.light-theme #netPrice {
-            color: #b8860b !important; /* Чуть темнее золото для контраста */
+            color: #b8860b !important;
         }
 
         html { scroll-behavior: smooth; }
@@ -190,7 +189,7 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600; color: var(--gold-light);"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85261.27258384212!2d-1.74836655!3d48.11470435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.32027582524!2d-1.745417!3d48.117266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
@@ -225,10 +224,10 @@
                 ft: "Questions fréquentes",
                 faq: [
                     {q: "Le 1er heure est-elle toujours 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "No, j'apporte mes propres outils professionnels. Cependant, les consommables (vis, chevilles, joints, câbles) sont à votre charge. Si je dois m'occuper de l'achat, cela constitue un service de course séparé."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque. C'est un moyen de paiement officiel."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, j'apporte mes propres outils professionnels. Cependant, les consommables (vis, chevilles, joints, câbles) sont à votre charge."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
                     {q: "SAP fonctionne le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
-                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourсе 50% via crédit d'impôt lors de votre déclaration annuelle."},
+                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
                     {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements bancaires, les chèques bancaires et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul..."
@@ -252,11 +251,11 @@
                 ft: "Частые вопросы",
                 faq: [
                     {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это минимальный неделимый тариф (forfait), который покрывает расходы на дорогу, подготовку инструментов и саму работу."},
-                    {q: "Нужно ли мне иметь свои инструменты?", a: "Нет, я привожу все инструменты с собой. Однако расходные материалы (шурупы, дюбели, прокладки и т.д.) должны быть у вас. Если мне нужно ехать в магазин для их покупки — это считается отдельным платным сервисом."},
-                    {q: "Где взять чеки CESU ?", a: "На официальном сайте cesu.urssaf.fr или в вашем банке. Это законный способ оплаты услуг на дому во Франции."},
+                    {q: "Нужно ли мне иметь свои инструменты?", a: "Нет, я привожу все инструменты с собой. Однако расходники (шурупы, дюбели и т.д.) предоставляются вами."},
+                    {q: "Где взять чеки CESU ?", a: "На официальном сайте cesu.urssaf.fr или в вашем банке."},
                     {q: "SAP работает в выходные ?", a: "Да, налоговый вычет 50% сохраняется при работе в субботу и воскресенье."},
-                    {q: "Как работает возврат 50% ?", a: "Я выдаю официальную фактуру SAP. При подаче декларации государство возвращает вам 50% суммы моих услуг."},
-                    {q: "Какие способы оплаты ?", a: "Я принимаю наличные средства, банковский перевод, чеки и чеки CESU."}
+                    {q: "Как работает возврат 50% ?", a: "Я выдаю официальную фактуру SAP. При подаче декларации государство возвращает вам 50% суммы."},
+                    {q: "Какие способы оплаты ?", a: "Я принимаю наличные, банковский перевод, чеки и чеки CESU."}
                 ],
                 msg: "Здравствуйте, Павел..."
             },
@@ -278,8 +277,8 @@
                 zt: "Зона охоплення", zd: "Зона охоплення 20 км включена. Далі — за домовленістю.",
                 ft: "Питання",
                 faq: [
-                    {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний тариф (forfait), що покриває витрати на дорогу,підготовку інструментів та саму роботу."},
-                    {q: "Чи потрібно мені мати власні інструменти?", a: "Ні, я привожу всі інструменти з собою. Але витратні матеріали повинні бути у вас або замовляються як окремий сервіс."},
+                    {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний тариф (forfait)."},
+                    {q: "Чи потрібно мені мати власні інструменти?", a: "Ні, я привожу все інструменти з собою."},
                     {q: "Де взяти чеки CESU ?", a: "На сайті cesu.urssaf.fr або у вашому банку."},
                     {q: "SAP діє у вихідні ?", a: "Так, податковий вичет 50% діє також у суботу та неділю."},
                     {q: "Як працює повернення ?", a: "Я видаю офіційну фактуру SAP. Держава повертає половину суми."},
@@ -305,22 +304,20 @@
                 zt: "Service Area", zd: "20 km radius included around Rennes.",
                 ft: "FAQ",
                 faq: [
-                    {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum flat fee (forfait) that covers travel and prep time."},
-                    {q: "Do I need my own tools?", a: "No, I bring my tools. Consumables must be provided by you or bought as an extra service."},
+                    {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum flat fee (forfait)."},
+                    {q: "Do I need my own tools?", a: "No, I bring my tools."},
                     {q: "Where to get CESU ?", a: "At cesu.urssaf.fr or at your bank."},
                     {q: "SAP on weekends ?", a: "Yes, the 50% tax credit applies on Saturdays and Sundays."},
-                    {q: "How 50% refund works ?", a: "I issue a SAP invoice, and the state refunds you 50% via tax credit."},
+                    {q: "How 50% refund works ?", a: "I issue a SAP invoice, and the state refunds you 50%."},
                     {q: "Payment methods ?", a: "Cash, Bank transfer, Cheques, or CESU."}
                 ],
                 msg: "Hello Paul..."
             }
         };
 
-        // ТЕМА С ПАМЯТЬЮ
         function checkSystemTheme() {
             const savedTheme = localStorage.getItem('theme');
             const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
             if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
                 document.body.classList.remove('light-theme');
                 document.getElementById('theme-btn').innerText = '☀️';
@@ -336,10 +333,6 @@
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
             document.getElementById('theme-btn').innerText = isLight ? '🌙' : '☀️'; 
         }
-
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) checkSystemTheme();
-        });
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
@@ -404,8 +397,25 @@
         };
 
         function copyEmail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Copié!"); }
-        function shareSite() { navigator.share({title:'Paul Service', url:location.href}); }
-        function downloadVCard() { const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nEND:VCARD"; const blob = new Blob([vcard], {type:"text/vcard"}); const url = window.URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "Paul.vcf"; a.click(); }
+        
+        function shareSite() { 
+            if (navigator.share) {
+                navigator.share({title:'Paul Service', url:location.href}); 
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert("Lien copié!");
+            }
+        }
+
+        function downloadVCard() { 
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nEND:VCARD"; 
+            const blob = new Blob([vcard], {type:"text/vcard"}); 
+            const url = window.URL.createObjectURL(blob); 
+            const a = document.createElement("a"); 
+            a.href = url; 
+            a.download = "Paul.vcf"; 
+            a.click(); 
+        }
         
         function reveal() { 
             var reveals = document.querySelectorAll(".reveal"); 
