@@ -4,349 +4,195 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <meta name="color-scheme" content="light dark">
     <title>Paul — Artisan Multiservice</title>
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <script>
-        (function() {
-            const saved = localStorage.getItem('user-theme');
-            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const isDark = saved === 'dark' || (!saved && systemDark);
-            if (!isDark) {
-                document.documentElement.classList.add('light-mode-active');
-            }
-        })();
-    </script>
-
     <style>
         :root { 
             --dark-green: #0a2e1f; 
             --gold: #d4af37; 
-            --gold-light: #f4d06f; 
             --white: #ffffff; 
-            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
-            --bg-color: var(--dark-green); 
-            --text-color: var(--white); 
+            --bg-color: #0a2e1f; 
+            --text-color: #ffffff; 
             --card-bg: rgba(255,255,255,0.06); 
             --border-color: rgba(212,175,55,0.5);
             --nav-bg: rgba(10,46,31,0.95);
-            --shadow: none;
         }
-        
-        html.light-mode-active body { 
+
+        /* Светлая тема */
+        body.light-mode { 
             --bg-color: #F9F7F2; 
             --text-color: #0a2e1f; 
             --card-bg: #ffffff; 
             --border-color: #d4af37; 
             --nav-bg: rgba(249, 247, 242, 0.95);
-            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1); 
-            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
         }
-        
-        #totalPrice, .total-currency, #l-total { color: var(--gold) !important; }
-        /* Зеленая цена для калькулятора */
-        #netPrice, #netPrice + .total-currency { color: #2ecc71 !important; font-weight: 800; }
 
         html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: background 0.4s ease, color 0.4s ease; overflow-x: hidden; }
+        body { 
+            margin: 0; font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-color); color: var(--text-color); 
+            text-align: center; transition: background 0.3s; overflow-x: hidden; 
+        }
+
+        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); }
+        .nav-pills { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.75rem; font-weight: 700; }
+
+        /* Зеленая цена в калькуляторе */
+        #netPrice, .price-green { color: #2ecc71 !important; font-weight: 800; font-size: 1.6rem; }
+        #totalPrice { color: var(--gold); font-weight: 800; }
+
+        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; }
         
-        #how, #services, #faq, #zone, #top { scroll-margin-top: 130px; }
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; }
+        .generic-card h2 { color: var(--gold); margin-top: 0; font-family: 'Playfair Display', serif; }
+
+        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); display: block; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(10px); }
-        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; transition: 0.3s; }
-        .lang-btn.active { background: var(--gold); color: white; }
-
-        .nav-pills { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
-
-        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); display: block; transition: 0.4s; }
-        #display-name { color: var(--gold); font-weight: 700; font-size: 1.3rem; }
-
+        .faq-item { text-align: left; border-bottom: 1px solid var(--border-color); padding: 15px 0; cursor: pointer; }
+        .faq-a { display: none; margin-top: 10px; font-size: 0.9rem; }
+        
+        .calc-row input, .calc-row select { width: 100%; padding: 10px; border: 1px solid var(--gold); border-radius: 8px; background: transparent; color: var(--gold); font-weight: bold; }
+        
+        /* Кнопки мессенджеров */
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
-        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.3s; cursor: pointer; }
-        
-        .wa-btn { grid-column: span 2; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
-        .tg-btn { background: linear-gradient(135deg, #0088cc 0%, #005580 100%); }
-        .call-btn { background: linear-gradient(135deg, #d4af37 0%, #a6892c 100%); }
-        .mail-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .save-btn { background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); }
-        .share-btn { grid-column: span 2; background: #333; border: 1px solid var(--gold); }
-
-        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; }
-        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; box-shadow: var(--shadow); }
-        .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; }
-        
-        .calc-row select, .calc-row input { 
-            padding: 12px; border-radius: 8px; border: 2px solid var(--gold); 
-            background: rgba(255,255,255,0.05); color: var(--gold) !important; 
-            font-weight: 800; width: 100%; box-sizing: border-box; outline: none;
-        }
-        
-        html.light-mode-active .calc-row select, 
-        html.light-mode-active .calc-row input { background-color: #f0ede4; color: #b08d1a !important; }
-
-        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; display: none; z-index: 2000; align-items: center; justify-content: center; }
-        
-        .faq-item { text-align: left; border-bottom: 1px solid var(--border-color); padding: 18px 0; cursor: pointer; }
-        .faq-q { font-weight: 700; color: var(--gold); display: flex; justify-content: space-between; }
-        .faq-a { font-size: 0.95rem; margin-top: 12px; display: none; line-height: 1.6; color: var(--text-color); }
-        
-        .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; }
-        .footer-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); display: block; }
-        .gold-text { color: var(--gold) !important; font-weight: 700; margin: 5px 0; }
+        .msg-btn { padding: 15px; border-radius: 12px; text-decoration: none; color: white; font-weight: bold; font-size: 0.8rem; }
+        .wa-btn { grid-column: span 2; background: #25D366; }
+        .tg-btn { background: #0088cc; }
+        .call-btn { background: var(--gold); }
     </style>
 </head>
-<body>
-    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
-    <button id="backToTop" onclick="scrollToTop()">↑</button>
+<body id="body-tag">
+
+    <button class="theme-toggle" onclick="toggleTheme()" id="t-icon">☀️</button>
 
     <div class="nav-container">
-        <button class="lang-btn" id="btn-fr" onclick="changeLang('fr')">FR</button>
-        <button class="lang-btn" id="btn-en" onclick="changeLang('en')">EN</button>
-        <button class="lang-btn" id="btn-ua" onclick="changeLang('ua')">UA</button>
-        <button class="lang-btn" id="btn-ru" onclick="changeLang('ru')">RU</button>
+        <div id="lang-btns">
+            <button onclick="changeLang('fr')" class="nav-pill">FR</button>
+            <button onclick="changeLang('en')" class="nav-pill">EN</button>
+            <button onclick="changeLang('ua')" class="nav-pill">UA</button>
+            <button onclick="changeLang('ru')" class="nav-pill">RU</button>
+        </div>
         <div class="nav-pills">
             <a href="#top" class="nav-pill" id="n-home">Домой</a>
             <a href="#how" class="nav-pill" id="n-how">Process</a>
             <a href="#services" class="nav-pill" id="n-serv">Services</a>
             <a href="#faq" class="nav-pill" id="n-faq">FAQ</a>
-            <a href="#zone" class="nav-pill" id="n-zone">Zone</a>
         </div>
     </div>
 
-    <div class="reveal" id="top">
-        <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 30px 0 0;">PaulMultiService</p>
-        <img src="logo.png" alt="Logo" class="main-logo">
-        <div id="display-name"></div>
-        <div id="sap-info" style="margin-top:10px; color: var(--gold); font-weight: 700;"></div>
+    <div id="top" class="reveal">
+        <h1 style="font-family: 'Playfair Display', serif; color: var(--gold); margin-top: 40px;">PaulMultiService</h1>
+        <img src="logo.png" class="main-logo">
+        <h2 id="d-name" style="color: var(--gold);"></h2>
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(event)">WhatsApp 💬</a>
-        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
-        <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
-        <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
-        <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save"></button>
-        <button onclick="shareSite()" class="msg-btn share-btn" id="l-share"></button>
+        <a href="https://wa.me/33745625007" class="msg-btn wa-btn">WhatsApp 💬</a>
+        <a href="https://t.me/PaulMultiService_bot" class="msg-btn tg-btn">Telegram</a>
+        <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call">Appeler</a>
     </div>
 
-    <h2 id="how-title" class="reveal" style="color: var(--gold); margin-top: 40px; font-family: 'Playfair Display', serif;"></h2>
-    <div id="how" class="universal-grid">
-        <div class="generic-card reveal"><h2 id="h1-t"></h2><p id="h1-d"></p></div>
-        <div class="generic-card reveal"><h2 id="h2-t"></h2><p id="h2-d"></p></div>
-        <div class="generic-card reveal"><h2 id="h3-t"></h2><p id="h3-d"></p></div>
-    </div>
-
-    <h2 id="serv-calc-title" class="reveal" style="color: var(--gold); margin-top: 60px; font-family: 'Playfair Display', serif;"></h2>
-
-    <div class="universal-grid" id="services">
+    <div id="services" class="universal-grid">
         <div class="generic-card reveal">
-            <h2 id="it-t"></h2>
-            <ul id="it-l" style="font-size: 0.95rem; line-height: 1.7; padding-left: 20px;"></ul>
-            <div class="price-tag gold-text" id="it-p" style="margin-top:15px; border-top:1px dashed var(--border-color); padding-top:10px;"></div>
-        </div>
-
-        <div class="generic-card reveal" style="border: 2px solid var(--gold); background: rgba(212,175,55,0.03);">
-            <h2 id="c-t" style="border:none"></h2>
-            <div class="calc-row" style="display: flex; flex-direction: column; gap: 10px;">
+            <h2 id="c-title">Калькулятор SAP</h2>
+            <div class="calc-row">
                 <select id="daySelect" onchange="updateCalc()">
-                    <option value="1" id="o-wd"></option>
-                    <option value="2" id="o-sat"></option>
-                    <option value="3" id="o-sun"></option>
+                    <option value="1">Semaine / Будни</option>
+                    <option value="2">Samedi / Суббота (x2)</option>
+                    <option value="3">Dimanche / Воскресенье (x3)</option>
                 </select>
-                <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
+                <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()" style="margin-top:10px">
             </div>
-            <div style="font-weight: 800; margin: 15px 0; font-size: 1.4rem;">
-                <span id="l-total"></span> <span id="totalPrice">50</span><span class="total-currency">€</span>
-            </div>
-            <div style="background: rgba(212,175,55,0.1); padding: 10px; border-radius: 10px;">
-                <span id="c-net"></span> <span id="netPrice" style="font-size: 1.6rem;">25</span><span class="total-currency">€</span>
-            </div>
-        </div>
-
-        <div class="generic-card reveal">
-            <h2 id="br-t"></h2>
-            <ul id="br-l" style="font-size: 0.95rem; line-height: 1.7; padding-left: 20px;"></ul>
-            <div class="price-tag gold-text" id="br-p" style="margin-top:15px; border-top:1px dashed var(--border-color); padding-top:10px;"></div>
+            <p style="margin-top:20px; font-size:1.2rem;">Total: <span id="totalPrice">50</span>€</p>
+            <p>Apres SAP (50%): <span id="netPrice" class="price-green">25</span><span class="price-green">€</span></p>
         </div>
     </div>
 
-    <div id="faq" class="reveal" style="padding: 20px; max-width: 800px; margin: 40px auto;">
-        <h2 id="f-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <div id="faq-container"></div>
-    </div>
-
-    <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
-        <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/dir//Rennes8" allowfullscreen="" loading="lazy"></iframe>
-    </div>
-
-    <div class="footer reveal">
-        <span class="footer-name" id="f-name"></span>
-        <div id="footer-zone-text" style="font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
-        <p class="gold-text">EI Pavlo Pashkin | SIRET : 10000226000014</p>
-        <p class="gold-text">RC Pro incluse | Service à la Personne (SAP)</p>
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes</p>
+    <div id="faq" class="reveal" style="max-width: 800px; margin: 40px auto; padding: 20px;">
+        <h2 id="f-title" style="color: var(--gold);">FAQ</h2>
+        <div id="faq-list"></div>
     </div>
 
     <script>
         const translations = {
             fr: {
-                n_home: "Accueil", name: "Paul — Votre artisan", sap: "RÉDUCTION d'IMPÔT 50% (SAP)",
-                h_zone: "Zone : Rennes & alentours (Betton, Bruz...)",
-                n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
-                l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager",
-                how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
-                h1t: "Contact", h1d: "Contactez-moi par WhatsApp pour discuter de votre projet.",
-                h2t: "Tarif", h2d: "1ère h: 50€. Suivantes: 40€/h. Samedi: x2. Dimanche: x3.",
-                h3t: "Avantage", h3d: "50% de crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT", it_l: "<li>Sites web</li><li>Installation OS</li><li>Virus</li><li>Wi-Fi</li>",
-                it_p: "Dès 50€", br_t: "Bricolage", br_l: "<li>Montage meubles</li><li>Luminaires</li><li>Plomberie</li>",
-                br_p: "Dès 50€", ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total :",
-                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes.", ft: "FAQ",
-                faq: [
-                    {q: "La 1ère heure est-elle à 50€ ?", a: "Oui, c'est un forfait minimum."},
-                    {q: "Outils ?", a: "Je viens avec tout. Consommables à votre charge."},
-                    {q: "Remboursement ?", a: "50% via le crédit d'impôt SAP."}
-                ], msg: "Bonjour Paul! 👋"
+                home: "Accueil", name: "Paul — Votre artisan", how: "Process", serv: "Services", faq: "FAQ",
+                call: "Appeler", calc: "Simulateur SAP", ft: "Questions fréquentes",
+                items: [
+                    {q: "Tarif 1ère heure ?", a: "Le forfait minimum est de 50€."},
+                    {q: "Remboursement SAP ?", a: "L'État vous reverse 50% du montant payé."}
+                ]
             },
             ru: {
-                n_home: "Домой", name: "Павел — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
-                h_zone: "Зона охвата: Rennes и пригород (Betton, Bruz...)",
-                n_how: "Процесс", n_serv: "Услуги", n_faq: "Вопросы", n_zone: "Зона",
-                l_call: "Позвонить", l_mail: "Почта", l_save: "Сохранить", l_share: "Поделиться",
-                how_t: "Как это работает?", sc_t: "Услуги и калькулятор",
-                h1t: "Связь", h1d: "Напишите в WhatsApp или позвоните. Мы обсудим задачу.",
-                h2t: "Тариф", h2d: "Первый час — 50€. Далее — 40€/час. Суббота: x2. Воскресенье: x3.",
-                h3t: "Выгода", h3d: "Фактура SAP позволяет вернуть 50% затрат через налоги.",
-                it_t: "Web и ИТ", it_l: "<li>Сайты</li><li>Установка ОС</li><li>Чистка от вирусов</li><li>Wi-Fi</li>",
-                it_p: "Мин. выезд: 50€", br_t: "Мастер на час", br_l: "<li>Сборка мебели</li><li>Люстры, ТВ</li><li>Сантехника</li>",
-                br_p: "Мин. выезд: 50€", ct: "Калькулятор SAP", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого:",
-                zt: "Зона охвата", zd: "Радиус 20 км вокруг Rennes включен.", ft: "Частые вопросы",
-                faq: [
-                    {q: "Оплата за первый час всегда 50€?", a: "Да, это минимальный неделимый тариф."},
-                    {q: "Нужны ли инструменты?", a: "Нет, я привожу всё с собой."},
-                    {q: "Как работает возврат?", a: "Я выдаю фактуру SAP. Государство возвращает 50%."}
-                ], msg: "Здравствуйте, Павел! 👋"
-            },
-            ua: {
-                n_home: "Головна", name: "Павло — Ваш майстер", sap: "ЗНИЖКА 50% (SAP)",
-                h_zone: "Зона: Rennes та околиці", n_how: "Процес", n_serv: "Послуги", n_faq: "Питання", n_zone: "Зона",
-                l_call: "Дзвінок", l_mail: "Пошта", l_save: "Зберегти", l_share: "Поділитись",
-                how_t: "Як це працює?", sc_t: "Послуги та калькулятор",
-                h1t: "Зв'язок", h1d: "Напишіть у WhatsApp. Обговоримо вашу задачу.",
-                h2t: "Тариф", h2d: "Перша год: 50€. Наступні: 40€/год. Суб: x2. Нед: x3.",
-                h3t: "Вигода", h3d: "50% повернення коштів через податки SAP.",
-                it_t: "Web та IT", it_l: "<li>Сайти</li><li>ОС</li><li>Віруси</li>", it_p: "Від 50€",
-                br_t: "Майстер", br_l: "<li>Меблі</li><li>Люстри</li><li>Сантехніка</li>", br_p: "Від 50€",
-                ct: "Калькулятор", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Суббота", osun: "Неділя", l_total: "Разом:",
-                zt: "Зона охоплення", zd: "20 км навколо Ренна включено.", ft: "Питання",
-                faq: [{q: "Перша година 50€?", a: "Так, це мінімум."}], msg: "Вітаю, Павло! 👋"
-            },
-            en: {
-                n_home: "Home", name: "Paul — Your Handyman", sap: "50% TAX CREDIT (SAP)",
-                h_zone: "Area: Rennes & surroundings", n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
-                l_call: "Call", l_mail: "Email", l_save: "Save", l_share: "Share",
-                how_t: "How it works?", sc_t: "Calculator",
-                h1t: "Contact", h1d: "Message me on WhatsApp.",
-                h2t: "Pricing", h2d: "1st h: 50€. Next: 40€/h. Sat: x2. Sun: x3.",
-                h3t: "Benefit", h3d: "50% back via SAP tax credit.",
-                it_t: "Web & IT", it_l: "<li>Websites</li><li>OS</li>", it_p: "From 50€",
-                br_t: "Handyman", br_l: "<li>Furniture</li><li>Lights</li>", br_p: "From 50€",
-                ct: "Calculator", cnet: "Price after credit:", owd: "Weekday", osat: "Saturday", osun: "Sunday", l_total: "Total:",
-                zt: "Service Area", zd: "20 km around Rennes.", ft: "FAQ",
-                faq: [{q: "1st hour 50€?", a: "Yes, minimum flat fee."}], msg: "Hello Paul! 👋"
+                home: "Домой", name: "Павел — Ваш мастер", how: "Процесс", serv: "Услуги", faq: "Вопросы",
+                call: "Позвонить", calc: "Калькулятор SAP", ft: "Частые вопросы",
+                items: [
+                    {q: "Цена за первый час?", a: "Минимальный выезд — 50€."},
+                    {q: "Как работает возврат?", a: "Государство возвращает 50% через налоговый вычет SAP."}
+                ]
             }
+            // Добавь UA и EN по аналогии, если нужно
         };
 
         function toggleTheme() {
-            const isLight = document.documentElement.classList.toggle('light-mode-active');
+            const body = document.getElementById('body-tag');
+            body.classList.toggle('light-mode');
+            const isLight = body.classList.contains('light-mode');
             localStorage.setItem('user-theme', isLight ? 'light' : 'dark');
-            document.getElementById('theme-btn').innerText = isLight ? '🌙' : '☀️';
+            document.getElementById('t-icon').innerText = isLight ? '🌙' : '☀️';
+        }
+
+        function applySavedTheme() {
+            const saved = localStorage.getItem('user-theme');
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'light' || (!saved && !systemDark)) {
+                document.getElementById('body-tag').classList.add('light-mode');
+                document.getElementById('t-icon').innerText = '🌙';
+            }
         }
 
         function changeLang(lang) {
-            localStorage.setItem('selected-lang', lang);
             const t = translations[lang] || translations['fr'];
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + lang));
+            document.getElementById('n-home').innerText = t.home;
+            document.getElementById('d-name').innerText = t.name;
+            document.getElementById('l-call').innerText = t.call;
+            document.getElementById('c-title').innerText = t.calc;
+            document.getElementById('f-title').innerText = t.ft;
             
-            document.getElementById('n-home').innerText = t.n_home;
-            document.getElementById('display-name').innerText = t.name;
-            document.getElementById('f-name').innerText = t.name;
-            document.getElementById('sap-info').innerText = t.sap;
-            document.getElementById('footer-zone-text').innerText = t.h_zone;
-            document.getElementById('n-how').innerText = t.n_how;
-            document.getElementById('n-serv').innerText = t.n_serv;
-            document.getElementById('n-faq').innerText = t.n_faq;
-            document.getElementById('n-zone').innerText = t.n_zone;
-            document.getElementById('l-call').innerText = t.l_call;
-            document.getElementById('l-mail').innerText = t.l_mail;
-            document.getElementById('l-save').innerText = t.l_save;
-            document.getElementById('l-share').innerText = t.l_share;
-            document.getElementById('how-title').innerText = t.how_t;
-            document.getElementById('serv-calc-title').innerText = t.sc_t;
-            document.getElementById('h1-t').innerText = t.h1t; document.getElementById('h1-d').innerText = t.h1d;
-            document.getElementById('h2-t').innerText = t.h2t; document.getElementById('h2-d').innerText = t.h2d;
-            document.getElementById('h3-t').innerText = t.h3t; document.getElementById('h3-d').innerText = t.h3d;
-            document.getElementById('it-t').innerText = t.it_t; document.getElementById('it-l').innerHTML = t.it_l; document.getElementById('it-p').innerText = t.it_p;
-            document.getElementById('br-t').innerText = t.br_t; document.getElementById('br-l').innerHTML = t.br_l; document.getElementById('br-p').innerText = t.br_p;
-            document.getElementById('c-t').innerText = t.ct; document.getElementById('c-net').innerText = t.cnet;
-            document.getElementById('o-wd').innerText = t.owd; document.getElementById('o-sat').innerText = t.osat; document.getElementById('o-sun').innerText = t.osun;
-            document.getElementById('l-total').innerText = t.l_total; document.getElementById('f-t').innerText = t.ft;
-            document.getElementById('z-t').innerText = t.zt; document.getElementById('z-desc').innerText = t.zd;
-            
-            const faqBox = document.getElementById('faq-container'); 
-            faqBox.innerHTML = '';
-            t.faq.forEach(item => { 
-                faqBox.innerHTML += `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
+            const list = document.getElementById('faq-list');
+            list.innerHTML = '';
+            t.items.forEach(i => {
+                list.innerHTML += `<div class="faq-item" onclick="this.children[1].style.display = this.children[1].style.display === 'block' ? 'none' : 'block'">
+                    <div style="font-weight:bold; color:var(--gold)">${i.q}</div>
+                    <div class="faq-a">${i.a}</div>
+                </div>`;
             });
-            updateCalc();
         }
 
         function updateCalc() {
-            const h = Math.max(1, parseInt(document.getElementById('hoursInput').value) || 1);
-            const m = parseFloat(document.getElementById('daySelect').value);
+            const h = Math.max(1, document.getElementById('hoursInput').value);
+            const m = document.getElementById('daySelect').value;
             const total = (50 + (h - 1) * 40) * m;
             document.getElementById('totalPrice').innerText = total;
             document.getElementById('netPrice').innerText = total / 2;
         }
 
-        function toggleFaq(el) {
-            const a = el.querySelector('.faq-a');
-            const isOpen = a.style.display === 'block';
-            a.style.display = isOpen ? 'none' : 'block';
-            el.querySelector('span').innerText = isOpen ? '+' : '−';
-        }
-
-        function sendToWhatsApp(event) {
-            event.preventDefault();
-            const text = (translations[localStorage.getItem('selected-lang')]?.msg || "Hello") + " (Sim: " + document.getElementById('totalPrice').innerText + "€)";
-            window.location.href = "https://wa.me/33745625007?text=" + encodeURIComponent(text);
-        }
-
-        function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
-        function copyEmail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Email copié !"); }
-        function shareSite() { navigator.clipboard.writeText(window.location.href); alert("Lien copié !"); }
-        function downloadVCard() { /* ... */ }
-
-        window.onscroll = () => {
-            document.getElementById("backToTop").style.display = window.scrollY > 300 ? "flex" : "none";
-            document.querySelectorAll(".reveal").forEach(r => {
-                if (r.getBoundingClientRect().top < window.innerHeight - 50) r.classList.add("active");
-            });
-        };
-
         window.onload = () => {
-            const isLight = document.documentElement.classList.contains('light-mode-active');
-            document.getElementById('theme-btn').innerText = isLight ? '🌙' : '☀️';
-            changeLang(localStorage.getItem('selected-lang') || 'fr');
+            applySavedTheme();
+            changeLang('fr');
+            
+            window.addEventListener('scroll', () => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+                });
+            });
         };
     </script>
 </body>
