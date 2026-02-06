@@ -35,28 +35,54 @@
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
         }
         
-        #totalPrice, .total-currency, #l-total { color: var(--gold) !important; }
-        #netPrice, #netPrice + .total-currency { color: #2ecc71 !important; font-weight: 800; }
+        /* Плавный переход для всех цветовых свойств */
+        body { 
+            margin: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            text-align: center; 
+            transition: background-color 0.5s ease, color 0.5s ease; 
+            overflow-x: hidden; 
+        }
+
+        .generic-card, .nav-container, .nav-pill, .lang-btn, .calc-row select, .calc-row input {
+            transition: all 0.4s ease;
+        }
+        
+        #totalPrice, .total-currency, #l-total { 
+            color: var(--gold) !important; 
+        }
+
+        #netPrice, #netPrice + .total-currency { 
+            color: #2ecc71 !important; 
+            font-weight: 800;
+        }
 
         html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: 0.4s ease; overflow-x: hidden; }
         
         #how, #services, #faq, #zone { scroll-margin-top: 130px; }
+
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(10px); }
-        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; transition: 0.3s; }
+        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; }
         .lang-btn:hover, .lang-btn.active { background: var(--gold); color: white; }
 
         .nav-pills { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
         .nav-pill:hover { background: var(--gold); color: white; }
 
         .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); display: block; transition: 0.4s; }
         .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
 
-        #display-name { color: var(--gold); font-weight: 700; font-size: 1.3rem; }
+        #display-name { 
+            color: var(--gold); 
+            font-weight: 700; 
+            font-size: 1.3rem; 
+            font-family: 'Montserrat', sans-serif;
+        }
 
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
         .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.3s; cursor: pointer; }
@@ -72,25 +98,38 @@
         .payment-methods { grid-column: span 2; margin-top: 5px; font-size: 0.85rem; font-weight: 600; color: var(--gold); }
 
         .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; align-items: stretch; }
-        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
+        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
         .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
         
         .calc-row select, .calc-row input { 
             padding: 12px; border-radius: 8px; border: 2px solid var(--gold); 
-            background: rgba(255,255,255,0.05); color: var(--gold) !important; 
-            font-weight: 800; width: 100%; font-size: 1.1rem; outline: none; box-sizing: border-box;
+            background: rgba(255,255,255,0.05); 
+            color: var(--gold) !important; 
+            font-weight: 800; 
+            width: 100%; font-size: 1.1rem; outline: none; box-sizing: border-box;
+            appearance: none; -webkit-appearance: none;
         }
         
-        body.light-theme .calc-row select, body.light-theme .calc-row input { background-color: #f0ede4; color: #b08d1a !important; }
+        body.light-theme .calc-row select, 
+        body.light-theme .calc-row input {
+            background-color: #f0ede4; 
+            color: #b08d1a !important; 
+        }
+        
+        body.light-theme .calc-row select option { background: #ffffff; color: #b08d1a; }
 
-        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; font-size: 1.5rem; align-items: center; justify-content: center; }
+        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .theme-toggle:active { transform: scale(0.9); }
+        
+        #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem; align-items: center; justify-content: center; }
+        
+        .price-tag { font-weight: 700; color: var(--gold); margin-top: auto; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.9rem; }
         
         .faq-item { text-align: left; border-bottom: 1px solid var(--border-color); padding: 18px 0; cursor: pointer; }
         .faq-q { font-weight: 700; color: var(--gold); display: flex; justify-content: space-between; align-items: center; }
         .faq-a { font-size: 0.95rem; margin-top: 12px; display: none; line-height: 1.6; color: var(--text-color); }
         
-        .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; }
+        .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; background: rgba(10, 46, 31, 0.03); }
         .footer-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; display: block; }
         .gold-text { color: var(--gold) !important; font-weight: 700; margin: 5px 0; }
     </style>
@@ -117,7 +156,7 @@
         <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 30px 0 0;">PaulMultiService</p>
         <img src="logo.png" alt="Logo" class="main-logo">
         <div id="display-name"></div>
-        <div id="sap-info" style="margin-top:10px; color: var(--gold); font-weight: 700;"></div>
+        <div id="sap-info" style="margin-top:10px; color: var(--gold); font-weight: 700; letter-spacing: 1px;"></div>
     </div>
 
     <div class="messenger-wrapper reveal">
@@ -138,6 +177,7 @@
     </div>
 
     <h2 id="serv-calc-title" class="reveal" style="color: var(--gold); margin-top: 60px; font-family: 'Playfair Display', serif;"></h2>
+
     <div class="universal-grid" id="services">
         <div class="generic-card reveal">
             <h2 id="it-t"></h2>
@@ -178,20 +218,21 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85272.2476579545!2d-1.7618956973801124!3d48.11116634427506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715694321045!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85238.44111303115!2d-1.7455112521183313!3d48.11592306713589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1710000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps?daddr=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
         <span class="footer-name" id="f-name"></span>
         <div id="footer-zone-text" style="font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
         <p class="gold-text">EI Pavlo Pashkin | SIRET : 10000226000014</p>
-        <p class="gold-text">RC Pro incluse | Service à la Personne (SAP)</p>
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI | 35700 Rennes</p>
+        <p class="gold-text">RC Pro incluse</p>
+        <p class="gold-text">Service à la Personne (SAP)</p>
+        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes</p>
     </div>
 
-    <script>
+   <script>
         const translations = {
             fr: {
                 n_home: "Accueil", name: "Paul — Votre artisan", sap: "RÉDUCTION d'IMPÔT 50% (SAP)",
@@ -268,49 +309,71 @@
             }
         }
 
-        // --- ГЛАВНОЕ ИСПРАВЛЕНИЕ: Авто-слежка за системой ---
-        function handleSystemThemeChange(e) {
-            // Если пользователь НЕ выбрал тему вручную, слушаемся систему
+        // Автоматическое переключение при изменении настроек iPhone
+        systemThemeQuery.addEventListener('change', (e) => {
             if (!localStorage.getItem('user-theme')) {
                 applyTheme(e.matches);
             }
-        }
-        systemThemeQuery.addEventListener('change', handleSystemThemeChange);
+        });
 
         function toggleTheme() {
             const currentIsLight = document.body.classList.contains('light-theme');
             const newTheme = currentIsLight ? 'dark' : 'light';
-            localStorage.setItem('user-theme', newTheme); // Запоминаем выбор
+            localStorage.setItem('user-theme', newTheme);
             applyTheme(newTheme === 'dark');
         }
 
         function changeLang(lang) {
             localStorage.setItem('selected-lang', lang);
             const t = translations[lang] || translations['fr'];
+            document.getElementById('nav-home').innerText = t.n_home;
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                b.classList.toggle('active', b.id === 'btn-' + lang);
+            });
             
-            const ids = {
-                'nav-home': t.n_home, 'n-how': t.n_how, 'n-serv': t.n_serv, 'n-faq': t.n_faq, 'n-zone': t.n_zone,
-                'display-name': t.name, 'f-name': t.name, 'sap-info': t.sap, 'footer-zone-text': t.h_zone,
-                'l-call': t.l_call, 'l-mail': t.l_mail, 'l-save': t.l_save, 'l-share': t.l_share, 'l-route': t.l_route,
-                'l-pay': t.l_pay, 'l-total': t.l_total, 'how-title': t.how_t, 'serv-calc-title': t.sc_t,
-                'h1-t': t.h1t, 'h1-d': t.h1d, 'h2-t': t.h2t, 'h2-d': t.h2d, 'h3-t': t.h3t, 'h3-d': t.h3d,
-                'it-t': t.it_t, 'it-p': t.it_p, 'br-t': t.br_t, 'br-p': t.br_p, 'c-t': t.ct, 'c-net': t.cnet,
-                'o-wd': t.owd, 'o-sat': t.osat, 'o-sun': t.osun, 'f-t': t.ft, 'z-t': t.zt, 'z-desc': t.zd
-            };
-
-            for (let id in ids) {
-                const el = document.getElementById(id);
-                if (el) el.innerHTML = ids[id];
-            }
-
-            document.getElementById('it-l').innerHTML = t.it_l;
-            document.getElementById('br-l').innerHTML = t.br_l;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-' + lang));
+            document.getElementById('display-name').innerText = t.name;
+            document.getElementById('f-name').innerText = t.name;
+            document.getElementById('sap-info').innerText = t.sap;
+            document.getElementById('footer-zone-text').innerText = t.h_zone;
+            document.getElementById('n-how').innerText = t.n_how;
+            document.getElementById('n-serv').innerText = t.n_serv;
+            document.getElementById('n-faq').innerText = t.n_faq;
+            document.getElementById('n-zone').innerText = t.n_zone;
+            document.getElementById('l-call').innerText = t.l_call;
+            document.getElementById('l-mail').innerText = t.l_mail;
+            document.getElementById('l-save').innerText = t.l_save;
+            document.getElementById('l-share').innerText = t.l_share;
+            document.getElementById('l-route').innerText = t.l_route;
+            document.getElementById('l-pay').innerText = t.l_pay;
+            document.getElementById('l-total').innerText = t.l_total;
+            document.getElementById('how-title').innerText = t.how_t;
+            document.getElementById('serv-calc-title').innerText = t.sc_t;
+            document.getElementById('h1-t').innerText = t.h1t; 
+            document.getElementById('h1-d').innerText = t.h1d;
+            document.getElementById('h2-t').innerText = t.h2t; 
+            document.getElementById('h2-d').innerText = t.h2d;
+            document.getElementById('h3-t').innerText = t.h3t; 
+            document.getElementById('h3-d').innerText = t.h3d;
+            document.getElementById('it-t').innerText = t.it_t; 
+            document.getElementById('it-l').innerHTML = t.it_l; 
+            document.getElementById('it-p').innerHTML = t.it_p;
+            document.getElementById('br-t').innerText = t.br_t; 
+            document.getElementById('br-l').innerHTML = t.br_l; 
+            document.getElementById('br-p').innerHTML = t.br_p;
+            document.getElementById('c-t').innerText = t.ct; 
+            document.getElementById('c-net').innerText = t.cnet;
+            document.getElementById('o-wd').innerText = t.owd; 
+            document.getElementById('o-sat').innerText = t.osat; 
+            document.getElementById('o-sun').innerText = t.osun;
+            document.getElementById('f-t').innerText = t.ft; 
+            document.getElementById('z-t').innerText = t.zt; 
+            document.getElementById('z-desc').innerText = t.zd;
             
             const faqBox = document.getElementById('faq-container'); 
             faqBox.innerHTML = '';
             t.faq.forEach(item => { 
-                faqBox.innerHTML += `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
+                const faqEntry = `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
+                faqBox.innerHTML += faqEntry; 
             });
             updateCalc();
         }
@@ -318,9 +381,9 @@
         function updateCalc() { 
             const h = Math.max(1, parseInt(document.getElementById('hoursInput').value) || 1); 
             const m = parseFloat(document.getElementById('daySelect').value); 
-            const total = (50 + (h - 1) * 40) * m; 
-            document.getElementById('totalPrice').innerText = total; 
-            document.getElementById('netPrice').innerText = total / 2; 
+            const calculatedTotal = (50 + (h - 1) * 40) * m; 
+            document.getElementById('totalPrice').innerText = calculatedTotal; 
+            document.getElementById('netPrice').innerText = calculatedTotal / 2; 
         }
 
         function toggleFaq(el) { 
@@ -333,11 +396,13 @@
 
         function sendToWhatsApp(event) {
             event.preventDefault(); 
-            const h = document.getElementById('hoursInput').value;
+            const h = Math.max(1, document.getElementById('hoursInput').value);
             const total = document.getElementById('totalPrice').innerText;
-            const lang = localStorage.getItem('selected-lang') || 'fr';
+            const activeBtn = document.querySelector('.lang-btn.active');
+            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
             const t = translations[lang];
-            const text = t.msg + "\n" + "(" + t.wa_sim + ": " + h + "h = " + total + "€)";
+            const dayText = document.getElementById('daySelect').options[document.getElementById('daySelect').selectedIndex].text;
+            const text = t.msg + "\n" + "(" + (t.wa_sim || "Sim") + ": " + h + "h, " + dayText + " = " + total + "€)";
             window.location.href = "https://wa.me/33745625007?text=" + encodeURIComponent(text);
         }
         
@@ -345,25 +410,39 @@
 
         window.onscroll = function() {
             const upBtn = document.getElementById("backToTop");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { upBtn.style.display = "flex"; } 
-            else { upBtn.style.display = "none"; }
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { 
+                upBtn.style.display = "flex"; 
+            } else { upBtn.style.display = "none"; }
             revealSections();
         };
 
-        function copyEmail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Email copié !"); }
+        function copyEmail() { 
+            navigator.clipboard.writeText("contact@paulmultiservice.fr"); 
+            alert("Email copié !"); 
+        }
+        
         function shareSite() { 
             if (navigator.share) { navigator.share({title:'Paul Service', url:location.href}); } 
-            else { navigator.clipboard.writeText(location.href); alert("Lien copié !"); }
+            else { navigator.clipboard.writeText(window.location.href); alert("Lien du site copié !"); }
         }
+
         function downloadVCard() { 
-            const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nEND:VCARD"; 
-            const blob = new Blob([cardData], {type: "text/vcard"}); 
-            const link = document.createElement("a"); link.href = window.URL.createObjectURL(blob); link.download = "Paul.vcf"; link.click();
+            const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
+            const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"}); 
+            const vUrl = window.URL.createObjectURL(blob); 
+            const downloadLink = document.createElement("a"); 
+            downloadLink.href = vUrl; downloadLink.download = "Paul_Artisan.vcf"; 
+            document.body.appendChild(downloadLink); downloadLink.click(); 
+            setTimeout(() => { document.body.removeChild(downloadLink); window.URL.revokeObjectURL(vUrl); }, 200);
         }
         
         function revealSections() { 
             const reveals = document.querySelectorAll(".reveal"); 
-            reveals.forEach(r => { if (r.getBoundingClientRect().top < window.innerHeight - 100) r.classList.add("active"); });
+            const h = window.innerHeight;
+            for (let i = 0; i < reveals.length; i++) { 
+                const top = reveals[i].getBoundingClientRect().top;
+                if (top < h - 100) { reveals[i].classList.add("active"); }
+            } 
         }
 
         window.onload = () => { 
@@ -371,6 +450,7 @@
             if (savedTheme) {
                 applyTheme(savedTheme === 'dark');
             } else {
+                // Если пользователь не выбирал вручную, берем системную тему iPhone
                 applyTheme(systemThemeQuery.matches);
             }
             changeLang(localStorage.getItem('selected-lang') || 'fr'); 
