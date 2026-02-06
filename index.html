@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
+    <!-- Мета-тег для корректной работы авто-темы на iOS -->
+    <meta name="color-scheme" content="light dark">
     <title>Paul — Artisan Multiservice</title>
     
     <link rel="icon" type="image/png" href="logo.png">
@@ -24,6 +26,7 @@
             --shadow: none;
         }
         
+        /* Светлая тема активируется этим классом */
         body.light-theme { 
             --bg-color: #F9F7F2; 
             --text-color: #0a2e1f; 
@@ -44,7 +47,7 @@
         }
 
         html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: 0.4s ease; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: background-color 0.4s ease, color 0.4s ease; overflow-x: hidden; }
         
         #how, #services, #faq, #zone { scroll-margin-top: 130px; }
 
@@ -339,6 +342,7 @@
         const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
         function applyTheme(isDark) {
+            // В index.html темная тема по умолчанию, светлая - по классу
             if (isDark) {
                 document.body.classList.remove('light-theme');
                 themeBtn.innerText = '☀️';
@@ -348,25 +352,50 @@
             }
         }
 
+        function toggleTheme() {
+            const currentIsLight = document.body.classList.contains('light-theme');
+            // Если была светлая, станет темной, и наоборот
+            const isNowDark = currentIsLight; 
+            
+            localStorage.setItem('user-theme', isNowDark ? 'dark' : 'light');
+            applyTheme(isNowDark);
+        }
+
+        // Логика инициализации темы вынесена отдельно и запускается СРАЗУ
         function initTheme() {
             const savedTheme = localStorage.getItem('user-theme');
+            
+            // 1. Если есть сохраненный выбор пользователя - используем его
             if (savedTheme) { 
                 applyTheme(savedTheme === 'dark'); 
             } else { 
-                applyTheme(systemThemeQuery.matches); 
+                // 2. Если выбора нет, проверяем устройство
+                // Простая проверка на мобильные устройства (iPhone, iPad, Android)
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // На мобильных: Авто (следуем за системой)
+                    applyTheme(systemThemeQuery.matches); 
+                } else {
+                    // На ПК: Принудительно Темная (по умолчанию)
+                    applyTheme(true);
+                }
             }
         }
+        
+        // Запускаем инициализацию сразу
+        initTheme();
 
-        function toggleTheme() {
-            const currentIsLight = document.body.classList.contains('light-theme');
-            const newTheme = currentIsLight ? 'dark' : 'light';
-            localStorage.setItem('user-theme', newTheme);
-            applyTheme(newTheme === 'dark');
-        }
-
+        // Слушатель изменения системной темы (например, смена дня и ночи)
         systemThemeQuery.addEventListener('change', (e) => { 
+            // Реагируем на системные изменения только если:
+            // 1. Пользователь не выбрал тему вручную
+            // 2. И это мобильное устройство (т.к. на ПК мы форсируем темную)
             if (!localStorage.getItem('user-theme')) {
-                applyTheme(e.matches); 
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (isMobile) {
+                    applyTheme(e.matches); 
+                }
             }
         });
 
@@ -530,7 +559,6 @@
         
         window.addEventListener("scroll", revealSections);
         window.onload = () => { 
-            initTheme(); 
             changeLang('fr'); 
             revealSections(); 
         };
