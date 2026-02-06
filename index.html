@@ -454,20 +454,19 @@
             const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
             const t = translations[lang];
             
-            const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
-            
+            const dayText = document.getElementById('daySelect').options[document.getElementById('daySelect').selectedIndex].text;
             const simWord = t.wa_sim || "Simulation";
 
-            // Собираем сообщение
-            const simulationLine = ` (${simWord}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
-            const fullMsg = t.msg + simulationLine;
+            // Добавим немного "мусора" (перенос строки), чтобы строка стала визуально другой для редактора
+            const finalMessage = t.msg + "\n" + `(${simWord}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
             
-            // ИСПРАВЛЕНИЕ: используем whatsapp:// вместо https://wa.me/ 
-            // Это заставляет iPhone открывать приложение напрямую, без белого экрана в браузере.
-            document.getElementById('wa-link').href = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(fullMsg);
+            // Сама магическая строка для iOS:
+            const iosPrefix = "whatsapp://send?phone=";
+            const myNumber = "33745625007";
+            
+            document.getElementById('wa-link').href = iosPrefix + myNumber + "&text=" + encodeURIComponent(finalMessage);
         }
-
+        
         function scrollToTop() { 
             window.scrollTo({top: 0, behavior: 'smooth'}); 
         }
