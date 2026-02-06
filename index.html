@@ -463,7 +463,7 @@
             const simulationLine = ` (${simWord}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
             const fullMsg = t.msg + simulationLine;
             
-            // ИСПРАВЛЕНИЕ: используем whatsapp:// вместо https://wa.me/
+            // ИСПРАВЛЕНИЕ: используем whatsapp:// вместо https://wa.me/ 
             // Это заставляет iPhone открывать приложение напрямую, без белого экрана в браузере.
             document.getElementById('wa-link').href = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(fullMsg);
         }
