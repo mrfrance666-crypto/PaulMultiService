@@ -229,7 +229,7 @@
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réсеаux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
@@ -294,7 +294,7 @@
                     {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний неподільний тариф, що покриває виїзд та підготовку інструментів."},
                     {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все необхідне професійне обладнання. Витратні матеріали (шурупи, дюбелі тощо) надаються замовником.<br><br><b>Окрема послуга закупівлі:</b> Якщо чогось не вистачає, я можу з'їздити в магазин і купити все необхідне за вас. Ця послуга оплачується окремо."},
                     {q: "Де взяти чеки CESU?", a: "На офіційному сайті cesu.urssaf.fr або у вашому банку."},
-                    {q: "Чи діє SAP у вихідні?", a: "Так, податкова знижка 50% діє також у суботу та неділю."},
+                    {q: "Чи діє SAP у вихідні?", a: "Так, податкову знижку 50% діє також у суботу та неділю."},
                     {q: "Як працює повернення коштів?", a: "Я видаю офіційну фактуру SAP. Держава повертає вам 50% суми під час подання щорічної декларації."},
                     {q: "Які є способи оплати?", a: "Готівка, банківський переказ, чеки або чеки CESU."}
                 ],
@@ -329,7 +329,6 @@
             }
         };
 
-        // ЛОГИКА ТЕМЫ (ИСПРАВЛЕННАЯ ДЛЯ IPHONE)
         const themeBtn = document.getElementById('theme-btn');
         const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -343,20 +342,28 @@
             }
         }
 
-        // 1. При загрузке: приоритет системе
         function initTheme() {
-            applyTheme(systemThemeQuery.matches);
+            const savedTheme = localStorage.getItem('user-theme');
+            if (savedTheme) {
+                applyTheme(savedTheme === 'dark');
+            } else {
+                applyTheme(systemThemeQuery.matches);
+            }
         }
 
-        // 2. Ручное переключение (только на время сессии, не мешает авто-переключению потом)
         function toggleTheme() {
             const currentIsLight = document.body.classList.contains('light-theme');
-            applyTheme(currentIsLight); // Если сейчас светлая, делаем темную и наоборот
+            const newTheme = currentIsLight ? 'dark' : 'light';
+            localStorage.setItem('user-theme', newTheme);
+            applyTheme(newTheme === 'dark');
         }
 
-        // 3. Главное: слушаем iPhone в реальном времени
+        // Исправлено: Авто-смена темы на iPhone (Safari)
         systemThemeQuery.addEventListener('change', (e) => {
-            applyTheme(e.matches);
+            // Тема меняется автоматом только если пользователь САМ не сохранил выбор
+            if (!localStorage.getItem('user-theme')) {
+                applyTheme(e.matches);
+            }
         });
 
         function changeLang(lang) {
@@ -389,6 +396,7 @@
             document.getElementById('o-wd').innerText = t.owd; document.getElementById('o-sat').innerText = t.osat; document.getElementById('o-sun').innerText = t.osun;
             document.getElementById('f-t').innerText = t.ft; document.getElementById('z-t').innerText = t.zt; document.getElementById('z-desc').innerText = t.zd;
             
+            // Исправлено: Ссылка WhatsApp теперь использует локализованный текст
             document.getElementById('wa-link').href = "https://wa.me/33745625007?text=" + encodeURIComponent(t.msg);
             
             const faqBox = document.getElementById('faq-container'); 
