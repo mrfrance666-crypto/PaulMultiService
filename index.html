@@ -38,7 +38,6 @@
             color: var(--gold) !important; 
         }
 
-        /* Зеленая цена SAP (#2ecc71) */
         #netPrice, #netPrice + .total-currency { 
             color: #2ecc71 !important; 
             font-weight: 800;
@@ -152,7 +151,7 @@
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(this, event)">WhatsApp 💬</a>
+        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(event)">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
@@ -210,9 +209,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85253.51864551717!2d-1.7454868!3d48.1147005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881260759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Betton" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -229,26 +228,26 @@
             fr: {
                 n_home: "Accueil",
                 name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
-                h_zone: "Zone d'intervention: Rennes & alentours (Betton, Saint-Grégoire, Pacé, Bruz...)",
+                h_zone: "Zone d'intervention : Rennes & alentours (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
-                l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itéraire",
+                l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu", how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
-                h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
+                h3t: "Avantage", h3d: "Bénéficiez de 50% de crédit d'impôt SAP. Facture officielle fournie.",
                 it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
-                br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électromэнager</li>",
+                br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total :",
                 zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes (Betton, Saint-Grégoire, Pacé, Bruz...). Au-delà : sur devis.", ft: "Questions fréquentes",
                 faq: [
                     {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, я viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
-                    {q: "Как работает возврат?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
+                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— ",
                 wa_sim: "Simulation"
@@ -310,7 +309,7 @@
             en: {
                 n_home: "Home",
                 name: "Paul — Your Handyman", sap: "50% TAX REDUCTION (SAP)",
-                h_zone: "Service Area: Rennes & surroundings (Betton, Saint-Grégoire, Pacé, Bruz...)",
+                h_zone: "Service Area : Rennes & surroundings (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Call", l_mail: "Email", l_save: "Save", l_share: "Share", l_route: "Route",
                 l_pay: "Cash / Transfer / Cheque / Cesu", how_t: "How it works?", sc_t: "Services & Calculator",
@@ -459,27 +458,20 @@
             s.innerText = isOpen ? '+' : '−'; 
         }
 
-        function sendToWhatsApp(el, event) {
-            event.preventDefault(); // Останавливаем обычный переход
-
-            // 1. Собираем данные прямо из калькулятора
+        function sendToWhatsApp(event) {
+            event.preventDefault(); 
             const h = Math.max(1, document.getElementById('hoursInput').value);
             const total = document.getElementById('totalPrice').innerText;
-            const lang = document.querySelector('.lang-btn.active').id.replace('btn-', '');
+            const activeBtn = document.querySelector('.lang-btn.active');
+            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
             
             const t = translations[lang];
             const daySelect = document.getElementById('daySelect');
             const dayText = daySelect.options[daySelect.selectedIndex].text;
             const simWord = t.wa_sim || "Simulation";
             
-            // 2. Формируем сообщение
             const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
-            
-            // 3. Создаем ссылку
-            const url = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(text);
-            
-            // 4. ПРИНУДИТЕЛЬНО открываем (этот способ лучше всего для iPhone)
-            window.location.href = url;
+            window.location.href = "https://wa.me/33745625007?text=" + encodeURIComponent(text);
         }
         
         function scrollToTop() { 
@@ -535,29 +527,6 @@
                 }
             } 
         }
-
-        // --- ВОТ ТВОЯ НОВАЯ ФУНКЦИЯ WHATSAPP ---
-        function sendToWhatsApp(el, event) {
-            event.preventDefault(); // Останавливаем стандартный переход
-            
-            // Собираем свежие данные прямо из калькулятора
-            const h = Math.max(1, document.getElementById('hoursInput').value);
-            const total = document.getElementById('totalPrice').innerText;
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
-            
-            const t = translations[lang];
-            const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
-            const simWord = t.wa_sim || "Simulation";
-            
-            // Формируем текст сообщения
-            const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
-            
-            // Команда на открытие приложения
-            window.location.href = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(text);
-        }
-        // ---------------------------------------
         
         window.addEventListener("scroll", revealSections);
         window.onload = () => { 
