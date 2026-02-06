@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
+    <meta name="color-scheme" content="light dark">
     <title>Paul — Artisan Multiservice</title>
     
     <link rel="icon" type="image/png" href="logo.png">
@@ -11,40 +12,49 @@
     
     <style>
         :root { 
-            --bg: #0a2e1f; --txt: #ffffff; 
-            --gold: #d4af37; --gold-l: #f4d06f; 
-            --card: rgba(255,255,255,0.06); 
-            --brd: rgba(212,175,55,0.5);
-            --nv: rgba(10,46,31,0.95);
-            --glow: 0 0 20px rgba(212, 175, 55, 0.4);
+            --bg-color: #0a2e1f; 
+            --text-color: #ffffff; 
+            --gold: #d4af37; 
+            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
+            --card-bg: rgba(255,255,255,0.06); 
+            --border-color: rgba(212,175,55,0.5);
+            --nav-bg: rgba(10,46,31,0.95);
         }
-
-        body.light-theme { 
-            --bg: #F9F7F2; --txt: #0a2e1f; 
-            --gold: #b08d1a; --gold-l: #8a6d10;
-            --card: #ffffff; --brd: #d4af37; 
-            --nv: rgba(249, 247, 242, 0.95);
-            --glow: 0 4px 15px rgba(10, 46, 31, 0.1);
-        }
-
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--txt); text-align: center; transition: 0.4s; overflow-x: hidden; }
         
-        /* Та самая подсветка */
-        .gold-glow, h1, h2, #totalPrice, #l-total, .price-tag, .faq-q, #display-name, #sap-info, .footer-name { 
-            color: var(--gold) !important; text-shadow: var(--glow); 
+        body.light-theme { 
+            --bg-color: #F9F7F2; 
+            --text-color: #0a2e1f; 
+            --gold: #b08d1a; 
+            --card-bg: #ffffff; 
+            --border-color: #d4af37; 
+            --nav-bg: rgba(249, 247, 242, 0.95);
+            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1); 
+        }
+        
+        body { 
+            margin: 0; font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-color); color: var(--text-color); 
+            text-align: center; transition: background-color 0.4s, color 0.4s; 
+            overflow-x: hidden; 
         }
 
-        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nv); padding: 10px 0; border-bottom: 2px solid var(--gold); backdrop-filter: blur(10px); }
+        /* Динамическая подсветка */
+        .gold-glow, h1, h2, #totalPrice, #l-total, #display-name, #sap-info, .footer-name { 
+            color: var(--gold) !important; 
+            text-shadow: var(--gold-glow); 
+            transition: 0.4s;
+        }
+
+        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); backdrop-filter: blur(10px); }
         .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; }
         .lang-btn.active { background: var(--gold); color: white; }
-        
+
         .nav-pills { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
         .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
 
-        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        .generic-card { background: var(--card); border: 1.5px solid var(--brd); border-radius: 20px; padding: 25px; text-align: left; }
+        .main-logo { width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--gold); display: block; margin: 20px auto; box-shadow: var(--gold-glow); }
 
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
         .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; }
@@ -55,25 +65,27 @@
         .save-btn { background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); }
         .share-btn { grid-column: span 2; background: #333; border: 1px solid var(--gold); }
 
-        .main-logo { width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--gold); display: block; margin: 20px auto; box-shadow: var(--glow); }
-        select, input { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--gold); background: var(--card); color: var(--gold); font-weight: 800; font-size: 1.1rem; }
+        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; }
         
+        select, input { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--gold); background: var(--card-bg); color: var(--gold); font-weight: 800; font-size: 1.1rem; box-sizing: border-box; }
+
         .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .footer { padding: 60px 20px; border-top: 1px solid var(--brd); margin-top: 40px; }
+        .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; }
     </style>
 </head>
-<body id="b">
+<body id="top-point">
 
-    <button class="theme-toggle" id="t-btn" onclick="tglTheme()">☀️</button>
+    <button class="theme-toggle" id="theme-btn" onclick="toggleThemeManual()">☀️</button>
 
     <div class="nav-container">
-        <button class="lang-btn" id="btn-fr" onclick="setL('fr')">FR</button>
-        <button class="lang-btn" id="btn-en" onclick="setL('en')">EN</button>
-        <button class="lang-btn" id="btn-ua" onclick="setL('ua')">UA</button>
-        <button class="lang-btn" id="btn-ru" onclick="setL('ru')">RU</button>
+        <button class="lang-btn" id="btn-fr" onclick="setLanguage('fr')">FR</button>
+        <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" id="btn-ua" onclick="setLanguage('ua')">UA</button>
+        <button class="lang-btn" id="btn-ru" onclick="setLanguage('ru')">RU</button>
         <div class="nav-pills">
-            <a href="#b" class="nav-pill" id="n-home"></a>
+            <a href="#top-point" class="nav-pill" id="n-home"></a>
             <a href="#how" class="nav-pill" id="n-how"></a>
             <a href="#services" class="nav-pill" id="n-serv"></a>
             <a href="#faq" class="nav-pill" id="n-faq"></a>
@@ -81,20 +93,20 @@
         </div>
     </div>
 
-    <div id="top" class="reveal">
-        <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 30px 0 0;">PaulMultiService</p>
+    <div class="reveal">
+        <h1 style="font-family: 'Playfair Display', serif; margin-top: 30px;">PaulMultiService</h1>
         <img src="logo.png" class="main-logo">
-        <div id="display-name"></div>
-        <div id="sap-info"></div>
+        <div id="display-name" style="font-size: 1.3rem; font-weight: 700;"></div>
+        <div id="sap-info" style="font-weight: 700;"></div>
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" class="msg-btn wa-btn" onclick="sendWA(event)">WhatsApp 💬</a>
+        <a href="#" class="msg-btn wa-btn" onclick="sendWhatsApp(event)">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
         <button onclick="copyMail()" class="msg-btn mail-btn" id="l-mail"></button>
-        <button onclick="dlVCard()" class="msg-btn save-btn" id="l-save"></button>
-        <button onclick="share()" class="msg-btn share-btn" id="l-share"></button>
+        <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save"></button>
+        <button onclick="shareLink()" class="msg-btn share-btn" id="l-share"></button>
     </div>
 
     <div id="how" class="universal-grid">
@@ -104,28 +116,29 @@
     </div>
 
     <div id="services" class="universal-grid">
-        <div class="generic-card reveal">
-            <h2 id="it-t"></h2><ul id="it-l"></ul>
-        </div>
+        <div class="generic-card reveal"><h2 id="it-t"></h2><ul id="it-l"></ul></div>
         <div class="generic-card reveal" style="border: 2px solid var(--gold);">
             <h2 id="c-t"></h2>
-            <select id="daySelect" onchange="upd()"><option value="1" id="o-wd"></option><option value="2" id="o-sat"></option><option value="3" id="o-sun"></option></select>
-            <input type="number" id="h-in" value="1" min="1" oninput="upd()" style="margin-top:10px;">
-            <p><span id="l-total"></span> <span id="totalPrice"></span>€</p>
-            <p id="c-net"></p><p style="color:#2ecc71; font-size:1.8rem; font-weight:800;"><span id="netPrice"></span>€</p>
+            <select id="daySelect" onchange="calculate()">
+                <option value="1" id="o-wd"></option>
+                <option value="2" id="o-sat"></option>
+                <option value="3" id="o-sun"></option>
+            </select>
+            <input type="number" id="h-in" value="1" min="1" oninput="calculate()" style="margin-top:10px;">
+            <p style="font-size: 1.5rem; font-weight: 800;"><span id="l-total"></span> <span id="totalPrice"></span>€</p>
+            <p id="c-net" style="font-size: 0.9rem; opacity: 0.8;"></p>
+            <p id="netPrice" style="color: #2ecc71 !important; font-weight: 800; font-size: 1.8rem; margin:0;"></p>
         </div>
-        <div class="generic-card reveal">
-            <h2 id="br-t"></h2><ul id="br-l"></ul>
-        </div>
+        <div class="generic-card reveal"><h2 id="br-t"></h2><ul id="br-l"></ul></div>
     </div>
 
-    <div id="faq" class="reveal" style="max-width:800px; margin:auto; padding:20px;">
+    <div id="faq" class="reveal" style="max-width: 800px; margin: auto; padding: 20px;">
         <h2 id="f-t"></h2><div id="faq-box"></div>
     </div>
 
     <div id="zone" class="reveal">
         <h2 id="z-t"></h2><p id="z-d"></p>
-        <iframe style="width:90%; height:300px; border-radius:20px; border:2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85253.51860010906!2d-1.7456382903741873!3d48.11119574341908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1710000000000" allowfullscreen></iframe>
+        <iframe style="width:90%; height:300px; border-radius:20px; border:2px solid var(--gold);" src="https://www.google.com/maps/dir//Rennes0" allowfullscreen></iframe>
     </div>
 
     <div class="footer reveal">
@@ -135,17 +148,17 @@
     </div>
 
     <script>
-        const translations = {
+        const data = {
             fr: {
                 home: "Accueil", n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 name: "Paul — Votre artisan", sap: "RÉDUCTION 50% (SAP)",
-                h1t: "Contact", h1d: "WhatsApp ou téléphone.", h2t: "Tarif", h2d: "50€ 1h, puis 40€/h.", h3t: "Avantage", h3d: "50% crédit d'impôt.",
+                h1t: "Contact", h1d: "WhatsApp ou téléphone.", h2t: "Tarif", h2d: "50€ 1h, потом 40€/ч.", h3t: "Avantage", h3d: "50% crédito de impuesto.",
                 it_t: "Informatique", it_l: "<li>Sites Web</li><li>Dépannage PC</li>",
                 br_t: "Bricolage", br_l: "<li>Meubles</li><li>Plomberie</li>",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)",
                 call: "Appeler", mail: "E-mail", save: "Enregistrer", share: "Partager",
-                zt: "Zone", zd: "Rennes + 20km", ft: "FAQ", l_total: "Total :",
-                faq: [{q:"Paiement ?", a:"Cesu, Espèces, Virement."}], msg: "Bonjour Paul ! Simulation : "
+                zt: "Zone", zd: "Rennes + 20km", ft: "FAQ", total: "Total :",
+                faq: [{q: "Paiement ?", a: "Cesu, Espèces, Virement."}], msg: "Bonjour Paul! Calcul: "
             },
             ru: {
                 home: "Главная", n_how: "Процесс", n_serv: "Услуги", n_faq: "Вопросы", n_zone: "Зона",
@@ -155,21 +168,27 @@
                 br_t: "Мастер", br_l: "<li>Мебель</li><li>Сантехника</li>",
                 ct: "Калькулятор SAP", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)",
                 call: "Позвонить", mail: "Почта", save: "Сохранить", share: "Поделиться",
-                zt: "Зона", zd: "Ренн + 20км", ft: "Вопросы", l_total: "Итого :",
-                faq: [{q:"Оплата ?", a:"Наличные, чеки, перевод."}], msg: "Здравствуйте, Павел! Расчет: "
+                zt: "Зона", zd: "Ренн + 20км", ft: "Вопросы", total: "Итого:",
+                faq: [{q: "Оплата?", a: "Наличные, чек, перевод."}], msg: "Здравствуйте, Павел! Расчет: "
             }
-            // UA и EN добавляются по той же схеме
         };
 
-        function tglTheme() {
-            const isL = document.body.classList.toggle('light-theme');
-            document.getElementById('t-btn').innerText = isL ? '🌙' : '☀️';
-            localStorage.setItem('theme', isL ? 'light' : 'dark');
+        const sysQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function applyTheme(isDark) {
+            document.body.classList.toggle('light-theme', !isDark);
+            document.getElementById('theme-btn').innerText = isDark ? '☀️' : '🌙';
         }
 
-        function setL(l) {
-            localStorage.setItem('lang', l);
-            const t = translations[l] || translations.fr;
+        function toggleThemeManual() {
+            const isDark = document.body.classList.contains('light-theme');
+            localStorage.setItem('user-theme', isDark ? 'dark' : 'light');
+            applyTheme(isDark);
+        }
+
+        function setLanguage(l) {
+            localStorage.setItem('user-lang', l);
+            const t = data[l] || data.fr;
             document.getElementById('n-home').innerText = t.home;
             document.getElementById('n-how').innerText = t.n_how;
             document.getElementById('n-serv').innerText = t.n_serv;
@@ -188,35 +207,38 @@
             document.getElementById('l-call').innerText = t.call; document.getElementById('l-mail').innerText = t.mail;
             document.getElementById('l-save').innerText = t.save; document.getElementById('l-share').innerText = t.share;
             document.getElementById('z-t').innerText = t.zt; document.getElementById('z-d').innerText = t.zd;
-            document.getElementById('f-t').innerText = t.ft; document.getElementById('l-total').innerText = t.l_total;
+            document.getElementById('f-t').innerText = t.ft; document.getElementById('l-total').innerText = t.total;
 
-            const fbox = document.getElementById('faq-box'); fbox.innerHTML = '';
-            t.faq.forEach(f => { fbox.innerHTML += `<div style="cursor:pointer; padding:10px; border-bottom:1px solid var(--brd);" onclick="this.children[1].style.display=this.children[1].style.display==='block'?'none':'block'"><div class="gold-glow"><b>${f.q} +</b></div><div style="display:none; margin-top:10px;">${f.a}</div></div>`; });
-            upd();
+            const box = document.getElementById('faq-box'); box.innerHTML = '';
+            t.faq.forEach(f => { box.innerHTML += `<div style="cursor:pointer; border-bottom:1px solid var(--border-color); padding:10px;" onclick="this.children[1].style.display=this.children[1].style.display==='block'?'none':'block'"><div class="gold-glow"><b>${f.q} +</b></div><div style="display:none; margin-top:10px;">${f.a}</div></div>`; });
+            calculate();
         }
 
-        function upd() {
+        function calculate() {
             const h = Math.max(1, parseInt(document.getElementById('h-in').value) || 1);
             const m = parseFloat(document.getElementById('daySelect').value);
             const total = (50 + (h - 1) * 40) * m;
             document.getElementById('totalPrice').innerText = total;
-            document.getElementById('netPrice').innerText = total / 2;
+            document.getElementById('netPrice').innerText = (total / 2) + "€";
         }
 
-        function sendWA(e) {
+        function sendWhatsApp(e) {
             e.preventDefault();
-            const lang = localStorage.getItem('lang') || 'fr';
-            const text = translations[lang].msg + document.getElementById('h-in').value + "h = " + document.getElementById('totalPrice').innerText + "€";
+            const l = localStorage.getItem('user-lang') || 'fr';
+            const text = data[l].msg + document.getElementById('h-in').value + "h = " + document.getElementById('totalPrice').innerText + "€";
             window.location.href = "https://wa.me/33745625007?text=" + encodeURIComponent(text);
         }
 
         function copyMail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Email copié !"); }
-        function share() { navigator.share ? navigator.share({url: location.href}) : (navigator.clipboard.writeText(location.href), alert("Lien copié !")); }
-        function dlVCard() { window.location.href = "data:text/vcard;charset=utf-8,BEGIN:VCARD\nFN:Paul Multiservice\nTEL:+33745625007\nEND:VCARD"; }
+        function shareLink() { navigator.share ? navigator.share({url: location.href}) : (navigator.clipboard.writeText(location.href), alert("Lien copié !")); }
+        function downloadVCard() { window.location.href = "data:text/vcard;charset=utf-8,BEGIN:VCARD\nFN:Paul Multiservice\nTEL:+33745625007\nEND:VCARD"; }
+
+        sysQuery.addEventListener('change', e => { if(!localStorage.getItem('user-theme')) applyTheme(e.matches); });
 
         window.onload = () => {
-            if(localStorage.getItem('theme') === 'light') tglTheme();
-            setL(localStorage.getItem('lang') || 'fr');
+            const saved = localStorage.getItem('user-theme');
+            applyTheme(saved ? saved === 'dark' : sysQuery.matches);
+            setLanguage(localStorage.getItem('user-lang') || 'fr');
             const rev = () => document.querySelectorAll('.reveal').forEach(el => { if(el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active'); });
             window.onscroll = rev; rev();
         };
