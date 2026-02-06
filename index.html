@@ -145,7 +145,7 @@
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="https://wa.me/33745625007" target="_blank" class="msg-btn wa-btn" id="wa-link">WhatsApp 💬</a>
+        <a href="https://wa.me/33745625007" target="_blank" rel="noopener" class="msg-btn wa-btn" id="wa-link">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
@@ -203,9 +203,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.29746356612!2d-1.76113945415309!3d48.1130635183885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85253.51864551717!2d-1.7454868!3d48.1147005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -218,6 +218,10 @@
     </div>
 
     <script>
+        /**
+         * INITIALISATION DES TRADUCTIONS
+         * Contient toutes les chaînes de caractères par langue
+         */
         const translations = {
             fr: {
                 name: "Paul — Votre artisan", 
@@ -235,7 +239,7 @@
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total :",
-                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus around Rennes.",
+                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes.",
                 ft: "Questions fréquentes",
                 faq: [
                     {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
@@ -245,7 +249,7 @@
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
                     {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
                 ],
-                msg: "Bonjour Paul, je vous contacte pour..."
+                msg: "Bonjour Paul, je vous contacte pour un devis..."
             },
             ru: {
                 name: "Павел — Ваш мастер", 
@@ -329,13 +333,16 @@
                     {q: "How does the refund work?", a: "I issue a SAP invoice, and the state refunds you 50% via tax credit on your annual return."},
                     {q: "Payment methods?", a: "Cash, bank transfer, bank cheques, and CESU."}
                 ],
-                msg: "Hello Paul, I am contacting you regarding..."
+                msg: "Hello Paul, I am contacting you regarding a quote..."
             }
         };
 
         const themeBtn = document.getElementById('theme-btn');
         const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
+        /**
+         * FONCTIONS DE GESTION DU THÈME
+         */
         function applyTheme(isDark) {
             if (isDark) {
                 document.body.classList.remove('light-theme');
@@ -348,7 +355,6 @@
 
         function initTheme() {
             const savedTheme = localStorage.getItem('user-theme');
-            
             if (savedTheme) { 
                 applyTheme(savedTheme === 'dark'); 
             } else { 
@@ -359,7 +365,6 @@
         function toggleTheme() {
             const currentIsLight = document.body.classList.contains('light-theme');
             const newTheme = currentIsLight ? 'dark' : 'light';
-            
             localStorage.setItem('user-theme', newTheme);
             applyTheme(newTheme === 'dark');
         }
@@ -370,10 +375,19 @@
             }
         });
 
+        /**
+         * FONCTION DE CHANGEMENT DE LANGUE
+         * Met à jour tout le contenu textuel et les liens WhatsApp
+         */
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-'+lang));
             
+            // Mise à jour des classes actives sur les boutons
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                b.classList.toggle('active', b.id === 'btn-' + lang);
+            });
+            
+            // Remplissage des champs texte
             document.getElementById('display-name').innerText = t.name;
             document.getElementById('f-name').innerText = t.name;
             document.getElementById('sap-info').innerText = t.sap;
@@ -391,89 +405,130 @@
             document.getElementById('l-total').innerText = t.l_total;
             document.getElementById('how-title').innerText = t.how_t;
             document.getElementById('serv-calc-title').innerText = t.sc_t;
-            document.getElementById('h1-t').innerText = t.h1t; document.getElementById('h1-d').innerText = t.h1d;
-            document.getElementById('h2-t').innerText = t.h2t; document.getElementById('h2-d').innerText = t.h2d;
-            document.getElementById('h3-t').innerText = t.h3t; document.getElementById('h3-d').innerText = t.h3d;
-            document.getElementById('it-t').innerText = t.it_t; document.getElementById('it-l').innerHTML = t.it_l; document.getElementById('it-p').innerHTML = t.it_p;
-            document.getElementById('br-t').innerText = t.br_t; document.getElementById('br-l').innerHTML = t.br_l; document.getElementById('br-p').innerHTML = t.br_p;
-            document.getElementById('c-t').innerText = t.ct; document.getElementById('c-net').innerText = t.cnet;
-            document.getElementById('o-wd').innerText = t.owd; document.getElementById('o-sat').innerText = t.osat; document.getElementById('o-sun').innerText = t.osun;
-            document.getElementById('f-t').innerText = t.ft; document.getElementById('z-t').innerText = t.zt; document.getElementById('z-desc').innerText = t.zd;
+            document.getElementById('h1-t').innerText = t.h1t; 
+            document.getElementById('h1-d').innerText = t.h1d;
+            document.getElementById('h2-t').innerText = t.h2t; 
+            document.getElementById('h2-d').innerText = t.h2d;
+            document.getElementById('h3-t').innerText = t.h3t; 
+            document.getElementById('h3-d').innerText = t.h3d;
+            document.getElementById('it-t').innerText = t.it_t; 
+            document.getElementById('it-l').innerHTML = t.it_l; 
+            document.getElementById('it-p').innerHTML = t.it_p;
+            document.getElementById('br-t').innerText = t.br_t; 
+            document.getElementById('br-l').innerHTML = t.br_l; 
+            document.getElementById('br-p').innerHTML = t.br_p;
+            document.getElementById('c-t').innerText = t.ct; 
+            document.getElementById('c-net').innerText = t.cnet;
+            document.getElementById('o-wd').innerText = t.owd; 
+            document.getElementById('o-sat').innerText = t.osat; 
+            document.getElementById('o-sun').innerText = t.osun;
+            document.getElementById('f-t').innerText = t.ft; 
+            document.getElementById('z-t').innerText = t.zt; 
+            document.getElementById('z-desc').innerText = t.zd;
             
-            document.getElementById('wa-link').href = "https://wa.me/33745625007?text=" + encodeURIComponent(t.msg);
+            // Mise à jour du lien WhatsApp avec encodage sécurisé
+            const encodedMsg = encodeURIComponent(t.msg);
+            document.getElementById('wa-link').href = "https://wa.me/33745625007?text=" + encodedMsg;
             
+            // Mise à jour de la FAQ
             const faqBox = document.getElementById('faq-container'); 
             faqBox.innerHTML = '';
-            
             t.faq.forEach(item => { 
-                faqBox.innerHTML += `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`; 
+                const faqEntry = `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
+                faqBox.innerHTML += faqEntry; 
             });
+            
             updateCalc();
         }
 
+        /**
+         * INTERACTION FAQ ET CALCULATRICE
+         */
         function toggleFaq(el) { 
             const a = el.querySelector('.faq-a'); 
             const s = el.querySelector('span'); 
-            const open = a.style.display === 'block'; 
-            
-            a.style.display = open ? 'none' : 'block'; 
-            s.innerText = open ? '+' : '−'; 
+            const isOpen = a.style.display === 'block'; 
+            a.style.display = isOpen ? 'none' : 'block'; 
+            s.innerText = isOpen ? '+' : '−'; 
         }
 
         function updateCalc() { 
-            let h = Math.max(1, document.getElementById('hoursInput').value); 
-            let m = document.getElementById('daySelect').value; 
-            let total = (50 + (h-1)*40) * m; 
-            
-            document.getElementById('totalPrice').innerText = total; 
-            document.getElementById('netPrice').innerText = total / 2; 
+            const rawHours = document.getElementById('hoursInput').value;
+            const h = Math.max(1, rawHours); 
+            const m = document.getElementById('daySelect').value; 
+            const calculatedTotal = (50 + (h - 1) * 40) * m; 
+            document.getElementById('totalPrice').innerText = calculatedTotal; 
+            document.getElementById('netPrice').innerText = calculatedTotal / 2; 
         }
 
-        function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+        function scrollToTop() { 
+            window.scrollTo({top: 0, behavior: 'smooth'}); 
+        }
 
         window.onscroll = function() {
-            const btn = document.getElementById("backToTop");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { 
-                btn.style.display = "flex"; 
+            const upBtn = document.getElementById("backToTop");
+            const scrolled = document.body.scrollTop > 300 || document.documentElement.scrollTop > 300;
+            if (scrolled) { 
+                upBtn.style.display = "flex"; 
             } else { 
-                btn.style.display = "none"; 
+                upBtn.style.display = "none"; 
             }
         };
 
-        function copyEmail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Copié!"); }
+        /**
+         * FONCTIONS DE PARTAGE ET CONTACT
+         */
+        function copyEmail() { 
+            navigator.clipboard.writeText("contact@paulmultiservice.fr"); 
+            alert("Email copié dans le presse-papier !"); 
+        }
         
         function shareSite() { 
             if (navigator.share) { 
                 navigator.share({title:'Paul Service', url:location.href}); 
             } else { 
-                navigator.clipboard.writeText(window.location.href); alert("Lien copié!"); 
+                navigator.clipboard.writeText(window.location.href); 
+                alert("Lien du site copié !"); 
             }
         }
 
         function downloadVCard() { 
-            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
-            const blob = new Blob([vcard], {type: "text/vcard;charset=utf-8"}); 
-            const url = window.URL.createObjectURL(blob); 
-            const a = document.createElement("a"); 
-            
-            a.href = url; a.download = "Paul.vcf"; 
-            a.setAttribute('data-downloadurl', ["text/vcard", a.download, a.href].join(':'));
-            document.body.appendChild(a); a.click(); 
-            
-            setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100);
+            const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
+            const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"}); 
+            const vUrl = window.URL.createObjectURL(blob); 
+            const downloadLink = document.createElement("a"); 
+            downloadLink.href = vUrl; 
+            downloadLink.download = "Paul_Artisan.vcf"; 
+            downloadLink.setAttribute('data-downloadurl', ["text/vcard", downloadLink.download, downloadLink.href].join(':'));
+            document.body.appendChild(downloadLink); 
+            downloadLink.click(); 
+            setTimeout(() => { 
+                document.body.removeChild(downloadLink); 
+                window.URL.revokeObjectURL(vUrl); 
+            }, 200);
         }
         
-        function reveal() { 
-            var reveals = document.querySelectorAll(".reveal"); 
-            for (var i = 0; i < reveals.length; i++) { 
-                if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) {
+        /**
+         * GESTION DE L'ANIMATION REVEAL
+         */
+        function revealSections() { 
+            const reveals = document.querySelectorAll(".reveal"); 
+            const h = window.innerHeight;
+            for (let i = 0; i < reveals.length; i++) { 
+                const top = reveals[i].getBoundingClientRect().top;
+                if (top < h - 100) {
                     reveals[i].classList.add("active"); 
                 }
             } 
         }
 
-        window.addEventListener("scroll", reveal);
-        window.onload = () => { initTheme(); changeLang('fr'); reveal(); };
+        // ÉCOUTEURS D'ÉVÉNEMENTS
+        window.addEventListener("scroll", revealSections);
+        window.onload = () => { 
+            initTheme(); 
+            changeLang('fr'); 
+            revealSections(); 
+        };
     </script>
 </body>
 </html>
