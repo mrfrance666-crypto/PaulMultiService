@@ -430,31 +430,29 @@
         }
 
         function updateCalc() { 
-            const rawHours = document.getElementById('hoursInput').value;
-            const h = Math.max(1, rawHours); 
+            const h = Math.max(1, document.getElementById('hoursInput').value); 
             const m = document.getElementById('daySelect').value; 
-            const calculatedTotal = (50 + (h - 1) * 40) * m; 
+            const total = (50 + (h - 1) * 40) * m; 
             
-            document.getElementById('totalPrice').innerText = calculatedTotal; 
-            document.getElementById('netPrice').innerText = calculatedTotal / 2; 
+            document.getElementById('totalPrice').innerText = total; 
+            document.getElementById('netPrice').innerText = total / 2; 
 
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
+            const btn = document.querySelector('.lang-btn.active');
+            const lang = btn ? btn.id.replace('btn-', '') : 'fr';
             const t = translations[lang];
             
-            const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
+            const sel = document.getElementById('daySelect');
+            const dayStr = sel.options[sel.selectedIndex].text;
             
-            const simWord = t.wa_sim || "Simulation";
-            const fullMsg = t.msg + `\n(${simWord}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
+            // Собираем текст сообщения
+            const finalMsg = t.msg + "\n" + `(${t.wa_sim}: ${h}h, ${dayStr} = ${total}€)`;
             
-            // Костыль для iOS: Сначала сбрасываем ссылку, потом ставим новую через таймаут
-            const waLink = document.getElementById('wa-link');
-            waLink.href = "javascript:void(0)";
+            // Генерируем ссылку: whatsapp://send — это единственный 100% способ для iOS
+            const waUrl = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(finalMsg);
             
-            setTimeout(() => {
-                waLink.href = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(fullMsg);
-            }, 50);
+            // Обновляем кнопку
+            const linkElem = document.getElementById('wa-link');
+            linkElem.setAttribute('href', waUrl);
         }
         
         function scrollToTop() { 
