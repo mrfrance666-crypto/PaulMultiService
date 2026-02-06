@@ -513,29 +513,7 @@
             } 
         }
 
-        // --- ВОТ ТВОЯ НОВАЯ ФУНКЦИЯ WHATSAPP ---
-        function sendToWhatsApp(el, event) {
-            event.preventDefault(); // Останавливаем стандартный переход
-            
-            // Собираем свежие данные прямо из калькулятора
-            const h = Math.max(1, document.getElementById('hoursInput').value);
-            const total = document.getElementById('totalPrice').innerText;
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
-            
-            const t = translations[lang];
-            const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
-            const simWord = t.wa_sim || "Simulation";
-            
-            // Формируем текст сообщения
-            const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
-            
-            // Команда на открытие приложения
-            window.location.href = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(text);
-        }
-        // ---------------------------------------
-        
+       
         window.addEventListener("scroll", revealSections);
         window.onload = () => { 
             initTheme(); 
