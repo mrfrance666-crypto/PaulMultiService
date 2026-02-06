@@ -151,7 +151,7 @@
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" target="_blank" class="msg-btn wa-btn" id="wa-link">WhatsApp 💬</a>
+        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="openWhatsApp(event)">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
@@ -430,29 +430,33 @@
         }
 
         function updateCalc() { 
-            const h = Math.max(1, document.getElementById('hoursInput').value); 
+            const rawHours = document.getElementById('hoursInput').value;
+            const h = Math.max(1, rawHours); 
             const m = document.getElementById('daySelect').value; 
-            const total = (50 + (h - 1) * 40) * m; 
+            const calculatedTotal = (50 + (h - 1) * 40) * m; 
             
-            document.getElementById('totalPrice').innerText = total; 
-            document.getElementById('netPrice').innerText = total / 2; 
+            document.getElementById('totalPrice').innerText = calculatedTotal; 
+            document.getElementById('netPrice').innerText = calculatedTotal / 2; 
 
-            const btn = document.querySelector('.lang-btn.active');
-            const lang = btn ? btn.id.replace('btn-', '') : 'fr';
+            const activeBtn = document.querySelector('.lang-btn.active');
+            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
             const t = translations[lang];
             
-            const sel = document.getElementById('daySelect');
-            const dayStr = sel.options[sel.selectedIndex].text;
+            const daySelect = document.getElementById('daySelect');
+            const dayText = daySelect.options[daySelect.selectedIndex].text;
             
-            // Собираем текст сообщения
-            const finalMsg = t.msg + "\n" + `(${t.wa_sim}: ${h}h, ${dayStr} = ${total}€)`;
+            // Динамика: сохраняем текст сообщения в переменную window, чтобы кнопка его видела
+            window.currentWAMessage = t.msg + "\n" + `(${t.wa_sim}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
+        }
+
+        // Новая функция: срабатывает только при нажатии на кнопку
+        function openWhatsApp(event) {
+            event.preventDefault(); // Чтобы страница не дергалась
+            const text = window.currentWAMessage || "Bonjour";
+            const url = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(text);
             
-            // Генерируем ссылку: whatsapp://send — это единственный 100% способ для iOS
-            const waUrl = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(finalMsg);
-            
-            // Обновляем кнопку
-            const linkElem = document.getElementById('wa-link');
-            linkElem.setAttribute('href', waUrl);
+            // Принудительно открываем приложение
+            window.location.href = url;
         }
         
         function scrollToTop() { 
