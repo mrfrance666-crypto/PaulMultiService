@@ -34,14 +34,8 @@
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
         }
         
-        #totalPrice, .total-currency, #l-total { 
+        #totalPrice, .total-currency, #l-total, #netPrice { 
             color: var(--gold) !important; 
-        }
-
-        /* Зеленая цена SAP (#2ecc71) */
-        #netPrice, #netPrice + .total-currency { 
-            color: #2ecc71 !important; 
-            font-weight: 800;
         }
 
         html { scroll-behavior: smooth; }
@@ -62,13 +56,6 @@
 
         .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); display: block; transition: 0.4s; }
         .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
-
-        #display-name { 
-            color: var(--gold); 
-            font-weight: 700; 
-            font-size: 1.3rem; 
-            font-family: 'Montserrat', sans-serif;
-        }
 
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
         .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.3s; cursor: pointer; }
@@ -146,12 +133,12 @@
     <div class="reveal">
         <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 30px 0 0;">PaulMultiService</p>
         <img src="logo.png" alt="Logo" class="main-logo">
-        <div id="display-name"></div>
+        <div id="display-name" style="font-weight: 700; font-size: 1.3rem;"></div>
         <div id="sap-info" style="margin-top:10px; color: var(--gold); font-weight: 700; letter-spacing: 1px;"></div>
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" target="_blank" class="msg-btn wa-btn" id="wa-link">WhatsApp 💬</a>
+        <a href="" target="_blank" class="msg-btn wa-btn" id="wa-link">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
@@ -209,7 +196,7 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85253.51864551717!2d-1.7454868!3d48.1147005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.77114675549!2d-1.7483677464082236!3d48.11400244799042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1711234567890!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
@@ -226,17 +213,16 @@
     <script>
         const translations = {
             fr: {
-                name: "Paul — Votre artisan", 
-                sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
+                name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
                 h_zone: "Zone d'intervention: Rennes & alentours (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu",
                 how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
-                h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
+                h1t: "Contact", h1d: "Contactez-moi par WhatsApp или par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réсеаuх</li>",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
@@ -245,18 +231,16 @@
                 ft: "Questions fréquentes",
                 faq: [
                     {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, я viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
-                    {q: "Comment ça marche ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
+                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
                 ],
-                msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— ",
-                wa_sim: "Simulation"
+                msg: "Bonjour Paul..."
             },
             ru: {
-                name: "Павел — Ваш мастер", 
-                sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
+                name: "Павел — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
                 h_zone: "Зона охвата: Rennes и пригород (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процесс", n_serv: "Услуги", n_faq: "Вопросы", n_zone: "Зона",
                 l_call: "Позвонить", l_mail: "Почта", l_save: "Сохранить", l_share: "Поделиться", l_route: "Маршрут",
@@ -270,7 +254,7 @@
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкая сантехника и замки</li><li>Подключение бытовой техники</li>",
                 br_p: "Мин. выезд: 50€<br>След. часы: 40€/ч",
                 ct: "Калькулятор SAP", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого:",
-                zt: "Зона охвата", zd: "Радиус 20 км вокруг Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включен в стоимость.",
+                zt: "Зона охвата", zd: "Радиус 20 км вокруг Rennes включен в стоимость.",
                 ft: "Частые вопросы",
                 faq: [
                     {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это минимальный неделимый тариф (forfait), который покрывает транспортные расходы и подготовку."},
@@ -280,12 +264,10 @@
                     {q: "Как работает возврат?", a: "Я выдаю официальную фактуру SAP. Государство возвращает вам 50% суммы при подаче ежегодной декларации."},
                     {q: "Как можно оплатить услуги?", a: "Наличные, банковский перевод, чеки или чеки CESU."}
                 ],
-                msg: "Здравствуйте, Павел! 👋\n\nЯ зашел(а) на ваш сайт и хотел бы уточнить стоимость работ по следующему вопросу:\n— ",
-                wa_sim: "Расчет"
+                msg: "Здравствуйте, Павел..."
             },
             ua: {
-                name: "Павло — Ваш майстер", 
-                sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)",
+                name: "Павло — Ваш майстер", sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)",
                 h_zone: "Зона охоплення: Rennes та околиці (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процес", n_serv: "Послуги", n_faq: "Питання", n_zone: "Зона",
                 l_call: "Дзвінок", l_mail: "Пошта", l_save: "Зберегти", l_share: "Поділитись", l_route: "Маршрут",
@@ -298,23 +280,21 @@
                 it_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
                 br_t: "Майстер на годину", br_l: "<li>Збирання меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібна сантехніка та замки</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
-                ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Загальна вартість:",
-                zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включено у вартість.",
+                ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Суббота (x2)", osun: "Неділя (x3)", l_total: "Загальна вартість:",
+                zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes включено у вартість.",
                 ft: "Поширені питання",
                 faq: [
                     {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний неподільний тариф, що покриває виїзд та підготовку інструментів."},
                     {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все необхідне професійне обладнання. Витратні матеріали (шурупи, дюбелі тощо) надаються замовником.<br><br><b>Окрема послуга закупівлі:</b> Якщо чогось не вистачає, я можу з'їздити в магазин і купити все необхідне за вас. Ця послуга оплачується окремо."},
-                    {q: "Де замовити чеки CESU?", a: "На офіційному сайті cesu.urssaf.fr або у вашому банку."},
-                    {q: "Чи діє SAP у вихідні?", a: "Так, податкову знижку 50% діє також у суботу та неділю."},
+                    {q: "Де взяти чеки CESU?", a: "На офіційному сайті cesu.urssaf.fr або у вашому банку."},
+                    {q: "Чи діє SAP у вихідні?", a: "Так, податкова знижка 50% діє також у суботу та неділю."},
                     {q: "Як працює повернення коштів?", a: "Я видаю офіційну фактуру SAP. Держава повертає вам 50% суми під час подання щорічної декларації."},
                     {q: "Які є способи оплати?", a: "Готівка, банківський переказ, чеки або чеки CESU."}
                 ],
-                msg: "Доброго дня, Павло! 👋\n\nЯ зайшов(-ла) на ваш сайт, мене цікавить вартість робіт:\n— ",
-                wa_sim: "Розрахунок"
+                msg: "Добрий день, Павло..."
             },
             en: {
-                name: "Paul — Your Handyman", 
-                sap: "50% TAX REDUCTION (SAP)",
+                name: "Paul — Your Handyman", sap: "50% TAX REDUCTION (SAP)",
                 h_zone: "Service Area: Rennes & surroundings (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Call", l_mail: "Email", l_save: "Save", l_share: "Share", l_route: "Route",
@@ -338,52 +318,32 @@
                     {q: "How does the refund work?", a: "I issue a SAP invoice, and the state refunds you 50% via tax credit on your annual return."},
                     {q: "Payment methods?", a: "Cash, bank transfer, bank cheques, and CESU."}
                 ],
-                msg: "Hello Paul! 👋\n\nI found your website and I would like to get a quote for:\n— ",
-                wa_sim: "Simulation"
+                msg: "Hello Paul..."
             }
         };
 
-        const themeBtn = document.getElementById('theme-btn');
-        const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-        function applyTheme(isDark) {
-            if (isDark) {
+        function checkSystemTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
                 document.body.classList.remove('light-theme');
-                themeBtn.innerText = '☀️';
+                document.getElementById('theme-btn').innerText = '☀️';
             } else {
                 document.body.classList.add('light-theme');
-                themeBtn.innerText = '🌙';
+                document.getElementById('theme-btn').innerText = '🌙';
             }
         }
 
-        function initTheme() {
-            const savedTheme = localStorage.getItem('user-theme');
-            if (savedTheme) { 
-                applyTheme(savedTheme === 'dark'); 
-            } else { 
-                applyTheme(systemThemeQuery.matches); 
-            }
+        function toggleTheme() { 
+            document.body.classList.toggle('light-theme'); 
+            const isLight = document.body.classList.contains('light-theme');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            document.getElementById('theme-btn').innerText = isLight ? '🌙' : '☀️'; 
         }
-
-        function toggleTheme() {
-            const currentIsLight = document.body.classList.contains('light-theme');
-            const newTheme = currentIsLight ? 'dark' : 'light';
-            localStorage.setItem('user-theme', newTheme);
-            applyTheme(newTheme === 'dark');
-        }
-
-        systemThemeQuery.addEventListener('change', (e) => { 
-            if (!localStorage.getItem('user-theme')) {
-                applyTheme(e.matches); 
-            }
-        });
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
-            
-            document.querySelectorAll('.lang-btn').forEach(b => {
-                b.classList.toggle('active', b.id === 'btn-' + lang);
-            });
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === 'btn-'+lang));
             
             document.getElementById('display-name').innerText = t.name;
             document.getElementById('f-name').innerText = t.name;
@@ -402,132 +362,76 @@
             document.getElementById('l-total').innerText = t.l_total;
             document.getElementById('how-title').innerText = t.how_t;
             document.getElementById('serv-calc-title').innerText = t.sc_t;
-            document.getElementById('h1-t').innerText = t.h1t; 
-            document.getElementById('h1-d').innerText = t.h1d;
-            document.getElementById('h2-t').innerText = t.h2t; 
-            document.getElementById('h2-d').innerText = t.h2d;
-            document.getElementById('h3-t').innerText = t.h3t; 
-            document.getElementById('h3-d').innerText = t.h3d;
-            document.getElementById('it-t').innerText = t.it_t; 
-            document.getElementById('it-l').innerHTML = t.it_l; 
-            document.getElementById('it-p').innerHTML = t.it_p;
-            document.getElementById('br-t').innerText = t.br_t; 
-            document.getElementById('br-l').innerHTML = t.br_l; 
-            document.getElementById('br-p').innerHTML = t.br_p;
-            document.getElementById('c-t').innerText = t.ct; 
-            document.getElementById('c-net').innerText = t.cnet;
-            document.getElementById('o-wd').innerText = t.owd; 
-            document.getElementById('o-sat').innerText = t.osat; 
-            document.getElementById('o-sun').innerText = t.osun;
-            document.getElementById('f-t').innerText = t.ft; 
-            document.getElementById('z-t').innerText = t.zt; 
-            document.getElementById('z-desc').innerText = t.zd;
+            document.getElementById('h1-t').innerText = t.h1t; document.getElementById('h1-d').innerText = t.h1d;
+            document.getElementById('h2-t').innerText = t.h2t; document.getElementById('h2-d').innerText = t.h2d;
+            document.getElementById('h3-t').innerText = t.h3t; document.getElementById('h3-d').innerText = t.h3d;
+            document.getElementById('it-t').innerText = t.it_t; document.getElementById('it-l').innerHTML = t.it_l; document.getElementById('it-p').innerHTML = t.it_p;
+            document.getElementById('br-t').innerText = t.br_t; document.getElementById('br-l').innerHTML = t.br_l; document.getElementById('br-p').innerHTML = t.br_p;
+            document.getElementById('c-t').innerText = t.ct; document.getElementById('c-net').innerText = t.cnet;
+            document.getElementById('o-wd').innerText = t.owd; document.getElementById('o-sat').innerText = t.osat; document.getElementById('o-sun').innerText = t.osun;
+            document.getElementById('f-t').innerText = t.ft; document.getElementById('z-t').innerText = t.zt; document.getElementById('z-desc').innerText = t.zd;
+            document.getElementById('wa-link').href = `https://wa.me/33745625007?text=${encodeURIComponent(t.msg)}`;
             
             const faqBox = document.getElementById('faq-container'); 
             faqBox.innerHTML = '';
             t.faq.forEach(item => { 
-                const faqEntry = `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
-                faqBox.innerHTML += faqEntry; 
+                faqBox.innerHTML += `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`; 
             });
-            
             updateCalc();
         }
 
         function toggleFaq(el) { 
             const a = el.querySelector('.faq-a'); 
             const s = el.querySelector('span'); 
-            const isOpen = a.style.display === 'block'; 
-            a.style.display = isOpen ? 'none' : 'block'; 
-            s.innerText = isOpen ? '+' : '−'; 
+            const open = a.style.display === 'block'; 
+            a.style.display = open ? 'none' : 'block'; 
+            s.innerText = open ? '+' : '−'; 
         }
 
         function updateCalc() { 
-            const rawHours = document.getElementById('hoursInput').value;
-            const h = Math.max(1, rawHours); 
-            const m = document.getElementById('daySelect').value; 
-            const calculatedTotal = (50 + (h - 1) * 40) * m; 
-            
-            document.getElementById('totalPrice').innerText = calculatedTotal; 
-            document.getElementById('netPrice').innerText = calculatedTotal / 2; 
-
-            // ОПРЕДЕЛЕНИЕ ТЕКУЩЕГО ЯЗЫКА
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
-            const t = translations[lang];
-            
-            const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
-            
-            // Слово "Simulation" теперь полностью локализовано
-            const simWord = t.wa_sim || "Simulation";
-
-            // Оптимизированная ссылка WhatsApp (убраны лишние пробелы для стабильной работы)
-            const simulationLine = `\n\n(${simWord}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
-            const fullMsg = (t.msg + simulationLine).trim();
-            
-            document.getElementById('wa-link').href = "https://wa.me/33745625007?text=" + encodeURIComponent(fullMsg);
+            let h = Math.max(1, document.getElementById('hoursInput').value); 
+            let m = document.getElementById('daySelect').value; 
+            let total = (50 + (h-1)*40) * m; 
+            document.getElementById('totalPrice').innerText = total; 
+            document.getElementById('netPrice').innerText = total / 2; 
         }
 
-        function scrollToTop() { 
-            window.scrollTo({top: 0, behavior: 'smooth'}); 
-        }
+        function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
         window.onscroll = function() {
-            const upBtn = document.getElementById("backToTop");
-            const scrolled = document.body.scrollTop > 300 || document.documentElement.scrollTop > 300;
-            if (scrolled) { 
-                upBtn.style.display = "flex"; 
-            } else { 
-                upBtn.style.display = "none"; 
-            }
+            const btn = document.getElementById("backToTop");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { btn.style.display = "flex"; } else { btn.style.display = "none"; }
         };
 
-        function copyEmail() { 
-            navigator.clipboard.writeText("contact@paulmultiservice.fr"); 
-            alert("Email copié !"); 
-        }
+        function copyEmail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Copié!"); }
         
         function shareSite() { 
-            if (navigator.share) { 
+            if (navigator.share) {
                 navigator.share({title:'Paul Service', url:location.href}); 
-            } else { 
-                navigator.clipboard.writeText(window.location.href); 
-                alert("Lien du site copié !"); 
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert("Lien copié!");
             }
         }
 
         function downloadVCard() { 
-            const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
-            const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"}); 
-            const vUrl = window.URL.createObjectURL(blob); 
-            const downloadLink = document.createElement("a"); 
-            downloadLink.href = vUrl; 
-            downloadLink.download = "Paul_Artisan.vcf"; 
-            document.body.appendChild(downloadLink); 
-            downloadLink.click(); 
-            setTimeout(() => { 
-                document.body.removeChild(downloadLink); 
-                window.URL.revokeObjectURL(vUrl); 
-            }, 200);
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
+            const blob = new Blob([vcard], {type: "text/vcard;charset=utf-8"}); 
+            const url = window.URL.createObjectURL(blob); 
+            const a = document.createElement("a"); 
+            a.href = url; a.download = "Paul.vcf"; 
+            a.setAttribute('data-downloadurl', ["text/vcard", a.download, a.href].join(':'));
+            document.body.appendChild(a); a.click(); 
+            setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100);
         }
         
-        function revealSections() { 
-            const reveals = document.querySelectorAll(".reveal"); 
-            const h = window.innerHeight;
-            for (let i = 0; i < reveals.length; i++) { 
-                const top = reveals[i].getBoundingClientRect().top;
-                if (top < h - 100) {
-                    reveals[i].classList.add("active"); 
-                }
-            } 
+        function reveal() { 
+            var reveals = document.querySelectorAll(".reveal"); 
+            for (var i = 0; i < reveals.length; i++) { if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) reveals[i].classList.add("active"); } 
         }
 
-        window.addEventListener("scroll", revealSections);
-        window.onload = () => { 
-            initTheme(); 
-            changeLang('fr'); 
-            revealSections(); 
-        };
+        window.addEventListener("scroll", reveal);
+        window.onload = () => { checkSystemTheme(); changeLang('fr'); reveal(); };
     </script>
 </body>
 </html>
