@@ -38,7 +38,7 @@
             color: var(--gold) !important; 
         }
 
-        /* Стиль для зеленой цены SAP */
+        /* Зеленая цена SAP (#2ecc71) */
         #netPrice, #netPrice + .total-currency { 
             color: #2ecc71 !important; 
             font-weight: 800;
@@ -236,7 +236,7 @@
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réсеаuх</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
@@ -249,7 +249,7 @@
                     {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
                     {q: "Comment ça marche ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— ",
                 wa_sim: "Simulation"
@@ -450,7 +450,7 @@
             document.getElementById('totalPrice').innerText = calculatedTotal; 
             document.getElementById('netPrice').innerText = calculatedTotal / 2; 
 
-            // -- ЛОГИКА WHATSAPP (ПОЛНАЯ ЛОКАЛИЗАЦИЯ) --
+            // ОПРЕДЕЛЕНИЕ ТЕКУЩЕГО ЯЗЫКА
             const activeBtn = document.querySelector('.lang-btn.active');
             const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
             const t = translations[lang];
@@ -458,13 +458,14 @@
             const daySelect = document.getElementById('daySelect');
             const dayText = daySelect.options[daySelect.selectedIndex].text;
             
-            // Теперь слово "Simulation" берется из объекта перевода
-            const simulationWord = t.wa_sim || "Simulation";
+            // Слово "Simulation" теперь полностью локализовано
+            const simWord = t.wa_sim || "Simulation";
 
-            const simulationLine = `\n\n(${simulationWord}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
-            const fullMsg = t.msg + simulationLine;
+            // Оптимизированная ссылка WhatsApp (убраны лишние пробелы для стабильной работы)
+            const simulationLine = `\n\n(${simWord}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
+            const fullMsg = (t.msg + simulationLine).trim();
             
-            document.getElementById('wa-link').href = "https://api.whatsapp.com/send?phone=33745625007&text=" + encodeURIComponent(fullMsg);
+            document.getElementById('wa-link').href = "https://wa.me/33745625007?text=" + encodeURIComponent(fullMsg);
         }
 
         function scrollToTop() { 
