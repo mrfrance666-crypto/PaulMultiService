@@ -151,7 +151,7 @@
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(event)">WhatsApp 💬</a>
+        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(this, event)">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
@@ -209,9 +209,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881260759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85257.48704254425!2d-1.7588358485208453!3d48.11593368297072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1711200000000" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Betton" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://maps.app.goo.gl/1w9v77uF7qE7R5uN6" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -226,11 +226,10 @@
     <script>
         const translations = {
             fr: {
-                n_home: "Accueil",
-                name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
+                n_home: "Accueil", name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
                 h_zone: "Zone d'intervention : Rennes & alentours (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
-                l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
+                l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu", how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
@@ -243,18 +242,16 @@
                 zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes (Betton, Saint-Grégoire, Pacé, Bruz...). Au-delà : sur devis.", ft: "Questions fréquentes",
                 faq: [
                     {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "No, je viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si quelque chose manque, je peux aller au magasin pour vous. Ce service est facturé séparément."},
                     {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
                 ],
-                msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— ",
-                wa_sim: "Simulation"
+                msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— ", wa_sim: "Simulation"
             },
             ru: {
-                n_home: "Главная",
-                name: "Павел — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
+                n_home: "Главная", name: "Павел — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
                 h_zone: "Зона охвата: Rennes и пригород (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процесс", n_serv: "Услуги", n_faq: "Вопросы", n_zone: "Зона",
                 l_call: "Позвонить", l_mail: "Почта", l_save: "Сохранить", l_share: "Поделиться", l_route: "Маршрут",
@@ -270,18 +267,16 @@
                 zt: "Зона охвата", zd: "Радиус 20 км вокруг Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включен. Далее — по договоренности.", ft: "Частые вопросы",
                 faq: [
                     {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это минимальный неделимый тариф (forfait), который покрывает транспортные расходы и подготовку."},
-                    {q: "Нужны ли мои инструменты?", a: "Нет, я привожу всё профессиональное оборудование с собой. Расходные материалы (дюбели, винты и т.д.) оплачиваются вами.<br><br><b>Отдельный сервис по закупке:</b> Если чего-то не хватает, я могу съездить в магазин и купить всё необходимое за вас. Эта услуга (поездка в магазин) оплачивается отдельно."},
+                    {q: "Нужны ли мои инструменты?", a: "Нет, я привожу всё профессиональное оборудование с собой. Расходные материалы (дюбели, винты и т.д.) оплачиваются вами.<br><br><b>Отдельный сервис по закупке:</b> Если чего-то не хватает, я могу съездить в магазин и купить всё необходимое за вас. Эта услуга оплачивается отдельно."},
                     {q: "Где взять чеки CESU?", a: "На сайте cesu.urssaf.fr или в вашем банке."},
                     {q: "Действует ли SAP в выходные?", a: "Да, налоговый вычет 50% сохраняется при работе в субботу и воскресенье."},
                     {q: "Как работает возврат?", a: "Я выдаю официальную фактуру SAP. Государство возвращает вам 50% суммы при подаче ежегодной декларации."},
                     {q: "Как можно оплатить услуги?", a: "Наличные, банковский перевод, чеки или чеки CESU."}
                 ],
-                msg: "Здравствуйте, Павел! 👋\n\nЯ зашел(а) на ваш сайт и хотел бы уточнить стоимость работ по следующему вопросу:\n— ",
-                wa_sim: "Расчет"
+                msg: "Здравствуйте, Павел! 👋\n\nЯ зашел(а) на ваш сайт и хотел бы уточнить стоимость работ по следующему вопросу:\n— ", wa_sim: "Расчет"
             },
             ua: {
-                n_home: "Головна",
-                name: "Павло — Ваш майстер", sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)",
+                n_home: "Головна", name: "Павло — Ваш майстер", sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)",
                 h_zone: "Зона охоплення: Rennes та околиці (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процес", n_serv: "Послуги", n_faq: "Питання", n_zone: "Зона",
                 l_call: "Дзвінок", l_mail: "Пошта", l_save: "Зберегти", l_share: "Поділитись", l_route: "Маршрут",
@@ -294,21 +289,19 @@
                 br_t: "Майстер на годину", br_l: "<li>Збирання меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібна сантехніка та замки</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
                 ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Разом:",
-                zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включено. Далі — за домовленістю.", ft: "Поширені питання",
+                zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes включено. Далі — за домовленістю.", ft: "Поширені питання",
                 faq: [
                     {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний неподільний тариф, що покриває виїзд та підготовку інструментів."},
-                    {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все необхідне професійне обладнання. Витратні матеріали (шурупи, дюбелі тощо) надаються замовником.<br><br><b>Окрема послуга закупівлі:</b> Якщо чогось не вистачає, я можу з'їзити в магазин і купити все необхідне за вас. Ця послуга оплачується окремо."},
+                    {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все необхідне професійне обладнання. Витратні матеріали надаються замовником.<br><br><b>Сервіс закупівель:</b> Якщо чогось не вистачає, я можу з'їздити в магазин. Ця послуга оплачується окремо."},
                     {q: "Де замовити чеки CESU?", a: "На офіційному сайті cesu.urssaf.fr або у вашому банку."},
                     {q: "Чи діє SAP у вихідні?", a: "Так, податкову знижку 50% діє також у суботу та неділю."},
                     {q: "Як працює повернення коштів?", a: "Я видаю офіційну фактуру SAP. Держава повертає вам 50% суми під час подання щорічної декларації."},
                     {q: "Які є способи оплати?", a: "Готівка, банківський переказ, чеки або чеки CESU."}
                 ],
-                msg: "Доброго дня, Павло! 👋\n\nЯ зайшов(-ла) на ваш сайт, мене цікавить вартість робіт:\n— ",
-                wa_sim: "Розрахунок"
+                msg: "Доброго дня, Павло! 👋\n\nЯ зайшов(-ла) на ваш сайт, мене цікавить вартість робіт:\n— ", wa_sim: "Розрахунок"
             },
             en: {
-                n_home: "Home",
-                name: "Paul — Your Handyman", sap: "50% TAX REDUCTION (SAP)",
+                n_home: "Home", name: "Paul — Your Handyman", sap: "50% TAX REDUCTION (SAP)",
                 h_zone: "Service Area : Rennes & surroundings (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
                 l_call: "Call", l_mail: "Email", l_save: "Save", l_share: "Share", l_route: "Route",
@@ -321,17 +314,16 @@
                 br_t: "Handyman Services", br_l: "<li>Furniture assembly (IKEA, etc.)</li><li>Lights, TV, shelves installation</li><li>Minor plumbing & locks</li><li>Appliance connection</li>",
                 br_p: "Min. fee: 50€<br>Next: 40€/h",
                 ct: "SAP Calculator", cnet: "Cost after tax credit:", owd: "Weekday", osat: "Saturday (x2)", osun: "Sunday (x3)", l_total: "Total Price:",
-                zt: "Service Area", zd: "20 km radius around Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) included. Beyond: by agreement.", ft: "FAQ",
+                zt: "Service Area", zd: "20 km radius around Rennes included. Beyond: by agreement.", ft: "FAQ",
                 faq: [
                     {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum flat rate (forfait) covering travel and tool preparation."},
-                    {q: "Do I need to provide tools?", a: "No, I bring all professional tools. Consumables (screws, wall plugs, etc.) are at your expense.<br><br><b>Shopping Service:</b> If needed, I can go to the store and buy supplies for you. This service is charged as a separate intervention."},
+                    {q: "Do I need to provide tools?", a: "No, I bring all professional tools. Consumables are at your expense.<br><br><b>Shopping Service:</b> I can go to the store for you if needed. This is charged separately."},
                     {q: "Where to get CESU cheques?", a: "At cesu.urssaf.fr or from your bank."},
                     {q: "Does SAP work on weekends?", a: "Yes, the 50% tax credit applies on Saturdays and Sundays too."},
                     {q: "How does the refund work?", a: "I issue a SAP invoice, and the state refunds you 50% via tax credit on your annual return."},
                     {q: "Payment methods?", a: "Cash, bank transfer, bank cheques, and CESU."}
                 ],
-                msg: "Hello Paul! 👋\n\nI found your website and I would like to get a quote for:\n— ",
-                wa_sim: "Simulation"
+                msg: "Hello Paul! 👋\n\nI found your website and I would like to get a quote for:\n— ", wa_sim: "Simulation"
             }
         };
 
@@ -426,28 +418,11 @@
         }
         
         function updateCalc() { 
-            const hoursInput = document.getElementById('hoursInput');
-            const daySelect = document.getElementById('daySelect');
-            const totalEl = document.getElementById('totalPrice');
-            const netEl = document.getElementById('netPrice');
-
-            if (!hoursInput || !daySelect || !totalEl || !netEl) return;
-
-            const h = Math.max(1, parseInt(hoursInput.value) || 1); 
-            const m = parseFloat(daySelect.value); 
+            const h = Math.max(1, parseInt(document.getElementById('hoursInput').value) || 1); 
+            const m = parseFloat(document.getElementById('daySelect').value); 
             const calculatedTotal = (50 + (h - 1) * 40) * m; 
-            
-            totalEl.innerText = calculatedTotal; 
-            netEl.innerText = calculatedTotal / 2; 
-        }
-
-        function changeHours(delta) {
-            const input = document.getElementById('hoursInput');
-            if (!input) return;
-            let val = parseInt(input.value) || 1;
-            val = Math.max(1, val + delta);
-            input.value = val;
-            updateCalc();
+            document.getElementById('totalPrice').innerText = calculatedTotal; 
+            document.getElementById('netPrice').innerText = calculatedTotal / 2; 
         }
 
         function toggleFaq(el) { 
@@ -458,7 +433,7 @@
             s.innerText = isOpen ? '+' : '−'; 
         }
 
-        function sendToWhatsApp(event) {
+        function sendToWhatsApp(el, event) {
             event.preventDefault(); 
             const h = Math.max(1, document.getElementById('hoursInput').value);
             const total = document.getElementById('totalPrice').innerText;
@@ -471,7 +446,8 @@
             const simWord = t.wa_sim || "Simulation";
             
             const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
-            window.location.href = "https://wa.me/33745625007?text=" + encodeURIComponent(text);
+            
+            window.open("https://wa.me/33745625007?text=" + encodeURIComponent(text), "_blank");
         }
         
         function scrollToTop() { 
