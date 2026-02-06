@@ -152,7 +152,7 @@
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(this, event)">WhatsApp 💬</a>
+        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(event)">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
@@ -459,28 +459,6 @@
             s.innerText = isOpen ? '+' : '−'; 
         }
 
-        function sendToWhatsApp(el, event) {
-            event.preventDefault(); // Останавливаем обычный переход
-
-            // 1. Собираем данные прямо из калькулятора
-            const h = Math.max(1, document.getElementById('hoursInput').value);
-            const total = document.getElementById('totalPrice').innerText;
-            const lang = document.querySelector('.lang-btn.active').id.replace('btn-', '');
-            
-            const t = translations[lang];
-            const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
-            const simWord = t.wa_sim || "Simulation";
-            
-            // 2. Формируем сообщение
-            const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
-            
-            // 3. Создаем ссылку
-            const url = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(text);
-            
-            // 4. ПРИНУДИТЕЛЬНО открываем (этот способ лучше всего для iPhone)
-            window.location.href = url;
-        }
         
         function scrollToTop() { 
             window.scrollTo({top: 0, behavior: 'smooth'}); 
@@ -532,32 +510,32 @@
                 const top = reveals[i].getBoundingClientRect().top;
                 if (top < h - 100) {
                     reveals[i].classList.add("active"); 
+                    
                 }
-            } 
-        }
+                function sendToWhatsApp(event) {
+            event.preventDefault(); // Останавливаем прыжок страницы
 
-        // --- ВОТ ТВОЯ НОВАЯ ФУНКЦИЯ WHATSAPP ---
-        function sendToWhatsApp(el, event) {
-            event.preventDefault(); // Останавливаем стандартный переход
+            // 1. Берем актуальные данные из калькулятора
+            const h = document.getElementById('hoursInput').value || 1;
+            const total = document.getElementById('totalPrice').innerText || "50";
             
-            // Собираем свежие данные прямо из калькулятора
-            const h = Math.max(1, document.getElementById('hoursInput').value);
-            const total = document.getElementById('totalPrice').innerText;
+            // 2. Определяем текущий язык
             const activeBtn = document.querySelector('.lang-btn.active');
             const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
-            
             const t = translations[lang];
+            
+            // 3. Берем название дня и слово "Simulation"
             const daySelect = document.getElementById('daySelect');
             const dayText = daySelect.options[daySelect.selectedIndex].text;
             const simWord = t.wa_sim || "Simulation";
             
-            // Формируем текст сообщения
-            const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
+            // 4. Формируем текст
+            const message = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
             
-            // Команда на открытие приложения
-            window.location.href = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(text);
+            // 5. Открываем через универсальную ссылку wa.me
+            const phone = "33745625007";
+            window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
         }
-        // ---------------------------------------
         
         window.addEventListener("scroll", revealSections);
         window.onload = () => { 
