@@ -35,21 +35,6 @@
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
         }
         
-        /* Плавный переход для всех цветовых свойств */
-        body { 
-            margin: 0; 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--text-color); 
-            text-align: center; 
-            transition: background-color 0.5s ease, color 0.5s ease; 
-            overflow-x: hidden; 
-        }
-
-        .generic-card, .nav-container, .nav-pill, .lang-btn, .calc-row select, .calc-row input {
-            transition: all 0.4s ease;
-        }
-        
         #totalPrice, .total-currency, #l-total { 
             color: var(--gold) !important; 
         }
@@ -60,6 +45,7 @@
         }
 
         html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: 0.4s ease; overflow-x: hidden; }
         
         #how, #services, #faq, #zone { scroll-margin-top: 130px; }
 
@@ -67,11 +53,11 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(10px); }
-        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; }
+        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; transition: 0.3s; }
         .lang-btn:hover, .lang-btn.active { background: var(--gold); color: white; }
 
         .nav-pills { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
         .nav-pill:hover { background: var(--gold); color: white; }
 
         .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); display: block; transition: 0.4s; }
@@ -98,7 +84,7 @@
         .payment-methods { grid-column: span 2; margin-top: 5px; font-size: 0.85rem; font-weight: 600; color: var(--gold); }
 
         .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; align-items: stretch; }
-        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
+        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
         .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
         
         .calc-row select, .calc-row input { 
@@ -107,6 +93,7 @@
             color: var(--gold) !important; 
             font-weight: 800; 
             width: 100%; font-size: 1.1rem; outline: none; box-sizing: border-box;
+            transition: 0.3s;
             appearance: none; -webkit-appearance: none;
         }
         
@@ -118,9 +105,12 @@
         
         body.light-theme .calc-row select option { background: #ffffff; color: #b08d1a; }
 
-        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .theme-toggle:active { transform: scale(0.9); }
-        
+        .calc-row select:focus, .calc-row input:focus {
+            box-shadow: 0 0 10px var(--gold);
+            border-color: var(--gold-light);
+        }
+
+        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem; align-items: center; justify-content: center; }
         
         .price-tag { font-weight: 700; color: var(--gold); margin-top: auto; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.9rem; }
@@ -218,9 +208,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85238.44111303115!2d-1.7455112521183313!3d48.11592306713589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1710000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85235.48514109151!2d-1.7456726618338706!3d48.11593740927768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1710000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -232,7 +222,7 @@
         <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes</p>
     </div>
 
-   <script>
+    <script>
         const translations = {
             fr: {
                 n_home: "Accueil", name: "Paul — Votre artisan", sap: "RÉDUCTION d'IMPÔT 50% (SAP)",
@@ -309,7 +299,7 @@
             }
         }
 
-        // Автоматическое переключение при изменении настроек iPhone
+        // Авто-переключение при смене системной темы
         systemThemeQuery.addEventListener('change', (e) => {
             if (!localStorage.getItem('user-theme')) {
                 applyTheme(e.matches);
@@ -450,7 +440,6 @@
             if (savedTheme) {
                 applyTheme(savedTheme === 'dark');
             } else {
-                // Если пользователь не выбирал вручную, берем системную тему iPhone
                 applyTheme(systemThemeQuery.matches);
             }
             changeLang(localStorage.getItem('selected-lang') || 'fr'); 
