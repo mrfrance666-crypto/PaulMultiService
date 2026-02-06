@@ -20,208 +20,307 @@
             --text-color: var(--white); 
             --card-bg: rgba(255,255,255,0.06); 
             --border-color: rgba(212,175,55,0.5);
-            --nav-bg: rgba(10,46,31,0.95);
-            --shadow: none;
-        }
-        
-        body.light-theme { 
-            --bg-color: #F9F7F2; 
-            --text-color: #0a2e1f; 
-            --card-bg: #ffffff; 
-            --border-color: #d4af37; 
-            --nav-bg: rgba(249, 247, 242, 0.95);
-            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1); 
-            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
-        }
-        
-        #totalPrice, .total-currency, #l-total, #netPrice { 
-            color: var(--gold) !important; 
+            --nav-bg: rgba(10, 46, 31, 0.9);
         }
 
-        html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: 0.4s ease; overflow-x: hidden; }
-        
-        #how, #services, #faq, #zone { scroll-margin-top: 130px; }
+        [data-theme="light"] {
+            --bg-color: #f4f7f6;
+            --text-color: #1a1a1a;
+            --card-bg: #ffffff;
+            --border-color: #d4af37;
+            --nav-bg: rgba(244, 247, 246, 0.9);
+            --dark-green: #d4af37;
+        }
 
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 10px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gold); }
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); }
+        
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { 
+            text-decoration: none; color: var(--text-color); font-size: 0.8rem; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--gold); }
+
+        .controls { display: flex; gap: 10px; align-items: center; }
+        .theme-toggle {
+            background: none; border: 1px solid var(--border-color); color: var(--gold);
+            padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 0.9rem;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 120px 20px 60px; text-align: center;
+            background: radial-gradient(circle at top, rgba(212,175,55,0.15), transparent);
+        }
+        .sap-badge {
+            display: inline-block; padding: 5px 15px; background: var(--gold); color: var(--dark-green);
+            font-weight: 800; border-radius: 50px; font-size: 0.7rem; margin-bottom: 20px;
+            box-shadow: var(--gold-glow); animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
+        
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
+        .hero p { opacity: 0.8; max-width: 600px; margin: 0 auto 30px; }
+
+        /* ACTION BUTTONS */
+        .main-actions {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
+            max-width: 500px; margin: 0 auto 40px;
+        }
+        .btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 15px; border-radius: 15px; text-decoration: none; font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border-color);
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-wa { background: #25D366; color: white; border: none; grid-column: span 2; flex-direction: row; gap: 10px; font-size: 1.2rem; }
+        .btn-call { background: var(--card-bg); color: var(--text-color); }
+        .btn-save { background: var(--card-bg); color: var(--text-color); }
+        .btn i { font-size: 1.2rem; margin-bottom: 5px; }
+
+        /* SECTION TITLES */
+        .section-title { 
+            text-align: center; font-family: 'Playfair Display', serif; 
+            font-size: 1.8rem; margin: 40px 0 20px; color: var(--gold);
+        }
+
+        /* HOW IT WORKS */
+        .how-grid {
+            display: grid; grid-template-columns: 1fr; gap: 20px; padding: 0 20px;
+            max-width: 800px; margin: 0 auto;
+        }
+        .how-card {
+            background: var(--card-bg); padding: 20px; border-radius: 20px;
+            border-left: 4px solid var(--gold); display: flex; gap: 20px; align-items: flex-start;
+        }
+        .step-num {
+            background: var(--gold); color: var(--dark-green); width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; flex-shrink: 0;
+        }
+
+        /* SERVICES & CALCULATOR */
+        .services-container {
+            display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px;
+            max-width: 1000px; margin: 0 auto;
+        }
+        .service-card {
+            background: var(--card-bg); padding: 25px; border-radius: 25px;
+            border: 1px solid var(--border-color); position: relative;
+        }
+        .service-card h3 { color: var(--gold); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .service-list { list-style: none; margin-bottom: 20px; }
+        .service-list li { margin-bottom: 8px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        .service-list li::before { content: "→"; color: var(--gold); }
+        
+        .price-tag {
+            font-weight: 700; color: var(--gold); background: rgba(212,175,55,0.1);
+            padding: 10px; border-radius: 10px; text-align: center;
+        }
+
+        /* CALCULATOR */
+        .calc-box { margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--border-color); }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        select, input {
+            flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color);
+            background: var(--bg-color); color: var(--text-color); font-family: inherit;
+        }
+        .result-display {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 15px; padding: 15px; background: rgba(212,175,55,0.1); border-radius: 15px;
+        }
+        .total-price { font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+
+        /* ZONE & FAQ */
+        .info-section { padding: 40px 20px; max-width: 800px; margin: 0 auto; }
+        .faq-item { margin-bottom: 15px; background: var(--card-bg); border-radius: 15px; overflow: hidden; }
+        .faq-q { 
+            padding: 15px 20px; font-weight: 600; cursor: pointer; display: flex; 
+            justify-content: space-between; align-items: center;
+        }
+        .faq-a { padding: 0 20px; height: 0; overflow: hidden; transition: 0.3s; opacity: 0; font-size: 0.9rem; }
+        .faq-item.active .faq-a { padding: 10px 20px 20px; height: auto; opacity: 1; }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 40px 20px; opacity: 0.6; font-size: 0.8rem; border-top: 1px solid var(--border-color); }
+
+        /* REVEAL ANIMATION */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s all ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(10px); }
-        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; transition: 0.3s; }
-        .lang-btn:hover, .lang-btn.active { background: var(--gold); color: white; }
-
-        .nav-pills { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
-        .nav-pill:hover { background: var(--gold); color: white; }
-
-        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); display: block; transition: 0.4s; }
-        .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
-
-        #display-name { 
-            color: var(--gold); 
-            font-weight: 700; 
-            font-size: 1.3rem; 
-            font-family: 'Montserrat', sans-serif;
+        @media (min-width: 768px) {
+            .how-grid { grid-template-columns: repeat(3, 1fr); }
+            .services-container { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 3.5rem; }
         }
 
-        .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
-        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.3s; cursor: pointer; }
-        .msg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); filter: brightness(1.1); }
-
-        .wa-btn { grid-column: span 2; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
-        .tg-btn { background: linear-gradient(135deg, #0088cc 0%, #005580 100%); }
-        .call-btn { background: linear-gradient(135deg, #d4af37 0%, #a6892c 100%); }
-        .mail-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .save-btn { background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); }
-        .share-btn { grid-column: span 2; background: #333; border: 1px solid var(--gold); }
-
-        .payment-methods { grid-column: span 2; margin-top: 5px; font-size: 0.85rem; font-weight: 600; color: var(--gold); }
-
-        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; align-items: stretch; }
-        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
-        .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
-        
-        .calc-row select, .calc-row input { 
-            padding: 12px; border-radius: 8px; border: 2px solid var(--gold); 
-            background: rgba(255,255,255,0.05); 
-            color: var(--gold) !important; 
-            font-weight: 800; 
-            width: 100%; font-size: 1.1rem; outline: none; box-sizing: border-box;
-            transition: 0.3s;
-            appearance: none; -webkit-appearance: none;
+        .lang-switcher { display: flex; justify-content: center; gap: 5px; margin-bottom: 20px; }
+        .lang-btn { 
+            padding: 5px 12px; border-radius: 15px; border: 1px solid var(--border-color);
+            background: none; color: var(--text-color); cursor: pointer; font-size: 0.8rem;
         }
-        
-        .calc-row select option { background: var(--dark-green); color: var(--gold); }
-        
-        body.light-theme .calc-row select, 
-        body.light-theme .calc-row input {
-            background-color: #f0ede4; 
-            color: #b08d1a !important; 
-        }
-        
-        body.light-theme .calc-row select option { background: #ffffff; color: #b08d1a; }
-
-        .calc-row select:focus, .calc-row input:focus {
-            box-shadow: 0 0 10px var(--gold);
-            border-color: var(--gold-light);
-        }
-
-        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem; align-items: center; justify-content: center; }
-        
-        .price-tag { font-weight: 700; color: var(--gold); margin-top: auto; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.9rem; }
-        
-        .faq-item { text-align: left; border-bottom: 1px solid var(--border-color); padding: 18px 0; cursor: pointer; }
-        .faq-q { font-weight: 700; color: var(--gold); display: flex; justify-content: space-between; align-items: center; }
-        .faq-a { font-size: 0.95rem; margin-top: 12px; display: none; line-height: 1.6; color: var(--text-color); }
-        
-        .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; background: rgba(10, 46, 31, 0.03); }
-        .footer-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; display: block; }
-        .gold-text { color: var(--gold) !important; font-weight: 700; margin: 5px 0; }
+        .lang-btn.active { background: var(--gold); color: var(--dark-green); border-color: var(--gold); }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
-    <button id="backToTop" onclick="scrollToTop()">↑</button>
 
-    <div class="nav-container">
-        <button class="lang-btn" id="btn-fr" onclick="changeLang('fr')">FR</button>
-        <button class="lang-btn" id="btn-en" onclick="changeLang('en')">EN</button>
-        <button class="lang-btn" id="btn-ua" onclick="changeLang('ua')">UA</button>
-        <button class="lang-btn" id="btn-ru" onclick="changeLang('ru')">RU</button>
-        <div class="nav-pills">
-            <a href="#how" class="nav-pill" id="n-how">Process</a>
-            <a href="#services" class="nav-pill" id="n-serv">Services</a>
-            <a href="#faq" class="nav-pill" id="n-faq">FAQ</a>
-            <a href="#zone" class="nav-pill" id="n-zone">Zone</a>
-        </div>
-    </div>
-
-    <div class="reveal">
-        <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 30px 0 0;">PaulMultiService</p>
-        <img src="logo.png" alt="Logo" class="main-logo">
-        <div id="display-name"></div>
-        <div id="sap-info" style="margin-top:10px; color: var(--gold); font-weight: 700; letter-spacing: 1px;"></div>
-    </div>
-
-    <div class="messenger-wrapper reveal">
-        <a href="https://wa.me/33745625007" target="_blank" rel="noopener" class="msg-btn wa-btn" id="wa-link">WhatsApp 💬</a>
-        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
-        <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
-        <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
-        <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save"></button>
-        <button onclick="shareSite()" class="msg-btn share-btn" id="l-share"></button>
-        <div class="payment-methods" id="l-pay"></div>
-    </div>
-
-    <h2 id="how-title" class="reveal" style="color: var(--gold); margin-top: 40px; font-family: 'Playfair Display', serif;"></h2>
-    <div id="how" class="universal-grid">
-        <div class="generic-card reveal"><h2 id="h1-t"></h2><p id="h1-d"></p></div>
-        <div class="generic-card reveal"><h2 id="h2-t"></h2><p id="h2-d"></p></div>
-        <div class="generic-card reveal"><h2 id="h3-t"></h2><p id="h3-d"></p></div>
-    </div>
-
-    <h2 id="serv-calc-title" class="reveal" style="color: var(--gold); margin-top: 60px; font-family: 'Playfair Display', serif;"></h2>
-
-    <div class="universal-grid" id="services">
-        <div class="generic-card reveal">
-            <h2 id="it-t"></h2>
-            <ul id="it-l" style="font-size: 0.95rem; line-height: 1.7; padding-left: 20px;"></ul>
-            <div class="price-tag" id="it-p"></div>
-        </div>
-
-        <div class="generic-card reveal" style="border: 2px solid var(--gold); background: rgba(212,175,55,0.03);">
-            <h2 id="c-t" style="border:none"></h2>
-            <div class="calc-row" style="display: flex; flex-direction: column; gap: 10px;">
-                <select id="daySelect" onchange="updateCalc()">
-                    <option value="1" id="o-wd"></option>
-                    <option value="2" id="o-sat"></option>
-                    <option value="3" id="o-sun"></option>
-                </select>
-                <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
+    <header>
+        <div class="nav-container">
+            <div class="logo-area">
+                <img src="logo.png" alt="Paul" class="logo-img">
+                <span class="brand-name">Paul</span>
             </div>
-            <div style="font-weight: 800; margin: 15px 0; font-size: 1.4rem;">
-                <span id="l-total"></span> <span id="totalPrice">50</span><span class="total-currency">€</span>
-            </div>
-            <div class="price-tag" style="background: rgba(212,175,55,0.1); padding: 10px; border-radius: 10px; border: none;">
-                <span id="c-net"></span> <span id="netPrice" style="font-size: 1.6rem;">25</span><span class="total-currency">€</span>
+            <nav class="nav-links">
+                <a href="#how" id="n-how">Étapes</a>
+                <a href="#services" id="n-serv">Services</a>
+                <a href="#faq" id="n-faq">FAQ</a>
+            </nav>
+            <div class="controls">
+                <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
             </div>
         </div>
+    </header>
 
-        <div class="generic-card reveal">
-            <h2 id="br-t"></h2>
-            <ul id="br-l" style="font-size: 0.95rem; line-height: 1.7; padding-left: 20px;"></ul>
-            <div class="price-tag" id="br-p"></div>
+    <section class="hero">
+        <div class="sap-badge" id="sap-text">RÉDUCTION D'IMPÔT 50% (SAP)</div>
+        <h1 id="main-name">Paul — Votre artisan</h1>
+        <p id="hero-zone">Zone d'intervention: Rennes & alentours (Betton, Saint-Grégoire, Pacé, Bruz...)</p>
+        
+        <div class="lang-switcher">
+            <button class="lang-btn active" id="btn-fr" onclick="changeLang('fr')">FR</button>
+            <button class="lang-btn" id="btn-ru" onclick="changeLang('ru')">RU</button>
+            <button class="lang-btn" id="btn-ua" onclick="changeLang('ua')">UA</button>
+            <button class="lang-btn" id="btn-en" onclick="changeLang('en')">EN</button>
         </div>
-    </div>
 
-    <div id="faq" class="reveal" style="padding: 20px; max-width: 800px; margin: 40px auto;">
-        <h2 id="f-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
+        <div class="main-actions">
+            <a href="#" class="btn btn-wa" id="wa-link">
+                <i>💬</i> WhatsApp
+            </a>
+            <a href="tel:+33745625007" class="btn btn-call">
+                <i>📞</i> <span id="l-call">Appeler</span>
+            </a>
+            <button onclick="downloadVCard()" class="btn btn-save">
+                <i>👤</i> <span id="l-save">Enregistrer</span>
+            </button>
+        </div>
+    </section>
+
+    <h2 class="section-title reveal" id="how-title">Comment ça marche ?</h2>
+    <section id="how" class="how-grid reveal">
+        <div class="how-card">
+            <div class="step-num">1</div>
+            <div>
+                <h4 id="h1t">Contact</h4>
+                <p id="h1d">Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.</p>
+            </div>
+        </div>
+        <div class="how-card">
+            <div class="step-num">2</div>
+            <div>
+                <h4 id="h2t">Tarif</h4>
+                <p id="h2d">1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h.</p>
+            </div>
+        </div>
+        <div class="how-card">
+            <div class="step-num">3</div>
+            <div>
+                <h4 id="h3t">Avantage</h4>
+                <p id="h3d">Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.</p>
+            </div>
+        </div>
+    </section>
+
+    <h2 class="section-title reveal" id="serv-title">Services et calculatrice</h2>
+    <section id="services" class="services-container reveal">
+        <div class="service-card">
+            <h3 id="it-t">Web & IT Services</h3>
+            <ul class="service-list" id="it-l">
+                <li>Création de sites (Landing, Carte de visite)</li>
+                <li>Installation OS & Logiciels</li>
+                <li>Nettoyage & Virus</li>
+                <li>Paramétrage Wi-Fi & Réseaux</li>
+            </ul>
+            <div class="price-tag" id="it-p">Forfait min. : 50€<br>Suivante : 40€/h</div>
+        </div>
+
+        <div class="service-card">
+            <h3 id="br-t">Bricolage</h3>
+            <ul class="service-list" id="br-l">
+                <li>Montage meubles (IKEA, etc.)</li>
+                <li>Installation luminaires, TV, étagères</li>
+                <li>Petite plomberie & serrures</li>
+                <li>Branchement électroménager</li>
+            </ul>
+            <div class="price-tag" id="br-p">Forfait min. : 50€<br>Suivante : 40€/h</div>
+        </div>
+
+        <div class="service-card">
+            <h3 id="calc-t">Simulateur SAP</h3>
+            <div class="calc-box">
+                <div class="input-group">
+                    <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
+                    <select id="daySelect" onchange="updateCalc()">
+                        <option value="1" id="opt-wd">Semaine</option>
+                        <option value="2" id="opt-sat">Samedi (x2)</option>
+                        <option value="3" id="opt-sun">Dimanche (x3)</option>
+                    </select>
+                </div>
+                <div class="result-display">
+                    <div>
+                        <div id="l-total">Total :</div>
+                        <div class="total-price"><span id="totalPrice">50</span>€</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div id="cnet">Coût réel (SAP) :</div>
+                        <div class="total-price" style="color: #25D366;"><span id="netPrice">25</span>€</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="zone" class="info-section reveal">
+        <h2 class="section-title" id="zone-t">Zone d'intervention</h2>
+        <p style="text-align:center;" id="zone-d">Rayon de 20 km inclus autour de Rennes (Betton, Saint-Grégoire, Pacé, Bruz...).</p>
+        <div style="margin-top:20px; border-radius:20px; overflow:hidden; border:1px solid var(--border-color); height:250px;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85253.25365538354!2d-1.7454805820427308!3d48.11590747065997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <section id="faq" class="info-section reveal">
+        <h2 class="section-title" id="faq-t">Questions fréquentes</h2>
         <div id="faq-container"></div>
-    </div>
+    </section>
 
-    <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
-        <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85253.51864551717!2d-1.7454868!3d48.1147005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
-        <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
-    </div>
-
-    <div class="footer reveal">
-        <span class="footer-name" id="f-name"></span>
-        <div id="footer-zone-text" style="font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
-        <p class="gold-text">EI Pavlo Pashkin | SIRET : 10000226000014</p>
-        <p class="gold-text">RC Pro incluse</p>
-        <p class="gold-text">Service à la Personne (SAP)</p>
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes</p>
-    </div>
+    <footer>
+        <p>© 2025 Paul Multiservice — SIRET 93450989000010</p>
+        <p id="l-pay">Espèces / Virement / Chèque / Cesu</p>
+    </footer>
 
     <script>
-        /**
-         * INITIALISATION DES TRADUCTIONS
-         * Contient toutes les chaînes de caractères par langue
-         */
         const translations = {
             fr: {
                 name: "Paul — Votre artisan", 
@@ -239,17 +338,17 @@
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 ct: "Simulateur SAP", cnet: "Coût réel (SAP) :", owd: "Semaine", osat: "Samedi (x2)", osun: "Dimanche (x3)", l_total: "Total :",
-                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes.",
+                zt: "Zone d'intervention", zd: "Rayon de 20 km inclus autour de Rennes (Betton, Saint-Grégoire, Pacé, Bruz...).",
                 ft: "Questions fréquentes",
                 faq: [
                     {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
-                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, я viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
+                    {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
                 ],
-                msg: "Bonjour Paul, je vous contacte pour un devis..."
+                msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— "
             },
             ru: {
                 name: "Павел — Ваш мастер", 
@@ -267,7 +366,7 @@
                 br_t: "Мастер на час", br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкая сантехника и замки</li><li>Подключение бытовой техники</li>",
                 br_p: "Мин. выезд: 50€<br>След. часы: 40€/ч",
                 ct: "Калькулятор SAP", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого:",
-                zt: "Зона охвата", zd: "Радиус 20 км вокруг Rennes включен в стоимость.",
+                zt: "Зона охвата", zd: "Радиус 20 км вокруг Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включен в стоимость.",
                 ft: "Частые вопросы",
                 faq: [
                     {q: "Оплата за первый час всегда 50€?", a: "Да, первый час — это минимальный неделимый тариф (forfait), который покрывает транспортные расходы и подготовку."},
@@ -277,7 +376,7 @@
                     {q: "Как работает возврат?", a: "Я выдаю официальную фактуру SAP. Государство возвращает вам 50% суммы при подаче ежегодной декларации."},
                     {q: "Как можно оплатить услуги?", a: "Наличные, банковский перевод, чеки или чеки CESU."}
                 ],
-                msg: "Здравствуйте, Павел, я пишу вам по поводу..."
+                msg: "Здравствуйте, Павел! 👋\n\nЯ зашел(а) на ваш сайт и хотел бы уточнить стоимость работ по следующему вопросу:\n— "
             },
             ua: {
                 name: "Павло — Ваш майстер", 
@@ -295,7 +394,7 @@
                 br_t: "Майстер на годину", br_l: "<li>Збирання меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібна сантехніка та замки</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
                 ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Суббота (x2)", osun: "Неділя (x3)", l_total: "Загальна вартість:",
-                zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes включено у вартість.",
+                zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включено у вартість.",
                 ft: "Поширені питання",
                 faq: [
                     {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний неподільний тариф, що покриває виїзд та підготовку інструментів."},
@@ -305,7 +404,7 @@
                     {q: "Як працює повернення коштів?", a: "Я видаю офіційну фактуру SAP. Держава повертає вам 50% суми під час подання щорічної декларації."},
                     {q: "Які є способи оплати?", a: "Готівка, банківський переказ, чеки або чеки CESU."}
                 ],
-                msg: "Добрий день, Павло, я пишу вам з приводу..."
+                msg: "Доброго дня, Павло! 👋\n\nЯ зайшов(-ла) на ваш сайт, мене цікавить вартість робіт:\n— "
             },
             en: {
                 name: "Paul — Your Handyman", 
@@ -323,7 +422,7 @@
                 br_t: "Handyman Services", br_l: "<li>Furniture assembly (IKEA, etc.)</li><li>Lights, TV, shelves installation</li><li>Minor plumbing & locks</li><li>Appliance connection</li>",
                 br_p: "Min. fee: 50€<br>Next: 40€/h",
                 ct: "SAP Calculator", cnet: "Cost after tax credit:", owd: "Weekday", osat: "Saturday (x2)", osun: "Sunday (x3)", l_total: "Total Price:",
-                zt: "Service Area", zd: "20 km radius around Rennes included.",
+                zt: "Service Area", zd: "20 km radius around Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) included.",
                 ft: "FAQ",
                 faq: [
                     {q: "Is the 1st hour always 50€?", a: "Yes, the first hour is a minimum flat rate (forfait) covering travel and tool preparation."},
@@ -333,16 +432,13 @@
                     {q: "How does the refund work?", a: "I issue a SAP invoice, and the state refunds you 50% via tax credit on your annual return."},
                     {q: "Payment methods?", a: "Cash, bank transfer, bank cheques, and CESU."}
                 ],
-                msg: "Hello Paul, I am contacting you regarding a quote..."
+                msg: "Hello Paul! 👋\n\nI found your website and I would like to get a quote for:\n— "
             }
         };
 
         const themeBtn = document.getElementById('theme-btn');
         const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-        /**
-         * FONCTIONS DE GESTION DU THÈME
-         */
         function applyTheme(isDark) {
             if (isDark) {
                 document.body.classList.remove('light-theme');
@@ -375,19 +471,13 @@
             }
         });
 
-        /**
-         * FONCTION DE CHANGEMENT DE LANGUE
-         * Met à jour tout le contenu textuel et les liens WhatsApp
-         */
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
             
-            // Mise à jour des classes actives sur les boutons
             document.querySelectorAll('.lang-btn').forEach(b => {
                 b.classList.toggle('active', b.id === 'btn-' + lang);
             });
             
-            // Remplissage des champs texte
             document.getElementById('display-name').innerText = t.name;
             document.getElementById('f-name').innerText = t.name;
             document.getElementById('sap-info').innerText = t.sap;
@@ -426,11 +516,6 @@
             document.getElementById('z-t').innerText = t.zt; 
             document.getElementById('z-desc').innerText = t.zd;
             
-            // Mise à jour du lien WhatsApp avec encodage sécurisé
-            const encodedMsg = encodeURIComponent(t.msg);
-            document.getElementById('wa-link').href = "https://wa.me/33745625007?text=" + encodedMsg;
-            
-            // Mise à jour de la FAQ
             const faqBox = document.getElementById('faq-container'); 
             faqBox.innerHTML = '';
             t.faq.forEach(item => { 
@@ -441,9 +526,6 @@
             updateCalc();
         }
 
-        /**
-         * INTERACTION FAQ ET CALCULATRICE
-         */
         function toggleFaq(el) { 
             const a = el.querySelector('.faq-a'); 
             const s = el.querySelector('span'); 
@@ -457,8 +539,24 @@
             const h = Math.max(1, rawHours); 
             const m = document.getElementById('daySelect').value; 
             const calculatedTotal = (50 + (h - 1) * 40) * m; 
+            
             document.getElementById('totalPrice').innerText = calculatedTotal; 
             document.getElementById('netPrice').innerText = calculatedTotal / 2; 
+
+            // -- ЛОГИКА WHATSAPP (УМНАЯ ССЫЛКА + API) --
+            const activeBtn = document.querySelector('.lang-btn.active');
+            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
+            const t = translations[lang];
+            
+            const daySelect = document.getElementById('daySelect');
+            const dayText = daySelect.options[daySelect.selectedIndex].text;
+
+            // Формируем сообщение с учетом калькулятора
+            const simulationLine = `\n\n(Simulation: ${h}h, ${dayText} = ${calculatedTotal}€)`;
+            const fullMsg = t.msg + simulationLine;
+            
+            // Используем api.whatsapp.com для надежности на iPhone
+            document.getElementById('wa-link').href = "https://api.whatsapp.com/send?phone=33745625007&text=" + encodeURIComponent(fullMsg);
         }
 
         function scrollToTop() { 
@@ -475,9 +573,6 @@
             }
         };
 
-        /**
-         * FONCTIONS DE PARTAGE ET CONTACT
-         */
         function copyEmail() { 
             navigator.clipboard.writeText("contact@paulmultiservice.fr"); 
             alert("Email copié dans le presse-papier !"); 
@@ -508,9 +603,6 @@
             }, 200);
         }
         
-        /**
-         * GESTION DE L'ANIMATION REVEAL
-         */
         function revealSections() { 
             const reveals = document.querySelectorAll(".reveal"); 
             const h = window.innerHeight;
@@ -522,7 +614,6 @@
             } 
         }
 
-        // ÉCOUTEURS D'ÉVÉNEMENTS
         window.addEventListener("scroll", revealSections);
         window.onload = () => { 
             initTheme(); 
