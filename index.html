@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <meta name="color-scheme" content="light dark">
+    
+    <script>
+        (function() {
+            const saved = localStorage.getItem('user-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'light' || (!saved && !prefersDark)) {
+                document.documentElement.classList.add('light-mode');
+            }
+        })();
+    </script>
     <title>Paul — Artisan Multiservice</title>
     
     <link rel="icon" type="image/png" href="logo.png">
@@ -25,7 +35,9 @@
             --shadow: none;
         }
         
-        body.light-theme { 
+        /* Это объединение для ручной кнопки и для авто-темы iPhone */
+        body.light-theme,
+        html.light-mode body { 
             --bg-color: #F9F7F2; 
             --text-color: #0a2e1f; 
             --card-bg: #ffffff; 
@@ -33,6 +45,12 @@
             --nav-bg: rgba(249, 247, 242, 0.95);
             --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1); 
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
+        }
+
+        /* Чтобы тени карточек тоже работали в обоих режимах */
+        body.light-theme .generic-card,
+        html.light-mode .generic-card {
+            box-shadow: var(--shadow) !important;
         }
         
         #totalPrice, .total-currency, #l-total { 
@@ -62,7 +80,13 @@
 
         .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); display: block; transition: 0.4s; }
         .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
-
+        
+        /* Добавь это для корректной работы теней твоих карточек */
+        .generic-card {
+            box-shadow: var(--shadow);
+            transition: 0.3s;
+        }
+    </style>
         #display-name { 
             color: var(--gold); 
             font-weight: 700; 
@@ -351,12 +375,45 @@
             }
         });
 
-        function toggleTheme() {
-            const currentIsLight = document.body.classList.contains('light-theme');
-            const newTheme = currentIsLight ? 'dark' : 'light';
-            localStorage.setItem('user-theme', newTheme);
-            applyTheme(newTheme === 'dark');
-        }
+        // 1. ФУНКЦИЯ ПЕРЕКЛЮЧЕНИЯ ТЕМЫ
+function toggleTheme() {
+    // Переключаем класс на html (для авто-темы) и на body (для старых стилей)
+    const isLight = document.documentElement.classList.toggle('light-mode');
+    document.body.classList.toggle('light-theme', isLight);
+    
+    // Сохраняем выбор
+    localStorage.setItem('user-theme', isLight ? 'light' : 'dark');
+    
+    // Меняем иконку
+    document.getElementById('theme-btn').innerText = isLight ? '🌙' : '☀️';
+}
+
+// 2. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ (ВСЕ 4 ЯЗЫКА + ТЕМА)
+window.onload = () => { 
+    // Сначала определяем язык (ищем сохраненный или ставим RU по умолчанию)
+    const savedLang = localStorage.getItem('selected-lang') || 'ru';
+    changeLang(savedLang);
+
+    // Затем проверяем тему, которую поставил скрипт в <head>
+    const isLight = document.documentElement.classList.contains('light-mode');
+    document.getElementById('theme-btn').innerText = isLight ? '🌙' : '☀️';
+    
+    // Запускаем твою анимацию появления блоков
+    revealSections(); 
+};
+
+// 3. ПРАВКА В ТВОЮ ФУНКЦИЮ changeLang
+// Добавь одну строчку в начало своей функции changeLang(lang), 
+// чтобы сайт запоминал выбранный язык:
+function changeLang(lang) {
+    localStorage.setItem('selected-lang', lang); // Запоминаем язык
+    
+    const t = translations[lang] || translations['fr'];
+    // ... весь твой остальной код перевода (document.getElementById и т.д.) ...
+    
+    // В конце функции перевода не забудь вызвать обновление калькулятора, если оно есть
+    if (typeof updateCalc === "function") updateCalc();
+}
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
