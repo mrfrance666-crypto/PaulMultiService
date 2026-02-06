@@ -10,69 +10,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* БАЗОВЫЕ ПЕРЕМЕННЫЕ И ПОДСВЕТКА (ТЕМНАЯ ТЕМА) */
         :root { 
-            --dark-green: #0a2e1f; 
-            --gold: #d4af37; 
-            --gold-light: #f4d06f; 
-            --white: #ffffff; 
-            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
-            --bg-color: var(--dark-green); 
-            --text-color: var(--white); 
-            --card-bg: rgba(255,255,255,0.06); 
-            --border-color: rgba(212,175,55,0.5);
-            --nav-bg: rgba(10,46,31,0.95);
-            --shadow: none;
+            --bg: #0a2e1f; --txt: #ffffff; 
+            --gold: #d4af37; --gold-light: #f4d06f; 
+            --card: rgba(255,255,255,0.06); 
+            --brd: rgba(212,175,55,0.5);
+            --nv: rgba(10,46,31,0.95);
+            --glow: 0 0 20px rgba(212, 175, 55, 0.4);
+            --shd: none;
         }
-        
+
+        /* СВЕТЛАЯ ТЕМА (ДИНАМИКА) */
         body.light-theme { 
-            --bg-color: #F9F7F2; 
-            --text-color: #0a2e1f; 
-            --card-bg: #ffffff; 
-            --border-color: #d4af37; 
-            --nav-bg: rgba(249, 247, 242, 0.95);
-            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1); 
-            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
+            --bg: #F9F7F2; --txt: #0a2e1f; 
+            --gold: #b08d1a; --gold-light: #8a6d10;
+            --card: #ffffff; --brd: #d4af37; 
+            --nv: rgba(249, 247, 242, 0.95);
+            --glow: 0 4px 15px rgba(10, 46, 31, 0.1);
+            --shd: 0 10px 30px rgba(10, 46, 31, 0.08);
         }
+
+        body { 
+            margin: 0; font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg); color: var(--txt); 
+            text-align: center; transition: background-color 0.4s, color 0.4s; 
+            overflow-x: hidden;
+        }
+
+        /* Элементы с золотой подсветкой */
+        .gold-glow, h1, h2, #totalPrice, #l-total, .price-tag, .faq-q, #display-name, #sap-info, .footer-name, .total-currency { 
+            color: var(--gold) !important; text-shadow: var(--glow); 
+        }
+
+        /* Навигация */
+        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nv); padding: 10px 0; border-bottom: 2px solid var(--gold); backdrop-filter: blur(10px); }
+        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; }
+        .lang-btn.active { background: var(--gold); color: white; }
         
-        #totalPrice, .total-currency, #l-total { 
-            color: var(--gold) !important; 
-        }
-
-        #netPrice, #netPrice + .total-currency { 
-            color: #2ecc71 !important; 
-            font-weight: 800;
-        }
-
-        html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: 0.4s ease; overflow-x: hidden; }
-        
-        #how, #services, #faq, #zone { scroll-margin-top: 130px; }
-
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(10px); }
-        .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; transition: 0.3s; }
-        .lang-btn:hover, .lang-btn.active { background: var(--gold); color: white; }
-
         .nav-pills { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
-        .nav-pill:hover { background: var(--gold); color: white; }
+        .nav-pill { background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 20px; text-decoration: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
 
-        .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); display: block; transition: 0.4s; }
-        .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
+        /* Кнопка темы */
+        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-        #display-name { 
-            color: var(--gold); 
-            font-weight: 700; 
-            font-size: 1.3rem; 
-            font-family: 'Montserrat', sans-serif;
-        }
+        /* Сетка и Карточки */
+        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+        .generic-card { background: var(--card); border: 1.5px solid var(--brd); border-radius: 20px; padding: 25px; text-align: left; box-shadow: var(--shd); }
+        .generic-card h2 { border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; }
 
+        /* Мессенджеры */
         .messenger-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 380px; margin: 20px auto; padding: 0 15px; }
-        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.3s; cursor: pointer; }
-        .msg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); filter: brightness(1.1); }
-
+        .msg-btn { display: flex; align-items: center; justify-content: center; padding: 15px 5px; border-radius: 12px; text-decoration: none; color: white !important; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.3s; }
         .wa-btn { grid-column: span 2; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
         .tg-btn { background: linear-gradient(135deg, #0088cc 0%, #005580 100%); }
         .call-btn { background: linear-gradient(135deg, #d4af37 0%, #a6892c 100%); }
@@ -80,147 +69,102 @@
         .save-btn { background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); }
         .share-btn { grid-column: span 2; background: #333; border: 1px solid var(--gold); }
 
-        .payment-methods { grid-column: span 2; margin-top: 5px; font-size: 0.85rem; font-weight: 600; color: var(--gold); }
+        /* Калькулятор */
+        select, input { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--gold); background: var(--card); color: var(--gold); font-weight: 800; font-size: 1.1rem; }
+        body.light-theme select, body.light-theme input { background: #f0ede4; }
 
-        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; align-items: stretch; }
-        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
-        .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .main-logo { width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--gold); display: block; margin: 20px auto; box-shadow: var(--glow); }
         
-        .calc-row select, .calc-row input { 
-            padding: 12px; border-radius: 8px; border: 2px solid var(--gold); 
-            background: rgba(255,255,255,0.05); 
-            color: var(--gold) !important; 
-            font-weight: 800; 
-            width: 100%; font-size: 1.1rem; outline: none; box-sizing: border-box;
-            transition: 0.3s;
-            appearance: none; -webkit-appearance: none;
-        }
-        
-        .calc-row select option { background: var(--dark-green); color: var(--gold); }
-        
-        body.light-theme .calc-row select, 
-        body.light-theme .calc-row input {
-            background-color: #f0ede4; 
-            color: #b08d1a !important; 
-        }
-        
-        body.light-theme .calc-row select option { background: #ffffff; color: #b08d1a; }
+        .faq-item { border-bottom: 1px solid var(--brd); padding: 15px 0; cursor: pointer; }
+        .faq-a { display: none; padding-top: 10px; opacity: 0.9; }
 
-        .calc-row select:focus, .calc-row input:focus {
-            box-shadow: 0 0 10px var(--gold);
-            border-color: var(--gold-light);
-        }
-
-        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem; align-items: center; justify-content: center; }
-        
-        .price-tag { font-weight: 700; color: var(--gold); margin-top: auto; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.9rem; }
-        
-        .faq-item { text-align: left; border-bottom: 1px solid var(--border-color); padding: 18px 0; cursor: pointer; }
-        .faq-q { font-weight: 700; color: var(--gold); display: flex; justify-content: space-between; align-items: center; }
-        .faq-a { font-size: 0.95rem; margin-top: 12px; display: none; line-height: 1.6; color: var(--text-color); }
-        
-        .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; background: rgba(10, 46, 31, 0.03); }
-        .footer-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; display: block; }
-        .gold-text { color: var(--gold) !important; font-weight: 700; margin: 5px 0; }
+        .footer { padding: 60px 20px; border-top: 1px solid var(--brd); margin-top: 40px; }
     </style>
 </head>
-<body>
-    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
-    <button id="backToTop" onclick="scrollToTop()">↑</button>
+<body id="b">
+
+    <button class="theme-toggle" id="t-btn" onclick="tgl()">☀️</button>
 
     <div class="nav-container">
-        <button class="lang-btn" id="btn-fr" onclick="changeLang('fr')">FR</button>
-        <button class="lang-btn" id="btn-en" onclick="changeLang('en')">EN</button>
-        <button class="lang-btn" id="btn-ua" onclick="changeLang('ua')">UA</button>
-        <button class="lang-btn" id="btn-ru" onclick="changeLang('ru')">RU</button>
+        <button class="lang-btn" id="btn-fr" onclick="setL('fr')">FR</button>
+        <button class="lang-btn" id="btn-en" onclick="setL('en')">EN</button>
+        <button class="lang-btn" id="btn-ua" onclick="setL('ua')">UA</button>
+        <button class="lang-btn" id="btn-ru" onclick="setL('ru')">RU</button>
         <div class="nav-pills">
-            <a href="#top" class="nav-pill" id="nav-home">Accueil</a>
-            <a href="#how" class="nav-pill" id="n-how">Process</a>
-            <a href="#services" class="nav-pill" id="n-serv">Services</a>
-            <a href="#faq" class="nav-pill" id="n-faq">FAQ</a>
-            <a href="#zone" class="nav-pill" id="n-zone">Zone</a>
+            <a href="#b" class="nav-pill" id="n-home"></a>
+            <a href="#how" class="nav-pill" id="n-how"></a>
+            <a href="#services" class="nav-pill" id="n-serv"></a>
+            <a href="#faq" class="nav-pill" id="n-faq"></a>
+            <a href="#zone" class="nav-pill" id="n-zone"></a>
         </div>
     </div>
 
-    <div class="reveal" id="top">
+    <div id="top" class="reveal">
         <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 30px 0 0;">PaulMultiService</p>
-        <img src="logo.png" alt="Logo" class="main-logo">
-        <div id="display-name"></div>
-        <div id="sap-info" style="margin-top:10px; color: var(--gold); font-weight: 700; letter-spacing: 1px;"></div>
+        <img src="logo.png" class="main-logo">
+        <div id="display-name" style="font-size: 1.3rem; font-weight: 700;"></div>
+        <div id="sap-info" style="margin-top:10px; font-weight: 700;"></div>
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(event)">WhatsApp 💬</a>
+        <a href="#" class="msg-btn wa-btn" onclick="sendWA(event)">WhatsApp 💬</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
-        <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
-        <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save"></button>
-        <button onclick="shareSite()" class="msg-btn share-btn" id="l-share"></button>
-        <div class="payment-methods" id="l-pay"></div>
+        <button onclick="copyMail()" class="msg-btn mail-btn" id="l-mail"></button>
+        <button onclick="dlVCard()" class="msg-btn save-btn" id="l-save"></button>
+        <button onclick="share()" class="msg-btn share-btn" id="l-share"></button>
     </div>
 
-    <h2 id="how-title" class="reveal" style="color: var(--gold); margin-top: 40px; font-family: 'Playfair Display', serif;"></h2>
+    <h2 id="how-t" class="reveal" style="font-family: 'Playfair Display', serif; margin-top:40px;"></h2>
     <div id="how" class="universal-grid">
         <div class="generic-card reveal"><h2 id="h1-t"></h2><p id="h1-d"></p></div>
         <div class="generic-card reveal"><h2 id="h2-t"></h2><p id="h2-d"></p></div>
         <div class="generic-card reveal"><h2 id="h3-t"></h2><p id="h3-d"></p></div>
     </div>
 
-    <h2 id="serv-calc-title" class="reveal" style="color: var(--gold); margin-top: 60px; font-family: 'Playfair Display', serif;"></h2>
-
     <div class="universal-grid" id="services">
         <div class="generic-card reveal">
             <h2 id="it-t"></h2>
             <ul id="it-l" style="font-size: 0.95rem; line-height: 1.7; padding-left: 20px;"></ul>
-            <div class="price-tag" id="it-p"></div>
         </div>
-
-        <div class="generic-card reveal" style="border: 2px solid var(--gold); background: rgba(212,175,55,0.03);">
-            <h2 id="c-t" style="border:none"></h2>
-            <div class="calc-row" style="display: flex; flex-direction: column; gap: 10px;">
-                <select id="daySelect" onchange="updateCalc()">
-                    <option value="1" id="o-wd"></option>
-                    <option value="2" id="o-sat"></option>
-                    <option value="3" id="o-sun"></option>
-                </select>
-                <input type="number" id="hoursInput" value="1" min="1" oninput="updateCalc()">
-            </div>
-            <div style="font-weight: 800; margin: 15px 0; font-size: 1.4rem;">
-                <span id="l-total"></span> <span id="totalPrice">50</span><span class="total-currency">€</span>
-            </div>
-            <div class="price-tag" style="background: rgba(212,175,55,0.1); padding: 10px; border-radius: 10px; border: none;">
-                <span id="c-net"></span> <span id="netPrice" style="font-size: 1.6rem;">25</span><span class="total-currency">€</span>
-            </div>
+        <div class="generic-card reveal" style="border-width: 2px; background: rgba(212,175,55,0.03);">
+            <h2 id="c-t"></h2>
+            <select id="daySelect" onchange="upd()">
+                <option value="1" id="o-wd"></option>
+                <option value="2" id="o-sat"></option>
+                <option value="3" id="o-sun"></option>
+            </select>
+            <input type="number" id="h-in" value="1" min="1" oninput="upd()" style="margin-top:10px;">
+            <p style="font-size: 1.5rem; font-weight: 800;"><span id="l-total"></span> <span id="totalPrice"></span>€</p>
+            <p id="c-net" style="font-size: 0.9rem; opacity: 0.8;"></p>
+            <p style="color: #2ecc71 !important; font-weight: 800; font-size: 1.8rem; margin:0;"><span id="netPrice"></span>€</p>
         </div>
-
         <div class="generic-card reveal">
             <h2 id="br-t"></h2>
             <ul id="br-l" style="font-size: 0.95rem; line-height: 1.7; padding-left: 20px;"></ul>
-            <div class="price-tag" id="br-p"></div>
         </div>
     </div>
 
-    <div id="faq" class="reveal" style="padding: 20px; max-width: 800px; margin: 40px auto;">
-        <h2 id="f-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <div id="faq-container"></div>
+    <div id="faq" class="reveal" style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+        <h2 id="f-t" style="font-family: 'Playfair Display', serif;"></h2>
+        <div id="faq-box"></div>
     </div>
 
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
-        <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881260759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
-        <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Betton" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <h2 id="z-t" style="font-family: 'Playfair Display', serif;"></h2>
+        <p id="z-d"></p>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d85254.123456789!2d-1.6777!3d48.1173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v123456789" allowfullscreen="" loading="lazy"></iframe>
+        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
-        <span class="footer-name" id="f-name"></span>
-        <div id="footer-zone-text" style="font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
+        <h2 class="footer-name" id="f-name"></h2>
+        <p id="f-zone" style="font-weight: 600;"></p>
         <p class="gold-text">EI Pavlo Pashkin | SIRET : 10000226000014</p>
-        <p class="gold-text">RC Pro incluse</p>
-        <p class="gold-text">Service à la Personne (SAP)</p>
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes</p>
+        <p class="gold-text">RC Pro incluse | SAP</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">TVA non applicable, art. 293 B du CGI | 35700 Rennes</p>
     </div>
 
     <script>
@@ -335,204 +279,70 @@
             }
         };
 
-        const themeBtn = document.getElementById('theme-btn');
-        const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const b = document.body;
 
-        function applyTheme(isDark) {
-            if (isDark) {
-                document.body.classList.remove('light-theme');
-                themeBtn.innerText = '☀️';
-            } else {
-                document.body.classList.add('light-theme');
-                themeBtn.innerText = '🌙';
-            }
+        function apply(isDark) {
+            isDark ? b.classList.remove('light-theme') : b.classList.add('light-theme');
+            document.getElementById('t-btn').innerText = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
-        function initTheme() {
-            const savedTheme = localStorage.getItem('user-theme');
-            if (savedTheme) { 
-                applyTheme(savedTheme === 'dark'); 
-            } else { 
-                applyTheme(systemThemeQuery.matches); 
-            }
-        }
+        function tgl() { apply(b.classList.contains('light-theme')); }
 
-        function toggleTheme() {
-            const currentIsLight = document.body.classList.contains('light-theme');
-            const newTheme = currentIsLight ? 'dark' : 'light';
-            localStorage.setItem('user-theme', newTheme);
-            applyTheme(newTheme === 'dark');
-        }
-
-        systemThemeQuery.addEventListener('change', (e) => { 
-            if (!localStorage.getItem('user-theme')) {
-                applyTheme(e.matches); 
-            }
-        });
-
-        function changeLang(lang) {
-            const t = translations[lang] || translations['fr'];
-            document.getElementById('nav-home').innerText = t.n_home;
-            document.querySelectorAll('.lang-btn').forEach(b => {
-                b.classList.toggle('active', b.id === 'btn-' + lang);
-            });
-            
+        function setL(l) {
+            localStorage.setItem('lang', l);
+            const t = translations[l] || translations.fr;
             document.getElementById('display-name').innerText = t.name;
             document.getElementById('f-name').innerText = t.name;
             document.getElementById('sap-info').innerText = t.sap;
-            document.getElementById('footer-zone-text').innerText = t.h_zone;
-            document.getElementById('n-how').innerText = t.n_how;
-            document.getElementById('n-serv').innerText = t.n_serv;
-            document.getElementById('n-faq').innerText = t.n_faq;
+            document.getElementById('how-t').innerText = t.how_t;
+            document.getElementById('h1-t').innerText = t.h1t; document.getElementById('h1-d').innerText = t.h1d;
+            document.getElementById('h2-t').innerText = t.h2t; document.getElementById('h2-d').innerText = t.h2d;
+            document.getElementById('h3-t').innerText = t.h3t; document.getElementById('h3-d').innerText = t.h3d;
+            document.getElementById('it-t').innerText = t.it_t; document.getElementById('it-l').innerHTML = t.it_l;
+            document.getElementById('br-t').innerText = t.br_t; document.getElementById('br-l').innerHTML = t.br_l;
+            document.getElementById('c-t').innerText = t.ct; document.getElementById('c-net').innerText = t.cnet;
+            document.getElementById('o-wd').innerText = t.owd; document.getElementById('o-sat').innerText = t.osat; document.getElementById('o-sun').innerText = t.osun;
+            document.getElementById('l-call').innerText = t.call; document.getElementById('l-mail').innerText = t.mail;
+            document.getElementById('l-save').innerText = t.save; document.getElementById('l-share').innerText = t.share;
+            document.getElementById('l-route').innerText = t.route; document.getElementById('z-t').innerText = t.zt; document.getElementById('z-d').innerText = t.zd;
+            document.getElementById('f-t').innerText = t.ft;
+            document.getElementById('n-home').innerText = t.home; document.getElementById('n-how').innerText = t.n_how;
+            document.getElementById('n-serv').innerText = t.n_serv; document.getElementById('n-faq').innerText = t.n_faq;
             document.getElementById('n-zone').innerText = t.n_zone;
-            document.getElementById('l-call').innerText = t.l_call;
-            document.getElementById('l-mail').innerText = t.l_mail;
-            document.getElementById('l-save').innerText = t.l_save;
-            document.getElementById('l-share').innerText = t.l_share;
-            document.getElementById('l-route').innerText = t.l_route;
-            document.getElementById('l-pay').innerText = t.l_pay;
-            document.getElementById('l-total').innerText = t.l_total;
-            document.getElementById('how-title').innerText = t.how_t;
-            document.getElementById('serv-calc-title').innerText = t.sc_t;
-            document.getElementById('h1-t').innerText = t.h1t; 
-            document.getElementById('h1-d').innerText = t.h1d;
-            document.getElementById('h2-t').innerText = t.h2t; 
-            document.getElementById('h2-d').innerText = t.h2d;
-            document.getElementById('h3-t').innerText = t.h3t; 
-            document.getElementById('h3-d').innerText = t.h3d;
-            document.getElementById('it-t').innerText = t.it_t; 
-            document.getElementById('it-l').innerHTML = t.it_l; 
-            document.getElementById('it-p').innerHTML = t.it_p;
-            document.getElementById('br-t').innerText = t.br_t; 
-            document.getElementById('br-l').innerHTML = t.br_l; 
-            document.getElementById('br-p').innerHTML = t.br_p;
-            document.getElementById('c-t').innerText = t.ct; 
-            document.getElementById('c-net').innerText = t.cnet;
-            document.getElementById('o-wd').innerText = t.owd; 
-            document.getElementById('o-sat').innerText = t.osat; 
-            document.getElementById('o-sun').innerText = t.osun;
-            document.getElementById('f-t').innerText = t.ft; 
-            document.getElementById('z-t').innerText = t.zt; 
-            document.getElementById('z-desc').innerText = t.zd;
-            
-            const faqBox = document.getElementById('faq-container'); 
-            faqBox.innerHTML = '';
-            t.faq.forEach(item => { 
-                const faqEntry = `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
-                faqBox.innerHTML += faqEntry; 
-            });
-            
-            updateCalc();
-        }
-        
-        function updateCalc() { 
-            const hoursInput = document.getElementById('hoursInput');
-            const daySelect = document.getElementById('daySelect');
-            const totalEl = document.getElementById('totalPrice');
-            const netEl = document.getElementById('netPrice');
 
-            if (!hoursInput || !daySelect || !totalEl || !netEl) return;
-
-            const h = Math.max(1, parseInt(hoursInput.value) || 1); 
-            const m = parseFloat(daySelect.value); 
-            const calculatedTotal = (50 + (h - 1) * 40) * m; 
-            
-            totalEl.innerText = calculatedTotal; 
-            netEl.innerText = calculatedTotal / 2; 
+            const fbox = document.getElementById('faq-box'); fbox.innerHTML = '';
+            t.faq.forEach(f => { fbox.innerHTML += `<div class="faq-item" onclick="this.children[1].style.display=this.children[1].style.display==='block'?'none':'block'"><div class="faq-q">${f.q} <span>+</span></div><div class="faq-a">${f.a}</div></div>`; });
+            upd();
         }
 
-        function changeHours(delta) {
-            const input = document.getElementById('hoursInput');
-            if (!input) return;
-            let val = parseInt(input.value) || 1;
-            val = Math.max(1, val + delta);
-            input.value = val;
-            updateCalc();
+        function upd() {
+            const h = Math.max(1, parseInt(document.getElementById('h-in').value) || 1);
+            const m = parseFloat(document.getElementById('daySelect').value);
+            const total = (50 + (h - 1) * 40) * m;
+            document.getElementById('totalPrice').innerText = total;
+            document.getElementById('netPrice').innerText = total / 2;
         }
 
-        function toggleFaq(el) { 
-            const a = el.querySelector('.faq-a'); 
-            const s = el.querySelector('span'); 
-            const isOpen = a.style.display === 'block'; 
-            a.style.display = isOpen ? 'none' : 'block'; 
-            s.innerText = isOpen ? '+' : '−'; 
-        }
-
-        function sendToWhatsApp(event) {
-            event.preventDefault(); 
-            const h = Math.max(1, document.getElementById('hoursInput').value);
-            const total = document.getElementById('totalPrice').innerText;
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
-            
-            const t = translations[lang];
-            const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
-            const simWord = t.wa_sim || "Simulation";
-            
-            const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
+        function sendWA(e) {
+            e.preventDefault();
+            const h = document.getElementById('h-in').value;
+            const tot = document.getElementById('totalPrice').innerText;
+            const lang = localStorage.getItem('lang') || 'fr';
+            const text = translations[lang].msg + h + "h = " + tot + "€";
             window.location.href = "https://wa.me/33745625007?text=" + encodeURIComponent(text);
         }
-        
-        function scrollToTop() { 
-            window.scrollTo({top: 0, behavior: 'smooth'}); 
-        }
 
-        window.onscroll = function() {
-            const upBtn = document.getElementById("backToTop");
-            const scrolled = document.body.scrollTop > 300 || document.documentElement.scrollTop > 300;
-            if (scrolled) { 
-                upBtn.style.display = "flex"; 
-            } else { 
-                upBtn.style.display = "none"; 
-            }
-        };
+        function copyMail() { navigator.clipboard.writeText("contact@paulmultiservice.fr"); alert("Email copié !"); }
+        function share() { navigator.share ? navigator.share({url: location.href}) : (navigator.clipboard.writeText(location.href), alert("Lien copié !")); }
+        function dlVCard() { window.location.href = "data:text/vcard;charset=utf-8,BEGIN:VCARD\nFN:Paul Multiservice\nTEL:+33745625007\nEND:VCARD"; }
 
-        function copyEmail() { 
-            navigator.clipboard.writeText("contact@paulmultiservice.fr"); 
-            alert("Email copié !"); 
-        }
-        
-        function shareSite() { 
-            if (navigator.share) { 
-                navigator.share({title:'Paul Service', url:location.href}); 
-            } else { 
-                navigator.clipboard.writeText(window.location.href); 
-                alert("Lien du site copié !"); 
-            }
-        }
-
-        function downloadVCard() { 
-            const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
-            const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"}); 
-            const vUrl = window.URL.createObjectURL(blob); 
-            const downloadLink = document.createElement("a"); 
-            downloadLink.href = vUrl; 
-            downloadLink.download = "Paul_Artisan.vcf"; 
-            document.body.appendChild(downloadLink); 
-            downloadLink.click(); 
-            setTimeout(() => { 
-                document.body.removeChild(downloadLink); 
-                window.URL.revokeObjectURL(vUrl); 
-            }, 200);
-        }
-        
-        function revealSections() { 
-            const reveals = document.querySelectorAll(".reveal"); 
-            const h = window.innerHeight;
-            for (let i = 0; i < reveals.length; i++) { 
-                const top = reveals[i].getBoundingClientRect().top;
-                if (top < h - 100) {
-                    reveals[i].classList.add("active"); 
-                }
-            } 
-        }
-        
-        window.addEventListener("scroll", revealSections);
-        window.onload = () => { 
-            initTheme(); 
-            changeLang('fr'); 
-            revealSections(); 
+        window.onload = () => {
+            const savedT = localStorage.getItem('theme');
+            apply(savedT ? savedT === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+            setL(localStorage.getItem('lang') || 'fr');
+            const rev = () => document.querySelectorAll('.reveal').forEach(el => { if(el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active'); });
+            window.onscroll = rev; rev();
         };
     </script>
 </body>
