@@ -203,9 +203,9 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42617.9546059632!2d-1.70183145!3d48.11470435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69085%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85250.29746356612!2d-1.76113945415309!3d48.1130635183885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir//Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
 
     <div class="footer reveal">
@@ -229,7 +229,7 @@
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
-                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réсеaux</li>",
+                it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
                 br_t: "Bricolage", br_l: "<li>Montage meubles (IKEA, etc.)</li><li>Installation luminaires, TV, étagères</li><li>Petite plomberie & serrures</li><li>Branchement électroménager</li>",
                 br_p: "Forfait min. : 50€<br>Suivante : 40€/h",
@@ -242,7 +242,7 @@
                     {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul..."
             },
@@ -329,38 +329,34 @@
             }
         };
 
-        function applyTheme(theme) {
-            const btn = document.getElementById('theme-btn');
-            if (theme === 'light') {
-                document.body.classList.add('light-theme');
-                btn.innerText = '🌙';
-            } else {
+        // ЛОГИКА ТЕМЫ (ИСПРАВЛЕННАЯ ДЛЯ IPHONE)
+        const themeBtn = document.getElementById('theme-btn');
+        const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function applyTheme(isDark) {
+            if (isDark) {
                 document.body.classList.remove('light-theme');
-                btn.innerText = '☀️';
-            }
-        }
-
-        function checkTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-            if (savedTheme) {
-                applyTheme(savedTheme);
+                themeBtn.innerText = '☀️';
             } else {
-                applyTheme(systemDark.matches ? 'dark' : 'light');
+                document.body.classList.add('light-theme');
+                themeBtn.innerText = '🌙';
             }
         }
 
-        function toggleTheme() { 
-            const isLight = document.body.classList.contains('light-theme');
-            const newTheme = isLight ? 'dark' : 'light';
-            localStorage.setItem('theme', newTheme);
-            applyTheme(newTheme);
+        // 1. При загрузке: приоритет системе
+        function initTheme() {
+            applyTheme(systemThemeQuery.matches);
         }
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('theme')) {
-                applyTheme(e.matches ? 'dark' : 'light');
-            }
+        // 2. Ручное переключение (только на время сессии, не мешает авто-переключению потом)
+        function toggleTheme() {
+            const currentIsLight = document.body.classList.contains('light-theme');
+            applyTheme(currentIsLight); // Если сейчас светлая, делаем темную и наоборот
+        }
+
+        // 3. Главное: слушаем iPhone в реальном времени
+        systemThemeQuery.addEventListener('change', (e) => {
+            applyTheme(e.matches);
         });
 
         function changeLang(lang) {
@@ -393,7 +389,6 @@
             document.getElementById('o-wd').innerText = t.owd; document.getElementById('o-sat').innerText = t.osat; document.getElementById('o-sun').innerText = t.osun;
             document.getElementById('f-t').innerText = t.ft; document.getElementById('z-t').innerText = t.zt; document.getElementById('z-desc').innerText = t.zd;
             
-            // ВОТ ТУТ ИСПРАВЛЕНИЕ ДЛЯ WHATSAPP:
             document.getElementById('wa-link').href = "https://wa.me/33745625007?text=" + encodeURIComponent(t.msg);
             
             const faqBox = document.getElementById('faq-container'); 
@@ -455,7 +450,7 @@
         }
 
         window.addEventListener("scroll", reveal);
-        window.onload = () => { checkTheme(); changeLang('fr'); reveal(); };
+        window.onload = () => { initTheme(); changeLang('fr'); reveal(); };
     </script>
 </body>
 </html>
