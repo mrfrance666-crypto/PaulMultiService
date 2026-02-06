@@ -512,7 +512,29 @@
                 }
             } 
         }
+        function sendToWhatsApp(event) {
+            event.preventDefault();
 
+            // 1. Берем данные
+            const h = document.getElementById('hoursInput').value || 1;
+            const total = document.getElementById('totalPrice').innerText || "50";
+            
+            // 2. Определяем язык
+            const activeBtn = document.querySelector('.lang-btn.active');
+            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
+            const t = translations[lang];
+            
+            // 3. Текст дня
+            const daySelect = document.getElementById('daySelect');
+            const dayText = daySelect.options[daySelect.selectedIndex].text;
+            
+            // 4. Формируем сообщение
+            const message = t.msg + "\n" + "(" + (t.wa_sim || "Simulation") + ": " + h + "h, " + dayText + " = " + total + "€)";
+            
+            // 5. Открываем через универсальную ссылку (лучше для iPhone)
+            const phone = "33745625007";
+            window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+        }
        
         window.addEventListener("scroll", revealSections);
         window.onload = () => { 
