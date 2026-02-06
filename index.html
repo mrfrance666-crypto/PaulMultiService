@@ -425,6 +425,31 @@
             
             updateCalc();
         }
+        
+        function updateCalc() { 
+            const hoursInput = document.getElementById('hoursInput');
+            const daySelect = document.getElementById('daySelect');
+            const totalEl = document.getElementById('totalPrice');
+            const netEl = document.getElementById('netPrice');
+
+            if (!hoursInput || !daySelect || !totalEl || !netEl) return;
+
+            const h = Math.max(1, parseInt(hoursInput.value) || 1); 
+            const m = parseFloat(daySelect.value); 
+            const calculatedTotal = (50 + (h - 1) * 40) * m; 
+            
+            totalEl.innerText = calculatedTotal; 
+            netEl.innerText = calculatedTotal / 2; 
+        }
+
+        function changeHours(delta) {
+            const input = document.getElementById('hoursInput');
+            if (!input) return;
+            let val = parseInt(input.value) || 1;
+            val = Math.max(1, val + delta);
+            input.value = val;
+            updateCalc();
+        }
 
         function toggleFaq(el) { 
             const a = el.querySelector('.faq-a'); 
