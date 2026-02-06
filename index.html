@@ -57,7 +57,6 @@
         .main-logo { width: 140px; height: 140px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); display: block; transition: 0.4s; }
         .main-logo:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
 
-        /* Стиль для имени под логотипом */
         #display-name { 
             color: var(--gold); 
             font-weight: 700; 
@@ -204,7 +203,7 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85244.4284501438!2d-1.745638843516422!3d48.11593976453678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x40ca5cd36e4ab30!2sRennes!5e0!3m2!1sfr!2sfr!4v1715852500000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d170425.46083321597!2d-1.7890664917174528!3d48.11307682662035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede2fa7d69119%3A0x31f0a202d08a0d9c!2sRennes!5e0!3m2!1sfr!2sfr!4v1711234567890!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
@@ -227,7 +226,7 @@
                 l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu",
                 how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
-                h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
+                h1t: "Contact", h1d: "Contactez-moi par WhatsApp или par téléphone pour discuter de votre projet.",
                 h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
                 h3t: "Avantage", h3d: "Retour de 50% via le crédit d'impôt SAP. Facture officielle fournie.",
                 it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
@@ -240,10 +239,10 @@
                 faq: [
                     {q: "La 1ère heure est-elle toujours à 50€ ?", a: "Oui, la première heure est un forfait minimum indivisible de 50€. Cela couvre le déplacement, la préparation du matériel et l'intervention technique."},
                     {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, je viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
-                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr ou auprès de votre banque."},
+                    {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
-                    {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
+                    {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul..."
             },
@@ -330,24 +329,44 @@
             }
         };
 
-        function checkSystemTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-                document.body.classList.remove('light-theme');
-                document.getElementById('theme-btn').innerText = '☀️';
-            } else {
+        // ТЕМА: Функция применения темы (темная/светлая)
+        function applyTheme(theme) {
+            const btn = document.getElementById('theme-btn');
+            if (theme === 'light') {
                 document.body.classList.add('light-theme');
-                document.getElementById('theme-btn').innerText = '🌙';
+                btn.innerText = '🌙';
+            } else {
+                document.body.classList.remove('light-theme');
+                btn.innerText = '☀️';
             }
         }
 
-        function toggleTheme() { 
-            document.body.classList.toggle('light-theme'); 
-            const isLight = document.body.classList.contains('light-theme');
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
-            document.getElementById('theme-btn').innerText = isLight ? '🌙' : '☀️'; 
+        // ТЕМА: Проверка при загрузке
+        function checkTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                applyTheme(systemDark.matches ? 'dark' : 'light');
+            }
         }
+
+        // ТЕМА: Ручное переключение
+        function toggleTheme() { 
+            const isLight = document.body.classList.contains('light-theme');
+            const newTheme = isLight ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        }
+
+        // ТЕМА: Авто-отслеживание системной темы (для iPhone и прочего)
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) { // Меняем только если пользователь не выбрал вручную
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
@@ -439,7 +458,7 @@
         }
 
         window.addEventListener("scroll", reveal);
-        window.onload = () => { checkSystemTheme(); changeLang('fr'); reveal(); };
+        window.onload = () => { checkTheme(); changeLang('fr'); reveal(); };
     </script>
 </body>
 </html>
