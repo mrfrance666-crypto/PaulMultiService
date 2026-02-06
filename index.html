@@ -136,7 +136,6 @@
         <button class="lang-btn" id="btn-ua" onclick="changeLang('ua')">UA</button>
         <button class="lang-btn" id="btn-ru" onclick="changeLang('ru')">RU</button>
         <div class="nav-pills">
-            <a href="#top" class="nav-pill" id="nav-home">Accueil</a>
             <a href="#how" class="nav-pill" id="n-how">Process</a>
             <a href="#services" class="nav-pill" id="n-serv">Services</a>
             <a href="#faq" class="nav-pill" id="n-faq">FAQ</a>
@@ -144,7 +143,7 @@
         </div>
     </div>
 
-    <div class="reveal" id="top">
+    <div class="reveal">
         <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 30px 0 0;">PaulMultiService</p>
         <img src="logo.png" alt="Logo" class="main-logo">
         <div id="display-name"></div>
@@ -152,7 +151,12 @@
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(this, event)">WhatsApp 💬</a>
+        <a href="#" 
+   class="msg-btn wa-btn" 
+   id="wa-link" 
+   onclick="sendToWhatsApp(this, event)">
+   WhatsApp 💬
+</a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
@@ -227,7 +231,6 @@
     <script>
         const translations = {
             fr: {
-                n_home: "Accueil",
                 name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
                 h_zone: "Zone d'intervention: Rennes & alentours (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
@@ -254,7 +257,6 @@
                 wa_sim: "Simulation"
             },
             ru: {
-                n_home: "Главная",
                 name: "Павел — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
                 h_zone: "Зона охвата: Rennes и пригород (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процесс", n_serv: "Услуги", n_faq: "Вопросы", n_zone: "Зона",
@@ -281,7 +283,6 @@
                 wa_sim: "Расчет"
             },
             ua: {
-                n_home: "Головна",
                 name: "Павло — Ваш майстер", sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)",
                 h_zone: "Зона охоплення: Rennes та околиці (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процес", n_serv: "Послуги", n_faq: "Питання", n_zone: "Зона",
@@ -308,7 +309,6 @@
                 wa_sim: "Розрахунок"
             },
             en: {
-                n_home: "Home",
                 name: "Paul — Your Handyman", sap: "50% TAX REDUCTION (SAP)",
                 h_zone: "Service Area: Rennes & surroundings (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
@@ -373,7 +373,7 @@
 
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
-            document.getElementById('nav-home').innerText = t.n_home;
+            
             document.querySelectorAll('.lang-btn').forEach(b => {
                 b.classList.toggle('active', b.id === 'btn-' + lang);
             });
@@ -511,29 +511,6 @@
             } 
         }
 
-        // --- ВОТ ТВОЯ НОВАЯ ФУНКЦИЯ WHATSAPP ---
-        function sendToWhatsApp(el, event) {
-            event.preventDefault(); // Останавливаем стандартный переход
-            
-            // Собираем свежие данные прямо из калькулятора
-            const h = Math.max(1, document.getElementById('hoursInput').value);
-            const total = document.getElementById('totalPrice').innerText;
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
-            
-            const t = translations[lang];
-            const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
-            const simWord = t.wa_sim || "Simulation";
-            
-            // Формируем текст сообщения
-            const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
-            
-            // Команда на открытие приложения
-            window.location.href = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(text);
-        }
-        // ---------------------------------------
-        
         window.addEventListener("scroll", revealSections);
         window.onload = () => { 
             initTheme(); 
