@@ -34,8 +34,14 @@
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
         }
         
-        #totalPrice, .total-currency, #l-total, #netPrice { 
+        #totalPrice, .total-currency, #l-total { 
             color: var(--gold) !important; 
+        }
+
+        /* Стиль для зеленой цены SAP */
+        #netPrice, #netPrice + .total-currency { 
+            color: #2ecc71 !important; 
+            font-weight: 800;
         }
 
         html { scroll-behavior: smooth; }
@@ -242,7 +248,7 @@
                     {q: "Ai-je besoin d'avoir mes propres outils ?", a: "Non, я viens avec tout mon outillage professionnel. Les consommables (vis, chevilles, joints, câbles, etc.) sont à votre charge.<br><br><b>Service d'achat :</b> Si besoin, je peux me rendre en magasin pour acheter les fournitures à votre place. Ce déplacement est facturé comme une prestation séparée."},
                     {q: "Où obtenir des chèques CESU ?", a: "Sur le site cesu.urssaf.fr или auprès de votre banque."},
                     {q: "Le SAP fonctionne-t-il le week-end ?", a: "Oui, la réduction d'impôt de 50% s'applique également le samedi et le dimanche."},
-                    {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
+                    {q: "How it works ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
                     {q: "Quels sont les moyens de paiement ?", a: "J'accepте les espèces, les virements, les chèques et les chèques CESU."}
                 ],
                 msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— "
@@ -290,7 +296,7 @@
                 it_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
                 br_t: "Майстер на годину", br_l: "<li>Збирання меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібна сантехніка та замки</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
-                ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Суббота (x2)", osun: "Неділя (x3)", l_total: "Загальна вартість:",
+                ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Загальна вартість:",
                 zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включено у вартість.",
                 ft: "Поширені питання",
                 faq: [
@@ -440,19 +446,20 @@
             document.getElementById('totalPrice').innerText = calculatedTotal; 
             document.getElementById('netPrice').innerText = calculatedTotal / 2; 
 
-            // -- ЛОГИКА WHATSAPP (УМНАЯ ССЫЛКА + API) --
+            // -- ЛОГИКА WHATSAPP (УМНАЯ ССЫЛКА + ПОЛНЫЙ ПЕРЕВОД) --
             const activeBtn = document.querySelector('.lang-btn.active');
             const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
             const t = translations[lang];
             
+            // Берем текст дня и метку "Итого" из объекта перевода
             const daySelect = document.getElementById('daySelect');
             const dayText = daySelect.options[daySelect.selectedIndex].text;
+            const labelTotal = t.l_total || "Total:";
 
-            // Формируем сообщение с учетом калькулятора
+            // Формируем симуляцию на языке пользователя
             const simulationLine = `\n\n(Simulation: ${h}h, ${dayText} = ${calculatedTotal}€)`;
             const fullMsg = t.msg + simulationLine;
             
-            // Используем api.whatsapp.com для надежности на iPhone
             document.getElementById('wa-link').href = "https://api.whatsapp.com/send?phone=33745625007&text=" + encodeURIComponent(fullMsg);
         }
 
