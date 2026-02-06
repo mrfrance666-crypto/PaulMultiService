@@ -451,7 +451,7 @@
             document.body.appendChild(a); a.click(); 
             setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100);
         }
-        
+         
         function reveal() { 
             var reveals = document.querySelectorAll(".reveal"); 
             for (var i = 0; i < reveals.length; i++) { if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) reveals[i].classList.add("active"); } 
