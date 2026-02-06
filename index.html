@@ -151,10 +151,10 @@
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="whatsapp://send?phone=33745625007" 
+        <a href="#" 
    class="msg-btn wa-btn" 
    id="wa-link" 
-   onpointerdown="prepareWA(this)">
+   onclick="sendToWhatsApp(this, event)">
    WhatsApp 💬
 </a>
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
@@ -434,24 +434,27 @@
             s.innerText = isOpen ? '+' : '−'; 
         }
 
-        function updateCalc() { 
-            const rawHours = document.getElementById('hoursInput').value;
-            const h = Math.max(1, rawHours); 
-            const m = document.getElementById('daySelect').value; 
-            const calculatedTotal = (50 + (h - 1) * 40) * m; 
-            
-            document.getElementById('totalPrice').innerText = calculatedTotal; 
-            document.getElementById('netPrice').innerText = calculatedTotal / 2; 
+        function sendToWhatsApp(el, event) {
+            event.preventDefault(); // Останавливаем обычный переход
 
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
-            const t = translations[lang];
+            // 1. Собираем данные прямо из калькулятора
+            const h = Math.max(1, document.getElementById('hoursInput').value);
+            const total = document.getElementById('totalPrice').innerText;
+            const lang = document.querySelector('.lang-btn.active').id.replace('btn-', '');
             
+            const t = translations[lang];
             const daySelect = document.getElementById('daySelect');
             const dayText = daySelect.options[daySelect.selectedIndex].text;
+            const simWord = t.wa_sim || "Simulation";
             
-            // Динамика: сохраняем текст сообщения в переменную window, чтобы кнопка его видела
-            window.currentWAMessage = t.msg + "\n" + `(${t.wa_sim}: ${h}h, ${dayText} = ${calculatedTotal}€)`;
+            // 2. Формируем сообщение
+            const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
+            
+            // 3. Создаем ссылку
+            const url = "whatsapp://send?phone=33745625007&text=" + encodeURIComponent(text);
+            
+            // 4. ПРИНУДИТЕЛЬНО открываем (этот способ лучше всего для iPhone)
+            window.location.href = url;
         }
         
         function scrollToTop() { 
