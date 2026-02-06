@@ -9,7 +9,15 @@
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <script>
+        (function() {
+            const saved = localStorage.getItem('user-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'light' || (!saved && !prefersDark)) {
+                document.documentElement.classList.add('light-mode');
+            }
+        })();
+    </script>
     <style>
         :root { 
             --dark-green: #0a2e1f; 
@@ -25,7 +33,7 @@
             --shadow: none;
         }
         
-        body.light-theme { 
+       html.light-mode body, body.light-theme { 
             --bg-color: #F9F7F2; 
             --text-color: #0a2e1f; 
             --card-bg: #ffffff; 
@@ -33,6 +41,10 @@
             --nav-bg: rgba(249, 247, 242, 0.95);
             --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1); 
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
+        }
+
+        html.light-mode .generic-card, body.light-theme .generic-card {
+            box-shadow: var(--shadow) !important;
         }
         
         #totalPrice, .total-currency, #l-total { 
@@ -352,10 +364,10 @@
         });
 
         function toggleTheme() {
-            const currentIsLight = document.body.classList.contains('light-theme');
-            const newTheme = currentIsLight ? 'dark' : 'light';
-            localStorage.setItem('user-theme', newTheme);
-            applyTheme(newTheme === 'dark');
+            const isLight = document.documentElement.classList.toggle('light-mode');
+            document.body.classList.toggle('light-theme', isLight);
+            localStorage.setItem('user-theme', isLight ? 'light' : 'dark');
+            document.getElementById('theme-btn').innerText = isLight ? '🌙' : '☀️';
         }
 
         function changeLang(lang) {
