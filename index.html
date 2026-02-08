@@ -1,10 +1,21 @@
+Вот ваш полный исправленный код с работающей автотемой на iPhone/Safari:
+
+```html
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="auto">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>Paul — Artisan Multiservice</title>
+    
+    <!-- АВТОТЕМА ДЛЯ SAFARI/IOS -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <meta name="theme-color" content="#F9F7F2" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a2e1f" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -22,8 +33,25 @@
             --border-color: rgba(212,175,55,0.5);
             --nav-bg: rgba(10,46,31,0.95);
             --shadow: none;
+            
+            /* КРИТИЧНО ДЛЯ SAFARI */
+            color-scheme: light dark;
         }
         
+        /* АВТООПРЕДЕЛЕНИЕ СВЕТЛОЙ ТЕМЫ СИСТЕМЫ */
+        @media (prefers-color-scheme: light) {
+            body:not(.light-theme) { 
+                --bg-color: #F9F7F2; 
+                --text-color: #0a2e1f; 
+                --card-bg: #ffffff; 
+                --border-color: #d4af37; 
+                --nav-bg: rgba(249, 247, 242, 0.95);
+                --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1); 
+                --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
+            }
+        }
+        
+        /* РУЧНАЯ СВЕТЛАЯ ТЕМА */
         body.light-theme { 
             --bg-color: #F9F7F2; 
             --text-color: #0a2e1f; 
@@ -44,14 +72,14 @@
         }
 
         html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: 0.4s ease; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: background-color 0.5s ease, color 0.5s ease; overflow-x: hidden; }
         
         #how, #services, #faq, #zone { scroll-margin-top: 130px; }
 
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(10px); }
+        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(10px); transition: background-color 0.5s ease; }
         .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; transition: 0.3s; }
         .lang-btn:hover, .lang-btn.active { background: var(--gold); color: white; }
 
@@ -83,7 +111,7 @@
         .payment-methods { grid-column: span 2; margin-top: 5px; font-size: 0.85rem; font-weight: 600; color: var(--gold); }
 
         .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; align-items: stretch; }
-        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); }
+        .generic-card { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; transition: 0.3s; display: flex; flex-direction: column; box-sizing: border-box; box-shadow: var(--shadow); transition: background-color 0.5s ease, border-color 0.5s ease; }
         .generic-card h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
         
         .calc-row select, .calc-row input { 
@@ -123,6 +151,27 @@
         .footer { padding: 60px 20px; border-top: 1px solid var(--border-color); margin-top: 40px; background: rgba(10, 46, 31, 0.03); }
         .footer-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; display: block; }
         .gold-text { color: var(--gold) !important; font-weight: 700; margin: 5px 0; }
+        
+        /* ФИКС ДЛЯ SAFARI НА IOS */
+        @supports (-webkit-touch-callout: none) {
+            body, .nav-container, .generic-card {
+                transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+            }
+            
+            /* Принудительное применение для темной темы */
+            @media (prefers-color-scheme: dark) {
+                body:not(.light-theme) {
+                    background-color: #0a2e1f !important;
+                }
+            }
+            
+            /* Принудительное применение для светлой темы */
+            @media (prefers-color-scheme: light) {
+                body:not(.light-theme) {
+                    background-color: #F9F7F2 !important;
+                }
+            }
+        }
     </style>
 </head>
 <body>
@@ -291,7 +340,7 @@
                 h3t: "Вигода", h3d: "Офіційна фактура SAP дозволяє повернути 50% витрат через податковий кредит.",
                 it_t: "Web та IT послуги", it_l: "<li>Створення сайтів (Landing, Візитка)</li><li>Встановлення ОС та програм</li><li>Чистка від вірусів</li><li>Налаштування Wi-Fi</li>",
                 it_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
-                br_t: "Майстер на годину", br_l: "<li>Збирання меблів (IKEA та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібна сантехніка та замки</li><li>Підключення побутової техніки</li>",
+                br_t: "Майстер на годину", br_l: "<li>Збирання меблів (IKEА та ін.)</li><li>Встановлення люстр, ТВ, полиць</li><li>Дрібна сантехніка та замки</li><li>Підключення побутової техніки</li>",
                 br_p: "Мін. виїзд: 50€<br>Наст. години: 40€/год",
                 ct: "Калькулятор SAP", cnet: "Ціна зі знижкою:", owd: "Будні", osat: "Субота (x2)", osun: "Неділя (x3)", l_total: "Разом:",
                 zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включено. Далі — за домовленістю.", ft: "Поширені питання",
@@ -338,6 +387,12 @@
         const themeBtn = document.getElementById('theme-btn');
         const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
+        // Функция определения системной темы
+        function getSystemTheme() {
+            return systemThemeQuery.matches ? 'dark' : 'light';
+        }
+
+        // Применение темы
         function applyTheme(isDark) {
             if (isDark) {
                 document.body.classList.remove('light-theme');
@@ -348,25 +403,40 @@
             }
         }
 
+        // Инициализация темы
         function initTheme() {
             const savedTheme = localStorage.getItem('user-theme');
-            if (savedTheme) { 
-                applyTheme(savedTheme === 'dark'); 
-            } else { 
-                applyTheme(systemThemeQuery.matches); 
+            
+            if (savedTheme === 'light' || savedTheme === 'dark') {
+                // Пользователь выбрал тему вручную
+                applyTheme(savedTheme === 'dark');
+                console.log('Используется сохраненная тема:', savedTheme);
+            } else {
+                // Автоопределение системной темы
+                const systemTheme = getSystemTheme();
+                applyTheme(systemTheme === 'dark');
+                console.log('Автоопределение темы:', systemTheme);
             }
         }
 
+        // Переключение темы
         function toggleTheme() {
             const currentIsLight = document.body.classList.contains('light-theme');
             const newTheme = currentIsLight ? 'dark' : 'light';
+            
             localStorage.setItem('user-theme', newTheme);
             applyTheme(newTheme === 'dark');
+            
+            // Показать уведомление
+            console.log('Ручной выбор темы:', newTheme);
         }
 
+        // Слушатель изменения системной темы
         systemThemeQuery.addEventListener('change', (e) => { 
+            // Меняем только если пользователь не выбрал тему вручную
             if (!localStorage.getItem('user-theme')) {
-                applyTheme(e.matches); 
+                applyTheme(e.matches);
+                console.log('Системная тема изменилась:', e.matches ? 'dark' : 'light');
             }
         });
 
@@ -529,12 +599,18 @@
         }
         
         window.addEventListener("scroll", revealSections);
+        
+        // Запуск при загрузке
         window.onload = () => { 
             initTheme(); 
             changeLang('fr'); 
             revealSections(); 
+            
+            // Отладочная информация
+            console.log('Системная тема:', getSystemTheme());
+            console.log('Сохраненная тема:', localStorage.getItem('user-theme') || 'auto');
+            console.log('User Agent:', navigator.userAgent);
         };
     </script>
 </body>
-
 </html>
