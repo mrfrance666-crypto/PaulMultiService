@@ -11,6 +11,7 @@
     <meta name="supported-color-schemes" content="light dark">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a2e1f" id="theme-color">
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -669,14 +670,14 @@
         
         <div class="volume-control">
             <span style="color:var(--gold); font-size:0.8rem;">🔈</span>
-            <input type="range" id="volumeControl" min="0" max="1" step="0.05" value="0.3" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
+            <input type="range" id="volumeControl" min="0" max="1" step="0.05" value="0.15" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
             <span style="color:var(--gold); font-size:0.8rem;">🔊</span>
         </div>
         
         <div class="track-buttons">
-            <button onclick="changeTrack('chill')" class="track-btn active" id="trackChill">Lofi</button>
-            <button onclick="changeTrack('ambient')" class="track-btn" id="trackAmbient">Ambient</button>
-            <button onclick="changeTrack('corporate')" class="track-btn" id="trackCorporate">Focus</button>
+            <button onclick="changeTrack('chill')" class="track-btn active" id="trackChill"></button>
+            <button onclick="changeTrack('ambient')" class="track-btn" id="trackAmbient"></button>
+            <button onclick="changeTrack('corporate')" class="track-btn" id="trackCorporate"></button>
         </div>
     </div>
 
@@ -712,7 +713,10 @@
                 msg: "Bonjour Paul! Je vous contacte via votre site pour un devis: ",
                 wa_sim: "Simulation",
                 music_on: "Musique ON",
-                music_off: "Musique OFF"
+                music_off: "Musique OFF",
+                track_chill: "Lofi",
+                track_ambient: "Ambient",
+                track_corporate: "Focus"
             },
             ru: {
                 n_home: "Главная",
@@ -741,7 +745,10 @@
                 msg: "Здравствуйте, Павел! Хочу уточнить стоимость: ",
                 wa_sim: "Расчет",
                 music_on: "Музыка ON",
-                music_off: "Музыка OFF"
+                music_off: "Музыка OFF",
+                track_chill: "Лофи",
+                track_ambient: "Эмбиент",
+                track_corporate: "Фокус"
             },
             ua: {
                 n_home: "Головна",
@@ -770,7 +777,10 @@
                 msg: "Доброго дня, Павло! Цікавить вартість робіт: ",
                 wa_sim: "Розрахунок",
                 music_on: "Музика ON",
-                music_off: "Музика OFF"
+                music_off: "Музика OFF",
+                track_chill: "Лофі",
+                track_ambient: "Ембієнт",
+                track_corporate: "Фокус"
             },
             en: {
                 n_home: "Home",
@@ -799,7 +809,10 @@
                 msg: "Hello Paul! I need a quote for: ",
                 wa_sim: "Quote",
                 music_on: "Music ON",
-                music_off: "Music OFF"
+                music_off: "Music OFF",
+                track_chill: "Lofi",
+                track_ambient: "Ambient",
+                track_corporate: "Focus"
             }
         };
 
@@ -808,16 +821,27 @@
         const html = document.documentElement;
         
         function getSystemTheme() {
-            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            try {
+                return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            } catch (e) {
+                return 'dark'; // Fallback
+            }
         }
 
         function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            
-            if (savedTheme === 'light' || savedTheme === 'dark') {
-                html.setAttribute('data-theme', savedTheme);
-                updateThemeButton(savedTheme);
-            } else {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    html.setAttribute('data-theme', savedTheme);
+                    updateThemeButton(savedTheme);
+                } else {
+                    const systemTheme = getSystemTheme();
+                    html.removeAttribute('data-theme');
+                    updateThemeButton(systemTheme);
+                }
+            } catch (e) {
+                // Fallback если localStorage недоступен
                 const systemTheme = getSystemTheme();
                 html.removeAttribute('data-theme');
                 updateThemeButton(systemTheme);
@@ -835,16 +859,31 @@
             }
             
             html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            try {
+                localStorage.setItem('theme', newTheme);
+            } catch (e) {
+                console.log('localStorage not available');
+            }
             updateThemeButton(newTheme);
         }
 
         function updateThemeButton(theme) {
-            themeBtn.innerText = theme === 'dark' ? '☀️' : '🌙';
+            if (themeBtn) {
+                themeBtn.innerText = theme === 'dark' ? '☀️' : '🌙';
+            }
+            // Update theme-color meta tag for mobile browsers
+            const themeColorMeta = document.getElementById('theme-color');
+            if (themeColorMeta) {
+                themeColorMeta.content = theme === 'dark' ? '#0a2e1f' : '#F9F7F2';
+            }
         }
 
         window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
+            try {
+                if (!localStorage.getItem('theme')) {
+                    updateThemeButton(e.matches ? 'light' : 'dark');
+                }
+            } catch (err) {
                 updateThemeButton(e.matches ? 'light' : 'dark');
             }
         });
@@ -852,7 +891,7 @@
         // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР (исправленный) =====
         const musicTracks = {
             chill: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112778.mp3',
-            ambient: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=ambient-piano-amp-strings-10711.mp3',
+            ambient: 'https://cdn.pixabay.com/download/audio/2024/10/17/audio_74b9006f8c.mp3?filename=calm-piano-inspiring-251916.mp3',
             corporate: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=corporate-technology-11273.mp3'
         };
 
@@ -865,14 +904,20 @@
         function initAudio() {
             if (musicInitialized) return;
             
-            bgMusic = new Audio(musicTracks[currentTrack]);
-            bgMusic.loop = true;
-            bgMusic.volume = 0.3;
-            musicInitialized = true;
+            try {
+                bgMusic = new Audio(musicTracks[currentTrack]);
+                bgMusic.loop = true;
+                bgMusic.volume = 0.15;
+                musicInitialized = true;
+            } catch (e) {
+                console.log('Audio initialization error:', e);
+            }
         }
 
         function toggleMusicPanel() {
             const panel = document.getElementById('musicPlayer');
+            if (!panel) return;
+            
             isMusicPanelVisible = !isMusicPanelVisible;
             panel.style.display = isMusicPanelVisible ? 'block' : 'none';
             
@@ -890,27 +935,44 @@
                 initAudio();
             }
             
+            if (!bgMusic) {
+                console.log('Audio not initialized');
+                return;
+            }
+            
+            const musicToggle = document.getElementById('musicToggle');
+            const musicStatus = document.getElementById('musicStatus');
+            const musicBtn = document.getElementById('musicBtn');
+            
             if (!isMusicPlaying) {
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
-                    document.getElementById('musicToggle').innerHTML = '⏸️';
-                    document.getElementById('musicStatus').textContent = t.music_on;
-                    document.getElementById('musicBtn').classList.add('playing');
-                    localStorage.setItem('musicEnabled', 'true');
+                    if (musicToggle) musicToggle.innerHTML = '⏸️';
+                    if (musicStatus) musicStatus.textContent = t.music_on;
+                    if (musicBtn) musicBtn.classList.add('playing');
+                    try {
+                        localStorage.setItem('musicEnabled', 'true');
+                    } catch (e) {}
                 }).catch(error => {
                     console.log('Playback error:', error);
                 });
             } else {
                 bgMusic.pause();
                 isMusicPlaying = false;
-                document.getElementById('musicToggle').innerHTML = '▶️';
-                document.getElementById('musicStatus').textContent = t.music_off;
-                document.getElementById('musicBtn').classList.remove('playing');
-                localStorage.setItem('musicEnabled', 'false');
+                if (musicToggle) musicToggle.innerHTML = '▶️';
+                if (musicStatus) musicStatus.textContent = t.music_off;
+                if (musicBtn) musicBtn.classList.remove('playing');
+                try {
+                    localStorage.setItem('musicEnabled', 'false');
+                } catch (e) {}
             }
         }
 
         function changeVolume(value) {
+            // Инициализируем аудио если нужно
+            if (!musicInitialized) {
+                initAudio();
+            }
             if (bgMusic) {
                 bgMusic.volume = parseFloat(value);
             }
@@ -918,9 +980,15 @@
         }
 
         function changeTrack(track) {
-            const wasPlaying = isMusicPlaying;
+            if (!musicTracks[track]) return;
             
+            const wasPlaying = isMusicPlaying;
             currentTrack = track;
+            
+            // Инициализируем аудио если нужно
+            if (!musicInitialized) {
+                initAudio();
+            }
             
             if (bgMusic) {
                 if (wasPlaying) {
@@ -930,7 +998,8 @@
             }
             
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('track' + track.charAt(0).toUpperCase() + track.slice(1)).classList.add('active');
+            const trackBtn = document.getElementById('track' + track.charAt(0).toUpperCase() + track.slice(1));
+            if (trackBtn) trackBtn.classList.add('active');
             
             localStorage.setItem('musicTrack', track);
             
@@ -942,25 +1011,41 @@
         function loadMusicSettings() {
             const volume = localStorage.getItem('musicVolume');
             const track = localStorage.getItem('musicTrack');
-            
+
+            // Устанавливаем значение ползунка громкости
             if (volume) {
-                if (bgMusic) bgMusic.volume = parseFloat(volume);
                 document.getElementById('volumeControl').value = volume;
+            } else {
+                document.getElementById('volumeControl').value = 0.15;
             }
-            
+
+            // Устанавливаем текущий трек (без инициализации аудио)
             if (track && musicTracks[track]) {
                 currentTrack = track;
-                document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
-                document.getElementById('track' + track.charAt(0).toUpperCase() + track.slice(1)).classList.add('active');
             }
+            
+            // Обновляем UI кнопок треков
+            document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
+            const trackBtn = document.getElementById('track' + currentTrack.charAt(0).toUpperCase() + currentTrack.slice(1));
+            if (trackBtn) trackBtn.classList.add('active');
+
+            // Update track button labels with current language
+            const lang = getCurrentLang();
+            const t = translations[lang] || translations.fr;
+            const trackChill = document.getElementById('trackChill');
+            const trackAmbient = document.getElementById('trackAmbient');
+            const trackCorporate = document.getElementById('trackCorporate');
+            if (trackChill) trackChill.textContent = t.track_chill;
+            if (trackAmbient) trackAmbient.textContent = t.track_ambient;
+            if (trackCorporate) trackCorporate.textContent = t.track_corporate;
         }
 
         // Автопауза при скрытии вкладки
         document.addEventListener('visibilitychange', function() {
-            if (bgMusic) {
-                if (document.hidden && isMusicPlaying) {
+            if (bgMusic && isMusicPlaying) {
+                if (document.hidden) {
                     bgMusic.pause();
-                } else if (!document.hidden && isMusicPlaying) {
+                } else {
                     bgMusic.play().catch(e => console.log('Error:', e));
                 }
             }
@@ -971,7 +1056,7 @@
             const panel = document.getElementById('musicPlayer');
             const btn = document.getElementById('musicBtn');
             
-            if (panel && panel.style.display === 'block' && 
+            if (panel && btn && panel.style.display === 'block' && 
                 !panel.contains(event.target) && 
                 !btn.contains(event.target)) {
                 panel.style.display = 'none';
@@ -981,8 +1066,12 @@
 
         // ===== ОСНОВНЫЕ ФУНКЦИИ =====
         function getCurrentLang() {
-            const activeBtn = document.querySelector('.lang-btn.active');
-            return activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
+            try {
+                const activeBtn = document.querySelector('.lang-btn.active');
+                return activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
+            } catch (e) {
+                return 'fr';
+            }
         }
 
         function changeLang(lang) {
@@ -992,56 +1081,81 @@
                 b.classList.toggle('active', b.id === 'btn-' + lang);
             });
             
-            document.getElementById('nav-home').innerText = t.n_home;
-            document.getElementById('display-name').innerText = t.name;
-            document.getElementById('f-name').innerText = t.name;
-            document.getElementById('sap-info').innerText = t.sap;
-            document.getElementById('footer-zone-text').innerText = t.h_zone;
-            document.getElementById('n-how').innerText = t.n_how;
-            document.getElementById('n-serv').innerText = t.n_serv;
-            document.getElementById('n-faq').innerText = t.n_faq;
-            document.getElementById('n-zone').innerText = t.n_zone;
-            document.getElementById('l-call').innerText = t.l_call;
-            document.getElementById('l-mail').innerText = t.l_mail;
-            document.getElementById('l-save').innerText = t.l_save;
-            document.getElementById('l-share').innerText = t.l_share;
-            document.getElementById('l-route').innerText = t.l_route;
-            document.getElementById('l-pay').innerText = t.l_pay;
-            document.getElementById('l-total').innerText = t.l_total;
-            document.getElementById('how-title').innerText = t.how_t;
-            document.getElementById('serv-calc-title').innerText = t.sc_t;
-            document.getElementById('h1-t').innerText = t.h1t; 
-            document.getElementById('h1-d').innerText = t.h1d;
-            document.getElementById('h2-t').innerText = t.h2t; 
-            document.getElementById('h2-d').innerText = t.h2d;
-            document.getElementById('h3-t').innerText = t.h3t; 
-            document.getElementById('h3-d').innerText = t.h3d;
-            document.getElementById('it-t').innerText = t.it_t; 
-            document.getElementById('it-l').innerHTML = t.it_l; 
-            document.getElementById('it-p').innerHTML = t.it_p;
-            document.getElementById('br-t').innerText = t.br_t; 
-            document.getElementById('br-l').innerHTML = t.br_l; 
-            document.getElementById('br-p').innerHTML = t.br_p;
-            document.getElementById('c-t').innerText = t.ct; 
-            document.getElementById('c-net').innerText = t.cnet;
-            document.getElementById('o-wd').innerText = t.owd; 
-            document.getElementById('o-sat').innerText = t.osat; 
-            document.getElementById('o-sun').innerText = t.osun;
-            document.getElementById('f-t').innerText = t.ft; 
-            document.getElementById('z-t').innerText = t.zt; 
-            document.getElementById('z-desc').innerText = t.zd;
+            // Обновляем HTML lang атрибут
+            document.documentElement.lang = lang === 'ua' ? 'uk' : lang;
+            
+            // Helper function для безопасного обновления элементов
+            const setText = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = text;
+            };
+            const setHTML = (id, html) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = html;
+            };
+
+            setText('nav-home', t.n_home);
+            setText('display-name', t.name);
+            setText('f-name', t.name);
+            setText('sap-info', t.sap);
+            setText('footer-zone-text', t.h_zone);
+            setText('n-how', t.n_how);
+            setText('n-serv', t.n_serv);
+            setText('n-faq', t.n_faq);
+            setText('n-zone', t.n_zone);
+            setText('l-call', t.l_call);
+            setText('l-mail', t.l_mail);
+            setText('l-save', t.l_save);
+            setText('l-share', t.l_share);
+            setText('l-route', t.l_route);
+            setText('l-pay', t.l_pay);
+            setText('l-total', t.l_total);
+            setText('how-title', t.how_t);
+            setText('serv-calc-title', t.sc_t);
+            setText('h1-t', t.h1t); 
+            setText('h1-d', t.h1d);
+            setText('h2-t', t.h2t); 
+            setText('h2-d', t.h2d);
+            setText('h3-t', t.h3t); 
+            setText('h3-d', t.h3d);
+            setText('it-t', t.it_t); 
+            setHTML('it-l', t.it_l); 
+            setHTML('it-p', t.it_p);
+            setText('br-t', t.br_t); 
+            setHTML('br-l', t.br_l); 
+            setHTML('br-p', t.br_p);
+            setText('c-t', t.ct); 
+            setText('c-net', t.cnet);
+            setText('o-wd', t.owd); 
+            setText('o-sat', t.osat); 
+            setText('o-sun', t.osun);
+            setText('f-t', t.ft); 
+            setText('z-t', t.zt); 
+            setText('z-desc', t.zd);
             
             const musicStatus = document.getElementById('musicStatus');
-            if (musicStatus) {
+            if (musicStatus && t.music_on && t.music_off) {
                 musicStatus.textContent = isMusicPlaying ? t.music_on : t.music_off;
             }
+
+            // Update track button labels
+            const trackChill = document.getElementById('trackChill');
+            const trackAmbient = document.getElementById('trackAmbient');
+            const trackCorporate = document.getElementById('trackCorporate');
+            if (trackChill && t.track_chill) trackChill.textContent = t.track_chill;
+            if (trackAmbient && t.track_ambient) trackAmbient.textContent = t.track_ambient;
+            if (trackCorporate && t.track_corporate) trackCorporate.textContent = t.track_corporate;
             
             const faqBox = document.getElementById('faq-container'); 
-            faqBox.innerHTML = '';
-            t.faq.forEach(item => { 
-                const faqEntry = `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
-                faqBox.innerHTML += faqEntry; 
-            });
+            if (faqBox) {
+                faqBox.innerHTML = '';
+                if (t.faq && Array.isArray(t.faq)) {
+                    t.faq.forEach(item => { 
+                        const faqEntry = `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
+                        faqBox.innerHTML += faqEntry; 
+                    });
+                }
+            }
             
             updateCalc();
         }
@@ -1055,16 +1169,18 @@
             if (!hoursInput || !daySelect || !totalEl || !netEl) return;
 
             const h = Math.max(1, parseInt(hoursInput.value) || 1); 
-            const m = parseFloat(daySelect.value); 
+            const m = parseFloat(daySelect.value) || 1; 
             const calculatedTotal = (50 + (h - 1) * 40) * m; 
             
             totalEl.innerText = calculatedTotal; 
-            netEl.innerText = calculatedTotal / 2; 
+            netEl.innerText = Math.round(calculatedTotal / 2); 
         }
 
         function toggleFaq(el) { 
+            if (!el) return;
             const a = el.querySelector('.faq-a'); 
             const s = el.querySelector('span'); 
+            if (!a || !s) return;
             const isOpen = a.style.display === 'block'; 
             a.style.display = isOpen ? 'none' : 'block'; 
             s.innerText = isOpen ? '+' : '−'; 
@@ -1072,20 +1188,26 @@
 
         // ===== WHATSAPP (исправленный) =====
         function sendToWhatsApp(event) {
-            event.preventDefault();
+            if (event) event.preventDefault();
             
-            const h = Math.max(1, parseInt(document.getElementById('hoursInput').value) || 1);
-            const total = document.getElementById('totalPrice').innerText;
-            const lang = getCurrentLang();
-            const t = translations[lang];
-            
+            const hoursInput = document.getElementById('hoursInput');
+            const totalEl = document.getElementById('totalPrice');
             const daySelect = document.getElementById('daySelect');
-            const dayText = daySelect.options[daySelect.selectedIndex].text;
+            
+            if (!hoursInput || !totalEl || !daySelect) return;
+            
+            const h = Math.max(1, parseInt(hoursInput.value) || 1);
+            const total = totalEl.innerText;
+            const lang = getCurrentLang();
+            const t = translations[lang] || translations.fr;
+            
+            const dayText = daySelect.options[daySelect.selectedIndex] ? 
+                daySelect.options[daySelect.selectedIndex].text : '';
             
             // Упрощенное сообщение без спецсимволов
-            const message = t.msg + t.wa_sim + ': ' + h + 'h, ' + dayText + ' = ' + total + 'EUR';
+            const message = (t.msg || 'Hello! ') + (t.wa_sim || 'Quote') + ': ' + h + 'h, ' + dayText + ' = ' + total + 'EUR';
             
-            // Используем api.whatsapp.com вместо wa.me для лучшей совместимости
+            // Используем api.whatsapp.com для лучшей совместимости
             const phone = '33745625007';
             const url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + encodeURIComponent(message);
             
@@ -1094,50 +1216,107 @@
         }
         
         function scrollToTop() { 
-            window.scrollTo({top: 0, behavior: 'smooth'}); 
+            try {
+                window.scrollTo({top: 0, behavior: 'smooth'}); 
+            } catch (e) {
+                // Fallback для старых браузеров
+                window.scrollTo(0, 0);
+            }
         }
 
         window.onscroll = function() {
             const upBtn = document.getElementById("backToTop");
-            const scrolled = document.body.scrollTop > 300 || document.documentElement.scrollTop > 300;
+            if (!upBtn) return;
+            const scrollTop = document.body.scrollTop || document.documentElement.scrollTop || 0;
+            const scrolled = scrollTop > 300;
             upBtn.style.display = scrolled ? "flex" : "none";
         };
 
         function copyEmail() { 
-            navigator.clipboard.writeText("contact@paulmultiservice.fr"); 
-            alert("Email copié !"); 
+            const email = "contact@paulmultiservice.fr";
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(() => {
+                    alert("Email copié !");
+                }).catch(() => {
+                    // Fallback для старых браузеров
+                    const textarea = document.createElement('textarea');
+                    textarea.value = email;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    alert("Email copié !");
+                });
+            } else {
+                // Fallback для старых браузеров
+                const textarea = document.createElement('textarea');
+                textarea.value = email;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert("Email copié !");
+            }
         }
         
         function shareSite() { 
+            const lang = getCurrentLang();
+            const t = translations[lang] || translations.fr;
+            
             if (navigator.share) { 
-                navigator.share({title:'Paul Service', url:location.href}); 
-            } else { 
-                navigator.clipboard.writeText(window.location.href); 
-                alert("Lien du site copié !"); 
+                navigator.share({title:'Paul Service', url:location.href}).catch(() => {
+                    // Пользователь отменил sharing
+                }); 
+            } else if (navigator.clipboard && navigator.clipboard.writeText) { 
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert(lang === 'fr' ? "Lien du site copié !" : 
+                         lang === 'ru' ? "Ссылка скопирована!" :
+                         lang === 'ua' ? "Посилання скопійовано!" : "Link copied!");
+                }).catch(() => {
+                    alert("Error copying link");
+                }); 
+            } else {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = window.location.href;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert(lang === 'fr' ? "Lien du site copié !" : 
+                     lang === 'ru' ? "Ссылка скопирована!" :
+                     lang === 'ua' ? "Посилання скопійовано!" : "Link copied!");
             }
         }
 
         function downloadVCard() { 
-            const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
-            const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"}); 
-            const vUrl = window.URL.createObjectURL(blob); 
-            const downloadLink = document.createElement("a"); 
-            downloadLink.href = vUrl; 
-            downloadLink.download = "Paul_Artisan.vcf"; 
-            document.body.appendChild(downloadLink); 
-            downloadLink.click(); 
-            setTimeout(() => { 
-                document.body.removeChild(downloadLink); 
-                window.URL.revokeObjectURL(vUrl); 
-            }, 200);
+            try {
+                const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
+                const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"}); 
+                const vUrl = window.URL.createObjectURL(blob); 
+                const downloadLink = document.createElement("a"); 
+                downloadLink.href = vUrl; 
+                downloadLink.download = "Paul_Artisan.vcf"; 
+                document.body.appendChild(downloadLink); 
+                downloadLink.click(); 
+                setTimeout(() => { 
+                    if (downloadLink.parentNode) {
+                        document.body.removeChild(downloadLink); 
+                    }
+                    window.URL.revokeObjectURL(vUrl); 
+                }, 200);
+            } catch (e) {
+                console.error('Error downloading vCard:', e);
+                alert('Error saving contact. Please try again.');
+            }
         }
         
         function revealSections() { 
             const reveals = document.querySelectorAll(".reveal"); 
-            const h = window.innerHeight;
+            const h = window.innerHeight || document.documentElement.clientHeight;
             reveals.forEach(el => {
-                const top = el.getBoundingClientRect().top;
-                if (top < h - 100) {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < h - 100) {
                     el.classList.add("active"); 
                 }
             });
@@ -1147,10 +1326,14 @@
         
         // Запуск при загрузке
         window.addEventListener('DOMContentLoaded', () => { 
-            initTheme(); 
-            changeLang('fr'); 
-            revealSections(); 
-            loadMusicSettings();
+            try {
+                initTheme(); 
+                changeLang('fr'); 
+                revealSections(); 
+                loadMusicSettings();
+            } catch (e) {
+                console.error('Initialization error:', e);
+            }
         });
     </script>
 </body>
