@@ -836,15 +836,12 @@
                     html.setAttribute('data-theme', savedTheme);
                     updateThemeButton(savedTheme);
                 } else {
-                    const systemTheme = getSystemTheme();
-                    html.removeAttribute('data-theme');
-                    updateThemeButton(systemTheme);
+                    // Нет сохраненной темы - используем системную
+                    applySystemTheme();
                 }
             } catch (e) {
                 // Fallback если localStorage недоступен
-                const systemTheme = getSystemTheme();
-                html.removeAttribute('data-theme');
-                updateThemeButton(systemTheme);
+                applySystemTheme();
             }
         }
 
@@ -878,15 +875,61 @@
             }
         }
 
-        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+        // Функция применения системной темы
+        function applySystemTheme() {
+            const systemTheme = getSystemTheme();
+            html.removeAttribute('data-theme');
+            updateThemeButton(systemTheme);
+            // Обновляем meta theme-color
+            const themeColorMeta = document.getElementById('theme-color');
+            if (themeColorMeta) {
+                themeColorMeta.content = systemTheme === 'dark' ? '#0a2e1f' : '#F9F7F2';
+            }
+            // Принудительное обновление стилей для Safari
+            forceStyleUpdate();
+        }
+        
+        // Принудительное обновление CSS для Safari
+        function forceStyleUpdate() {
+            const body = document.body;
+            if (body) {
+                const originalDisplay = body.style.display;
+                body.style.display = 'none';
+                // Trigger reflow
+                void body.offsetHeight;
+                body.style.display = originalDisplay || '';
+            }
+        }
+
+        // Обработчик изменения системной темы с поддержкой Safari
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+        
+        function handleThemeChange(e) {
             try {
-                if (!localStorage.getItem('theme')) {
-                    updateThemeButton(e.matches ? 'light' : 'dark');
+                // Если нет сохраненной темы, применяем системную
+                const savedTheme = localStorage.getItem('theme');
+                if (!savedTheme) {
+                    applySystemTheme();
                 }
             } catch (err) {
-                updateThemeButton(e.matches ? 'light' : 'dark');
+                applySystemTheme();
             }
-        });
+        }
+        
+        // Используем addListener для старых версий Safari, addEventListener для новых
+        if (mediaQuery.addEventListener) {
+            mediaQuery.addEventListener('change', handleThemeChange);
+        } else if (mediaQuery.addListener) {
+            mediaQuery.addListener(handleThemeChange);
+        }
+        
+        // Дополнительный обработчик для prefers-color-scheme: dark (для полноты)
+        const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        if (darkMediaQuery.addEventListener) {
+            darkMediaQuery.addEventListener('change', handleThemeChange);
+        } else if (darkMediaQuery.addListener) {
+            darkMediaQuery.addListener(handleThemeChange);
+        }
 
         // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР (исправленный) =====
         const musicTracks = {
