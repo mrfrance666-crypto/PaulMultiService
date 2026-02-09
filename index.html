@@ -6,12 +6,16 @@
     <meta name="format-detection" content="telephone=no">
     <title>Paul — Artisan Multiservice</title>
     
-    <!-- АВТОТЕМА ДЛЯ ВСЕХ БРАУЗЕРОВ -->
+    <!-- МЕТА-ТЕГИ ДЛЯ АВТОТЕМЫ НА iOS -->
     <meta name="color-scheme" content="light dark">
     <meta name="supported-color-schemes" content="light dark">
     <meta name="theme-color" content="#F9F7F2" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0a2e1f" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Paul Service">
+    
+    <!-- КРИТИЧНЫЙ МЕТА-ТЕГ ДЛЯ iOS 15+ -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <link rel="icon" type="image/png" href="logo.png">
@@ -35,8 +39,20 @@
             color-scheme: light dark;
         }
         
-        /* ТЕМНАЯ ТЕМА ПО УМОЛЧАНИЮ (для PC и когда нет автоопределения) */
+        /* ====== ФИКС ДЛЯ iOS SAFARI ====== */
+        /* Принудительное применение цветовой схемы */
+        html {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         body { 
+            /* Убираем стандартный фон iOS */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            
+            /* Базовая тема по умолчанию (тёмная) */
+            background-color: #0a2e1f;
+            color: #ffffff;
             --bg-color: #0a2e1f; 
             --text-color: #ffffff; 
             --card-bg: rgba(255,255,255,0.06); 
@@ -46,9 +62,12 @@
             --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
         
-        /* АВТООПРЕДЕЛЕНИЕ СВЕТЛОЙ ТЕМЫ СИСТЕМЫ */
+        /* ====== АВТООПРЕДЕЛЕНИЕ СИСТЕМНОЙ ТЕМЫ ====== */
+        /* Для всех браузеров, включая iOS Safari */
         @media (prefers-color-scheme: light) {
             body:not([data-user-theme]) { 
+                background-color: #F9F7F2 !important;
+                color: #0a2e1f !important;
                 --bg-color: #F9F7F2; 
                 --text-color: #0a2e1f; 
                 --card-bg: #ffffff; 
@@ -59,8 +78,11 @@
             }
         }
         
-        /* РУЧНАЯ СВЕТЛАЯ ТЕМА (при нажатии кнопки) */
+        /* ====== РУЧНЫЕ ТЕМЫ ====== */
+        /* Светлая тема (при нажатии кнопки) */
         body[data-user-theme="light"] { 
+            background-color: #F9F7F2 !important;
+            color: #0a2e1f !important;
             --bg-color: #F9F7F2; 
             --text-color: #0a2e1f; 
             --card-bg: #ffffff; 
@@ -70,8 +92,10 @@
             --shadow: 0 10px 30px rgba(10, 46, 31, 0.08); 
         }
         
-        /* РУЧНАЯ ТЕМНАЯ ТЕМА (при нажатии кнопки) */
+        /* Тёмная тема (при нажатии кнопки) */
         body[data-user-theme="dark"] { 
+            background-color: #0a2e1f !important;
+            color: #ffffff !important;
             --bg-color: #0a2e1f; 
             --text-color: #ffffff; 
             --card-bg: rgba(255,255,255,0.06); 
@@ -79,6 +103,13 @@
             --nav-bg: rgba(10,46,31,0.95);
             --shadow: none;
             --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Применение CSS переменных */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         #totalPrice, .total-currency, #l-total { 
@@ -91,14 +122,32 @@
         }
 
         html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); text-align: center; transition: background-color 0.5s ease, color 0.5s ease; overflow-x: hidden; }
+        body { 
+            margin: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            text-align: center; 
+            overflow-x: hidden; 
+            min-height: 100vh;
+        }
         
         #how, #services, #faq, #zone { scroll-margin-top: 130px; }
 
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .nav-container { position: sticky; top: 0; z-index: 1000; background: var(--nav-bg); padding: 10px 0; border-bottom: 2px solid var(--gold); box-shadow: var(--gold-glow); backdrop-filter: blur(10px); transition: background-color 0.5s ease; }
+        .nav-container { 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            background: var(--nav-bg); 
+            padding: 10px 0; 
+            border-bottom: 2px solid var(--gold); 
+            box-shadow: var(--gold-glow); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); /* Для Safari */
+            transition: background-color 0.5s ease; 
+        }
+        
         .lang-btn { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); padding: 5px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; margin: 0 2px; transition: 0.3s; }
         .lang-btn:hover, .lang-btn.active { background: var(--gold); color: white; }
 
@@ -143,19 +192,20 @@
             appearance: none; -webkit-appearance: none;
         }
         
-        .calc-row select option { background: var(--dark-green); color: var(--gold); }
+        .calc-row select option { 
+            background: var(--bg-color); 
+            color: var(--gold); 
+        }
         
         body[data-user-theme="light"] .calc-row select, 
-        body[data-user-theme="light"] .calc-row input,
-        body:not([data-user-theme]) .calc-row select:where(:not(:root):not(html):not(body)),
-        body:not([data-user-theme]) .calc-row input:where(:not(:root):not(html):not(body)) {
+        body[data-user-theme="light"] .calc-row input {
             background-color: #f0ede4; 
             color: #b08d1a !important; 
         }
         
-        body[data-user-theme="light"] .calc-row select option,
-        body:not([data-user-theme]) .calc-row select option:where(:not(:root):not(html):not(body)) {
-            background: #ffffff; color: #b08d1a;
+        body[data-user-theme="light"] .calc-row select option {
+            background: #ffffff; 
+            color: #b08d1a;
         }
 
         .calc-row select:focus, .calc-row input:focus {
@@ -163,7 +213,25 @@
             border-color: var(--gold-light);
         }
 
-        .theme-toggle { position: fixed; top: 15px; right: 15px; z-index: 1100; background: var(--gold); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .theme-toggle { 
+            position: fixed; 
+            top: 15px; 
+            right: 15px; 
+            z-index: 1100; 
+            background: var(--gold); 
+            border: none; 
+            color: white; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            font-size: 1.2rem;
+        }
+        
         #backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--gold); color: white; border-radius: 50%; border: none; cursor: pointer; display: none; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem; align-items: center; justify-content: center; }
         
         .price-tag { font-weight: 700; color: var(--gold); margin-top: auto; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.9rem; }
@@ -176,33 +244,68 @@
         .footer-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; display: block; }
         .gold-text { color: var(--gold) !important; font-weight: 700; margin: 5px 0; }
         
-        /* ФИКС ДЛЯ SAFARI И OPERA */
-        @supports (-webkit-touch-callout: none) or (-webkit-hyphens: none) {
-            body, .nav-container, .generic-card {
-                transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
-            }
-            
-            /* Принудительное применение CSS переменных для WebKit браузеров */
-            :root {
-                -webkit-tap-highlight-color: transparent;
-            }
-            
-            @media (prefers-color-scheme: dark) {
-                body:not([data-user-theme]) {
-                    background-color: #0a2e1f !important;
-                    color: #ffffff !important;
-                }
-            }
-            
-            @media (prefers-color-scheme: light) {
-                body:not([data-user-theme]) {
-                    background-color: #F9F7F2 !important;
-                    color: #0a2e1f !important;
-                }
-            }
+        /* ====== МОДАЛЬНОЕ ОКНО ДЛЯ АВТОВОСПРОИЗВЕДЕНИЯ ====== */
+        #autoplayModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
         
-        /* СТИЛИ МУЗЫКАЛЬНОГО ПЛЕЕРА */
+        .autoplay-box {
+            background: var(--card-bg);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--gold-glow);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .autoplay-box h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+        
+        .autoplay-box p {
+            color: var(--text-color);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .autoplay-btn {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px;
+        }
+        
+        .autoplay-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* ====== МУЗЫКАЛЬНЫЙ ПЛЕЕР ====== */
         #musicPlayer {
             position: fixed;
             bottom: 80px;
@@ -214,6 +317,7 @@
             padding: 12px 15px;
             display: none;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             box-shadow: var(--gold-glow);
             min-width: 180px;
         }
@@ -291,9 +395,60 @@
             background: var(--gold);
             color: white;
         }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            
+            #musicPlayer {
+                left: 10px;
+                right: 10px;
+                bottom: 70px;
+                min-width: auto;
+            }
+            
+            #musicBtn {
+                left: 10px;
+                bottom: 15px;
+            }
+            
+            .autoplay-box {
+                padding: 20px;
+                margin: 10px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Модальное окно автовоспроизведения -->
+    <div id="autoplayModal">
+        <div class="autoplay-box">
+            <h3>🎵 Музыка на сайте</h3>
+            <p>Для включения музыки разрешите автовоспроизведение в вашем браузере.</p>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Музыка создаёт приятную атмосферу при просмотре сайта.</p>
+            <div style="margin-top: 20px;">
+                <button class="autoplay-btn" onclick="enableMusicAndClose()">
+                    <span>✅ Включить музыку</span>
+                </button>
+                <button class="autoplay-btn" onclick="closeAutoplayModal()" style="background: transparent; border: 1px solid var(--gold); color: var(--gold);">
+                    <span>🚫 Пропустить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">🌙</button>
     <button id="backToTop" onclick="scrollToTop()">↑</button>
 
@@ -377,7 +532,7 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881260759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881265759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
@@ -442,7 +597,11 @@
                 msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— ",
                 wa_sim: "Simulation",
                 music_on: "Musique activée",
-                music_off: "Musique désactivée"
+                music_off: "Musique désactivée",
+                autoplay_title: "🎵 Musique sur le site",
+                autoplay_text: "Pour activer la musique, autorisez l'autoplay dans votre navigateur.",
+                autoplay_enable: "✅ Activer la musique",
+                autoplay_skip: "🚫 Passer"
             },
             ru: {
                 n_home: "Главная",
@@ -471,7 +630,11 @@
                 msg: "Здравствуйте, Павел! 👋\n\nЯ зашел(а) на ваш сайт и хотел бы уточнить стоимость работ по следующему вопросу:\n— ",
                 wa_sim: "Расчет",
                 music_on: "Музыка вкл.",
-                music_off: "Музыка выкл."
+                music_off: "Музыка выкл.",
+                autoplay_title: "🎵 Музыка на сайте",
+                autoplay_text: "Для включения музыки разрешите автовоспроизведение в вашем браузере.",
+                autoplay_enable: "✅ Включить музыку",
+                autoplay_skip: "🚫 Пропустить"
             },
             ua: {
                 n_home: "Головна",
@@ -500,7 +663,11 @@
                 msg: "Доброго дня, Павло! 👋\n\nЯ зайшов(-ла) на ваш сайт, мене цікавить вартість робіт:\n— ",
                 wa_sim: "Розрахунок",
                 music_on: "Музика вкл.",
-                music_off: "Музика викл."
+                music_off: "Музика викл.",
+                autoplay_title: "🎵 Музика на сайті",
+                autoplay_text: "Для включення музики дозвольте автовідтворення у вашому браузері.",
+                autoplay_enable: "✅ Увімкнути музику",
+                autoplay_skip: "🚫 Пропустити"
             },
             en: {
                 n_home: "Home",
@@ -529,13 +696,18 @@
                 msg: "Hello Paul! 👋\n\nI found your website and I would like to get a quote for:\n— ",
                 wa_sim: "Simulation",
                 music_on: "Music on",
-                music_off: "Music off"
+                music_off: "Music off",
+                autoplay_title: "🎵 Music on site",
+                autoplay_text: "To enable music, allow autoplay in your browser.",
+                autoplay_enable: "✅ Enable music",
+                autoplay_skip: "🚫 Skip"
             }
         };
 
-        // ===== ТЕМА =====
+        // ===== ИСПРАВЛЕННАЯ СИСТЕМА ТЕМ =====
         const themeBtn = document.getElementById('theme-btn');
         const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        let currentSystemTheme = systemThemeQuery.matches ? 'dark' : 'light';
 
         function initTheme() {
             const savedTheme = localStorage.getItem('user-theme');
@@ -546,15 +718,27 @@
                 updateThemeButton(savedTheme);
             } else {
                 // Автоопределение системной темы
-                if (systemThemeQuery.matches) {
-                    // Темная тема системы
-                    document.body.removeAttribute('data-user-theme');
-                    updateThemeButton('dark');
+                document.body.removeAttribute('data-user-theme');
+                updateThemeButton(currentSystemTheme);
+                
+                // Принудительно применяем CSS переменные для iOS
+                if (currentSystemTheme === 'light') {
+                    document.body.style.backgroundColor = '#F9F7F2';
+                    document.body.style.color = '#0a2e1f';
                 } else {
-                    // Светлая тема системы
-                    document.body.removeAttribute('data-user-theme');
-                    updateThemeButton('light');
+                    document.body.style.backgroundColor = '#0a2e1f';
+                    document.body.style.color = '#ffffff';
                 }
+            }
+            
+            // Дополнительная проверка для iOS Safari
+            if (/(iPhone|iPad|iPod)/i.test(navigator.userAgent)) {
+                setTimeout(() => {
+                    // Принудительный пересчет стилей
+                    document.body.style.display = 'none';
+                    document.body.offsetHeight; // Триггер перерисовки
+                    document.body.style.display = '';
+                }, 100);
             }
         }
 
@@ -564,7 +748,7 @@
             
             if (!currentTheme) {
                 // Если автоопределение, переключаем на противоположное системной теме
-                newTheme = systemThemeQuery.matches ? 'light' : 'dark';
+                newTheme = currentSystemTheme === 'dark' ? 'light' : 'dark';
             } else {
                 // Если ручная тема, переключаем на противоположное
                 newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -574,39 +758,87 @@
             localStorage.setItem('user-theme', newTheme);
             document.body.setAttribute('data-user-theme', newTheme);
             updateThemeButton(newTheme);
+            
+            // Принудительное обновление для iOS
+            if (/(iPhone|iPad|iPod)/i.test(navigator.userAgent)) {
+                document.body.style.backgroundColor = newTheme === 'light' ? '#F9F7F2' : '#0a2e1f';
+                document.body.style.color = newTheme === 'light' ? '#0a2e1f' : '#ffffff';
+            }
         }
 
         function updateThemeButton(theme) {
-            if (theme === 'dark') {
-                themeBtn.innerText = '☀️';
-            } else {
-                themeBtn.innerText = '🌙';
-            }
+            themeBtn.innerText = theme === 'dark' ? '☀️' : '🌙';
         }
 
         // Слушатель изменения системной темы
         systemThemeQuery.addEventListener('change', (e) => { 
+            currentSystemTheme = e.matches ? 'dark' : 'light';
+            
             // Меняем только если пользователь не выбрал тему вручную
             if (!localStorage.getItem('user-theme')) {
                 document.body.removeAttribute('data-user-theme');
-                updateThemeButton(e.matches ? 'dark' : 'light');
+                updateThemeButton(currentSystemTheme);
+                
+                // Принудительное обновление для iOS
+                if (/(iPhone|iPad|iPod)/i.test(navigator.userAgent)) {
+                    document.body.style.backgroundColor = currentSystemTheme === 'light' ? '#F9F7F2' : '#0a2e1f';
+                    document.body.style.color = currentSystemTheme === 'light' ? '#0a2e1f' : '#ffffff';
+                }
             }
         });
 
-        // ===== МУЗЫКА =====
+        // ===== ИСПРАВЛЕННАЯ СИСТЕМА МУЗЫКИ =====
         const musicTracks = {
             chill: 'https://assets.mixkit.co/music/preview/mixkit-chill-abstract-loop-309.mp3',
             ambient: 'https://assets.mixkit.co/music/preview/mixkit-ambient-simple-loop-305.mp3',
             corporate: 'https://assets.mixkit.co/music/preview/mixkit-corporate-motivation-330.mp3'
         };
 
-        const bgMusic = new Audio(musicTracks.chill);
+        const bgMusic = new Audio();
         bgMusic.loop = true;
         bgMusic.volume = 0.3;
 
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
         let currentTrack = 'chill';
+        let autoplayModalShown = false;
+
+        function showAutoplayModal() {
+            const modal = document.getElementById('autoplayModal');
+            const lang = getCurrentLang();
+            const t = translations[lang] || translations.fr;
+            
+            if (modal && !autoplayModalShown) {
+                // Обновляем текст в модальном окне
+                const title = modal.querySelector('h3');
+                const text = modal.querySelectorAll('p')[0];
+                const enableBtn = modal.querySelector('.autoplay-btn span');
+                const skipBtn = modal.querySelectorAll('.autoplay-btn')[1]?.querySelector('span');
+                
+                if (title) title.textContent = t.autoplay_title || "🎵 Music on site";
+                if (text) text.textContent = t.autoplay_text || "To enable music, allow autoplay in your browser.";
+                if (enableBtn) enableBtn.textContent = t.autoplay_enable || "✅ Enable music";
+                if (skipBtn) skipBtn.textContent = t.autoplay_skip || "🚫 Skip";
+                
+                modal.style.display = 'flex';
+                autoplayModalShown = true;
+            }
+        }
+
+        function closeAutoplayModal() {
+            const modal = document.getElementById('autoplayModal');
+            if (modal) {
+                modal.style.display = 'none';
+                localStorage.setItem('autoplayModalShown', 'true');
+            }
+        }
+
+        function enableMusicAndClose() {
+            closeAutoplayModal();
+            setTimeout(() => {
+                toggleMusic();
+            }, 300);
+        }
 
         function toggleMusicPanel() {
             const panel = document.getElementById('musicPlayer');
@@ -618,16 +850,26 @@
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
             
+            if (!bgMusic.src) {
+                bgMusic.src = musicTracks[currentTrack];
+            }
+            
             if (!isMusicPlaying) {
-                bgMusic.play().then(() => {
-                    isMusicPlaying = true;
-                    document.getElementById('musicToggle').innerHTML = '⏸️';
-                    document.getElementById('musicStatus').textContent = t.music_on;
-                    localStorage.setItem('musicEnabled', 'true');
-                }).catch(error => {
-                    console.log('Ошибка воспроизведения:', error);
-                    alert('Для включения музыки разрешите автовоспроизведение в браузере');
-                });
+                const playPromise = bgMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Успешно воспроизводится
+                        isMusicPlaying = true;
+                        document.getElementById('musicToggle').innerHTML = '⏸️';
+                        document.getElementById('musicStatus').textContent = t.music_on;
+                        localStorage.setItem('musicEnabled', 'true');
+                    }).catch(error => {
+                        // Не удалось - показываем модальное окно
+                        console.log('Автовоспроизведение заблокировано:', error);
+                        showAutoplayModal();
+                    });
+                }
             } else {
                 bgMusic.pause();
                 isMusicPlaying = false;
@@ -657,7 +899,10 @@
             localStorage.setItem('musicTrack', track);
             
             if (isMusicPlaying) {
-                bgMusic.play().catch(e => console.log('Ошибка:', e));
+                bgMusic.play().catch(e => {
+                    console.log('Ошибка воспроизведения:', e);
+                    showAutoplayModal();
+                });
             }
         }
 
@@ -665,6 +910,7 @@
             const enabled = localStorage.getItem('musicEnabled');
             const volume = localStorage.getItem('musicVolume');
             const track = localStorage.getItem('musicTrack');
+            const modalShown = localStorage.getItem('autoplayModalShown');
             
             if (volume) {
                 bgMusic.volume = parseFloat(volume);
@@ -673,14 +919,29 @@
             
             if (track && musicTracks[track]) {
                 changeTrack(track);
+            } else {
+                bgMusic.src = musicTracks.chill;
             }
             
+            autoplayModalShown = modalShown === 'true';
+            
+            // Пытаемся включить музыку автоматически
             if (enabled === 'true') {
-                // Автовключение музыки при следующем клике
-                document.addEventListener('click', function initMusic() {
-                    toggleMusic();
-                    document.removeEventListener('click', initMusic);
-                }, { once: true });
+                setTimeout(() => {
+                    const playPromise = bgMusic.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            isMusicPlaying = true;
+                            const lang = getCurrentLang();
+                            const t = translations[lang] || translations.fr;
+                            document.getElementById('musicToggle').innerHTML = '⏸️';
+                            document.getElementById('musicStatus').textContent = t.music_on;
+                        }).catch(error => {
+                            console.log('Автовоспроизведение заблокировано при загрузке:', error);
+                            // Не показываем модалку сразу при загрузке, только при клике
+                        });
+                    }
+                }, 1000);
             }
         }
 
@@ -874,6 +1135,19 @@
             changeLang('fr'); 
             revealSections(); 
             loadMusicSettings();
+            
+            // Показываем модалку автовоспроизведения при первом клике, если музыка была включена
+            document.addEventListener('click', function initMusicOnClick() {
+                const enabled = localStorage.getItem('musicEnabled');
+                if (enabled === 'true' && !isMusicPlaying) {
+                    setTimeout(() => {
+                        if (!isMusicPlaying && !autoplayModalShown) {
+                            showAutoplayModal();
+                        }
+                    }, 500);
+                }
+                document.removeEventListener('click', initMusicOnClick);
+            }, { once: true });
         };
     </script>
 </body>
