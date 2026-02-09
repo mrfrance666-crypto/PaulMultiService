@@ -6,286 +6,323 @@
     <meta name="format-detection" content="telephone=no">
     <title>Paul — Artisan Multiservice</title>
     
-    <!-- КРИТИЧНЫЕ МЕТА-ТЕГИ ДЛЯ iOS -->
+    <!-- Мета-теги для темы -->
     <meta name="color-scheme" content="light dark">
     <meta name="supported-color-schemes" content="light dark">
-    <meta name="theme-color" content="#0a2e1f" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#F9F7F2" media="(prefers-color-scheme: light)">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ====== БАЗОВЫЕ СТИЛИ ====== */
+        /* === БАЗОВЫЕ ПЕРЕМЕННЫЕ (Темная тема по умолчанию) === */
         :root {
-            color-scheme: light dark;
             --dark-green: #0a2e1f;
             --gold: #d4af37;
             --gold-light: #f4d06f;
             --white: #ffffff;
-            --light-bg: #F9F7F2;
-            --light-text: #0a2e1f;
             
-            /* По умолчанию темная тема */
-            --bg-color: var(--dark-green);
-            --text-color: var(--white);
+            /* Темная тема по умолчанию */
+            --bg-color: #0a2e1f;
+            --text-color: #ffffff;
             --card-bg: rgba(255,255,255,0.06);
             --border-color: rgba(212,175,55,0.5);
             --nav-bg: rgba(10,46,31,0.95);
             --shadow: none;
             --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
+            --input-bg: rgba(255,255,255,0.05);
+            --input-color: #d4af37;
+            --option-bg: #0a2e1f;
         }
 
-        /* ====== ПРАВИЛЬНАЯ АВТОТЕМА ДЛЯ SAFARI iOS ====== */
-        /* Базовая тема по умолчанию (темная) */
+        /* === СВЕТЛАЯ ТЕМА (системная) === */
+        @media (prefers-color-scheme: light) {
+            :root:not([data-theme="dark"]) {
+                --bg-color: #F9F7F2;
+                --text-color: #0a2e1f;
+                --card-bg: #ffffff;
+                --border-color: #d4af37;
+                --nav-bg: rgba(249, 247, 242, 0.95);
+                --shadow: 0 10px 30px rgba(10, 46, 31, 0.08);
+                --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1);
+                --input-bg: #f0ede4;
+                --input-color: #b08d1a;
+                --option-bg: #ffffff;
+            }
+        }
+
+        /* === РУЧНАЯ СВЕТЛАЯ ТЕМА === */
+        :root[data-theme="light"] {
+            --bg-color: #F9F7F2;
+            --text-color: #0a2e1f;
+            --card-bg: #ffffff;
+            --border-color: #d4af37;
+            --nav-bg: rgba(249, 247, 242, 0.95);
+            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08);
+            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1);
+            --input-bg: #f0ede4;
+            --input-color: #b08d1a;
+            --option-bg: #ffffff;
+        }
+
+        /* === РУЧНАЯ ТЕМНАЯ ТЕМА === */
+        :root[data-theme="dark"] {
+            --bg-color: #0a2e1f;
+            --text-color: #ffffff;
+            --card-bg: rgba(255,255,255,0.06);
+            --border-color: rgba(212,175,55,0.5);
+            --nav-bg: rgba(10,46,31,0.95);
+            --shadow: none;
+            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
+            --input-bg: rgba(255,255,255,0.05);
+            --input-color: #d4af37;
+            --option-bg: #0a2e1f;
+        }
+
+        /* === БАЗОВЫЕ СТИЛИ === */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             text-align: center;
+            transition: background-color 0.4s ease, color 0.4s ease;
             overflow-x: hidden;
             min-height: 100vh;
-            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        /* Автоопределение светлой темы системы */
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg-color: var(--light-bg);
-                --text-color: var(--light-text);
-                --card-bg: #ffffff;
-                --border-color: var(--gold);
-                --nav-bg: rgba(249, 247, 242, 0.95);
-                --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1);
-                --shadow: 0 10px 30px rgba(10, 46, 31, 0.08);
-            }
-            
-            /* Принудительное применение для Safari */
-            body:not(.theme-manual) {
-                background-color: var(--light-bg) !important;
-                color: var(--light-text) !important;
-            }
+        #totalPrice, .total-currency, #l-total { 
+            color: var(--gold) !important; 
         }
 
-        /* Ручная светлая тема */
-        body.theme-light {
-            --bg-color: var(--light-bg);
-            --text-color: var(--light-text);
-            --card-bg: #ffffff;
-            --border-color: var(--gold);
-            --nav-bg: rgba(249, 247, 242, 0.95);
-            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1);
-            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08);
-            
-            background-color: var(--light-bg) !important;
-            color: var(--light-text) !important;
+        #netPrice, #netPrice + .total-currency { 
+            color: #2ecc71 !important; 
+            font-weight: 800;
         }
 
-        /* Ручная темная тема */
-        body.theme-dark {
-            --bg-color: var(--dark-green);
-            --text-color: var(--white);
-            --card-bg: rgba(255,255,255,0.06);
-            --border-color: rgba(212,175,55,0.5);
-            --nav-bg: rgba(10,46,31,0.95);
-            --shadow: none;
-            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
-            
-            background-color: var(--dark-green) !important;
-            color: var(--white) !important;
+        #how, #services, #faq, #zone { 
+            scroll-margin-top: 130px; 
         }
 
-        /* Применение CSS переменных для всех элементов */
-        .nav-container,
-        .generic-card,
-        .footer,
-        #musicPlayer,
-        .autoplay-box {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.5s ease, color 0.5s ease;
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: all 0.6s ease-out; 
+        }
+        
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
         }
 
-        /* ====== ОСТАЛЬНЫЕ СТИЛИ ====== */
-        #how, #services, #faq, #zone { scroll-margin-top: 130px; }
-        html { scroll-behavior: smooth; }
-
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        .nav-container {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--nav-bg);
-            padding: 10px 0;
-            border-bottom: 2px solid var(--gold);
-            box-shadow: var(--gold-glow);
-            backdrop-filter: blur(10px);
+        /* === НАВИГАЦИЯ === */
+        .nav-container { 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            background: var(--nav-bg); 
+            padding: 10px 0; 
+            border-bottom: 2px solid var(--gold); 
+            box-shadow: var(--gold-glow); 
+            backdrop-filter: blur(10px); 
             -webkit-backdrop-filter: blur(10px);
+            transition: background-color 0.4s ease, border-color 0.4s ease; 
         }
 
-        .lang-btn {
-            background: transparent;
-            border: 1.5px solid var(--gold);
-            color: var(--gold);
-            padding: 5px 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            margin: 0 2px;
-            transition: 0.3s;
+        .lang-btn { 
+            background: transparent; 
+            border: 1.5px solid var(--gold); 
+            color: var(--gold); 
+            padding: 5px 10px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            margin: 0 2px; 
+            transition: 0.3s; 
         }
-        .lang-btn:hover, .lang-btn.active {
-            background: var(--gold);
-            color: white;
-        }
-
-        .nav-pills {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
-            flex-wrap: wrap;
+        
+        .lang-btn:hover, .lang-btn.active { 
+            background: var(--gold); 
+            color: white; 
         }
 
-        .nav-pill {
-            background: rgba(212,175,55,0.1);
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 5px 10px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            transition: 0.3s;
+        .nav-pills { 
+            display: flex; 
+            justify-content: center; 
+            gap: 8px; 
+            margin-top: 10px; 
+            flex-wrap: wrap; 
         }
-        .nav-pill:hover {
-            background: var(--gold);
-            color: white;
+        
+        .nav-pill { 
+            background: rgba(212,175,55,0.1); 
+            border: 1px solid var(--gold); 
+            color: var(--gold); 
+            padding: 5px 10px; 
+            border-radius: 20px; 
+            text-decoration: none; 
+            font-size: 0.7rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            transition: 0.3s; 
         }
-
-        .main-logo {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            margin: 20px auto;
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-            display: block;
-            transition: 0.4s;
-        }
-        .main-logo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+        
+        .nav-pill:hover { 
+            background: var(--gold); 
+            color: white; 
         }
 
-        #display-name {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 1.3rem;
+        /* === ЛОГО === */
+        .main-logo { 
+            width: 140px; 
+            height: 140px; 
+            border-radius: 50%; 
+            margin: 20px auto; 
+            border: 3px solid var(--gold); 
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); 
+            display: block; 
+            transition: 0.4s; 
+        }
+        
+        .main-logo:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); 
+        }
+
+        #display-name { 
+            color: var(--gold); 
+            font-weight: 700; 
+            font-size: 1.3rem; 
             font-family: 'Montserrat', sans-serif;
         }
 
-        .messenger-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            max-width: 380px;
-            margin: 20px auto;
-            padding: 0 15px;
+        /* === КНОПКИ МЕССЕНДЖЕРОВ === */
+        .messenger-wrapper { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            max-width: 380px; 
+            margin: 20px auto; 
+            padding: 0 15px; 
+        }
+        
+        .msg-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px 5px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            color: white !important; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            border: none; 
+            transition: 0.3s; 
+            cursor: pointer; 
+        }
+        
+        .msg-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); 
+            filter: brightness(1.1); 
         }
 
-        .msg-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 5px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: white !important;
-            font-weight: 700;
-            font-size: 0.85rem;
-            border: none;
-            transition: 0.3s;
-            cursor: pointer;
+        .wa-btn { 
+            grid-column: span 2; 
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
         }
-        .msg-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-            filter: brightness(1.1);
+        
+        .tg-btn { 
+            background: linear-gradient(135deg, #0088cc 0%, #005580 100%); 
         }
-
-        .wa-btn { grid-column: span 2; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
-        .tg-btn { background: linear-gradient(135deg, #0088cc 0%, #005580 100%); }
-        .call-btn { background: linear-gradient(135deg, #d4af37 0%, #a6892c 100%); }
-        .mail-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .save-btn { background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); }
-        .share-btn { grid-column: span 2; background: #333; border: 1px solid var(--gold); }
-
-        .payment-methods {
-            grid-column: span 2;
-            margin-top: 5px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--gold);
+        
+        .call-btn { 
+            background: linear-gradient(135deg, #d4af37 0%, #a6892c 100%); 
+        }
+        
+        .mail-btn { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+        }
+        
+        .save-btn { 
+            background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); 
+        }
+        
+        .share-btn { 
+            grid-column: span 2; 
+            background: #333; 
+            border: 1px solid var(--gold); 
         }
 
-        .universal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 20px auto 40px;
-            padding: 0 20px;
-            align-items: stretch;
+        .payment-methods { 
+            grid-column: span 2; 
+            margin-top: 5px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            color: var(--gold); 
         }
 
-        .generic-card {
-            background: var(--card-bg);
-            border: 1.5px solid var(--border-color);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: left;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
+        /* === КАРТОЧКИ === */
+        .universal-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            max-width: 1200px; 
+            margin: 20px auto 40px; 
+            padding: 0 20px; 
+            align-items: stretch; 
+        }
+        
+        .generic-card { 
+            background: var(--card-bg); 
+            border: 1.5px solid var(--border-color); 
+            border-radius: 20px; 
+            padding: 25px; 
+            text-align: left; 
+            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; 
+            display: flex; 
+            flex-direction: column; 
             box-shadow: var(--shadow);
         }
-
-        .generic-card h2 {
-            color: var(--gold);
-            margin-top: 0;
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+        
+        .generic-card h2 { 
+            color: var(--gold); 
+            margin-top: 0; 
+            border-bottom: 1px solid var(--gold); 
+            padding-bottom: 10px; 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.5rem; 
         }
 
-        .calc-row select, .calc-row input {
-            padding: 12px;
-            border-radius: 8px;
-            border: 2px solid var(--gold);
-            background: rgba(255,255,255,0.05);
-            color: var(--gold) !important;
-            font-weight: 800;
-            width: 100%;
-            font-size: 1.1rem;
-            outline: none;
+        /* === КАЛЬКУЛЯТОР === */
+        .calc-row select, .calc-row input { 
+            padding: 12px; 
+            border-radius: 8px; 
+            border: 2px solid var(--gold); 
+            background: var(--input-bg); 
+            color: var(--input-color) !important; 
+            font-weight: 800; 
+            width: 100%; 
+            font-size: 1.1rem; 
+            outline: none; 
             box-sizing: border-box;
             transition: 0.3s;
-            appearance: none;
+            appearance: none; 
             -webkit-appearance: none;
         }
-
-        .calc-row select option {
-            background: var(--bg-color);
-            color: var(--gold);
+        
+        .calc-row select option { 
+            background: var(--option-bg); 
+            color: var(--gold); 
         }
 
         .calc-row select:focus, .calc-row input:focus {
@@ -293,159 +330,101 @@
             border-color: var(--gold-light);
         }
 
-        .theme-toggle {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 1100;
-            background: var(--gold);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        /* === КНОПКИ === */
+        .theme-toggle { 
+            position: fixed; 
+            top: 15px; 
+            right: 15px; 
+            z-index: 1100; 
+            background: var(--gold); 
+            border: none; 
+            color: white; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
             font-size: 1.2rem;
         }
 
-        #backToTop {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: var(--gold);
-            color: white;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            display: none;
-            z-index: 2000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            font-size: 1.5rem;
-            align-items: center;
-            justify-content: center;
+        #backToTop { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            width: 45px; 
+            height: 45px; 
+            background: var(--gold); 
+            color: white; 
+            border-radius: 50%; 
+            border: none; 
+            cursor: pointer; 
+            display: none; 
+            z-index: 2000; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+            font-size: 1.5rem; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        
+        .price-tag { 
+            font-weight: 700; 
+            color: var(--gold); 
+            margin-top: auto; 
+            border-top: 1px dashed var(--border-color); 
+            padding-top: 10px; 
+            font-size: 0.9rem; 
+        }
+        
+        /* === FAQ === */
+        .faq-item { 
+            text-align: left; 
+            border-bottom: 1px solid var(--border-color); 
+            padding: 18px 0; 
+            cursor: pointer; 
+        }
+        
+        .faq-q { 
+            font-weight: 700; 
+            color: var(--gold); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        
+        .faq-a { 
+            font-size: 0.95rem; 
+            margin-top: 12px; 
+            display: none; 
+            line-height: 1.6; 
+            color: var(--text-color); 
+        }
+        
+        /* === ФУТЕР === */
+        .footer { 
+            padding: 60px 20px; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 40px; 
+            background: rgba(212, 175, 55, 0.03); 
+        }
+        
+        .footer-name { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.2rem; 
+            color: var(--gold); 
+            margin-bottom: 10px; 
+            display: block; 
+        }
+        
+        .gold-text { 
+            color: var(--gold) !important; 
+            font-weight: 700; 
+            margin: 5px 0; 
         }
 
-        .price-tag {
-            font-weight: 700;
-            color: var(--gold);
-            margin-top: auto;
-            border-top: 1px dashed var(--border-color);
-            padding-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        .faq-item {
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            padding: 18px 0;
-            cursor: pointer;
-        }
-
-        .faq-q {
-            font-weight: 700;
-            color: var(--gold);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-a {
-            font-size: 0.95rem;
-            margin-top: 12px;
-            display: none;
-            line-height: 1.6;
-            color: var(--text-color);
-        }
-
-        .footer {
-            padding: 60px 20px;
-            border-top: 1px solid var(--border-color);
-            margin-top: 40px;
-            background: rgba(10, 46, 31, 0.03);
-        }
-
-        .footer-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--gold);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .gold-text {
-            color: var(--gold) !important;
-            font-weight: 700;
-            margin: 5px 0;
-        }
-
-        /* ====== МОДАЛЬНОЕ ОКНО АВТОВОСПРОИЗВЕДЕНИЯ ====== */
-        #autoplayModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .autoplay-box {
-            background: var(--card-bg);
-            border: 2px solid var(--gold);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: var(--gold-glow);
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .autoplay-box h3 {
-            color: var(--gold);
-            margin-bottom: 15px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-        }
-
-        .autoplay-box p {
-            color: var(--text-color);
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .autoplay-btn {
-            background: var(--gold);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin: 5px;
-        }
-
-        .autoplay-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        /* ====== МУЗЫКАЛЬНЫЙ ПЛЕЕР ====== */
+        /* === МУЗЫКАЛЬНЫЙ ПЛЕЕР === */
         #musicPlayer {
             position: fixed;
             bottom: 80px;
@@ -461,7 +440,7 @@
             box-shadow: var(--gold-glow);
             min-width: 180px;
         }
-
+        
         #musicBtn {
             position: fixed;
             bottom: 20px;
@@ -479,15 +458,25 @@
             justify-content: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             font-size: 1.3rem;
+            animation: pulse 2s infinite;
         }
 
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        #musicBtn.playing {
+            animation: none;
+        }
+        
         .music-control {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 10px;
         }
-
+        
         #musicToggle {
             background: var(--gold);
             border: none;
@@ -501,26 +490,26 @@
             cursor: pointer;
             font-size: 1rem;
         }
-
+        
         #musicStatus {
             color: var(--gold);
             font-size: 0.8rem;
             font-weight: 600;
         }
-
+        
         .volume-control {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
+        
         .track-buttons {
             margin-top: 8px;
             display: flex;
             gap: 5px;
             justify-content: center;
         }
-
+        
         .track-btn {
             background: rgba(212,175,55,0.2);
             border: 1px solid var(--gold);
@@ -529,78 +518,53 @@
             padding: 4px 8px;
             font-size: 0.7rem;
             cursor: pointer;
+            transition: 0.3s;
         }
-
+        
         .track-btn.active {
             background: var(--gold);
             color: white;
         }
 
-        /* Цвета цен */
-        #totalPrice, .total-currency, #l-total {
-            color: var(--gold) !important;
+        /* === ФИКС ДЛЯ SAFARI === */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                -webkit-tap-highlight-color: transparent;
+            }
         }
 
-        #netPrice, #netPrice + .total-currency {
-            color: #2ecc71 !important;
-            font-weight: 800;
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .theme-toggle {
-                top: 10px;
-                right: 10px;
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
+        /* === АДАПТИВ === */
+        @media (max-width: 480px) {
+            .main-logo {
+                width: 120px;
+                height: 120px;
             }
             
-            #musicPlayer {
-                left: 10px;
-                right: 10px;
-                bottom: 70px;
-                min-width: auto;
+            .nav-pills {
+                gap: 5px;
             }
             
+            .nav-pill {
+                padding: 4px 8px;
+                font-size: 0.65rem;
+            }
+            
+            .universal-grid {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
+
             #musicBtn {
-                left: 10px;
-                bottom: 15px;
-            }
-            
-            .autoplay-box {
-                padding: 20px;
-                margin: 10px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Модальное окно автовоспроизведения -->
-    <div id="autoplayModal">
-        <div class="autoplay-box">
-            <h3 id="autoplayTitle">🎵 Музыка на сайте</h3>
-            <p id="autoplayText">Для включения музыки разрешите автовоспроизведение в вашем браузере.</p>
-            <p style="font-size: 0.9rem; opacity: 0.8;">Музыка создаёт приятную атмосферу при просмотре сайта.</p>
-            <div style="margin-top: 20px;">
-                <button class="autoplay-btn" onclick="enableMusicAndClose()" id="autoplayEnable">
-                    <span>✅ Включить музыку</span>
-                </button>
-                <button class="autoplay-btn" onclick="closeAutoplayModal()" style="background: transparent; border: 1px solid var(--gold); color: var(--gold);">
-                    <span>🚫 Пропустить</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">🌙</button>
-    <button id="backToTop" onclick="scrollToTop()">↑</button>
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+    <button id="backToTop" onclick="scrollToTop()" title="Retour en haut">↑</button>
 
     <div class="nav-container">
         <button class="lang-btn" id="btn-fr" onclick="changeLang('fr')">FR</button>
@@ -682,7 +646,7 @@
     <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
         <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881265759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881260759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
     </div>
@@ -700,7 +664,7 @@
     <div id="musicPlayer">
         <div class="music-control">
             <button onclick="toggleMusic()" id="musicToggle">▶️</button>
-            <span id="musicStatus">Musique désactivée</span>
+            <span id="musicStatus">Musique off</span>
         </div>
         
         <div class="volume-control">
@@ -710,15 +674,16 @@
         </div>
         
         <div class="track-buttons">
-            <button onclick="changeTrack('chill')" class="track-btn active" id="trackChill">Лофай</button>
-            <button onclick="changeTrack('ambient')" class="track-btn" id="trackAmbient">Амбиент</button>
-            <button onclick="changeTrack('corporate')" class="track-btn" id="trackCorporate">Фон</button>
+            <button onclick="changeTrack('chill')" class="track-btn active" id="trackChill">Lofi</button>
+            <button onclick="changeTrack('ambient')" class="track-btn" id="trackAmbient">Ambient</button>
+            <button onclick="changeTrack('corporate')" class="track-btn" id="trackCorporate">Focus</button>
         </div>
     </div>
 
     <button id="musicBtn" onclick="toggleMusicPanel()">🎵</button>
 
     <script>
+        // ===== ПЕРЕВОДЫ =====
         const translations = {
             fr: {
                 n_home: "Accueil",
@@ -744,14 +709,10 @@
                     {q: "Comment fonctionne le remboursement ?", a: "J'émets une facture SAP officielle. L'État vous rembourse 50% via crédit d'impôt lors de votre déclaration annuelle."},
                     {q: "Quels sont les moyens de paiement ?", a: "J'accepte les espèces, les virements, les chèques et les chèques CESU."}
                 ],
-                msg: "Bonjour Paul ! 👋\n\nJe vous contacte via votre site car j'aurais besoin d'un devis pour le service suivant :\n— ",
+                msg: "Bonjour Paul! Je vous contacte via votre site pour un devis: ",
                 wa_sim: "Simulation",
-                music_on: "Musique activée",
-                music_off: "Musique désactivée",
-                autoplay_title: "🎵 Musique sur le site",
-                autoplay_text: "Pour activer la musique, autorisez l'autoplay dans votre navigateur.",
-                autoplay_enable: "✅ Activer la musique",
-                autoplay_skip: "🚫 Passer"
+                music_on: "Musique ON",
+                music_off: "Musique OFF"
             },
             ru: {
                 n_home: "Главная",
@@ -777,14 +738,10 @@
                     {q: "Как работает возврат?", a: "Я выдаю официальную фактуру SAP. Государство возвращает вам 50% суммы при подаче ежегодной декларации."},
                     {q: "Как можно оплатить услуги?", a: "Наличные, банковский перевод, чеки или чеки CESU."}
                 ],
-                msg: "Здравствуйте, Павел! 👋\n\nЯ зашел(а) на ваш сайт и хотел бы уточнить стоимость работ по следующему вопросу:\n— ",
+                msg: "Здравствуйте, Павел! Хочу уточнить стоимость: ",
                 wa_sim: "Расчет",
-                music_on: "Музыка вкл.",
-                music_off: "Музыка выкл.",
-                autoplay_title: "🎵 Музыка на сайте",
-                autoplay_text: "Для включения музыки разрешите автовоспроизведение в вашем браузере.",
-                autoplay_enable: "✅ Включить музыку",
-                autoplay_skip: "🚫 Пропустить"
+                music_on: "Музыка ON",
+                music_off: "Музыка OFF"
             },
             ua: {
                 n_home: "Головна",
@@ -810,14 +767,10 @@
                     {q: "Як працює повернення коштів?", a: "Я видаю офіційну фактуру SAP. Держава повертає вам 50% суми під час подання щорічної декларації."},
                     {q: "Які є способи оплати?", a: "Готівка, банківський переказ, чеки або чеки CESU."}
                 ],
-                msg: "Доброго дня, Павло! 👋\n\nЯ зайшов(-ла) на ваш сайт, мене цікавить вартість робіт:\n— ",
+                msg: "Доброго дня, Павло! Цікавить вартість робіт: ",
                 wa_sim: "Розрахунок",
-                music_on: "Музика вкл.",
-                music_off: "Музика викл.",
-                autoplay_title: "🎵 Музика на сайті",
-                autoplay_text: "Для включення музики дозвольте автовідтворення у вашому браузері.",
-                autoplay_enable: "✅ Увімкнути музику",
-                autoplay_skip: "🚫 Пропустити"
+                music_on: "Музика ON",
+                music_off: "Музика OFF"
             },
             en: {
                 n_home: "Home",
@@ -843,265 +796,173 @@
                     {q: "How does the refund work?", a: "I issue a SAP invoice, and the state refunds you 50% via tax credit on your annual return."},
                     {q: "Payment methods?", a: "Cash, bank transfer, bank cheques, and CESU."}
                 ],
-                msg: "Hello Paul! 👋\n\nI found your website and I would like to get a quote for:\n— ",
-                wa_sim: "Simulation",
-                music_on: "Music on",
-                music_off: "Music off",
-                autoplay_title: "🎵 Music on site",
-                autoplay_text: "To enable music, allow autoplay in your browser.",
-                autoplay_enable: "✅ Enable music",
-                autoplay_skip: "🚫 Skip"
+                msg: "Hello Paul! I need a quote for: ",
+                wa_sim: "Quote",
+                music_on: "Music ON",
+                music_off: "Music OFF"
             }
         };
 
-        // ===== ИСПРАВЛЕННАЯ СИСТЕМА ТЕМ =====
+        // ===== ТЕМА =====
         const themeBtn = document.getElementById('theme-btn');
-        const systemThemeQuery = window.matchMedia('(prefers-color-scheme: light)');
+        const html = document.documentElement;
         
+        function getSystemTheme() {
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+
         function initTheme() {
-            const savedTheme = localStorage.getItem('user-theme');
+            const savedTheme = localStorage.getItem('theme');
             
             if (savedTheme === 'light' || savedTheme === 'dark') {
-                // Пользователь выбрал тему вручную
-                document.body.classList.add('theme-manual', `theme-${savedTheme}`);
+                html.setAttribute('data-theme', savedTheme);
                 updateThemeButton(savedTheme);
             } else {
-                // Автоопределение системной темы
-                document.body.classList.remove('theme-manual', 'theme-light', 'theme-dark');
-                
-                if (systemThemeQuery.matches) {
-                    // Светлая тема системы
-                    document.body.classList.add('theme-light');
-                    updateThemeButton('light');
-                } else {
-                    // Темная тема системы
-                    document.body.classList.add('theme-dark');
-                    updateThemeButton('dark');
-                }
+                const systemTheme = getSystemTheme();
+                html.removeAttribute('data-theme');
+                updateThemeButton(systemTheme);
             }
-            
-            // Форсированное обновление для Safari
-            forceThemeUpdate();
         }
 
         function toggleTheme() {
+            const currentTheme = html.getAttribute('data-theme');
             let newTheme;
             
-            if (document.body.classList.contains('theme-manual')) {
-                // Переключаем ручную тему
-                if (document.body.classList.contains('theme-light')) {
-                    newTheme = 'dark';
-                } else {
-                    newTheme = 'light';
-                }
+            if (!currentTheme) {
+                newTheme = getSystemTheme() === 'dark' ? 'light' : 'dark';
             } else {
-                // Переключаем с автотемы
-                if (systemThemeQuery.matches) {
-                    newTheme = 'dark'; // Была светлая авто, делаем темную ручную
-                } else {
-                    newTheme = 'light'; // Была темная авто, делаем светлую ручную
-                }
+                newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             }
             
-            // Сохраняем выбор пользователя
-            localStorage.setItem('user-theme', newTheme);
-            document.body.classList.add('theme-manual', `theme-${newTheme}`);
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
             updateThemeButton(newTheme);
-            forceThemeUpdate();
         }
 
         function updateThemeButton(theme) {
             themeBtn.innerText = theme === 'dark' ? '☀️' : '🌙';
         }
 
-        function forceThemeUpdate() {
-            // Принудительное обновление для Safari iOS
-            if (/(iPhone|iPad|iPod)/i.test(navigator.userAgent)) {
-                const isLight = document.body.classList.contains('theme-light');
-                document.body.style.backgroundColor = isLight ? '#F9F7F2' : '#0a2e1f';
-                document.body.style.color = isLight ? '#0a2e1f' : '#ffffff';
-                
-                // Обновляем все карточки
-                document.querySelectorAll('.generic-card, .nav-container, .footer').forEach(el => {
-                    el.style.backgroundColor = isLight ? '#ffffff' : 'rgba(255,255,255,0.06)';
-                    el.style.color = isLight ? '#0a2e1f' : '#ffffff';
-                });
-            }
-        }
-
-        // Слушатель изменения системной темы
-        systemThemeQuery.addEventListener('change', (e) => {
-            // Меняем только если пользователь не выбрал тему вручную
-            if (!localStorage.getItem('user-theme')) {
-                document.body.classList.remove('theme-manual', 'theme-light', 'theme-dark');
-                
-                if (e.matches) {
-                    document.body.classList.add('theme-light');
-                    updateThemeButton('light');
-                } else {
-                    document.body.classList.add('theme-dark');
-                    updateThemeButton('dark');
-                }
-                
-                forceThemeUpdate();
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                updateThemeButton(e.matches ? 'light' : 'dark');
             }
         });
 
-        // ===== СИСТЕМА МУЗЫКИ =====
+        // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР (исправленный) =====
         const musicTracks = {
-            chill: 'https://assets.mixkit.co/music/preview/mixkit-chill-abstract-loop-309.mp3',
-            ambient: 'https://assets.mixkit.co/music/preview/mixkit-ambient-simple-loop-305.mp3',
-            corporate: 'https://assets.mixkit.co/music/preview/mixkit-corporate-motivation-330.mp3'
+            chill: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112778.mp3',
+            ambient: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=ambient-piano-amp-strings-10711.mp3',
+            corporate: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=corporate-technology-11273.mp3'
         };
 
-        const bgMusic = new Audio();
-        bgMusic.loop = true;
-        bgMusic.volume = 0.3;
-
+        let bgMusic = null;
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
         let currentTrack = 'chill';
-        let autoplayModalShown = false;
+        let musicInitialized = false;
 
-        function showAutoplayModal() {
-            const modal = document.getElementById('autoplayModal');
-            const lang = getCurrentLang();
-            const t = translations[lang] || translations.fr;
+        function initAudio() {
+            if (musicInitialized) return;
             
-            if (modal && !autoplayModalShown) {
-                document.getElementById('autoplayTitle').textContent = t.autoplay_title;
-                document.getElementById('autoplayText').textContent = t.autoplay_text;
-                document.getElementById('autoplayEnable').querySelector('span').textContent = t.autoplay_enable;
-                
-                modal.style.display = 'flex';
-                autoplayModalShown = true;
-            }
-        }
-
-        function closeAutoplayModal() {
-            const modal = document.getElementById('autoplayModal');
-            if (modal) {
-                modal.style.display = 'none';
-                localStorage.setItem('autoplayModalShown', 'true');
-            }
-        }
-
-        function enableMusicAndClose() {
-            closeAutoplayModal();
-            setTimeout(() => {
-                toggleMusic();
-            }, 300);
+            bgMusic = new Audio(musicTracks[currentTrack]);
+            bgMusic.loop = true;
+            bgMusic.volume = 0.3;
+            musicInitialized = true;
         }
 
         function toggleMusicPanel() {
             const panel = document.getElementById('musicPlayer');
             isMusicPanelVisible = !isMusicPanelVisible;
             panel.style.display = isMusicPanelVisible ? 'block' : 'none';
+            
+            // Инициализируем аудио при первом открытии плеера
+            if (!musicInitialized) {
+                initAudio();
+            }
         }
 
         function toggleMusic() {
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
             
-            if (!bgMusic.src) {
-                bgMusic.src = musicTracks[currentTrack];
+            if (!musicInitialized) {
+                initAudio();
             }
             
             if (!isMusicPlaying) {
-                const playPromise = bgMusic.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isMusicPlaying = true;
-                        document.getElementById('musicToggle').innerHTML = '⏸️';
-                        document.getElementById('musicStatus').textContent = t.music_on;
-                        localStorage.setItem('musicEnabled', 'true');
-                    }).catch(error => {
-                        console.log('Автовоспроизведение заблокировано:', error);
-                        showAutoplayModal();
-                    });
-                }
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    document.getElementById('musicToggle').innerHTML = '⏸️';
+                    document.getElementById('musicStatus').textContent = t.music_on;
+                    document.getElementById('musicBtn').classList.add('playing');
+                    localStorage.setItem('musicEnabled', 'true');
+                }).catch(error => {
+                    console.log('Playback error:', error);
+                });
             } else {
                 bgMusic.pause();
                 isMusicPlaying = false;
                 document.getElementById('musicToggle').innerHTML = '▶️';
                 document.getElementById('musicStatus').textContent = t.music_off;
+                document.getElementById('musicBtn').classList.remove('playing');
                 localStorage.setItem('musicEnabled', 'false');
             }
         }
 
         function changeVolume(value) {
-            bgMusic.volume = parseFloat(value);
+            if (bgMusic) {
+                bgMusic.volume = parseFloat(value);
+            }
             localStorage.setItem('musicVolume', value);
         }
 
         function changeTrack(track) {
-            if (isMusicPlaying) {
-                bgMusic.pause();
-            }
+            const wasPlaying = isMusicPlaying;
             
             currentTrack = track;
-            bgMusic.src = musicTracks[track];
+            
+            if (bgMusic) {
+                if (wasPlaying) {
+                    bgMusic.pause();
+                }
+                bgMusic.src = musicTracks[track];
+            }
             
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('track' + track.charAt(0).toUpperCase() + track.slice(1)).classList.add('active');
             
             localStorage.setItem('musicTrack', track);
             
-            if (isMusicPlaying) {
-                bgMusic.play().catch(e => {
-                    console.log('Ошибка воспроизведения:', e);
-                    showAutoplayModal();
-                });
+            if (wasPlaying && bgMusic) {
+                bgMusic.play().catch(e => console.log('Error:', e));
             }
         }
 
         function loadMusicSettings() {
-            const enabled = localStorage.getItem('musicEnabled');
             const volume = localStorage.getItem('musicVolume');
             const track = localStorage.getItem('musicTrack');
-            const modalShown = localStorage.getItem('autoplayModalShown');
             
             if (volume) {
-                bgMusic.volume = parseFloat(volume);
+                if (bgMusic) bgMusic.volume = parseFloat(volume);
                 document.getElementById('volumeControl').value = volume;
             }
             
             if (track && musicTracks[track]) {
-                changeTrack(track);
-            } else {
-                bgMusic.src = musicTracks.chill;
-            }
-            
-            autoplayModalShown = modalShown === 'true';
-            
-            // Обновляем статус музыки на текущем языке
-            const lang = getCurrentLang();
-            const t = translations[lang] || translations.fr;
-            document.getElementById('musicStatus').textContent = t.music_off;
-            
-            if (enabled === 'true') {
-                setTimeout(() => {
-                    const playPromise = bgMusic.play();
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            isMusicPlaying = true;
-                            document.getElementById('musicToggle').innerHTML = '⏸️';
-                            document.getElementById('musicStatus').textContent = t.music_on;
-                        }).catch(error => {
-                            console.log('Автовоспроизведение заблокировано при загрузке:', error);
-                        });
-                    }
-                }, 1000);
+                currentTrack = track;
+                document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
+                document.getElementById('track' + track.charAt(0).toUpperCase() + track.slice(1)).classList.add('active');
             }
         }
 
         // Автопауза при скрытии вкладки
         document.addEventListener('visibilitychange', function() {
-            if (document.hidden && isMusicPlaying) {
-                bgMusic.pause();
-            } else if (!document.hidden && isMusicPlaying) {
-                bgMusic.play().catch(e => console.log('Ошибка:', e));
+            if (bgMusic) {
+                if (document.hidden && isMusicPlaying) {
+                    bgMusic.pause();
+                } else if (!document.hidden && isMusicPlaying) {
+                    bgMusic.play().catch(e => console.log('Error:', e));
+                }
             }
         });
 
@@ -1127,81 +988,65 @@
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
             
-            // Обновляем все тексты
-            const elements = {
-                'nav-home': t.n_home,
-                'display-name': t.name,
-                'f-name': t.name,
-                'sap-info': t.sap,
-                'footer-zone-text': t.h_zone,
-                'n-how': t.n_how,
-                'n-serv': t.n_serv,
-                'n-faq': t.n_faq,
-                'n-zone': t.n_zone,
-                'l-call': t.l_call,
-                'l-mail': t.l_mail,
-                'l-save': t.l_save,
-                'l-share': t.l_share,
-                'l-route': t.l_route,
-                'l-pay': t.l_pay,
-                'l-total': t.l_total,
-                'how-title': t.how_t,
-                'serv-calc-title': t.sc_t,
-                'h1-t': t.h1t,
-                'h1-d': t.h1d,
-                'h2-t': t.h2t,
-                'h2-d': t.h2d,
-                'h3-t': t.h3t,
-                'h3-d': t.h3d,
-                'it-t': t.it_t,
-                'it-l': t.it_l,
-                'it-p': t.it_p,
-                'br-t': t.br_t,
-                'br-l': t.br_l,
-                'br-p': t.br_p,
-                'c-t': t.ct,
-                'c-net': t.cnet,
-                'o-wd': t.owd,
-                'o-sat': t.osat,
-                'o-sun': t.osun,
-                'f-t': t.ft,
-                'z-t': t.zt,
-                'z-desc': t.zd
-            };
-
-            for (const [id, text] of Object.entries(elements)) {
-                const element = document.getElementById(id);
-                if (element) {
-                    if (id.includes('-l') || id.includes('-p')) {
-                        element.innerHTML = text;
-                    } else {
-                        element.innerText = text;
-                    }
-                }
-            }
-
-            // Обновляем кнопки языков
             document.querySelectorAll('.lang-btn').forEach(b => {
                 b.classList.toggle('active', b.id === 'btn-' + lang);
             });
-
-            // Обновляем FAQ
-            const faqBox = document.getElementById('faq-container');
-            faqBox.innerHTML = '';
-            t.faq.forEach(item => {
-                const faqEntry = `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
-                faqBox.innerHTML += faqEntry;
-            });
-
-            // Обновляем статус музыки
-            if (document.getElementById('musicStatus')) {
-                document.getElementById('musicStatus').textContent = isMusicPlaying ? t.music_on : t.music_off;
+            
+            document.getElementById('nav-home').innerText = t.n_home;
+            document.getElementById('display-name').innerText = t.name;
+            document.getElementById('f-name').innerText = t.name;
+            document.getElementById('sap-info').innerText = t.sap;
+            document.getElementById('footer-zone-text').innerText = t.h_zone;
+            document.getElementById('n-how').innerText = t.n_how;
+            document.getElementById('n-serv').innerText = t.n_serv;
+            document.getElementById('n-faq').innerText = t.n_faq;
+            document.getElementById('n-zone').innerText = t.n_zone;
+            document.getElementById('l-call').innerText = t.l_call;
+            document.getElementById('l-mail').innerText = t.l_mail;
+            document.getElementById('l-save').innerText = t.l_save;
+            document.getElementById('l-share').innerText = t.l_share;
+            document.getElementById('l-route').innerText = t.l_route;
+            document.getElementById('l-pay').innerText = t.l_pay;
+            document.getElementById('l-total').innerText = t.l_total;
+            document.getElementById('how-title').innerText = t.how_t;
+            document.getElementById('serv-calc-title').innerText = t.sc_t;
+            document.getElementById('h1-t').innerText = t.h1t; 
+            document.getElementById('h1-d').innerText = t.h1d;
+            document.getElementById('h2-t').innerText = t.h2t; 
+            document.getElementById('h2-d').innerText = t.h2d;
+            document.getElementById('h3-t').innerText = t.h3t; 
+            document.getElementById('h3-d').innerText = t.h3d;
+            document.getElementById('it-t').innerText = t.it_t; 
+            document.getElementById('it-l').innerHTML = t.it_l; 
+            document.getElementById('it-p').innerHTML = t.it_p;
+            document.getElementById('br-t').innerText = t.br_t; 
+            document.getElementById('br-l').innerHTML = t.br_l; 
+            document.getElementById('br-p').innerHTML = t.br_p;
+            document.getElementById('c-t').innerText = t.ct; 
+            document.getElementById('c-net').innerText = t.cnet;
+            document.getElementById('o-wd').innerText = t.owd; 
+            document.getElementById('o-sat').innerText = t.osat; 
+            document.getElementById('o-sun').innerText = t.osun;
+            document.getElementById('f-t').innerText = t.ft; 
+            document.getElementById('z-t').innerText = t.zt; 
+            document.getElementById('z-desc').innerText = t.zd;
+            
+            const musicStatus = document.getElementById('musicStatus');
+            if (musicStatus) {
+                musicStatus.textContent = isMusicPlaying ? t.music_on : t.music_off;
             }
-
+            
+            const faqBox = document.getElementById('faq-container'); 
+            faqBox.innerHTML = '';
+            t.faq.forEach(item => { 
+                const faqEntry = `<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">${item.q} <span>+</span></div><div class="faq-a">${item.a}</div></div>`;
+                faqBox.innerHTML += faqEntry; 
+            });
+            
             updateCalc();
         }
-
-        function updateCalc() {
+        
+        function updateCalc() { 
             const hoursInput = document.getElementById('hoursInput');
             const daySelect = document.getElementById('daySelect');
             const totalEl = document.getElementById('totalPrice');
@@ -1209,114 +1054,104 @@
 
             if (!hoursInput || !daySelect || !totalEl || !netEl) return;
 
-            const h = Math.max(1, parseInt(hoursInput.value) || 1);
-            const m = parseFloat(daySelect.value);
-            const calculatedTotal = (50 + (h - 1) * 40) * m;
-
-            totalEl.innerText = calculatedTotal;
-            netEl.innerText = calculatedTotal / 2;
+            const h = Math.max(1, parseInt(hoursInput.value) || 1); 
+            const m = parseFloat(daySelect.value); 
+            const calculatedTotal = (50 + (h - 1) * 40) * m; 
+            
+            totalEl.innerText = calculatedTotal; 
+            netEl.innerText = calculatedTotal / 2; 
         }
 
-        function toggleFaq(el) {
-            const a = el.querySelector('.faq-a');
-            const s = el.querySelector('span');
-            const isOpen = a.style.display === 'block';
-            a.style.display = isOpen ? 'none' : 'block';
-            s.innerText = isOpen ? '+' : '−';
+        function toggleFaq(el) { 
+            const a = el.querySelector('.faq-a'); 
+            const s = el.querySelector('span'); 
+            const isOpen = a.style.display === 'block'; 
+            a.style.display = isOpen ? 'none' : 'block'; 
+            s.innerText = isOpen ? '+' : '−'; 
         }
 
+        // ===== WHATSAPP (исправленный) =====
         function sendToWhatsApp(event) {
             event.preventDefault();
-            const h = Math.max(1, document.getElementById('hoursInput').value);
+            
+            const h = Math.max(1, parseInt(document.getElementById('hoursInput').value) || 1);
             const total = document.getElementById('totalPrice').innerText;
-            const activeBtn = document.querySelector('.lang-btn.active');
-            const lang = activeBtn ? activeBtn.id.replace('btn-', '') : 'fr';
-
+            const lang = getCurrentLang();
             const t = translations[lang];
+            
             const daySelect = document.getElementById('daySelect');
             const dayText = daySelect.options[daySelect.selectedIndex].text;
-            const simWord = t.wa_sim || "Simulation";
-
-            const text = t.msg + "\n" + "(" + simWord + ": " + h + "h, " + dayText + " = " + total + "€)";
-            window.location.href = "https://wa.me/33745625007?text=" + encodeURIComponent(text);
+            
+            // Упрощенное сообщение без спецсимволов
+            const message = t.msg + t.wa_sim + ': ' + h + 'h, ' + dayText + ' = ' + total + 'EUR';
+            
+            // Используем api.whatsapp.com вместо wa.me для лучшей совместимости
+            const phone = '33745625007';
+            const url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + encodeURIComponent(message);
+            
+            // Открываем в новой вкладке
+            window.open(url, '_blank');
         }
-
-        function scrollToTop() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
+        
+        function scrollToTop() { 
+            window.scrollTo({top: 0, behavior: 'smooth'}); 
         }
 
         window.onscroll = function() {
             const upBtn = document.getElementById("backToTop");
             const scrolled = document.body.scrollTop > 300 || document.documentElement.scrollTop > 300;
-            if (scrolled) {
-                upBtn.style.display = "flex";
-            } else {
-                upBtn.style.display = "none";
-            }
+            upBtn.style.display = scrolled ? "flex" : "none";
         };
 
-        function copyEmail() {
-            navigator.clipboard.writeText("contact@paulmultiservice.fr");
-            alert("Email copié !");
+        function copyEmail() { 
+            navigator.clipboard.writeText("contact@paulmultiservice.fr"); 
+            alert("Email copié !"); 
         }
-
-        function shareSite() {
-            if (navigator.share) {
-                navigator.share({title: 'Paul Service', url: location.href});
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Lien du site copié !");
+        
+        function shareSite() { 
+            if (navigator.share) { 
+                navigator.share({title:'Paul Service', url:location.href}); 
+            } else { 
+                navigator.clipboard.writeText(window.location.href); 
+                alert("Lien du site copié !"); 
             }
         }
 
-        function downloadVCard() {
-            const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD";
-            const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"});
-            const vUrl = window.URL.createObjectURL(blob);
-            const downloadLink = document.createElement("a");
-            downloadLink.href = vUrl;
-            downloadLink.download = "Paul_Artisan.vcf";
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            setTimeout(() => {
-                document.body.removeChild(downloadLink);
-                window.URL.revokeObjectURL(vUrl);
+        function downloadVCard() { 
+            const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
+            const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"}); 
+            const vUrl = window.URL.createObjectURL(blob); 
+            const downloadLink = document.createElement("a"); 
+            downloadLink.href = vUrl; 
+            downloadLink.download = "Paul_Artisan.vcf"; 
+            document.body.appendChild(downloadLink); 
+            downloadLink.click(); 
+            setTimeout(() => { 
+                document.body.removeChild(downloadLink); 
+                window.URL.revokeObjectURL(vUrl); 
             }, 200);
         }
-
-        function revealSections() {
-            const reveals = document.querySelectorAll(".reveal");
+        
+        function revealSections() { 
+            const reveals = document.querySelectorAll(".reveal"); 
             const h = window.innerHeight;
-            for (let i = 0; i < reveals.length; i++) {
-                const top = reveals[i].getBoundingClientRect().top;
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
                 if (top < h - 100) {
-                    reveals[i].classList.add("active");
+                    el.classList.add("active"); 
                 }
-            }
+            });
         }
-
+        
         window.addEventListener("scroll", revealSections);
-
+        
         // Запуск при загрузке
-        window.onload = () => {
-            initTheme();
-            changeLang('fr');
-            revealSections();
+        window.addEventListener('DOMContentLoaded', () => { 
+            initTheme(); 
+            changeLang('fr'); 
+            revealSections(); 
             loadMusicSettings();
-            
-            // Показываем модалку автовоспроизведения при первом клике
-            document.addEventListener('click', function initMusicOnClick() {
-                const enabled = localStorage.getItem('musicEnabled');
-                if (enabled === 'true' && !isMusicPlaying) {
-                    setTimeout(() => {
-                        if (!isMusicPlaying && !autoplayModalShown) {
-                            showAutoplayModal();
-                        }
-                    }, 500);
-                }
-                document.removeEventListener('click', initMusicOnClick);
-            }, { once: true });
-        };
+        });
     </script>
 </body>
 </html>
