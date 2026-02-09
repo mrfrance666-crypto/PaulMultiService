@@ -552,6 +552,67 @@
             color: white;
         }
 
+        /* === НОВЫЕ УЛУЧШЕНИЯ === */
+        /* 1. Анимации иконок */
+        @keyframes gentle-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.05); }
+        }
+        .wa-btn .msg-icon, .call-btn .msg-icon {
+            animation: gentle-pulse 2s infinite ease-in-out;
+        }
+
+        /* Анимация для кнопки музыки при воспроизведении */
+        #musicBtn.playing i {
+            animation: spin 4s infinite linear;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 3. Стили для красивых уведомлений */
+        #custom-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: var(--gold-glow);
+            z-index: 9999;
+            transform: translateX(150%);
+            transition: transform 0.4s ease-out;
+            font-weight: 600;
+            max-width: 300px;
+        }
+        #custom-notification.show {
+            transform: translateX(0);
+        }
+
+        /* 5. Эффект волны при клике */
+        .wave-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: wave 0.5s ease-out;
+            pointer-events: none;
+        }
+        @keyframes wave {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Улучшение для кнопок */
+        .msg-btn, button, .nav-pill, .lang-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
         /* === ФИКС ДЛЯ SAFARI === */
         @supports (-webkit-touch-callout: none) {
             body {
@@ -599,6 +660,13 @@
                 height: 45px;
                 font-size: 1.1rem;
             }
+            
+            #custom-notification {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
         }
         
         @media (max-width: 380px) {
@@ -613,6 +681,33 @@
             }
         }
     </style>
+    
+    <!-- РАННИЙ СКРИПТ ДЛЯ SAFARI (выполняется сразу) -->
+    <script>
+        // СРАЗУ устанавливаем тему для Safari
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                
+                let theme = 'dark';
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    theme = savedTheme;
+                } else {
+                    theme = systemPrefersDark ? 'dark' : 'light';
+                }
+                
+                document.documentElement.setAttribute('data-theme', theme);
+                
+                const meta = document.querySelector('meta[name="theme-color"]');
+                if (meta) {
+                    meta.content = theme === 'dark' ? '#0a2e1f' : '#F9F7F2';
+                }
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
 </head>
 <body>
     <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Changer de thème">🌙</button>
@@ -648,15 +743,15 @@
             <i class="msg-icon fab fa-telegram-plane"></i>
             <span id="tg-text">Telegram</span>
         </a>
-        <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call">
+        <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call" onclick="trackClick('phone')">
             <i class="msg-icon fas fa-phone-alt"></i>
             <span id="call-text"></span>
         </a>
-        <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail">
+        <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail" onclick="trackClick('email')">
             <i class="msg-icon fas fa-envelope"></i>
             <span id="mail-text"></span>
         </button>
-        <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save">
+        <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save" onclick="trackClick('save_contact')">
             <i class="msg-icon fas fa-save"></i>
             <span id="save-text"></span>
         </button>
@@ -753,10 +848,11 @@
         </div>
     </div>
 
-    <button id="musicBtn" onclick="toggleMusicPanel()">🎵</button>
+    <button id="musicBtn" onclick="toggleMusicPanel()"><i class="fas fa-music"></i></button>
 
+    <!-- ОСНОВНОЙ СКРИПТ -->
     <script>
-        // ===== ПЕРЕВОДЫ =====
+        // ===== ПЕРЕВОДЫ (полностью сохранены) =====
         const translations = {
             fr: {
                 n_home: "Accueil",
@@ -896,49 +992,9 @@
             }
         };
 
-        // ===== ТЕМА - JS-only для Safari iOS =====
+        // ===== УЛУЧШЕННАЯ ТЕМА ДЛЯ SAFARI =====
         const themeBtn = document.getElementById('theme-btn');
         const html = document.documentElement;
-
-        function getSystemTheme() {
-            try {
-                const isLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-                const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                console.log('[Theme] System prefers - light:', isLight, 'dark:', isDark);
-                return isLight ? 'light' : 'dark';
-            } catch (e) {
-                console.log('[Theme] Error detecting system theme:', e);
-                return 'dark';
-            }
-        }
-
-        function initTheme() {
-            try {
-                const savedTheme = localStorage.getItem('theme');
-                console.log('[Theme] Saved theme:', savedTheme);
-
-                if (savedTheme === 'light' || savedTheme === 'dark') {
-                    // Ручная тема
-                    console.log('[Theme] Applying manual theme:', savedTheme);
-                    html.setAttribute('data-theme', savedTheme);
-                    updateThemeButton(savedTheme);
-                    updateMetaThemeColor(savedTheme);
-                } else {
-                    // Системная тема - ВСЕГДА устанавливаем data-theme
-                    const systemTheme = getSystemTheme();
-                    console.log('[Theme] Applying system theme:', systemTheme);
-                    html.setAttribute('data-theme', systemTheme);
-                    updateThemeButton(systemTheme);
-                    updateMetaThemeColor(systemTheme);
-                }
-            } catch (e) {
-                console.log('[Theme] Error in initTheme:', e);
-                const systemTheme = getSystemTheme();
-                html.setAttribute('data-theme', systemTheme);
-                updateThemeButton(systemTheme);
-                updateMetaThemeColor(systemTheme);
-            }
-        }
 
         function toggleTheme() {
             const currentTheme = html.getAttribute('data-theme') || 'dark';
@@ -965,124 +1021,71 @@
             }
         }
 
-        // Обработчик изменения системной темы
-        function handleThemeChange(e) {
-            console.log('[Theme] System theme changed event:', e);
-            try {
-                const savedTheme = localStorage.getItem('theme');
-                console.log('[Theme] Saved theme on change:', savedTheme);
-                if (!savedTheme) {
-                    const systemTheme = getSystemTheme();
-                    console.log('[Theme] Updating to system theme:', systemTheme);
-                    html.setAttribute('data-theme', systemTheme);
-                    updateThemeButton(systemTheme);
-                    updateMetaThemeColor(systemTheme);
-                } else {
-                    console.log('[Theme] Manual theme set, ignoring system change');
-                }
-            } catch (err) {
-                console.log('[Theme] Error in handleThemeChange:', err);
-                const systemTheme = getSystemTheme();
-                html.setAttribute('data-theme', systemTheme);
-                updateThemeButton(systemTheme);
-                updateMetaThemeColor(systemTheme);
-            }
-        }
-
-        // Регистрируем обработчик
-        try {
-            const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-            if (mediaQuery.addEventListener) {
-                mediaQuery.addEventListener('change', handleThemeChange);
-            } else if (mediaQuery.addListener) {
-                mediaQuery.addListener(handleThemeChange);
-            }
-        } catch (e) {}
-
-        // Проверка при возврате на вкладку
-        document.addEventListener('visibilitychange', function() {
-            console.log('[Theme] Visibility changed, hidden:', document.hidden);
-            if (!document.hidden) {
-                try {
-                    const savedTheme = localStorage.getItem('theme');
-                    console.log('[Theme] On visibility change, saved theme:', savedTheme);
-                    if (!savedTheme) {
-                        const systemTheme = getSystemTheme();
-                        console.log('[Theme] Updating theme on visibility change:', systemTheme);
-                        html.setAttribute('data-theme', systemTheme);
-                        updateThemeButton(systemTheme);
-                        updateMetaThemeColor(systemTheme);
-                    }
-                } catch (e) {
-                    console.log('[Theme] Error in visibilitychange:', e);
-                }
-            }
-        });
-
-        // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР (исправленный) =====
-        const musicTracks = {
-            chill: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112778.mp3',
-            ambient: 'https://cdn.pixabay.com/download/audio/2024/10/17/audio_74b9006f8c.mp3?filename=calm-piano-inspiring-251916.mp3',
-            corporate: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=corporate-technology-11273.mp3'
-        };
-
+        // ===== УМНАЯ МУЗЫКА (автовоспроизведение по умолчанию) =====
         let bgMusic = null;
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
         let currentTrack = 'chill';
-        let musicInitialized = false;
-        let autoPlayAttempted = false;
 
         function initAudio() {
-            if (musicInitialized) return;
+            if (bgMusic) return;
             
             try {
+                const musicTracks = {
+                    chill: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112778.mp3',
+                    ambient: 'https://cdn.pixabay.com/download/audio/2024/10/17/audio_74b9006f8c.mp3?filename=calm-piano-inspiring-251916.mp3',
+                    corporate: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=corporate-technology-11273.mp3'
+                };
+                
                 bgMusic = new Audio(musicTracks[currentTrack]);
                 bgMusic.loop = true;
-                bgMusic.volume = 0.05; // Уменьшена громкость по умолчанию (5%)
-                musicInitialized = true;
-                console.log('[Music] Audio initialized, volume:', bgMusic.volume);
+                bgMusic.volume = 0.05;
+                bgMusic.preload = 'auto';
+                
+                console.log('[Music] Audio initialized');
             } catch (e) {
-                console.log('[Music] Audio initialization error:', e);
+                console.error('[Music] Initialization error:', e);
             }
         }
 
-        // Автовоспроизведение при загрузке
+        // Автовоспроизведение для новых пользователей
         function attemptAutoPlay() {
-            if (autoPlayAttempted) return;
-            autoPlayAttempted = true;
-            
-            // Проверяем, не выключил ли пользователь музыку ранее
-            try {
-                const musicEnabled = localStorage.getItem('musicEnabled');
-                if (musicEnabled === 'false') {
-                    console.log('[Music] Auto-play skipped: user disabled music previously');
-                    return;
-                }
-            } catch (e) {}
-            
-            console.log('[Music] Attempting auto-play...');
-            
-            if (!musicInitialized) {
-                initAudio();
+            // Проверяем, выключал ли пользователь музыку ранее
+            const musicDisabled = localStorage.getItem('musicDisabled') === 'true';
+            if (musicDisabled) {
+                console.log('[Music] Auto-play skipped: user disabled music');
+                return;
             }
             
+            if (!bgMusic) initAudio();
             if (!bgMusic) return;
             
-            // Пробуем воспроизвести
-            bgMusic.play().then(() => {
-                console.log('[Music] Auto-play successful');
-                isMusicPlaying = true;
-                updateMusicUI(true);
-                try {
-                    localStorage.setItem('musicEnabled', 'true');
-                } catch (e) {}
-            }).catch(error => {
-                console.log('[Music] Auto-play blocked by browser:', error.message);
-                // Браузер заблокировал - пользователь может включить вручную
-                isMusicPlaying = false;
-                updateMusicUI(false);
-            });
+            // Пытаемся воспроизвести сразу
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('[Music] Auto-play successful');
+                    isMusicPlaying = true;
+                    updateMusicUI(true);
+                    document.getElementById('musicBtn')?.classList.add('playing');
+                }).catch(error => {
+                    console.log('[Music] Auto-play blocked:', error);
+                    // Планируем повторную попытку при первом клике
+                    document.addEventListener('click', retryAutoPlayOnce, { once: true });
+                });
+            }
+        }
+
+        // Повторная попытка при первом клике
+        function retryAutoPlayOnce() {
+            if (!isMusicPlaying && bgMusic) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    updateMusicUI(true);
+                    document.getElementById('musicBtn')?.classList.add('playing');
+                }).catch(e => console.log('[Music] Retry failed:', e));
+            }
         }
 
         function updateMusicUI(playing) {
@@ -1110,28 +1113,24 @@
             isMusicPanelVisible = !isMusicPanelVisible;
             panel.style.display = isMusicPanelVisible ? 'block' : 'none';
             
-            // Инициализируем аудио при первом открытии плеера
-            if (!musicInitialized) {
+            if (!bgMusic) {
                 initAudio();
             }
         }
 
         function toggleMusic() {
-            if (!musicInitialized) {
+            if (!bgMusic) {
                 initAudio();
             }
             
-            if (!bgMusic) {
-                console.log('[Music] Audio not initialized');
-                return;
-            }
+            if (!bgMusic) return;
             
             if (!isMusicPlaying) {
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
                     updateMusicUI(true);
                     try {
-                        localStorage.setItem('musicEnabled', 'true');
+                        localStorage.setItem('musicDisabled', 'false');
                     } catch (e) {}
                 }).catch(error => {
                     console.log('[Music] Playback error:', error);
@@ -1141,14 +1140,13 @@
                 isMusicPlaying = false;
                 updateMusicUI(false);
                 try {
-                    localStorage.setItem('musicEnabled', 'false');
+                    localStorage.setItem('musicDisabled', 'true');
                 } catch (e) {}
             }
         }
 
         function changeVolume(value) {
-            // Инициализируем аудио если нужно
-            if (!musicInitialized) {
+            if (!bgMusic) {
                 initAudio();
             }
             if (bgMusic) {
@@ -1163,8 +1161,7 @@
             const wasPlaying = isMusicPlaying;
             currentTrack = track;
             
-            // Инициализируем аудио если нужно
-            if (!musicInitialized) {
+            if (!bgMusic) {
                 initAudio();
             }
             
@@ -1190,23 +1187,19 @@
             const volume = localStorage.getItem('musicVolume');
             const track = localStorage.getItem('musicTrack');
 
-            // Устанавливаем значение ползунка громкости (по умолчанию 0.05 = 5%)
             const volumeControl = document.getElementById('volumeControl');
             if (volumeControl) {
                 volumeControl.value = volume || 0.05;
             }
 
-            // Устанавливаем текущий трек (без инициализации аудио)
             if (track && musicTracks[track]) {
                 currentTrack = track;
             }
             
-            // Обновляем UI кнопок треков
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
             const trackBtn = document.getElementById('track' + currentTrack.charAt(0).toUpperCase() + currentTrack.slice(1));
             if (trackBtn) trackBtn.classList.add('active');
 
-            // Update track button labels with current language
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
             const trackChill = document.getElementById('trackChill');
@@ -1216,8 +1209,8 @@
             if (trackAmbient) trackAmbient.textContent = t.track_ambient;
             if (trackCorporate) trackCorporate.textContent = t.track_corporate;
             
-            // Пробуем автовоспроизведение
-            attemptAutoPlay();
+            // Запускаем автовоспроизведение
+            setTimeout(attemptAutoPlay, 1000);
         }
 
         // Автопауза при скрытии вкладки
@@ -1231,36 +1224,67 @@
             }
         });
 
-        // Попытка воспроизведения при первом взаимодействии (если автовоспроизведение было заблокировано)
-        let firstInteractionHandler = function() {
-            console.log('[Music] First interaction detected');
-            if (!isMusicPlaying && !autoPlayAttempted) {
-                attemptAutoPlay();
+        // ===== КРАСИВЫЕ УВЕДОМЛЕНИЯ =====
+        function showNotification(message, duration = 3000) {
+            let notification = document.getElementById('custom-notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'custom-notification';
+                document.body.appendChild(notification);
             }
-            // Удаляем обработчики после первого взаимодействия
-            document.removeEventListener('click', firstInteractionHandler);
-            document.removeEventListener('touchstart', firstInteractionHandler);
-            document.removeEventListener('scroll', firstInteractionHandler);
-        };
-        
-        document.addEventListener('click', firstInteractionHandler);
-        document.addEventListener('touchstart', firstInteractionHandler);
-        document.addEventListener('scroll', firstInteractionHandler);
-
-        // Закрытие плеера при клике вне его
-        document.addEventListener('click', function(event) {
-            const panel = document.getElementById('musicPlayer');
-            const btn = document.getElementById('musicBtn');
             
-            if (panel && btn && panel.style.display === 'block' && 
-                !panel.contains(event.target) && 
-                !btn.contains(event.target)) {
-                panel.style.display = 'none';
-                isMusicPanelVisible = false;
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, duration);
+        }
+
+        // ===== ЭФФЕКТ ВОЛНЫ ПРИ КЛИКЕ =====
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('button, .msg-btn, .nav-pill, .lang-btn, .faq-item')) {
+                const target = e.target;
+                const rect = target.getBoundingClientRect();
+                
+                const wave = document.createElement('span');
+                wave.classList.add('wave-effect');
+                wave.style.width = Math.max(rect.width, rect.height) + 'px';
+                wave.style.height = wave.style.width;
+                wave.style.left = e.clientX - rect.left - parseInt(wave.style.width)/2 + 'px';
+                wave.style.top = e.clientY - rect.top - parseInt(wave.style.height)/2 + 'px';
+                
+                target.appendChild(wave);
+                
+                setTimeout(() => {
+                    if (wave.parentNode) {
+                        wave.parentNode.removeChild(wave);
+                    }
+                }, 500);
             }
         });
 
-        // ===== ОСНОВНЫЕ ФУНКЦИИ =====
+        // ===== СЧЕТЧИК КЛИКОВ =====
+        function trackClick(buttonName) {
+            // Для Google Analytics (если подключен)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'click', {
+                    'event_category': 'Button',
+                    'event_label': buttonName,
+                    'value': 1
+                });
+            }
+            
+            // Локальное сохранение статистики
+            try {
+                const stats = JSON.parse(localStorage.getItem('button_stats') || '{}');
+                stats[buttonName] = (stats[buttonName] || 0) + 1;
+                localStorage.setItem('button_stats', JSON.stringify(stats));
+                console.log(`[Stats] ${buttonName}: ${stats[buttonName]} clicks`);
+            } catch (e) {}
+        }
+
+        // ===== ОСНОВНЫЕ ФУНКЦИИ (полностью сохранены) =====
         function getCurrentLang() {
             try {
                 const activeBtn = document.querySelector('.lang-btn.active');
@@ -1277,10 +1301,8 @@
                 b.classList.toggle('active', b.id === 'btn-' + lang);
             });
             
-            // Обновляем HTML lang атрибут
             document.documentElement.lang = lang === 'ua' ? 'uk' : lang;
             
-            // Helper function для безопасного обновления элементов
             const setText = (id, text) => {
                 const el = document.getElementById(id);
                 if (el) el.innerText = text;
@@ -1300,14 +1322,12 @@
             setText('n-faq', t.n_faq);
             setText('n-zone', t.n_zone);
             
-            // Обновление текста кнопок с иконками
             setText('call-text', t.l_call);
             setText('mail-text', t.l_mail);
             setText('save-text', t.l_save);
             setText('share-text', t.l_share);
             setText('route-text', t.l_route);
             
-            // Обновление текста для WhatsApp и Telegram (если есть в переводе)
             if (t.wa_text) setText('wa-text', t.wa_text);
             if (t.tg_text) setText('tg-text', t.tg_text);
             
@@ -1341,7 +1361,6 @@
                 musicStatus.textContent = isMusicPlaying ? t.music_on : t.music_off;
             }
 
-            // Update track button labels
             const trackChill = document.getElementById('trackChill');
             const trackAmbient = document.getElementById('trackAmbient');
             const trackCorporate = document.getElementById('trackCorporate');
@@ -1389,9 +1408,9 @@
             s.innerText = isOpen ? '+' : '−'; 
         }
 
-        // ===== WHATSAPP (исправленный) =====
         function sendToWhatsApp(event) {
             if (event) event.preventDefault();
+            trackClick('whatsapp');
             
             const hoursInput = document.getElementById('hoursInput');
             const totalEl = document.getElementById('totalPrice');
@@ -1407,14 +1426,11 @@
             const dayText = daySelect.options[daySelect.selectedIndex] ? 
                 daySelect.options[daySelect.selectedIndex].text : '';
             
-            // Упрощенное сообщение без спецсимволов
             const message = (t.msg || 'Hello! ') + (t.wa_sim || 'Quote') + ': ' + h + 'h, ' + dayText + ' = ' + total + 'EUR';
             
-            // Используем api.whatsapp.com для лучшей совместимости
             const phone = '33745625007';
             const url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + encodeURIComponent(message);
             
-            // Открываем в новой вкладке
             window.open(url, '_blank');
         }
         
@@ -1422,7 +1438,6 @@
             try {
                 window.scrollTo({top: 0, behavior: 'smooth'}); 
             } catch (e) {
-                // Fallback для старых браузеров
                 window.scrollTo(0, 0);
             }
         }
@@ -1437,62 +1452,51 @@
 
         function copyEmail() { 
             const email = "contact@paulmultiservice.fr";
+            trackClick('copy_email');
+            
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(email).then(() => {
-                    alert("Email copié !");
+                    showNotification("✅ Email copié dans le presse-papiers !");
                 }).catch(() => {
-                    // Fallback для старых браузеров
                     const textarea = document.createElement('textarea');
                     textarea.value = email;
                     document.body.appendChild(textarea);
                     textarea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textarea);
-                    alert("Email copié !");
+                    showNotification("✅ Email copié !");
                 });
             } else {
-                // Fallback для старых браузеров
                 const textarea = document.createElement('textarea');
                 textarea.value = email;
                 document.body.appendChild(textarea);
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                alert("Email copié !");
+                showNotification("✅ Email copié !");
             }
         }
         
         function shareSite() { 
+            trackClick('share_site');
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
             
             if (navigator.share) { 
-                navigator.share({title:'Paul Service', url:location.href}).catch(() => {
-                    // Пользователь отменил sharing
-                }); 
-            } else if (navigator.clipboard && navigator.clipboard.writeText) { 
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    alert(lang === 'fr' ? "Lien du site copié !" : 
-                         lang === 'ru' ? "Ссылка скопирована!" :
-                         lang === 'ua' ? "Посилання скопійовано!" : "Link copied!");
-                }).catch(() => {
-                    alert("Error copying link");
-                }); 
+                navigator.share({
+                    title: 'Paul Multiservice',
+                    text: 'Découvrez les services de Paul - Artisan Multiservice',
+                    url: window.location.href
+                }).catch(() => {}); 
             } else {
-                // Fallback
-                const textarea = document.createElement('textarea');
-                textarea.value = window.location.href;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert(lang === 'fr' ? "Lien du site copié !" : 
-                     lang === 'ru' ? "Ссылка скопирована!" :
-                     lang === 'ua' ? "Посилання скопійовано!" : "Link copied!");
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    showNotification("✅ Lien du site copié !");
+                });
             }
         }
 
         function downloadVCard() { 
+            trackClick('download_vcard');
             try {
                 const cardData = "BEGIN:VCARD\nVERSION:3.0\nFN:Paul Multiservice\nTEL:+33745625007\nEMAIL:contact@paulmultiservice.fr\nURL:https://paulmultiservice.fr\nEND:VCARD"; 
                 const blob = new Blob([cardData], {type: "text/vcard;charset=utf-8"}); 
@@ -1508,9 +1512,11 @@
                     }
                     window.URL.revokeObjectURL(vUrl); 
                 }, 200);
+                
+                showNotification("✅ Contact sauvegardé !");
             } catch (e) {
                 console.error('Error downloading vCard:', e);
-                alert('Error saving contact. Please try again.');
+                showNotification("❌ Erreur lors de la sauvegarde");
             }
         }
         
@@ -1530,10 +1536,19 @@
         // Запуск при загрузке
         window.addEventListener('DOMContentLoaded', () => { 
             try {
-                initTheme(); 
+                // Тема уже установлена ранним скриптом
+                updateThemeButton(document.documentElement.getAttribute('data-theme') || 'dark');
                 changeLang('fr'); 
                 revealSections(); 
                 loadMusicSettings();
+                
+                // Добавляем обработчики для отслеживания кликов
+                document.querySelectorAll('.wa-btn, .call-btn, .mail-btn, .save-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const buttonName = this.id || this.textContent.trim().substring(0, 20);
+                        trackClick(buttonName);
+                    });
+                });
             } catch (e) {
                 console.error('Initialization error:', e);
             }
