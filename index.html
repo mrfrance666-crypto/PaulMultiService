@@ -17,6 +17,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* === ФИКС ДЛЯ SAFARI iOS - принудительное применение color-scheme === */
+        html {
+            color-scheme: light dark;
+        }
+
         /* === БАЗОВЫЕ ПЕРЕМЕННЫЕ (Темная тема по умолчанию) === */
         :root {
             --dark-green: #0a2e1f;
@@ -55,30 +60,30 @@
 
         /* === РУЧНАЯ СВЕТЛАЯ ТЕМА === */
         :root[data-theme="light"] {
-            --bg-color: #F9F7F2;
-            --text-color: #0a2e1f;
-            --card-bg: #ffffff;
-            --border-color: #d4af37;
-            --nav-bg: rgba(249, 247, 242, 0.95);
-            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08);
-            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1);
-            --input-bg: #f0ede4;
-            --input-color: #b08d1a;
-            --option-bg: #ffffff;
+            --bg-color: #F9F7F2 !important;
+            --text-color: #0a2e1f !important;
+            --card-bg: #ffffff !important;
+            --border-color: #d4af37 !important;
+            --nav-bg: rgba(249, 247, 242, 0.95) !important;
+            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08) !important;
+            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1) !important;
+            --input-bg: #f0ede4 !important;
+            --input-color: #b08d1a !important;
+            --option-bg: #ffffff !important;
         }
 
         /* === РУЧНАЯ ТЕМНАЯ ТЕМА === */
         :root[data-theme="dark"] {
-            --bg-color: #0a2e1f;
-            --text-color: #ffffff;
-            --card-bg: rgba(255,255,255,0.06);
-            --border-color: rgba(212,175,55,0.5);
-            --nav-bg: rgba(10,46,31,0.95);
-            --shadow: none;
-            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
-            --input-bg: rgba(255,255,255,0.05);
-            --input-color: #d4af37;
-            --option-bg: #0a2e1f;
+            --bg-color: #0a2e1f !important;
+            --text-color: #ffffff !important;
+            --card-bg: rgba(255,255,255,0.06) !important;
+            --border-color: rgba(212,175,55,0.5) !important;
+            --nav-bg: rgba(10,46,31,0.95) !important;
+            --shadow: none !important;
+            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4) !important;
+            --input-bg: rgba(255,255,255,0.05) !important;
+            --input-color: #d4af37 !important;
+            --option-bg: #0a2e1f !important;
         }
 
         /* === БАЗОВЫЕ СТИЛИ === */
@@ -816,31 +821,41 @@
             }
         };
 
-        // ===== ТЕМА =====
+        // ===== ТЕМА - УЛУЧШЕННАЯ ВЕРСИЯ ДЛЯ SAFARI iOS =====
         const themeBtn = document.getElementById('theme-btn');
         const html = document.documentElement;
-        
+
         function getSystemTheme() {
             try {
-                return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                // Проверяем оба media query для надежности
+                if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    return 'light';
+                }
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return 'dark';
+                }
+                // Fallback - проверяем по времени суток
+                const hour = new Date().getHours();
+                return (hour >= 6 && hour < 18) ? 'light' : 'dark';
             } catch (e) {
-                return 'dark'; // Fallback
+                return 'dark';
             }
         }
 
         function initTheme() {
             try {
                 const savedTheme = localStorage.getItem('theme');
-                
+
                 if (savedTheme === 'light' || savedTheme === 'dark') {
+                    // Пользователь выбрал тему вручную
                     html.setAttribute('data-theme', savedTheme);
                     updateThemeButton(savedTheme);
+                    updateMetaThemeColor(savedTheme);
                 } else {
                     // Нет сохраненной темы - используем системную
                     applySystemTheme();
                 }
             } catch (e) {
-                // Fallback если localStorage недоступен
                 applySystemTheme();
             }
         }
@@ -848,13 +863,17 @@
         function toggleTheme() {
             const currentTheme = html.getAttribute('data-theme');
             let newTheme;
-            
-            if (!currentTheme) {
-                newTheme = getSystemTheme() === 'dark' ? 'light' : 'dark';
-            } else {
-                newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            // Определяем текущую тему
+            let effectiveTheme = 'dark';
+            if (currentTheme === 'light') {
+                effectiveTheme = 'light';
+            } else if (!currentTheme) {
+                effectiveTheme = getSystemTheme();
             }
-            
+
+            newTheme = effectiveTheme === 'dark' ? 'light' : 'dark';
+
             html.setAttribute('data-theme', newTheme);
             try {
                 localStorage.setItem('theme', newTheme);
@@ -862,74 +881,107 @@
                 console.log('localStorage not available');
             }
             updateThemeButton(newTheme);
+            updateMetaThemeColor(newTheme);
+            forceStyleUpdate();
         }
 
         function updateThemeButton(theme) {
             if (themeBtn) {
                 themeBtn.innerText = theme === 'dark' ? '☀️' : '🌙';
             }
-            // Update theme-color meta tag for mobile browsers
+        }
+
+        function updateMetaThemeColor(theme) {
             const themeColorMeta = document.getElementById('theme-color');
             if (themeColorMeta) {
-                themeColorMeta.content = theme === 'dark' ? '#0a2e1f' : '#F9F7F2';
+                const isDark = theme === 'dark';
+                themeColorMeta.content = isDark ? '#0a2e1f' : '#F9F7F2';
             }
         }
 
-        // Функция применения системной темы
+        // Функция применения системной темы - УЛУЧШЕННАЯ
         function applySystemTheme() {
             const systemTheme = getSystemTheme();
+
+            // Удаляем data-theme чтобы сработал CSS media query
             html.removeAttribute('data-theme');
+
+            // Принудительно обновляем meta theme-color
+            updateMetaThemeColor(systemTheme);
             updateThemeButton(systemTheme);
-            // Обновляем meta theme-color
-            const themeColorMeta = document.getElementById('theme-color');
-            if (themeColorMeta) {
-                themeColorMeta.content = systemTheme === 'dark' ? '#0a2e1f' : '#F9F7F2';
-            }
-            // Принудительное обновление стилей для Safari
+
+            // Принудительное обновление стилей для Safari iOS
             forceStyleUpdate();
+
+            // Дополнительное обновление через requestAnimationFrame
+            requestAnimationFrame(() => {
+                forceStyleUpdate();
+            });
         }
-        
-        // Принудительное обновление CSS для Safari
+
+        // Принудительное обновление CSS для Safari - УЛУЧШЕННОЕ
         function forceStyleUpdate() {
             const body = document.body;
             if (body) {
+                // Метод 1: display toggle
                 const originalDisplay = body.style.display;
                 body.style.display = 'none';
-                // Trigger reflow
                 void body.offsetHeight;
                 body.style.display = originalDisplay || '';
+
+                // Метод 2: force repaint через transform
+                body.style.transform = 'translateZ(0)';
+                setTimeout(() => {
+                    body.style.transform = '';
+                }, 0);
             }
         }
 
-        // Обработчик изменения системной темы с поддержкой Safari
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-        
+        // Обработчик изменения системной темы - УЛУЧШЕННЫЙ
         function handleThemeChange(e) {
             try {
-                // Если нет сохраненной темы, применяем системную
                 const savedTheme = localStorage.getItem('theme');
                 if (!savedTheme) {
+                    // Пользователь не выбирал тему вручную - применяем системную
                     applySystemTheme();
                 }
             } catch (err) {
                 applySystemTheme();
             }
         }
-        
-        // Используем addListener для старых версий Safari, addEventListener для новых
-        if (mediaQuery.addEventListener) {
-            mediaQuery.addEventListener('change', handleThemeChange);
-        } else if (mediaQuery.addListener) {
-            mediaQuery.addListener(handleThemeChange);
-        }
-        
-        // Дополнительный обработчик для prefers-color-scheme: dark (для полноты)
+
+        // Регистрируем обработчики для обоих media query
+        const lightMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
         const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        if (darkMediaQuery.addEventListener) {
-            darkMediaQuery.addEventListener('change', handleThemeChange);
-        } else if (darkMediaQuery.addListener) {
-            darkMediaQuery.addListener(handleThemeChange);
+
+        // Используем addListener для старых версий Safari
+        try {
+            if (lightMediaQuery.addEventListener) {
+                lightMediaQuery.addEventListener('change', handleThemeChange);
+            } else if (lightMediaQuery.addListener) {
+                lightMediaQuery.addListener(handleThemeChange);
+            }
+
+            if (darkMediaQuery.addEventListener) {
+                darkMediaQuery.addEventListener('change', handleThemeChange);
+            } else if (darkMediaQuery.addListener) {
+                darkMediaQuery.addListener(handleThemeChange);
+            }
+        } catch (e) {
+            console.log('Media query listeners not supported');
         }
+
+        // Дополнительная проверка темы при видимости страницы (для Safari)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                try {
+                    const savedTheme = localStorage.getitem('theme');
+                    if (!savedTheme) {
+                        applySystemTheme();
+                    }
+                } catch (e) {}
+            }
+        });
 
         // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР (исправленный) =====
         const musicTracks = {
