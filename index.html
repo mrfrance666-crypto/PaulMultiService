@@ -15,21 +15,21 @@
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* === ФИКС ДЛЯ SAFARI iOS - принудительное применение color-scheme === */
-        html {
-            color-scheme: light dark;
-        }
-
-        /* === БАЗОВЫЕ ПЕРЕМЕННЫЕ (Темная тема по умолчанию) === */
+        /* === ТЕМЫ - JS-only подход для Safari iOS === */
         :root {
             --dark-green: #0a2e1f;
             --gold: #d4af37;
             --gold-light: #f4d06f;
             --white: #ffffff;
-            
-            /* Темная тема по умолчанию */
+        }
+
+        /* Темная тема (по умолчанию) */
+        :root,
+        :root[data-theme="dark"] {
             --bg-color: #0a2e1f;
             --text-color: #ffffff;
             --card-bg: rgba(255,255,255,0.06);
@@ -42,48 +42,18 @@
             --option-bg: #0a2e1f;
         }
 
-        /* === СВЕТЛАЯ ТЕМА (системная) === */
-        @media (prefers-color-scheme: light) {
-            :root:not([data-theme="dark"]) {
-                --bg-color: #F9F7F2;
-                --text-color: #0a2e1f;
-                --card-bg: #ffffff;
-                --border-color: #d4af37;
-                --nav-bg: rgba(249, 247, 242, 0.95);
-                --shadow: 0 10px 30px rgba(10, 46, 31, 0.08);
-                --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1);
-                --input-bg: #f0ede4;
-                --input-color: #b08d1a;
-                --option-bg: #ffffff;
-            }
-        }
-
-        /* === РУЧНАЯ СВЕТЛАЯ ТЕМА === */
+        /* Светлая тема */
         :root[data-theme="light"] {
-            --bg-color: #F9F7F2 !important;
-            --text-color: #0a2e1f !important;
-            --card-bg: #ffffff !important;
-            --border-color: #d4af37 !important;
-            --nav-bg: rgba(249, 247, 242, 0.95) !important;
-            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08) !important;
-            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1) !important;
-            --input-bg: #f0ede4 !important;
-            --input-color: #b08d1a !important;
-            --option-bg: #ffffff !important;
-        }
-
-        /* === РУЧНАЯ ТЕМНАЯ ТЕМА === */
-        :root[data-theme="dark"] {
-            --bg-color: #0a2e1f !important;
-            --text-color: #ffffff !important;
-            --card-bg: rgba(255,255,255,0.06) !important;
-            --border-color: rgba(212,175,55,0.5) !important;
-            --nav-bg: rgba(10,46,31,0.95) !important;
-            --shadow: none !important;
-            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4) !important;
-            --input-bg: rgba(255,255,255,0.05) !important;
-            --input-color: #d4af37 !important;
-            --option-bg: #0a2e1f !important;
+            --bg-color: #F9F7F2;
+            --text-color: #0a2e1f;
+            --card-bg: #ffffff;
+            --border-color: #d4af37;
+            --nav-bg: rgba(249, 247, 242, 0.95);
+            --shadow: 0 10px 30px rgba(10, 46, 31, 0.08);
+            --gold-glow: 0 4px 15px rgba(10, 46, 31, 0.1);
+            --input-bg: #f0ede4;
+            --input-color: #b08d1a;
+            --option-bg: #ffffff;
         }
 
         /* === БАЗОВЫЕ СТИЛИ === */
@@ -211,12 +181,12 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* === КНОПКИ МЕССЕНДЖЕРОВ === */
+        /* === КНОПКИ МЕССЕНДЖЕРОВ С ПРЕМИУМ ИКОНКАМИ === */
         .messenger-wrapper { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 10px; 
-            max-width: 380px; 
+            gap: 12px; 
+            max-width: 420px; 
             margin: 20px auto; 
             padding: 0 15px; 
         }
@@ -225,21 +195,44 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            padding: 15px 5px; 
-            border-radius: 12px; 
+            padding: 16px 8px; 
+            border-radius: 15px; 
             text-decoration: none; 
             color: white !important; 
             font-weight: 700; 
             font-size: 0.85rem; 
             border: none; 
-            transition: 0.3s; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             cursor: pointer; 
+            position: relative;
+            overflow: hidden;
+            gap: 10px;
         }
         
         .msg-btn:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); 
-            filter: brightness(1.1); 
+            transform: translateY(-5px) scale(1.03); 
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3); 
+            filter: brightness(1.15); 
+        }
+        
+        .msg-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .msg-btn:hover::after {
+            left: 100%;
+        }
+
+        .msg-icon {
+            font-size: 1.4rem;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
         }
 
         .wa-btn { 
@@ -265,16 +258,20 @@
         
         .share-btn { 
             grid-column: span 2; 
-            background: #333; 
+            background: linear-gradient(135deg, #333 0%, #555 100%); 
             border: 1px solid var(--gold); 
         }
 
         .payment-methods { 
             grid-column: span 2; 
-            margin-top: 5px; 
+            margin-top: 8px; 
             font-size: 0.85rem; 
             font-weight: 600; 
             color: var(--gold); 
+            padding: 10px;
+            background: rgba(212, 175, 55, 0.08);
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         /* === КАРТОЧКИ === */
@@ -354,6 +351,12 @@
             justify-content: center; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
             font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
 
         #backToTop { 
@@ -373,6 +376,12 @@
             font-size: 1.5rem; 
             align-items: center; 
             justify-content: center; 
+            transition: all 0.3s ease;
+        }
+        
+        #backToTop:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
         
         .price-tag { 
@@ -465,6 +474,12 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             font-size: 1.3rem;
             animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+        }
+        
+        #musicBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
 
         @keyframes pulse {
@@ -495,6 +510,11 @@
             justify-content: center;
             cursor: pointer;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        #musicToggle:hover {
+            transform: scale(1.1);
         }
         
         #musicStatus {
@@ -559,10 +579,36 @@
                 grid-template-columns: 1fr;
                 padding: 0 15px;
             }
+            
+            .messenger-wrapper {
+                gap: 8px;
+                padding: 0 10px;
+            }
+            
+            .msg-btn {
+                padding: 14px 6px;
+                font-size: 0.75rem;
+            }
+            
+            .msg-icon {
+                font-size: 1.2rem;
+            }
 
             #musicBtn {
                 width: 45px;
                 height: 45px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .msg-btn {
+                flex-direction: column;
+                gap: 5px;
+                padding: 12px 5px;
+            }
+            
+            .msg-icon {
                 font-size: 1.1rem;
             }
         }
@@ -594,12 +640,30 @@
     </div>
 
     <div class="messenger-wrapper reveal">
-        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(event)">WhatsApp 💬</a>
-        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">Telegram</a>
-        <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"></a>
-        <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"></button>
-        <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save"></button>
-        <button onclick="shareSite()" class="msg-btn share-btn" id="l-share"></button>
+        <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(event)">
+            <i class="msg-icon fab fa-whatsapp"></i>
+            <span id="wa-text">WhatsApp</span>
+        </a>
+        <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn">
+            <i class="msg-icon fab fa-telegram-plane"></i>
+            <span id="tg-text">Telegram</span>
+        </a>
+        <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call">
+            <i class="msg-icon fas fa-phone-alt"></i>
+            <span id="call-text"></span>
+        </a>
+        <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail">
+            <i class="msg-icon fas fa-envelope"></i>
+            <span id="mail-text"></span>
+        </button>
+        <button onclick="downloadVCard()" class="msg-btn save-btn" id="l-save">
+            <i class="msg-icon fas fa-save"></i>
+            <span id="save-text"></span>
+        </button>
+        <button onclick="shareSite()" class="msg-btn share-btn" id="l-share">
+            <i class="msg-icon fas fa-share-alt"></i>
+            <span id="share-text"></span>
+        </button>
         <div class="payment-methods" id="l-pay"></div>
     </div>
 
@@ -654,7 +718,10 @@
         <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
         <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881260759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
         <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;"></a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;">
+            <i class="msg-icon fas fa-route"></i>
+            <span id="route-text"></span>
+        </a>
     </div>
 
     <div class="footer reveal">
@@ -721,7 +788,9 @@
                 music_off: "Musique OFF",
                 track_chill: "Lofi",
                 track_ambient: "Ambient",
-                track_corporate: "Focus"
+                track_corporate: "Focus",
+                wa_text: "WhatsApp",
+                tg_text: "Telegram"
             },
             ru: {
                 n_home: "Главная",
@@ -753,7 +822,9 @@
                 music_off: "Музыка OFF",
                 track_chill: "Лофи",
                 track_ambient: "Эмбиент",
-                track_corporate: "Фокус"
+                track_corporate: "Фокус",
+                wa_text: "WhatsApp",
+                tg_text: "Telegram"
             },
             ua: {
                 n_home: "Головна",
@@ -785,7 +856,9 @@
                 music_off: "Музика OFF",
                 track_chill: "Лофі",
                 track_ambient: "Ембієнт",
-                track_corporate: "Фокус"
+                track_corporate: "Фокус",
+                wa_text: "WhatsApp",
+                tg_text: "Telegram"
             },
             en: {
                 n_home: "Home",
@@ -817,27 +890,24 @@
                 music_off: "Music OFF",
                 track_chill: "Lofi",
                 track_ambient: "Ambient",
-                track_corporate: "Focus"
+                track_corporate: "Focus",
+                wa_text: "WhatsApp",
+                tg_text: "Telegram"
             }
         };
 
-        // ===== ТЕМА - УЛУЧШЕННАЯ ВЕРСИЯ ДЛЯ SAFARI iOS =====
+        // ===== ТЕМА - JS-only для Safari iOS =====
         const themeBtn = document.getElementById('theme-btn');
         const html = document.documentElement;
 
         function getSystemTheme() {
             try {
-                // Проверяем оба media query для надежности
-                if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-                    return 'light';
-                }
-                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    return 'dark';
-                }
-                // Fallback - проверяем по времени суток
-                const hour = new Date().getHours();
-                return (hour >= 6 && hour < 18) ? 'light' : 'dark';
+                const isLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+                const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                console.log('[Theme] System prefers - light:', isLight, 'dark:', isDark);
+                return isLight ? 'light' : 'dark';
             } catch (e) {
+                console.log('[Theme] Error detecting system theme:', e);
                 return 'dark';
             }
         }
@@ -845,44 +915,41 @@
         function initTheme() {
             try {
                 const savedTheme = localStorage.getItem('theme');
+                console.log('[Theme] Saved theme:', savedTheme);
 
                 if (savedTheme === 'light' || savedTheme === 'dark') {
-                    // Пользователь выбрал тему вручную
+                    // Ручная тема
+                    console.log('[Theme] Applying manual theme:', savedTheme);
                     html.setAttribute('data-theme', savedTheme);
                     updateThemeButton(savedTheme);
                     updateMetaThemeColor(savedTheme);
                 } else {
-                    // Нет сохраненной темы - используем системную
-                    applySystemTheme();
+                    // Системная тема - ВСЕГДА устанавливаем data-theme
+                    const systemTheme = getSystemTheme();
+                    console.log('[Theme] Applying system theme:', systemTheme);
+                    html.setAttribute('data-theme', systemTheme);
+                    updateThemeButton(systemTheme);
+                    updateMetaThemeColor(systemTheme);
                 }
             } catch (e) {
-                applySystemTheme();
+                console.log('[Theme] Error in initTheme:', e);
+                const systemTheme = getSystemTheme();
+                html.setAttribute('data-theme', systemTheme);
+                updateThemeButton(systemTheme);
+                updateMetaThemeColor(systemTheme);
             }
         }
 
         function toggleTheme() {
-            const currentTheme = html.getAttribute('data-theme');
-            let newTheme;
-
-            // Определяем текущую тему
-            let effectiveTheme = 'dark';
-            if (currentTheme === 'light') {
-                effectiveTheme = 'light';
-            } else if (!currentTheme) {
-                effectiveTheme = getSystemTheme();
-            }
-
-            newTheme = effectiveTheme === 'dark' ? 'light' : 'dark';
+            const currentTheme = html.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
             html.setAttribute('data-theme', newTheme);
             try {
                 localStorage.setItem('theme', newTheme);
-            } catch (e) {
-                console.log('localStorage not available');
-            }
+            } catch (e) {}
             updateThemeButton(newTheme);
             updateMetaThemeColor(newTheme);
-            forceStyleUpdate();
         }
 
         function updateThemeButton(theme) {
@@ -894,92 +961,61 @@
         function updateMetaThemeColor(theme) {
             const themeColorMeta = document.getElementById('theme-color');
             if (themeColorMeta) {
-                const isDark = theme === 'dark';
-                themeColorMeta.content = isDark ? '#0a2e1f' : '#F9F7F2';
+                themeColorMeta.content = theme === 'dark' ? '#0a2e1f' : '#F9F7F2';
             }
         }
 
-        // Функция применения системной темы - УЛУЧШЕННАЯ
-        function applySystemTheme() {
-            const systemTheme = getSystemTheme();
-
-            // Удаляем data-theme чтобы сработал CSS media query
-            html.removeAttribute('data-theme');
-
-            // Принудительно обновляем meta theme-color
-            updateMetaThemeColor(systemTheme);
-            updateThemeButton(systemTheme);
-
-            // Принудительное обновление стилей для Safari iOS
-            forceStyleUpdate();
-
-            // Дополнительное обновление через requestAnimationFrame
-            requestAnimationFrame(() => {
-                forceStyleUpdate();
-            });
-        }
-
-        // Принудительное обновление CSS для Safari - УЛУЧШЕННОЕ
-        function forceStyleUpdate() {
-            const body = document.body;
-            if (body) {
-                // Метод 1: display toggle
-                const originalDisplay = body.style.display;
-                body.style.display = 'none';
-                void body.offsetHeight;
-                body.style.display = originalDisplay || '';
-
-                // Метод 2: force repaint через transform
-                body.style.transform = 'translateZ(0)';
-                setTimeout(() => {
-                    body.style.transform = '';
-                }, 0);
-            }
-        }
-
-        // Обработчик изменения системной темы - УЛУЧШЕННЫЙ
+        // Обработчик изменения системной темы
         function handleThemeChange(e) {
+            console.log('[Theme] System theme changed event:', e);
             try {
                 const savedTheme = localStorage.getItem('theme');
+                console.log('[Theme] Saved theme on change:', savedTheme);
                 if (!savedTheme) {
-                    // Пользователь не выбирал тему вручную - применяем системную
-                    applySystemTheme();
+                    const systemTheme = getSystemTheme();
+                    console.log('[Theme] Updating to system theme:', systemTheme);
+                    html.setAttribute('data-theme', systemTheme);
+                    updateThemeButton(systemTheme);
+                    updateMetaThemeColor(systemTheme);
+                } else {
+                    console.log('[Theme] Manual theme set, ignoring system change');
                 }
             } catch (err) {
-                applySystemTheme();
+                console.log('[Theme] Error in handleThemeChange:', err);
+                const systemTheme = getSystemTheme();
+                html.setAttribute('data-theme', systemTheme);
+                updateThemeButton(systemTheme);
+                updateMetaThemeColor(systemTheme);
             }
         }
 
-        // Регистрируем обработчики для обоих media query
-        const lightMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-        const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-        // Используем addListener для старых версий Safari
+        // Регистрируем обработчик
         try {
-            if (lightMediaQuery.addEventListener) {
-                lightMediaQuery.addEventListener('change', handleThemeChange);
-            } else if (lightMediaQuery.addListener) {
-                lightMediaQuery.addListener(handleThemeChange);
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+            if (mediaQuery.addEventListener) {
+                mediaQuery.addEventListener('change', handleThemeChange);
+            } else if (mediaQuery.addListener) {
+                mediaQuery.addListener(handleThemeChange);
             }
+        } catch (e) {}
 
-            if (darkMediaQuery.addEventListener) {
-                darkMediaQuery.addEventListener('change', handleThemeChange);
-            } else if (darkMediaQuery.addListener) {
-                darkMediaQuery.addListener(handleThemeChange);
-            }
-        } catch (e) {
-            console.log('Media query listeners not supported');
-        }
-
-        // Дополнительная проверка темы при видимости страницы (для Safari)
+        // Проверка при возврате на вкладку
         document.addEventListener('visibilitychange', function() {
+            console.log('[Theme] Visibility changed, hidden:', document.hidden);
             if (!document.hidden) {
                 try {
-                    const savedTheme = localStorage.getitem('theme');
+                    const savedTheme = localStorage.getItem('theme');
+                    console.log('[Theme] On visibility change, saved theme:', savedTheme);
                     if (!savedTheme) {
-                        applySystemTheme();
+                        const systemTheme = getSystemTheme();
+                        console.log('[Theme] Updating theme on visibility change:', systemTheme);
+                        html.setAttribute('data-theme', systemTheme);
+                        updateThemeButton(systemTheme);
+                        updateMetaThemeColor(systemTheme);
                     }
-                } catch (e) {}
+                } catch (e) {
+                    console.log('[Theme] Error in visibilitychange:', e);
+                }
             }
         });
 
@@ -995,6 +1031,7 @@
         let isMusicPanelVisible = false;
         let currentTrack = 'chill';
         let musicInitialized = false;
+        let autoPlayAttempted = false;
 
         function initAudio() {
             if (musicInitialized) return;
@@ -1002,10 +1039,67 @@
             try {
                 bgMusic = new Audio(musicTracks[currentTrack]);
                 bgMusic.loop = true;
-                bgMusic.volume = 0.15;
+                bgMusic.volume = 0.05; // Уменьшена громкость по умолчанию (5%)
                 musicInitialized = true;
+                console.log('[Music] Audio initialized, volume:', bgMusic.volume);
             } catch (e) {
-                console.log('Audio initialization error:', e);
+                console.log('[Music] Audio initialization error:', e);
+            }
+        }
+
+        // Автовоспроизведение при загрузке
+        function attemptAutoPlay() {
+            if (autoPlayAttempted) return;
+            autoPlayAttempted = true;
+            
+            // Проверяем, не выключил ли пользователь музыку ранее
+            try {
+                const musicEnabled = localStorage.getItem('musicEnabled');
+                if (musicEnabled === 'false') {
+                    console.log('[Music] Auto-play skipped: user disabled music previously');
+                    return;
+                }
+            } catch (e) {}
+            
+            console.log('[Music] Attempting auto-play...');
+            
+            if (!musicInitialized) {
+                initAudio();
+            }
+            
+            if (!bgMusic) return;
+            
+            // Пробуем воспроизвести
+            bgMusic.play().then(() => {
+                console.log('[Music] Auto-play successful');
+                isMusicPlaying = true;
+                updateMusicUI(true);
+                try {
+                    localStorage.setItem('musicEnabled', 'true');
+                } catch (e) {}
+            }).catch(error => {
+                console.log('[Music] Auto-play blocked by browser:', error.message);
+                // Браузер заблокировал - пользователь может включить вручную
+                isMusicPlaying = false;
+                updateMusicUI(false);
+            });
+        }
+
+        function updateMusicUI(playing) {
+            const lang = getCurrentLang();
+            const t = translations[lang] || translations.fr;
+            const musicToggle = document.getElementById('musicToggle');
+            const musicStatus = document.getElementById('musicStatus');
+            const musicBtn = document.getElementById('musicBtn');
+            
+            if (playing) {
+                if (musicToggle) musicToggle.innerHTML = '⏸️';
+                if (musicStatus) musicStatus.textContent = t.music_on;
+                if (musicBtn) musicBtn.classList.add('playing');
+            } else {
+                if (musicToggle) musicToggle.innerHTML = '▶️';
+                if (musicStatus) musicStatus.textContent = t.music_off;
+                if (musicBtn) musicBtn.classList.remove('playing');
             }
         }
 
@@ -1023,40 +1117,29 @@
         }
 
         function toggleMusic() {
-            const lang = getCurrentLang();
-            const t = translations[lang] || translations.fr;
-            
             if (!musicInitialized) {
                 initAudio();
             }
             
             if (!bgMusic) {
-                console.log('Audio not initialized');
+                console.log('[Music] Audio not initialized');
                 return;
             }
-            
-            const musicToggle = document.getElementById('musicToggle');
-            const musicStatus = document.getElementById('musicStatus');
-            const musicBtn = document.getElementById('musicBtn');
             
             if (!isMusicPlaying) {
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
-                    if (musicToggle) musicToggle.innerHTML = '⏸️';
-                    if (musicStatus) musicStatus.textContent = t.music_on;
-                    if (musicBtn) musicBtn.classList.add('playing');
+                    updateMusicUI(true);
                     try {
                         localStorage.setItem('musicEnabled', 'true');
                     } catch (e) {}
                 }).catch(error => {
-                    console.log('Playback error:', error);
+                    console.log('[Music] Playback error:', error);
                 });
             } else {
                 bgMusic.pause();
                 isMusicPlaying = false;
-                if (musicToggle) musicToggle.innerHTML = '▶️';
-                if (musicStatus) musicStatus.textContent = t.music_off;
-                if (musicBtn) musicBtn.classList.remove('playing');
+                updateMusicUI(false);
                 try {
                     localStorage.setItem('musicEnabled', 'false');
                 } catch (e) {}
@@ -1107,11 +1190,10 @@
             const volume = localStorage.getItem('musicVolume');
             const track = localStorage.getItem('musicTrack');
 
-            // Устанавливаем значение ползунка громкости
-            if (volume) {
-                document.getElementById('volumeControl').value = volume;
-            } else {
-                document.getElementById('volumeControl').value = 0.15;
+            // Устанавливаем значение ползунка громкости (по умолчанию 0.05 = 5%)
+            const volumeControl = document.getElementById('volumeControl');
+            if (volumeControl) {
+                volumeControl.value = volume || 0.05;
             }
 
             // Устанавливаем текущий трек (без инициализации аудио)
@@ -1133,6 +1215,9 @@
             if (trackChill) trackChill.textContent = t.track_chill;
             if (trackAmbient) trackAmbient.textContent = t.track_ambient;
             if (trackCorporate) trackCorporate.textContent = t.track_corporate;
+            
+            // Пробуем автовоспроизведение
+            attemptAutoPlay();
         }
 
         // Автопауза при скрытии вкладки
@@ -1141,10 +1226,26 @@
                 if (document.hidden) {
                     bgMusic.pause();
                 } else {
-                    bgMusic.play().catch(e => console.log('Error:', e));
+                    bgMusic.play().catch(e => console.log('[Music] Error resuming:', e));
                 }
             }
         });
+
+        // Попытка воспроизведения при первом взаимодействии (если автовоспроизведение было заблокировано)
+        let firstInteractionHandler = function() {
+            console.log('[Music] First interaction detected');
+            if (!isMusicPlaying && !autoPlayAttempted) {
+                attemptAutoPlay();
+            }
+            // Удаляем обработчики после первого взаимодействия
+            document.removeEventListener('click', firstInteractionHandler);
+            document.removeEventListener('touchstart', firstInteractionHandler);
+            document.removeEventListener('scroll', firstInteractionHandler);
+        };
+        
+        document.addEventListener('click', firstInteractionHandler);
+        document.addEventListener('touchstart', firstInteractionHandler);
+        document.addEventListener('scroll', firstInteractionHandler);
 
         // Закрытие плеера при клике вне его
         document.addEventListener('click', function(event) {
@@ -1198,11 +1299,18 @@
             setText('n-serv', t.n_serv);
             setText('n-faq', t.n_faq);
             setText('n-zone', t.n_zone);
-            setText('l-call', t.l_call);
-            setText('l-mail', t.l_mail);
-            setText('l-save', t.l_save);
-            setText('l-share', t.l_share);
-            setText('l-route', t.l_route);
+            
+            // Обновление текста кнопок с иконками
+            setText('call-text', t.l_call);
+            setText('mail-text', t.l_mail);
+            setText('save-text', t.l_save);
+            setText('share-text', t.l_share);
+            setText('route-text', t.l_route);
+            
+            // Обновление текста для WhatsApp и Telegram (если есть в переводе)
+            if (t.wa_text) setText('wa-text', t.wa_text);
+            if (t.tg_text) setText('tg-text', t.tg_text);
+            
             setText('l-pay', t.l_pay);
             setText('l-total', t.l_total);
             setText('how-title', t.how_t);
