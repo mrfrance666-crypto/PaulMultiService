@@ -101,6 +101,98 @@
             --fab-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        /* === ЗАЩИТА ФУТЕРА И ВОДЯНОЙ ЗНАК === */
+        .footer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-watermark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(212, 175, 55, 0.05) 20px,
+                rgba(212, 175, 55, 0.05) 40px
+            );
+            font-size: 14px;
+            color: var(--gold);
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            padding: 10px;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.5;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-protection-notice {
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            font-size: 10px;
+            color: rgba(212, 175, 55, 0.4);
+            font-weight: bold;
+            letter-spacing: 1px;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .copy-protect-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: #0a2e1f;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            z-index: 10000;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
         /* === FIX ДЛЯ iOS SAFARI === */
         @supports (-webkit-touch-callout: none) {
             body {
@@ -1463,13 +1555,19 @@
         </a>
     </div>
 
-    <div class="footer reveal">
-        <span class="footer-name" id="f-name"></span>
-        <div id="footer-zone-text" style="font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
-        <p class="gold-text">EI Pavlo Pashkin | SIRET : 10000226000014</p>
-        <p class="gold-text">RC Pro incluse</p>
-        <p class="gold-text">Service à la Personne (SAP)</p>
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes</p>
+    <!-- ОБНОВЛЕННЫЙ ФУТЕР С ЗАЩИТОЙ И ПЕРЕВОДОМ -->
+    <div class="footer reveal" id="main-footer">
+        <div class="footer-watermark" id="footer-watermark"></div>
+        <div class="footer-protection-notice" id="footer-protection-notice">PROTECTED CONTENT ©</div>
+        
+        <div class="footer-content">
+            <span class="footer-name" id="f-name"></span>
+            <div id="footer-zone-text" style="font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
+            <p class="gold-text">EI Pavlo Pashkin | SIRET : 10000226000014</p>
+            <p class="gold-text">RC Pro incluse</p>
+            <p class="gold-text">Service à la Personne (SAP)</p>
+            <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes, France</p>
+        </div>
     </div>
 
     <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
@@ -1542,7 +1640,12 @@
                 theme_dark: "SOMBRE",
                 theme_auto_notif: "Mode auto activé",
                 theme_light_notif: "Mode clair activé",
-                theme_dark_notif: "Mode sombre activé"
+                theme_dark_notif: "Mode sombre activé",
+                // НОВЫЕ ПЕРЕВОДЫ ДЛЯ ЗАЩИТЫ ФУТЕРА
+                footer_watermark: "© PaulMultiService - Tous droits réservés",
+                copy_notice: "\n\n---\n© PaulMultiService - Tous droits réservés\nhttps://paulmultiservice.fr",
+                copy_notification: "Le texte est protégé par le droit d'auteur",
+                footer_protection_text: "CONTENU PROTÉGÉ ©"
             },
             ru: {
                 n_home: "Главная",
@@ -1557,7 +1660,7 @@
                 it_t: "Web и ИТ услуги",
                 it_l: "<li><strong>Домашняя компьютерная помощь (SAP):</strong></li><li>Установка оборудования (ПК, принтер, интернет-бокс)</li><li>Обучение компьютерной грамотности и планшетам</li><li>Защита и очистка вашего компьютера</li><li><em>Налоговое преимущество: 50% налогового кредита на эти услуги</em></li><li><strong>Создание сайтов и веб-услуги (Вне SAP):</strong></li><li>Создание сайтов (Landing, Визитка)</li><li>Настройка Wi-Fi и сетей</li><li><em>Примечание: Эти услуги не дают права на налоговый кредит</em></li>",
                 it_p: "Мин. выезд: 50€<br>След. часы: 40€/ч",
-                br_t: "Мастер на час",
+                br_t: "Майстер на час",
                 br_l: "<li>Сборка мебели (IKEA и др.)</li><li>Установка люстр, ТВ, полок</li><li>Мелкая сантехника и замки</li><li>Подключение бытовой техники</li><li><em>Налоговое преимущество: 50% налогового кредита на эти услуги</em></li>",
                 br_p: "Мин. выезд: 50€<br>След. часы: 40€/ч",
                 ct: "Калькулятор SAP", cnet: "Цена с вычетом:", owd: "Будни", osat: "Суббота (x2)", osun: "Воскресенье (x3)", l_total: "Итого:",
@@ -1587,7 +1690,12 @@
                 theme_dark: "ТЬМА",
                 theme_auto_notif: "Авто режим включён",
                 theme_light_notif: "Светлый режим включён",
-                theme_dark_notif: "Тёмный режим включён"
+                theme_dark_notif: "Тёмный режим включён",
+                // НОВЫЕ ПЕРЕВОДЫ ДЛЯ ЗАЩИТЫ ФУТЕРА
+                footer_watermark: "© PaulMultiService - Все права защищены",
+                copy_notice: "\n\n---\n© PaulMultiService - Все права защищены\nhttps://paulmultiservice.fr",
+                copy_notification: "Текст защищен авторским правом",
+                footer_protection_text: "ЗАЩИЩЕННЫЙ КОНТЕНТ ©"
             },
             ua: {
                 n_home: "Головна",
@@ -1609,9 +1717,9 @@
                 zt: "Зона охоплення", zd: "Радіус 20 км навколо Rennes (Betton, Saint-Grégoire, Pacé, Bruz...) включено. Далі — за домовленістю.", ft: "Поширені питання",
                 faq: [
                     {q: "Оплата за першу годину завжди 50€?", a: "Так, перша година — це мінімальний неподільний тариф, що покриває виїзд та підготовку інструментів."},
-                    {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все необхідне професійне обладнання. Витратні матеріали (шурупи, дюбелі тощо) надаються замовником.<br><br><b>Окрема послуга закупівлі:</b> Якщо чогось не вистачає, я можу з'їзити в магазин і купити все необхідне за вас. Ця послуга оплачується окремо."},
+                    {q: "Чи потрібні мої інструменти?", a: "Ні, я маю все необхідне професійне обладнання. Витратні матеріали (шурупи, дюбелі тощо) надаються замовником.<br><br><b>Окрема послуга закупівлі:</b> Якщо чогось не вистачає, я можу з'їздити в магазин і купити все необхідне за вас. Ця послуга оплачується окремо."},
                     {q: "Де замовити чеки CESU?", a: "На офіційному сайті cesu.urssaf.fr або у вашому банку."},
-                    {q: "Чи діє SAP у вихідні?", a: "Так, податкову знижку 50% діє такос у суботу та неділю."},
+                    {q: "Чи діє SAP у вихідні?", a: "Так, податкову знижку 50% діє також у суботу та неділю."},
                     {q: "Як працює повернення коштів?", a: "Я видаю офіційну фактуру SAP. Держава повертає вам 50% суми під час подання щорічної декларації."},
                     {q: "Які є способи оплати?", a: "Готівка, банківський переказ, чеки або чеки CESU."}
                 ],
@@ -1632,7 +1740,12 @@
                 theme_dark: "ТЕМ",
                 theme_auto_notif: "Авто режим увімкнено",
                 theme_light_notif: "Світлий режим увімкнено",
-                theme_dark_notif: "Темний режим увімкнено"
+                theme_dark_notif: "Темний режим увімкнено",
+                // НОВЫЕ ПЕРЕВОДЫ ДЛЯ ЗАЩИТЫ ФУТЕРА
+                footer_watermark: "© PaulMultiService - Усі права захищені",
+                copy_notice: "\n\n---\n© PaulMultiService - Усі права захищені\nhttps://paulmultiservice.fr",
+                copy_notification: "Текст захищено авторським правом",
+                footer_protection_text: "ЗАХИЩЕНИЙ ВМІСТ ©"
             },
             en: {
                 n_home: "Home",
@@ -1677,9 +1790,95 @@
                 theme_dark: "DARK",
                 theme_auto_notif: "Auto mode enabled",
                 theme_light_notif: "Light mode enabled",
-                theme_dark_notif: "Dark mode enabled"
+                theme_dark_notif: "Dark mode enabled",
+                // НОВЫЕ ПЕРЕВОДЫ ДЛЯ ЗАЩИТЫ ФУТЕРА
+                footer_watermark: "© PaulMultiService - All rights reserved",
+                copy_notice: "\n\n---\n© PaulMultiService - All rights reserved\nhttps://paulmultiservice.fr",
+                copy_notification: "Text is protected by copyright",
+                footer_protection_text: "PROTECTED CONTENT ©"
             }
         };
+
+        // ===== ЗАЩИТА ФУТЕРА ОТ КОПИРОВАНИЯ =====
+        function setupFooterProtection() {
+            const footer = document.getElementById('main-footer');
+            if (!footer) return;
+            
+            // Запрещаем выделение текста в футере
+            footer.style.userSelect = 'none';
+            footer.style.webkitUserSelect = 'none';
+            
+            // Защита от копирования
+            footer.addEventListener('copy', function(e) {
+                e.preventDefault();
+                
+                const lang = getCurrentLang();
+                const t = translations[lang] || translations.fr;
+                
+                // Показываем уведомление
+                showCopyProtectionNotification(t.copy_notification);
+                
+                // Добавляем водяной знак к скопированному тексту
+                const selectedText = window.getSelection().toString();
+                const protectedText = selectedText + t.copy_notice;
+                
+                e.clipboardData.setData('text/plain', protectedText);
+            });
+            
+            // Защита от перетаскивания текста
+            footer.addEventListener('dragstart', function(e) {
+                if (window.getSelection().toString()) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            console.log('Footer protection activated');
+        }
+
+        // Показ уведомления о защите копирования
+        function showCopyProtectionNotification(message) {
+            // Удаляем старое уведомление
+            const oldNotice = document.querySelector('.copy-protect-notification');
+            if (oldNotice) oldNotice.remove();
+            
+            // Создаем новое уведомление
+            const notice = document.createElement('div');
+            notice.className = 'copy-protect-notification';
+            notice.innerHTML = `
+                <i class="fas fa-shield-alt"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notice);
+            
+            // Автоматическое скрытие через 3 секунды
+            setTimeout(() => {
+                if (notice.parentNode) {
+                    notice.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => notice.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // Функция для обновления водяного знака при смене языка
+        function updateFooterWatermark() {
+            const lang = getCurrentLang();
+            const t = translations[lang] || translations.fr;
+            
+            const watermark = document.getElementById('footer-watermark');
+            const protectionNotice = document.getElementById('footer-protection-notice');
+            
+            if (watermark && t.footer_watermark) {
+                // Создаем повторяющийся текст для водяного знака
+                const repeatedText = (t.footer_watermark + ' • ').repeat(50);
+                watermark.textContent = repeatedText;
+            }
+            
+            if (protectionNotice && t.footer_protection_text) {
+                protectionNotice.textContent = t.footer_protection_text;
+            }
+        }
 
         // ===== ПРЕМИУМ УПРАВЛЕНИЕ ТЕМОЙ =====
         const themeBtn = document.getElementById('theme-btn');
@@ -2366,6 +2565,9 @@
                 }
             }
             
+            // === ЗАЩИТА ФУТЕРА И ВОДЯНОЙ ЗНАК ===
+            updateFooterWatermark();
+            
             updateCalc();
         }
         
@@ -2543,11 +2745,18 @@
                 // Инициализация калькулятора
                 updateCalc();
                 
+                // Инициализация защиты футера
+                setTimeout(() => {
+                    setupFooterProtection();
+                    updateFooterWatermark();
+                }, 500);
+                
                 // Проверка всех элементов интерфейса
                 console.log('Site initialized successfully');
                 console.log('Theme:', getThemePreference());
                 console.log('Music system ready');
                 console.log('QR system ready');
+                console.log('Footer protection activated');
                 
             } catch (error) {
                 console.error('Initialization error:', error);
