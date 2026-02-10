@@ -411,6 +411,7 @@
         .lang-btn:hover, .lang-btn.active { 
             background: var(--gold); 
             color: white; 
+            box-shadow: 0 0 15px var(--gold);
         }
 
         .nav-pills { 
@@ -437,6 +438,8 @@
         .nav-pill:hover { 
             background: var(--gold); 
             color: white; 
+            box-shadow: 0 0 15px var(--gold);
+            transform: translateY(-2px);
         }
 
         /* === ЛОГО === */
@@ -463,7 +466,7 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* === КНОПКИ МЕССЕНДЖЕРОВ === */
+        /* === КНОПКИ МЕССЕНДЖЕРОВ - ЗОЛОТОЕ СВЕЧЕНИЕ === */
         .messenger-wrapper { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
@@ -491,9 +494,10 @@
             gap: 10px;
         }
         
+        /* ЗОЛОТОЕ СВЕЧЕНИЕ ПРИ НАВЕДЕНИИ */
         .msg-btn:hover { 
             transform: translateY(-5px) scale(1.03); 
-            box-shadow: 0 12px 25px rgba(0,0,0,0.3); 
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3), 0 0 20px var(--gold); 
             filter: brightness(1.15); 
         }
         
@@ -554,9 +558,15 @@
             background: rgba(212, 175, 55, 0.08);
             border-radius: 10px;
             border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
         }
 
-        /* === КАРТОЧКИ === */
+        .payment-methods:hover {
+            box-shadow: 0 0 15px var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* === КАРТОЧКИ С ЗОЛОТЫМ СВЕЧЕНИЕМ === */
         .universal-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
@@ -573,10 +583,17 @@
             border-radius: 20px; 
             padding: 25px; 
             text-align: left; 
-            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; 
+            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease; 
             display: flex; 
             flex-direction: column; 
             box-shadow: var(--shadow);
+        }
+        
+        /* ЗОЛОТОЕ СВЕЧЕНИЕ ПРИ НАВЕДЕНИИ НА КАРТОЧКИ */
+        .generic-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow), 0 0 25px var(--gold);
+            border-color: var(--gold-light);
         }
         
         .generic-card h2 { 
@@ -586,6 +603,11 @@
             padding-bottom: 10px; 
             font-family: 'Playfair Display', serif; 
             font-size: 1.5rem; 
+            transition: all 0.3s ease;
+        }
+
+        .generic-card:hover h2 {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
         /* === КАЛЬКУЛЯТОР === */
@@ -634,7 +656,7 @@
         
         .floating-btn:hover {
             transform: rotate(30deg) scale(1.1);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3), 0 0 15px var(--gold);
         }
 
         /* Кнопка QR-кода (слева вверху) - СИММЕТРИЧНА С ТЕМОЙ */
@@ -687,7 +709,7 @@
         
         #backToTop:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3), 0 0 15px var(--gold);
         }
         
         .price-tag { 
@@ -705,6 +727,13 @@
             border-bottom: 1px solid var(--border-color); 
             padding: 18px 0; 
             cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            background: rgba(212,175,55,0.05);
+            border-radius: 10px;
+            padding: 18px 10px;
         }
         
         .faq-q { 
@@ -737,6 +766,12 @@
             color: var(--gold); 
             margin-bottom: 10px; 
             display: block; 
+            transition: all 0.3s ease;
+        }
+        
+        .footer-name:hover {
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+            transform: scale(1.05);
         }
         
         .gold-text { 
@@ -760,6 +795,18 @@
             -webkit-backdrop-filter: blur(10px);
             box-shadow: var(--gold-glow);
             min-width: 180px;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .music-control {
@@ -786,6 +833,7 @@
         
         #musicToggle:hover {
             transform: scale(1.1);
+            box-shadow: 0 0 10px var(--gold);
         }
         
         #musicStatus {
@@ -816,6 +864,10 @@
             font-size: 0.7rem;
             cursor: pointer;
             transition: 0.3s;
+        }
+        
+        .track-btn:hover {
+            box-shadow: 0 0 8px var(--gold);
         }
         
         .track-btn.active {
@@ -952,6 +1004,10 @@
             color: white;
         }
 
+        .qr-close:hover {
+            box-shadow: 0 0 10px var(--gold);
+        }
+
         .qr-container {
             display: flex;
             justify-content: center;
@@ -960,6 +1016,11 @@
             background-color: var(--qr-bg);
             border-radius: 16px;
             border: 2px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .qr-container:hover {
+            box-shadow: 0 0 20px var(--gold);
         }
 
         /* Изображение QR-кода */
@@ -996,8 +1057,9 @@
             gap: 10px;
         }
 
-        .qr-share-btn:active {
+        .qr-share-btn:hover {
             background-color: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 15px var(--gold);
         }
 
         /* Адаптация для десктопа */
@@ -1445,7 +1507,7 @@
                 l_call: "Appeler", l_mail: "E-mail", l_save: "Enregistrer", l_share: "Partager", l_route: "Itinéraire",
                 l_pay: "Espèces / Virement / Chèque / Cesu", how_t: "Comment ça marche ?", sc_t: "Services et calculatrice",
                 h1t: "Contact", h1d: "Contactez-moi par WhatsApp ou par téléphone pour discuter de votre projet.",
-                h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Samedi : x2. Dimanche : x3.",
+                h2t: "Tarif", h2d: "1ère heure indivisible (forfait minimum) : 50€. Heures suivantes : 40€/h. Semaine : base. Sамсуди: x2. Dimanche: x3.",
                 h3t: "Avantage", h3d: "Bénéficiez de 50% de crédit d'impôt SAP. Facture officielle fournie.",
                 it_t: "Web & IT Services", it_l: "<li>Création de sites (Landing, Carte de visite)</li><li>Installation OS & Logiciels</li><li>Nettoyage & Virus</li><li>Paramétrage Wi-Fi & Réseaux</li>",
                 it_p: "Forfait min. : 50€<br>Suivante : 40€/h",
@@ -1631,7 +1693,7 @@
         function getThemePreference() {
             try {
                 const saved = localStorage.getItem('theme-preference');
-                if (themeCycle.includes(saved)) {
+                if (saved === 'light' || saved === 'dark' || saved === 'auto') {
                     return saved;
                 }
                 
@@ -1641,7 +1703,7 @@
                     .find(row => row.startsWith('theme-preference='))
                     ?.split('=')[1];
                 
-                if (themeCycle.includes(cookieTheme)) {
+                if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') {
                     return cookieTheme;
                 }
             } catch (e) {
@@ -1877,7 +1939,7 @@
             }
         });
 
-        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (ПРОВЕРЕННОЕ И РАБОЧЕЕ) =====
+        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (ИСПРАВЛЕННОЕ) =====
         let bgMusic = null;
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
@@ -2024,8 +2086,8 @@
                 localStorage.setItem('musicDisabled', 'true');
             }
             
-            // Показываем/скрываем панель управления
-            toggleMusicPanel();
+            // Не закрываем панель при переключении музыки!
+            // Панель остается открытой, если была открыта
         }
 
         function changeVolume(value) {
@@ -2456,10 +2518,10 @@
                     themeBtn.addEventListener('click', toggleTheme);
                 }
                 
-                // Обработчик для кнопки музыки
+                // Обработчик для кнопки музыки - открывает/закрывает панель
                 const musicBtn = document.getElementById('musicBtn');
                 if (musicBtn) {
-                    musicBtn.addEventListener('click', toggleMusic);
+                    musicBtn.addEventListener('click', toggleMusicPanel);
                 }
                 
                 changeLang('fr'); 
