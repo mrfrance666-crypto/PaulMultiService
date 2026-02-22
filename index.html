@@ -1396,7 +1396,7 @@
     
     <!-- РАННИЙ СКРИПТ ДЛЯ SAFARI - АВТОТЕМА ПО УМОЛЧАНИЮ -->
     <script>
-        // ИНИЦИАЛИЗАЦИЯ ТЕМЫ - АВТО РЕЖИМ ПО УМОЛЧАНИЮ
+        // ИНИЦИАЛИЗАЦИЯ ТЕМЫ - ТЁМНАЯ ПО УМОЛЧАНИЮ
         (function() {
             'use strict';
             
@@ -1411,13 +1411,15 @@
                         const cookieTheme = document.cookie.split('; ').find(row => row.startsWith('theme-preference='))?.split('=')[1];
                         if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') return cookieTheme;
                     } catch (e) {}
-                    return 'auto';
+                    // Изменено: теперь по умолчанию 'dark' вместо 'auto'
+                    return 'dark';
                 };
                 
                 const getCurrentTheme = () => {
                     const preference = getThemePreference();
                     if (preference === 'light') return 'light';
                     if (preference === 'dark') return 'dark';
+                    // Если auto, всё равно используем тёмную (можно оставить системную логику, но раз мы поставили dark по умолчанию, этот случай не наступит)
                     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
                     return 'light';
                 };
@@ -1445,7 +1447,7 @@
                 try {
                     const preference = getThemePreference();
                     const currentTheme = getCurrentTheme();
-                    if (!preference) saveThemePreference('auto');
+                    if (!preference) saveThemePreference('dark');
                     setTheme(currentTheme);
                     body.style.opacity = '0';
                     setTimeout(() => {
@@ -1453,11 +1455,11 @@
                         body.style.opacity = '1';
                     }, 50);
                 } catch (error) {
-                    html.setAttribute('data-theme', 'auto');
+                    html.setAttribute('data-theme', 'dark');
                     body.style.opacity = '1';
                 }
             } catch (error) {
-                document.documentElement.setAttribute('data-theme', 'auto');
+                document.documentElement.setAttribute('data-theme', 'dark');
             }
         })();
     </script>
@@ -1680,7 +1682,7 @@
         
         <div class="volume-control">
             <span style="color:var(--gold); font-size:0.8rem;">🔈</span>
-            <input type="range" id="volumeControl" min="0" max="1" step="0.05" value="0.08" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
+            <input type="range" id="volumeControl" min="0" max="1" step="0.05" value="0.03" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
             <span style="color:var(--gold); font-size:0.8rem;">🔊</span>
         </div>
         
@@ -1994,7 +1996,7 @@
                 const cookieTheme = document.cookie.split('; ').find(row => row.startsWith('theme-preference='))?.split('=')[1];
                 if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') return cookieTheme;
             } catch (e) {}
-            return 'auto';
+            return 'dark'; // здесь тоже меняем на 'dark' для единообразия
         }
 
         function saveThemePreference(theme) {
@@ -2008,6 +2010,7 @@
             const preference = getThemePreference();
             if (preference === 'light') return 'light';
             if (preference === 'dark') return 'dark';
+            // если auto, смотрим систему
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
             return 'light';
         }
@@ -2167,7 +2170,7 @@
             }
         });
 
-        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ =====
+        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (громкость 0.03) =====
         let bgMusic = null;
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
@@ -2188,7 +2191,7 @@
                 }
                 bgMusic = new Audio(trackUrl);
                 bgMusic.loop = true;
-                bgMusic.volume = 0.08;
+                bgMusic.volume = 0.03; // Уменьшено до 0.03
                 bgMusic.preload = 'auto';
                 bgMusic.muted = false;
                 console.log('Audio initialized with track:', currentTrack);
@@ -2203,7 +2206,7 @@
             if (!bgMusic) initAudio();
             if (!bgMusic) return;
             bgMusic.muted = false;
-            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.08');
+            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
             const playPromise = bgMusic.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
@@ -2271,7 +2274,7 @@
             }
             if (!isMusicPlaying) {
                 bgMusic.muted = false;
-                bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.08');
+                bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
                 const playPromise = bgMusic.play();
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
@@ -2332,7 +2335,7 @@
             }
             bgMusic = new Audio(musicTracks[track]);
             bgMusic.loop = true;
-            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.08');
+            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
             bgMusic.preload = 'auto';
             bgMusic.muted = false;
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
@@ -2350,7 +2353,7 @@
         }
 
         function loadMusicSettings() {
-            const volume = localStorage.getItem('musicVolume') || '0.08';
+            const volume = localStorage.getItem('musicVolume') || '0.03';
             const track = localStorage.getItem('musicTrack') || 'chill';
             const disabled = localStorage.getItem('musicDisabled') === 'true';
             const volumeControl = document.getElementById('volumeControl');
@@ -2445,7 +2448,6 @@
             ru: "https://docs.google.com/forms/d/e/1FAIpQLSewSOZ3iGoOyfCQTD0hUgZpfSFpoOqn503uH0FrRbOfEziLLg/viewform?embedded=true"
         };
 
-        // Базовый URL календаря без параметра hl (будем подставлять язык)
         const calendarBaseUrl = "https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&showPrint=0&showTitle=0&showCalendars=0&src=cGF1bG11bHRpc2VydmljZTdAZ21haWwuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%230b8043";
 
         function changeLang(lang) {
@@ -2544,7 +2546,6 @@
             
             updateFooterWatermark();
 
-            // === ОБНОВЛЕНИЕ ФОРМЫ И КАЛЕНДАРЯ ===
             const bookingTitle = document.getElementById('booking-title');
             if (bookingTitle && t.booking_title) {
                 bookingTitle.innerText = t.booking_title;
@@ -2558,7 +2559,6 @@
                 calendarTitle.innerText = t.calendar_title;
             }
 
-            // Форма
             const bookingForm = document.getElementById('booking-form');
             const loader = document.getElementById('form-loader');
             if (bookingForm && formUrls[lang]) {
@@ -2569,10 +2569,8 @@
                 }, 1000);
             }
 
-            // Календарь
             const calendarIframe = document.getElementById('calendar-iframe');
             if (calendarIframe && t.calendar_lang) {
-                // Добавляем параметр hl с нужным языком
                 const separator = calendarBaseUrl.includes('?') ? '&' : '?';
                 calendarIframe.src = calendarBaseUrl + separator + 'hl=' + t.calendar_lang;
             }
