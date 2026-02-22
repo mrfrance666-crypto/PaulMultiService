@@ -1404,106 +1404,59 @@
                 const html = document.documentElement;
                 const body = document.body;
                 
-                // Функция для безопасной работы с хранилищем
                 const getThemePreference = () => {
                     try {
-                        // Сначала проверяем ручной выбор пользователя
                         const saved = localStorage.getItem('theme-preference');
-                        if (saved === 'light' || saved === 'dark' || saved === 'auto') {
-                            return saved;
-                        }
-                        
-                        // Проверяем cookies как fallback
-                        const cookieTheme = document.cookie
-                            .split('; ')
-                            .find(row => row.startsWith('theme-preference='))
-                            ?.split('=')[1];
-                        
-                        if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') {
-                            return cookieTheme;
-                        }
-                        
-                    } catch (e) {
-                        // Игнорируем ошибки
-                    }
-                    
-                    // ПО УМОЛЧАНИЮ - АВТО РЕЖИМ
+                        if (saved === 'light' || saved === 'dark' || saved === 'auto') return saved;
+                        const cookieTheme = document.cookie.split('; ').find(row => row.startsWith('theme-preference='))?.split('=')[1];
+                        if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') return cookieTheme;
+                    } catch (e) {}
                     return 'auto';
                 };
                 
-                // Функция определения текущей темы для отображения
                 const getCurrentTheme = () => {
                     const preference = getThemePreference();
-                    
                     if (preference === 'light') return 'light';
                     if (preference === 'dark') return 'dark';
-                    
-                    // Если 'auto' - определяем по системе
-                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                        return 'dark';
-                    }
-                    
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
                     return 'light';
                 };
                 
-                // Функция сохранения предпочтения
                 const saveThemePreference = (theme) => {
                     try {
                         localStorage.setItem('theme-preference', theme);
                         document.cookie = `theme-preference=${theme}; path=/; max-age=31536000; SameSite=Lax`;
-                    } catch (e) {
-                        // Игнорируем ошибки
-                    }
+                    } catch (e) {}
                 };
                 
-                // Устанавливаем тему
                 const setTheme = (theme) => {
                     html.setAttribute('data-theme', theme);
-                    
-                    // Обновляем meta теги для Safari
                     const themeColorMeta = document.getElementById('theme-color');
                     const themeColorLightMeta = document.getElementById('theme-color-light');
-                    
                     if (theme === 'dark') {
-                        if (themeColorMeta) {
-                            themeColorMeta.media = 'all';
-                            themeColorLightMeta.media = 'not all';
-                        }
+                        if (themeColorMeta) themeColorMeta.media = 'all';
+                        if (themeColorLightMeta) themeColorLightMeta.media = 'not all';
                     } else {
-                        if (themeColorMeta) {
-                            themeColorMeta.media = 'not all';
-                            themeColorLightMeta.media = 'all';
-                        }
+                        if (themeColorMeta) themeColorMeta.media = 'not all';
+                        if (themeColorLightMeta) themeColorLightMeta.media = 'all';
                     }
                 };
                 
-                // Инициализация
                 try {
                     const preference = getThemePreference();
                     const currentTheme = getCurrentTheme();
-                    
-                    // Если нет сохраненного предпочтения, сохраняем 'auto' как дефолт
-                    if (!preference) {
-                        saveThemePreference('auto');
-                    }
-                    
-                    // Устанавливаем тему
+                    if (!preference) saveThemePreference('auto');
                     setTheme(currentTheme);
-                    
-                    // Плавное появление
                     body.style.opacity = '0';
                     setTimeout(() => {
                         body.style.transition = 'opacity 0.4s ease';
                         body.style.opacity = '1';
                     }, 50);
-                    
                 } catch (error) {
-                    // Fallback - авто режим
                     html.setAttribute('data-theme', 'auto');
                     body.style.opacity = '1';
                 }
             } catch (error) {
-                // Аварийный fallback - авто режим
                 document.documentElement.setAttribute('data-theme', 'auto');
             }
         })();
@@ -1685,7 +1638,7 @@
             <div>
                 <h3 id="calendar-title" style="color: var(--gold); margin-bottom: 15px; font-size: 1.2rem;"></h3>
                 <div class="iframe-container" style="height: 600px;">
-                    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&showPrint=0&showTitle=0&showCalendars=0&src=cGF1bG11bHRpc2VydmljZTdAZ21haWwuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%230b8043" style="border: none; width: 100%; height: 600px;" frameborder="0" scrolling="no" title="Calendrier des disponibilités"></iframe>
+                    <iframe id="calendar-iframe" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&hl=fr&showPrint=0&showTitle=0&showCalendars=0&src=cGF1bG11bHRpc2VydmljZTdAZ21haWwuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%230b8043" style="border: none; width: 100%; height: 600px;" frameborder="0" scrolling="no" title="Calendrier des disponibilités"></iframe>
                 </div>
             </div>
         </div>
@@ -1796,7 +1749,8 @@
                 footer_protection_text: "CONTENU PROTÉGÉ ©",
                 booking_title: "Prendre rendez-vous",
                 form_title: "Formulaire de rendez-vous",
-                calendar_title: "Calendrier des disponibilités"
+                calendar_title: "Calendrier des disponibilités",
+                calendar_lang: "fr"
             },
             ru: {
                 n_home: "Главная",
@@ -1849,7 +1803,8 @@
                 footer_protection_text: "ЗАЩИЩЕННЫЙ КОНТЕНТ ©",
                 booking_title: "Записаться на приём",
                 form_title: "Форма записи",
-                calendar_title: "Календарь доступности"
+                calendar_title: "Календарь доступности",
+                calendar_lang: "ru"
             },
             ua: {
                 n_home: "Головна",
@@ -1902,7 +1857,8 @@
                 footer_protection_text: "ЗАХИЩЕНИЙ ВМІСТ ©",
                 booking_title: "Записатися на прийом",
                 form_title: "Форма запису",
-                calendar_title: "Календар доступності"
+                calendar_title: "Календар доступності",
+                calendar_lang: "uk"
             },
             en: {
                 n_home: "Home",
@@ -1955,7 +1911,8 @@
                 footer_protection_text: "PROTECTED CONTENT ©",
                 booking_title: "Book an appointment",
                 form_title: "Booking form",
-                calendar_title: "Availability calendar"
+                calendar_title: "Availability calendar",
+                calendar_lang: "en"
             }
         };
 
@@ -1969,15 +1926,11 @@
             
             footer.addEventListener('copy', function(e) {
                 e.preventDefault();
-                
                 const lang = getCurrentLang();
                 const t = translations[lang] || translations.fr;
-                
                 showCopyProtectionNotification(t.copy_notification);
-                
                 const selectedText = window.getSelection().toString();
                 const protectedText = selectedText + t.copy_notice;
-                
                 e.clipboardData.setData('text/plain', protectedText);
             });
             
@@ -1994,16 +1947,10 @@
         function showCopyProtectionNotification(message) {
             const oldNotice = document.querySelector('.copy-protect-notification');
             if (oldNotice) oldNotice.remove();
-            
             const notice = document.createElement('div');
             notice.className = 'copy-protect-notification';
-            notice.innerHTML = `
-                <i class="fas fa-shield-alt"></i>
-                <span>${message}</span>
-            `;
-            
+            notice.innerHTML = `<i class="fas fa-shield-alt"></i><span>${message}</span>`;
             document.body.appendChild(notice);
-            
             setTimeout(() => {
                 if (notice.parentNode) {
                     notice.style.animation = 'slideOutRight 0.3s ease';
@@ -2015,15 +1962,12 @@
         function updateFooterWatermark() {
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
-            
             const watermark = document.getElementById('footer-watermark');
             const protectionNotice = document.getElementById('footer-protection-notice');
-            
             if (watermark && t.footer_watermark) {
                 const repeatedText = (t.footer_watermark + ' • ').repeat(50);
                 watermark.textContent = repeatedText;
             }
-            
             if (protectionNotice && t.footer_protection_text) {
                 protectionNotice.textContent = t.footer_protection_text;
             }
@@ -2046,16 +1990,9 @@
         function getThemePreference() {
             try {
                 const saved = localStorage.getItem('theme-preference');
-                if (saved === 'light' || saved === 'dark' || saved === 'auto') {
-                    return saved;
-                }
-                const cookieTheme = document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('theme-preference='))
-                    ?.split('=')[1];
-                if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') {
-                    return cookieTheme;
-                }
+                if (saved === 'light' || saved === 'dark' || saved === 'auto') return saved;
+                const cookieTheme = document.cookie.split('; ').find(row => row.startsWith('theme-preference='))?.split('=')[1];
+                if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') return cookieTheme;
             } catch (e) {}
             return 'auto';
         }
@@ -2071,9 +2008,7 @@
             const preference = getThemePreference();
             if (preference === 'light') return 'light';
             if (preference === 'dark') return 'dark';
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return 'dark';
-            }
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
             return 'light';
         }
 
@@ -2232,7 +2167,7 @@
             }
         });
 
-        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (ИСПРАВЛЕННАЯ ГРОМКОСТЬ) =====
+        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ =====
         let bgMusic = null;
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
@@ -2253,7 +2188,7 @@
                 }
                 bgMusic = new Audio(trackUrl);
                 bgMusic.loop = true;
-                bgMusic.volume = 0.08; // Уменьшено до 0.08
+                bgMusic.volume = 0.08;
                 bgMusic.preload = 'auto';
                 bgMusic.muted = false;
                 console.log('Audio initialized with track:', currentTrack);
@@ -2510,6 +2445,9 @@
             ru: "https://docs.google.com/forms/d/e/1FAIpQLSewSOZ3iGoOyfCQTD0hUgZpfSFpoOqn503uH0FrRbOfEziLLg/viewform?embedded=true"
         };
 
+        // Базовый URL календаря без параметра hl (будем подставлять язык)
+        const calendarBaseUrl = "https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&showPrint=0&showTitle=0&showCalendars=0&src=cGF1bG11bHRpc2VydmljZTdAZ21haWwuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%230b8043";
+
         function changeLang(lang) {
             const t = translations[lang] || translations['fr'];
             
@@ -2606,6 +2544,7 @@
             
             updateFooterWatermark();
 
+            // === ОБНОВЛЕНИЕ ФОРМЫ И КАЛЕНДАРЯ ===
             const bookingTitle = document.getElementById('booking-title');
             if (bookingTitle && t.booking_title) {
                 bookingTitle.innerText = t.booking_title;
@@ -2619,6 +2558,7 @@
                 calendarTitle.innerText = t.calendar_title;
             }
 
+            // Форма
             const bookingForm = document.getElementById('booking-form');
             const loader = document.getElementById('form-loader');
             if (bookingForm && formUrls[lang]) {
@@ -2627,6 +2567,14 @@
                 setTimeout(() => {
                     if (loader) loader.classList.remove('active');
                 }, 1000);
+            }
+
+            // Календарь
+            const calendarIframe = document.getElementById('calendar-iframe');
+            if (calendarIframe && t.calendar_lang) {
+                // Добавляем параметр hl с нужным языком
+                const separator = calendarBaseUrl.includes('?') ? '&' : '?';
+                calendarIframe.src = calendarBaseUrl + separator + 'hl=' + t.calendar_lang;
             }
             
             updateCalc();
