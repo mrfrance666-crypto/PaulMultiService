@@ -193,6 +193,33 @@
             }
         }
 
+        /* === ЛОГОТИП SAP (traceur) === */
+        .sap-logo-container {
+            margin-top: 25px;
+            text-align: center;
+        }
+        .sap-logo-container a {
+            display: inline-block;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .sap-logo-container img {
+            height: 60px;                /* минимальный размер для web – 60px */
+            width: auto;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .sap-logo-container img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        [data-theme="dark"] .sap-logo-container img {
+            background-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
         /* === FIX ДЛЯ iOS SAFARI === */
         @supports (-webkit-touch-callout: none) {
             body {
@@ -1555,7 +1582,7 @@
         </a>
     </div>
 
-    <!-- ОБНОВЛЕННЫЙ ФУТЕР С ЗАЩИТОЙ И ПЕРЕВОДОМ -->
+    <!-- ОБНОВЛЕННЫЙ ФУТЕР С ЗАЩИТОЙ, ПЕРЕВОДОМ И ЛОГОТИПОМ SAP -->
     <div class="footer reveal" id="main-footer">
         <div class="footer-watermark" id="footer-watermark"></div>
         <div class="footer-protection-notice" id="footer-protection-notice">PROTECTED CONTENT ©</div>
@@ -1567,6 +1594,13 @@
             <p class="gold-text">RC Pro incluse</p>
             <p class="gold-text">Service à la Personne : 10002260 (Déclaration du 17/02/2026)</p>
             <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes, France</p>
+            
+            <!-- Логотип SAP (traceur) -->
+            <div class="sap-logo-container">
+                <a href="https://www.servicesalapersonne.gouv.fr/" target="_blank" rel="noopener noreferrer" title="Services à la personne – label officiel">
+                    <img src="sap-logo.png" alt="Services à la personne – label officiel">
+                </a>
+            </div>
         </div>
     </div>
 
