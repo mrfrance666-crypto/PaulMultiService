@@ -241,6 +241,7 @@
             box-shadow: var(--shadow);
             border: 1.5px solid var(--border-color);
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
         }
         .iframe-container:hover {
             box-shadow: var(--shadow), 0 0 25px var(--gold);
@@ -251,6 +252,54 @@
             width: 100%;
             height: auto;
             border: none;
+            background: var(--card-bg);
+        }
+        /* Фиксированная высота для формы, чтобы избежать прыжков */
+        #booking-form {
+            height: 1450px;
+        }
+
+        /* Лоадер для iframe при смене языка */
+        .iframe-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        .iframe-loader.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(212,175,55,0.3);
+            border-top: 4px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Две колонки для десктопа */
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        @media (max-width: 800px) {
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* === FIX ДЛЯ iOS SAFARI === */
@@ -487,6 +536,11 @@
                 opacity: 0;
                 transform: scale(1.5);
             }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* === БАЗОВЫЕ СТИЛИ === */
@@ -833,10 +887,6 @@
             animation: spin 4s infinite linear;
         }
         
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
 
         /* Кнопка "наверх" (справа внизу) - СИММЕТРИЧНО */
         #backToTop { 
@@ -1520,6 +1570,8 @@
             <a href="#services" class="nav-pill" id="n-serv">Services</a>
             <a href="#faq" class="nav-pill" id="n-faq">FAQ</a>
             <a href="#zone" class="nav-pill" id="n-zone">Zone</a>
+            <!-- Новая кнопка "Rendez-vous" -->
+            <a href="#booking" class="nav-pill" id="n-booking">Rendez-vous</a>
         </div>
     </div>
 
@@ -1615,22 +1667,31 @@
         </a>
     </div>
 
-    <!-- НОВЫЙ РАЗДЕЛ С ЗАПИСЬЮ -->
+    <!-- НОВЫЙ РАЗДЕЛ С ЗАПИСЬЮ (две колонки) -->
     <div id="booking" class="reveal" style="padding: 20px; max-width: 1200px; margin: 40px auto;">
         <h2 id="booking-title" style="color:var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 30px;"></h2>
-        <div style="display: flex; flex-direction: column; gap: 30px;">
-            <!-- Форма записи -->
-            <div class="iframe-container">
-                <iframe id="booking-form" src="" width="100%" height="1450" frameborder="0" marginheight="0" marginwidth="0" style="display: block; width: 100%; height: auto; min-height: 1390px;" title="Formulaire de rendez-vous">Chargement…</iframe>
+        <div class="booking-grid">
+            <!-- Колонка формы -->
+            <div>
+                <h3 id="form-title" style="color: var(--gold); margin-bottom: 15px; font-size: 1.2rem;"></h3>
+                <div class="iframe-container" style="height: 1450px;">
+                    <div class="iframe-loader" id="form-loader">
+                        <div class="spinner"></div>
+                    </div>
+                    <iframe id="booking-form" src="" width="100%" frameborder="0" marginheight="0" marginwidth="0" style="height: 1450px;" title="Formulaire de rendez-vous">Chargement…</iframe>
+                </div>
             </div>
-            <!-- Календарь доступности -->
-            <div class="iframe-container">
-                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&showPrint=0&showTitle=0&showCalendars=0&src=cGF1bG11bHRpc2VydmljZTdAZ21haWwuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%230b8043" style="border: none; width: 100%; height: 600px;" frameborder="0" scrolling="no" title="Calendrier des disponibilités"></iframe>
+            <!-- Колонка календаря -->
+            <div>
+                <h3 id="calendar-title" style="color: var(--gold); margin-bottom: 15px; font-size: 1.2rem;"></h3>
+                <div class="iframe-container" style="height: 600px;">
+                    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&showPrint=0&showTitle=0&showCalendars=0&src=cGF1bG11bHRpc2VydmljZTdAZ21haWwuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%230b8043" style="border: none; width: 100%; height: 600px;" frameborder="0" scrolling="no" title="Calendrier des disponibilités"></iframe>
+                </div>
             </div>
-            <!-- Контактный email (исправлен на contact@paulmultiservice.fr) -->
-            <div style="text-align: center; margin-top: 10px;">
-                <p style="color: var(--text-color); font-size: 1.1rem;">Email: <a href="mailto:contact@paulmultiservice.fr" style="color: var(--gold); text-decoration: none; border-bottom: 1px dotted var(--gold);">contact@paulmultiservice.fr</a></p>
-            </div>
+        </div>
+        <!-- Контактный email -->
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="color: var(--text-color); font-size: 1.1rem;">Email: <a href="mailto:contact@paulmultiservice.fr" style="color: var(--gold); text-decoration: none; border-bottom: 1px dotted var(--gold);">contact@paulmultiservice.fr</a></p>
         </div>
     </div>
 
@@ -1642,7 +1703,7 @@
         <div class="footer-content">
             <span class="footer-name" id="f-name"></span>
             <div id="footer-zone-text" style="font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
-            <!-- SIRET cliquable vers Pappers.fr (URL corrigée) -->
+            <!-- SIRET cliquable vers Pappers.fr -->
             <p class="gold-text">EI Pavlo Pashkin | SIRET : <a href="https://www.pappers.fr/entreprise/pashkin-pavlo-100002260" target="_blank" rel="noopener noreferrer" class="siret-link" title="Voir l'entreprise sur Pappers">10000226000014</a></p>
             <p class="gold-text">RC Pro incluse</p>
             <p class="gold-text">Service à la Personne : 10002260 (Déclaration du 17/02/2026)</p>
@@ -1666,7 +1727,7 @@
         
         <div class="volume-control">
             <span style="color:var(--gold); font-size:0.8rem;">🔈</span>
-            <input type="range" id="volumeControl" min="0" max="1" step="0.05" value="0.15" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
+            <input type="range" id="volumeControl" min="0" max="1" step="0.05" value="0.08" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
             <span style="color:var(--gold); font-size:0.8rem;">🔊</span>
         </div>
         
@@ -1686,6 +1747,7 @@
         const translations = {
             fr: {
                 n_home: "Accueil",
+                n_booking: "Rendez-vous",
                 name: "Paul — Votre artisan", sap: "RÉDUCTION D'IMPÔT 50% (SAP)",
                 h_zone: "Zone d'intervention : Rennes & alentours (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Étapes", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
@@ -1728,16 +1790,17 @@
                 theme_auto_notif: "Mode auto activé",
                 theme_light_notif: "Mode clair activé",
                 theme_dark_notif: "Mode sombre activé",
-                // НОВЫЕ ПЕРЕВОДЫ ДЛЯ ЗАЩИТЫ ФУТЕРА
                 footer_watermark: "© PaulMultiService - Tous droits réservés",
                 copy_notice: "\n\n---\n© PaulMultiService - Tous droits réservés\nhttps://paulmultiservice.fr",
                 copy_notification: "Le texte est protégé par le droit d'auteur",
                 footer_protection_text: "CONTENU PROTÉGÉ ©",
-                // НОВЫЙ ПЕРЕВОД ДЛЯ ЗАГОЛОВКА ЗАПИСИ
-                booking_title: "Prendre rendez-vous"
+                booking_title: "Prendre rendez-vous",
+                form_title: "Formulaire de rendez-vous",
+                calendar_title: "Calendrier des disponibilités"
             },
             ru: {
                 n_home: "Главная",
+                n_booking: "Запись",
                 name: "Павел — Ваш мастер", sap: "НАЛОГОВЫЙ ВЫЧЕТ 50% (SAP)",
                 h_zone: "Зона охвата: Rennes и пригород (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процесс", n_serv: "Услуги", n_faq: "Вопросы", n_zone: "Зона",
@@ -1780,16 +1843,17 @@
                 theme_auto_notif: "Авто режим включён",
                 theme_light_notif: "Светлый режим включён",
                 theme_dark_notif: "Тёмный режим включён",
-                // НОВЫЕ ПЕРЕВОДЫ ДЛЯ ЗАЩИТЫ ФУТЕРА
                 footer_watermark: "© PaulMultiService - Все права защищены",
                 copy_notice: "\n\n---\n© PaulMultiService - Все права защищены\nhttps://paulmultiservice.fr",
                 copy_notification: "Текст защищен авторским правом",
                 footer_protection_text: "ЗАЩИЩЕННЫЙ КОНТЕНТ ©",
-                // НОВЫЙ ПЕРЕВОД ДЛЯ ЗАГОЛОВКА ЗАПИСИ
-                booking_title: "Записаться на приём"
+                booking_title: "Записаться на приём",
+                form_title: "Форма записи",
+                calendar_title: "Календарь доступности"
             },
             ua: {
                 n_home: "Головна",
+                n_booking: "Запис",
                 name: "Павло — Ваш майстер", sap: "ПОДАТКОВА ЗНИЖКА 50% (SAP)",
                 h_zone: "Зона охоплення: Rennes та околиці (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Процес", n_serv: "Послуги", n_faq: "Питання", n_zone: "Зона",
@@ -1832,16 +1896,17 @@
                 theme_auto_notif: "Авто режим увімкнено",
                 theme_light_notif: "Світлий режим увімкнено",
                 theme_dark_notif: "Темний режим увімкнено",
-                // НОВЫЕ ПЕРЕВОДЫ ДЛЯ ЗАЩИТЫ ФУТЕРА
                 footer_watermark: "© PaulMultiService - Усі права захищені",
                 copy_notice: "\n\n---\n© PaulMultiService - Усі права захищені\nhttps://paulmultiservice.fr",
                 copy_notification: "Текст захищено авторським правом",
                 footer_protection_text: "ЗАХИЩЕНИЙ ВМІСТ ©",
-                // НОВЫЙ ПЕРЕВОД ДЛЯ ЗАГОЛОВКА ЗАПИСИ
-                booking_title: "Записатися на прийом"
+                booking_title: "Записатися на прийом",
+                form_title: "Форма запису",
+                calendar_title: "Календар доступності"
             },
             en: {
                 n_home: "Home",
+                n_booking: "Booking",
                 name: "Paul — Your Handyman", sap: "50% TAX REDUCTION (SAP)",
                 h_zone: "Service Area : Rennes & surroundings (Betton, Saint-Grégoire, Pacé, Bruz...)",
                 n_how: "Process", n_serv: "Services", n_faq: "FAQ", n_zone: "Zone",
@@ -1884,13 +1949,13 @@
                 theme_auto_notif: "Auto mode enabled",
                 theme_light_notif: "Light mode enabled",
                 theme_dark_notif: "Dark mode enabled",
-                // НОВЫЕ ПЕРЕВОДЫ ДЛЯ ЗАЩИТЫ ФУТЕРА
                 footer_watermark: "© PaulMultiService - All rights reserved",
                 copy_notice: "\n\n---\n© PaulMultiService - All rights reserved\nhttps://paulmultiservice.fr",
                 copy_notification: "Text is protected by copyright",
                 footer_protection_text: "PROTECTED CONTENT ©",
-                // НОВЫЙ ПЕРЕВОД ДЛЯ ЗАГОЛОВКА ЗАПИСИ
-                booking_title: "Book an appointment"
+                booking_title: "Book an appointment",
+                form_title: "Booking form",
+                calendar_title: "Availability calendar"
             }
         };
 
@@ -1899,28 +1964,23 @@
             const footer = document.getElementById('main-footer');
             if (!footer) return;
             
-            // Запрещаем выделение текста в футере
             footer.style.userSelect = 'none';
             footer.style.webkitUserSelect = 'none';
             
-            // Защита от копирования
             footer.addEventListener('copy', function(e) {
                 e.preventDefault();
                 
                 const lang = getCurrentLang();
                 const t = translations[lang] || translations.fr;
                 
-                // Показываем уведомление
                 showCopyProtectionNotification(t.copy_notification);
                 
-                // Добавляем водяной знак к скопированному тексту
                 const selectedText = window.getSelection().toString();
                 const protectedText = selectedText + t.copy_notice;
                 
                 e.clipboardData.setData('text/plain', protectedText);
             });
             
-            // Защита от перетаскивания текста
             footer.addEventListener('dragstart', function(e) {
                 if (window.getSelection().toString()) {
                     e.preventDefault();
@@ -1931,13 +1991,10 @@
             console.log('Footer protection activated');
         }
 
-        // Показ уведомления о защите копирования
         function showCopyProtectionNotification(message) {
-            // Удаляем старое уведомление
             const oldNotice = document.querySelector('.copy-protect-notification');
             if (oldNotice) oldNotice.remove();
             
-            // Создаем новое уведомление
             const notice = document.createElement('div');
             notice.className = 'copy-protect-notification';
             notice.innerHTML = `
@@ -1947,7 +2004,6 @@
             
             document.body.appendChild(notice);
             
-            // Автоматическое скрытие через 3 секунды
             setTimeout(() => {
                 if (notice.parentNode) {
                     notice.style.animation = 'slideOutRight 0.3s ease';
@@ -1956,7 +2012,6 @@
             }, 3000);
         }
 
-        // Функция для обновления водяного знака при смене языка
         function updateFooterWatermark() {
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
@@ -1965,7 +2020,6 @@
             const protectionNotice = document.getElementById('footer-protection-notice');
             
             if (watermark && t.footer_watermark) {
-                // Создаем повторяющийся текст для водяного знака
                 const repeatedText = (t.footer_watermark + ' • ').repeat(50);
                 watermark.textContent = repeatedText;
             }
@@ -1980,10 +2034,8 @@
         const themeBadge = document.getElementById('theme-badge');
         const html = document.documentElement;
 
-        // Три состояния: auto, light, dark
         const themeCycle = ['auto', 'light', 'dark'];
 
-        // Тексты для бейджей на разных языках
         const themeBadgeTexts = {
             fr: { auto: "AUTO", light: "CLAIR", dark: "SOMBRE" },
             en: { auto: "AUTO", light: "LIGHT", dark: "DARK" },
@@ -1991,94 +2043,61 @@
             ua: { auto: "АВТО", light: "СВІТ", dark: "ТЕМ" }
         };
 
-        // Получение текущего предпочтения
         function getThemePreference() {
             try {
                 const saved = localStorage.getItem('theme-preference');
                 if (saved === 'light' || saved === 'dark' || saved === 'auto') {
                     return saved;
                 }
-                
-                // Проверяем cookies
                 const cookieTheme = document.cookie
                     .split('; ')
                     .find(row => row.startsWith('theme-preference='))
                     ?.split('=')[1];
-                
                 if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') {
                     return cookieTheme;
                 }
-            } catch (e) {
-                // Игнорируем
-            }
+            } catch (e) {}
             return 'auto';
         }
 
-        // Сохранение предпочтения
         function saveThemePreference(theme) {
             try {
                 localStorage.setItem('theme-preference', theme);
                 document.cookie = `theme-preference=${theme}; path=/; max-age=31536000; SameSite=Lax`;
-            } catch (e) {
-                // Игнорируем
-            }
+            } catch (e) {}
         }
 
-        // Определение текущей темы для отображения
         function getCurrentTheme() {
             const preference = getThemePreference();
-            
             if (preference === 'light') return 'light';
             if (preference === 'dark') return 'dark';
-            
-            // Если 'auto' - определяем по системе
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 return 'dark';
             }
-            
             return 'light';
         }
 
-        // Создание эффекта переключения
         function createThemeChangeEffect() {
             const effect = document.createElement('div');
             effect.className = 'theme-change-effect';
             themeBtn.appendChild(effect);
-            
             setTimeout(() => {
-                if (effect.parentNode) {
-                    effect.parentNode.removeChild(effect);
-                }
+                if (effect.parentNode) effect.parentNode.removeChild(effect);
             }, 600);
         }
 
-        // Переключение темы
         function toggleTheme() {
-            // Создаем эффект
             createThemeChangeEffect();
-            
             const currentPreference = getThemePreference();
-            
-            // Находим следующий режим в цикле
             const currentIndex = themeCycle.indexOf(currentPreference);
             const nextIndex = (currentIndex + 1) % themeCycle.length;
             const nextTheme = themeCycle[nextIndex];
-            
-            // Сохраняем предпочтение
             saveThemePreference(nextTheme);
-            
-            // Определяем какую тему показывать
             const themeToShow = nextTheme === 'auto' ? getCurrentTheme() : nextTheme;
-            
-            // Устанавливаем тему с небольшой задержкой для анимации
             setTimeout(() => {
                 html.setAttribute('data-theme', themeToShow);
             }, 150);
-            
-            // Обновляем кнопку и бейдж
             updateThemeButton(nextTheme);
-            
-            // Показываем уведомление
             const lang = getCurrentLang();
             const notifications = {
                 fr: { auto: "Mode auto activé", light: "Mode clair activé", dark: "Mode sombre activé" },
@@ -2086,75 +2105,56 @@
                 ru: { auto: "Авто режим включён", light: "Светлый режим включён", dark: "Тёмный режим включён" },
                 ua: { auto: "Авто режим увімкнено", light: "Світлий режим увімкнено", dark: "Темний режим увімкнено" }
             };
-            
             const t = notifications[lang] || notifications.fr;
             showNotification(`🎨 ${t[nextTheme]}`);
         }
 
-        // Обновление кнопки и бейджа
         function updateThemeButton(preference) {
             if (themeBtn && themeBadge) {
-                // Устанавливаем data-атрибут для CSS
                 themeBtn.setAttribute('data-theme', preference);
-                
-                // Обновляем бейдж
                 const lang = getCurrentLang();
                 const texts = themeBadgeTexts[lang] || themeBadgeTexts.fr;
                 themeBadge.textContent = texts[preference];
-                
-                // Меняем title
                 const titles = {
                     fr: { auto: "Mode auto", light: "Mode clair", dark: "Mode sombre" },
                     en: { auto: "Auto mode", light: "Light mode", dark: "Dark mode" },
                     ru: { auto: "Авто режим", light: "Светлый режим", dark: "Тёмный режим" },
                     ua: { auto: "Авто режим", light: "Світлий режим", dark: "Темний режим" }
                 };
-                
                 const t = titles[lang] || titles.fr;
                 themeBtn.title = t[preference];
                 themeBtn.setAttribute('aria-label', t[preference]);
             }
         }
 
-        // Настройка отслеживания системной темы
         function setupSystemThemeListener() {
             if (window.matchMedia) {
                 const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-                
                 const handleChange = (e) => {
                     const preference = getThemePreference();
-                    
-                    // Если выбран режим 'auto', меняем тему автоматически
                     if (preference === 'auto') {
                         const newTheme = e.matches ? 'dark' : 'light';
                         html.setAttribute('data-theme', newTheme);
-                        
-                        // Обновляем кнопку
                         updateThemeButton('auto');
                     }
                 };
-                
-                // Современный способ
                 if (mediaQuery.addEventListener) {
                     mediaQuery.addEventListener('change', handleChange);
                 } else {
-                    // Для старых браузеров
                     mediaQuery.addListener(handleChange);
                 }
             }
         }
 
-        // Инициализация темы
         function initTheme() {
             const preference = getThemePreference();
             const currentTheme = getCurrentTheme();
-            
             html.setAttribute('data-theme', currentTheme);
             updateThemeButton(preference);
             setupSystemThemeListener();
         }
 
-        // ===== УПРАВЛЕНИЕ QR-КОДОМ (ИСПРАВЛЕННОЕ) =====
+        // ===== УПРАВЛЕНИЕ QR-КОДОМ =====
         const qrBtn = document.getElementById('qrBtn');
         const qrOverlay = document.getElementById('qrOverlay');
         const closeQR = document.getElementById('closeQR');
@@ -2163,7 +2163,6 @@
         qrBtn.addEventListener('click', () => {
             qrOverlay.style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            
             setTimeout(() => {
                 qrOverlay.style.opacity = '1';
             }, 10);
@@ -2185,14 +2184,11 @@
             }
         });
 
-        // Функция загрузки резервного QR-кода
         function loadBackupQR() {
             const qrImage = document.getElementById('qrImage');
             if (qrImage) {
-                // Переключаемся на резервный сервис
                 qrImage.src = 'https://quickchart.io/qr?text=https://paulmultiservice.fr&size=250&format=png&margin=10';
                 qrImage.onerror = function() {
-                    // Если и это не работает, показываем текст
                     this.style.display = 'none';
                     const container = this.parentElement;
                     const fallbackText = document.createElement('div');
@@ -2206,12 +2202,10 @@
             }
         }
 
-        // Функция поделиться QR-кодом
         shareQR.addEventListener('click', async () => {
             try {
                 const lang = getCurrentLang();
                 const t = translations[lang] || translations.fr;
-                
                 if (navigator.share) {
                     await navigator.share({
                         title: 'Paul MultiService',
@@ -2221,7 +2215,6 @@
                 } else {
                     const qrImage = document.getElementById('qrImage');
                     if (qrImage && qrImage.src) {
-                        // Создаем временную ссылку для скачивания
                         const link = document.createElement('a');
                         link.href = qrImage.src;
                         link.download = 'paul-multiservice-qr.png';
@@ -2230,18 +2223,16 @@
                         document.body.removeChild(link);
                         showNotification("✅ QR-код скачан!");
                     } else {
-                        // Копируем ссылку в буфер
                         await navigator.clipboard.writeText('https://paulmultiservice.fr');
                         showNotification("✅ Ссылка скопирована!");
                     }
                 }
             } catch (err) {
-                // Пользователь отменил шаринг
                 console.log('Share cancelled:', err);
             }
         });
 
-        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (ИСПРАВЛЕННОЕ) =====
+        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (ИСПРАВЛЕННАЯ ГРОМКОСТЬ) =====
         let bgMusic = null;
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
@@ -2249,27 +2240,22 @@
 
         function initAudio() {
             if (bgMusic) return;
-            
             try {
                 const musicTracks = {
                     chill: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112778.mp3',
                     ambient: 'https://cdn.pixabay.com/download/audio/2024/10/17/audio_74b9006f8c.mp3?filename=calm-piano-inspiring-251916.mp3',
                     corporate: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=corporate-technology-11273.mp3'
                 };
-                
-                // Проверяем доступность треков
                 const trackUrl = musicTracks[currentTrack];
                 if (!trackUrl) {
                     console.warn('Track not found:', currentTrack);
                     return;
                 }
-                
                 bgMusic = new Audio(trackUrl);
                 bgMusic.loop = true;
-                bgMusic.volume = 0.15;
+                bgMusic.volume = 0.08; // Уменьшено до 0.08
                 bgMusic.preload = 'auto';
                 bgMusic.muted = false;
-                
                 console.log('Audio initialized with track:', currentTrack);
             } catch (e) {
                 console.error('Audio init error:', e);
@@ -2279,16 +2265,11 @@
         function attemptAutoPlay() {
             const musicDisabled = localStorage.getItem('musicDisabled') === 'true';
             if (musicDisabled) return;
-            
             if (!bgMusic) initAudio();
             if (!bgMusic) return;
-            
-            // Настраиваем аудио перед попыткой воспроизведения
             bgMusic.muted = false;
-            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.15');
-            
+            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.08');
             const playPromise = bgMusic.play();
-            
             if (playPromise !== undefined) {
                 playPromise.then(() => {
                     isMusicPlaying = true;
@@ -2297,7 +2278,6 @@
                     console.log('Music autoplay success');
                 }).catch(error => {
                     console.log('Autoplay blocked, waiting for user interaction');
-                    // Ждем клика пользователя
                     const playOnInteraction = () => {
                         if (!isMusicPlaying && bgMusic) {
                             bgMusic.play().then(() => {
@@ -2310,11 +2290,7 @@
                             });
                         }
                     };
-                    
-                    // Добавляем обработчик на клик по всему документу
                     document.addEventListener('click', playOnInteraction, { once: true });
-                    
-                    // Также добавляем на саму кнопку музыки
                     const musicBtn = document.getElementById('musicBtn');
                     if (musicBtn) {
                         musicBtn.addEventListener('click', playOnInteraction, { once: true });
@@ -2329,7 +2305,6 @@
             const musicToggle = document.getElementById('musicToggle');
             const musicStatus = document.getElementById('musicStatus');
             const musicBtn = document.getElementById('musicBtn');
-            
             if (playing) {
                 if (musicToggle) musicToggle.innerHTML = '⏸️';
                 if (musicStatus) musicStatus.textContent = t.music_on;
@@ -2344,10 +2319,8 @@
         function toggleMusicPanel() {
             const panel = document.getElementById('musicPlayer');
             if (!panel) return;
-            
             isMusicPanelVisible = !isMusicPanelVisible;
             panel.style.display = isMusicPanelVisible ? 'block' : 'none';
-            
             if (!bgMusic) {
                 initAudio();
             }
@@ -2357,19 +2330,14 @@
             if (!bgMusic) {
                 initAudio();
             }
-            
             if (!bgMusic) {
                 showNotification("🎵 Музыка временно недоступна");
                 return;
             }
-            
             if (!isMusicPlaying) {
-                // Убеждаемся что не muted и есть громкость
                 bgMusic.muted = false;
-                bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.15');
-                
+                bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.08');
                 const playPromise = bgMusic.play();
-                
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
                         isMusicPlaying = true;
@@ -2387,9 +2355,6 @@
                 updateMusicUI(false);
                 localStorage.setItem('musicDisabled', 'true');
             }
-            
-            // Не закрываем панель при переключении музыки!
-            // Панель остается открытой, если была открыта
         }
 
         function changeVolume(value) {
@@ -2400,8 +2365,6 @@
                 const volume = parseFloat(value);
                 bgMusic.volume = volume;
                 localStorage.setItem('musicVolume', value);
-                
-                // Если музыка выключена, включаем ее при изменении громкости
                 if (!isMusicPlaying && volume > 0) {
                     bgMusic.muted = false;
                     const playPromise = bgMusic.play();
@@ -2421,69 +2384,55 @@
                 ambient: 'https://cdn.pixabay.com/download/audio/2024/10/17/audio_74b9006f8c.mp3?filename=calm-piano-inspiring-251916.mp3',
                 corporate: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=corporate-technology-11273.mp3'
             };
-            
             if (!musicTracks[track]) {
                 console.warn('Invalid track:', track);
                 return;
             }
-            
             const wasPlaying = isMusicPlaying;
             currentTrack = track;
-            
             if (bgMusic) {
                 if (wasPlaying) {
                     bgMusic.pause();
                 }
             }
-            
-            // Создаем новый Audio объект
             bgMusic = new Audio(musicTracks[track]);
             bgMusic.loop = true;
-            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.15');
+            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.08');
             bgMusic.preload = 'auto';
             bgMusic.muted = false;
-            
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
             const trackBtn = document.getElementById('track' + track.charAt(0).toUpperCase() + track.slice(1));
             if (trackBtn) trackBtn.classList.add('active');
-            
             localStorage.setItem('musicTrack', track);
-            
             if (wasPlaying) {
                 bgMusic.play().then(() => {
                     console.log('Track changed to:', track);
                 }).catch(e => {
                     console.error('Track change play error:', e);
-                    // Если не удалось воспроизвести, показываем уведомление
                     showNotification("🔊 Нажмите кнопку воспроизведения");
                 });
             }
         }
 
         function loadMusicSettings() {
-            const volume = localStorage.getItem('musicVolume') || '0.15';
+            const volume = localStorage.getItem('musicVolume') || '0.08';
             const track = localStorage.getItem('musicTrack') || 'chill';
             const disabled = localStorage.getItem('musicDisabled') === 'true';
-
             const volumeControl = document.getElementById('volumeControl');
             if (volumeControl) {
                 volumeControl.value = volume;
             }
-
             const musicTracks = {
                 chill: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112778.mp3',
                 ambient: 'https://cdn.pixabay.com/download/audio/2024/10/17/audio_74b9006f8c.mp3?filename=calm-piano-inspiring-251916.mp3',
                 corporate: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=corporate-technology-11273.mp3'
             };
-
             if (track && musicTracks[track]) {
                 currentTrack = track;
             }
-            
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
             const trackBtn = document.getElementById('track' + currentTrack.charAt(0).toUpperCase() + currentTrack.slice(1));
             if (trackBtn) trackBtn.classList.add('active');
-
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
             const trackChill = document.getElementById('trackChill');
@@ -2492,11 +2441,7 @@
             if (trackChill) trackChill.textContent = t.track_chill;
             if (trackAmbient) trackAmbient.textContent = t.track_ambient;
             if (trackCorporate) trackCorporate.textContent = t.track_corporate;
-            
-            // Обновляем UI музыки
             updateMusicUI(false);
-            
-            // Если музыка не отключена, пытаемся автовоспроизведение
             if (!disabled) {
                 setTimeout(attemptAutoPlay, 1500);
             }
@@ -2508,7 +2453,6 @@
                     bgMusic.pause();
                 } else {
                     bgMusic.play().catch(e => {
-                        // Если не удалось возобновить, сбрасываем флаг
                         isMusicPlaying = false;
                         updateMusicUI(false);
                     });
@@ -2524,10 +2468,8 @@
                 notification.id = 'custom-notification';
                 document.body.appendChild(notification);
             }
-            
             notification.textContent = message;
             notification.classList.add('show');
-            
             setTimeout(() => {
                 notification.classList.remove('show');
             }, duration);
@@ -2538,20 +2480,15 @@
             if (e.target.matches('button, .msg-btn, .nav-pill, .lang-btn, .faq-item, .floating-btn, .qr-close, .qr-share-btn, #musicToggle, .track-btn')) {
                 const target = e.target;
                 const rect = target.getBoundingClientRect();
-                
                 const wave = document.createElement('span');
                 wave.classList.add('wave-effect');
                 wave.style.width = Math.max(rect.width, rect.height) + 'px';
                 wave.style.height = wave.style.width;
                 wave.style.left = e.clientX - rect.left - parseInt(wave.style.width)/2 + 'px';
                 wave.style.top = e.clientY - rect.top - parseInt(wave.style.height)/2 + 'px';
-                
                 target.appendChild(wave);
-                
                 setTimeout(() => {
-                    if (wave.parentNode) {
-                        wave.parentNode.removeChild(wave);
-                    }
+                    if (wave.parentNode) wave.parentNode.removeChild(wave);
                 }, 500);
             }
         });
@@ -2566,20 +2503,11 @@
             }
         }
 
-        // Словарь ссылок на формы для разных языков
         const formUrls = {
             fr: "https://docs.google.com/forms/d/e/1FAIpQLSfSL7VdWhubCcbqJ3j_9WFJF2D7jmYiDPXUjk5Km15O_mdVMQ/viewform?embedded=true",
             en: "https://docs.google.com/forms/d/e/1FAIpQLSdN5H_wckNy_kjrsYOGyvqH6cxHpLdefB2gZM0TgitICB6hRA/viewform?embedded=true",
             ua: "https://docs.google.com/forms/d/e/1FAIpQLSd-gDSP-YBEHy20WHoO2Xk8bCFaYWpK46doTsb3lWKZfdaAbw/viewform?embedded=true",
             ru: "https://docs.google.com/forms/d/e/1FAIpQLSewSOZ3iGoOyfCQTD0hUgZpfSFpoOqn503uH0FrRbOfEziLLg/viewform?embedded=true"
-        };
-
-        // Высоты форм для разных языков
-        const formHeights = {
-            fr: 1393,
-            en: 1409,
-            ua: 1438,
-            ru: 1438
         };
 
         function changeLang(lang) {
@@ -2601,6 +2529,7 @@
             };
 
             setText('nav-home', t.n_home);
+            setText('n-booking', t.n_booking);
             setText('display-name', t.name);
             setText('f-name', t.name);
             setText('sap-info', t.sap);
@@ -2648,7 +2577,6 @@
             setText('qrDescription', t.qr_desc);
             setText('shareQRText', t.qr_share);
             
-            // Обновляем бейдж темы
             const preference = getThemePreference();
             const badgeTexts = themeBadgeTexts[lang] || themeBadgeTexts.fr;
             setText('theme-badge', badgeTexts[preference]);
@@ -2676,19 +2604,29 @@
                 }
             }
             
-            // === ЗАЩИТА ФУТЕРА И ВОДЯНОЙ ЗНАК ===
             updateFooterWatermark();
 
-            // === ОБНОВЛЕНИЕ ФОРМЫ И ЗАГОЛОВКА ЗАПИСИ ===
             const bookingTitle = document.getElementById('booking-title');
             if (bookingTitle && t.booking_title) {
                 bookingTitle.innerText = t.booking_title;
             }
+            const formTitle = document.getElementById('form-title');
+            if (formTitle && t.form_title) {
+                formTitle.innerText = t.form_title;
+            }
+            const calendarTitle = document.getElementById('calendar-title');
+            if (calendarTitle && t.calendar_title) {
+                calendarTitle.innerText = t.calendar_title;
+            }
+
             const bookingForm = document.getElementById('booking-form');
+            const loader = document.getElementById('form-loader');
             if (bookingForm && formUrls[lang]) {
+                if (loader) loader.classList.add('active');
                 bookingForm.src = formUrls[lang];
-                // Подбираем высоту под язык
-                bookingForm.style.height = formHeights[lang] + 'px';
+                setTimeout(() => {
+                    if (loader) loader.classList.remove('active');
+                }, 1000);
             }
             
             updateCalc();
@@ -2699,13 +2637,10 @@
             const daySelect = document.getElementById('daySelect');
             const totalEl = document.getElementById('totalPrice');
             const netEl = document.getElementById('netPrice');
-
             if (!hoursInput || !daySelect || !totalEl || !netEl) return;
-
             const h = Math.max(1, parseInt(hoursInput.value) || 1); 
             const m = parseFloat(daySelect.value) || 1; 
             const calculatedTotal = (50 + (h - 1) * 40) * m; 
-            
             totalEl.innerText = calculatedTotal; 
             netEl.innerText = Math.round(calculatedTotal / 2); 
         }
@@ -2722,26 +2657,19 @@
 
         function sendToWhatsApp(event) {
             if (event) event.preventDefault();
-            
             const hoursInput = document.getElementById('hoursInput');
             const totalEl = document.getElementById('totalPrice');
             const daySelect = document.getElementById('daySelect');
-            
             if (!hoursInput || !totalEl || !daySelect) return;
-            
             const h = Math.max(1, parseInt(hoursInput.value) || 1);
             const total = totalEl.innerText;
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
-            
             const dayText = daySelect.options[daySelect.selectedIndex] ? 
                 daySelect.options[daySelect.selectedIndex].text : '';
-            
             const message = (t.msg || 'Hello! ') + (t.wa_sim || 'Quote') + ': ' + h + 'h, ' + dayText + ' = ' + total + 'EUR';
-            
             const phone = '33745625007';
             const url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + encodeURIComponent(message);
-            
             window.open(url, '_blank');
         }
         
@@ -2757,13 +2685,11 @@
             const upBtn = document.getElementById("backToTop");
             if (!upBtn) return;
             const scrollTop = document.body.scrollTop || document.documentElement.scrollTop || 0;
-            const scrolled = scrollTop > 300;
-            upBtn.style.display = scrolled ? "flex" : "none";
+            upBtn.style.display = scrollTop > 300 ? "flex" : "none";
         };
 
         function copyEmail() { 
             const email = "contact@paulmultiservice.fr";
-            
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(email).then(() => {
                     showNotification("✅ Email copié !");
@@ -2790,7 +2716,6 @@
         function shareSite() { 
             const lang = getCurrentLang();
             const t = translations[lang] || translations.fr;
-            
             if (navigator.share) { 
                 navigator.share({
                     title: 'Paul Multiservice',
@@ -2820,7 +2745,6 @@
                     }
                     window.URL.revokeObjectURL(vUrl); 
                 }, 200);
-                
                 showNotification("✅ Contact sauvegardé !");
             } catch (e) {
                 showNotification("❌ Erreur");
@@ -2843,44 +2767,29 @@
         // ===== ИНИЦИАЛИЗАЦИЯ =====
         window.addEventListener('DOMContentLoaded', () => { 
             try {
-                // Инициализация премиум темы (Auto по умолчанию)
                 initTheme();
-                
-                // Добавляем обработчик клика для кнопки темы
                 if (themeBtn) {
                     themeBtn.addEventListener('click', toggleTheme);
                 }
-                
-                // Обработчик для кнопки музыки - открывает/закрывает панель
                 const musicBtn = document.getElementById('musicBtn');
                 if (musicBtn) {
                     musicBtn.addEventListener('click', toggleMusicPanel);
                 }
-                
                 changeLang('fr'); 
                 revealSections(); 
-                
-                // Инициализация музыки с задержкой
                 setTimeout(() => {
                     loadMusicSettings();
                 }, 1000);
-                
-                // Инициализация калькулятора
                 updateCalc();
-                
-                // Инициализация защиты футера
                 setTimeout(() => {
                     setupFooterProtection();
                     updateFooterWatermark();
                 }, 500);
-                
-                // Проверка всех элементов интерфейса
                 console.log('Site initialized successfully');
                 console.log('Theme:', getThemePreference());
                 console.log('Music system ready');
                 console.log('QR system ready');
                 console.log('Footer protection activated');
-                
             } catch (error) {
                 console.error('Initialization error:', error);
             }
