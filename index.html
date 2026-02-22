@@ -259,6 +259,11 @@
             height: 1450px;
         }
 
+        /* Немного приглушаем текст в форме Google, чтобы надпись была менее заметна */
+        #booking-form {
+            filter: contrast(0.95) brightness(1.02);
+        }
+
         /* Лоадер для iframe при смене языка */
         .iframe-loader {
             position: absolute;
@@ -1049,6 +1054,15 @@
             align-items: center;
             gap: 10px;
         }
+
+        /* Добавляем отображение процентов */
+        #volume-percent {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            min-width: 35px;
+            text-align: right;
+        }
         
         .track-buttons {
             margin-top: 8px;
@@ -1411,7 +1425,6 @@
                         const cookieTheme = document.cookie.split('; ').find(row => row.startsWith('theme-preference='))?.split('=')[1];
                         if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') return cookieTheme;
                     } catch (e) {}
-                    // Изменено: теперь по умолчанию 'dark' вместо 'auto'
                     return 'dark';
                 };
                 
@@ -1419,7 +1432,6 @@
                     const preference = getThemePreference();
                     if (preference === 'light') return 'light';
                     if (preference === 'dark') return 'dark';
-                    // Если auto, всё равно используем тёмную (можно оставить системную логику, но раз мы поставили dark по умолчанию, этот случай не наступит)
                     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
                     return 'light';
                 };
@@ -1683,6 +1695,7 @@
         <div class="volume-control">
             <span style="color:var(--gold); font-size:0.8rem;">🔈</span>
             <input type="range" id="volumeControl" min="0" max="1" step="0.05" value="0.03" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
+            <span style="color:var(--gold); font-size:0.8rem;" id="volume-percent">3%</span>
             <span style="color:var(--gold); font-size:0.8rem;">🔊</span>
         </div>
         
@@ -1996,7 +2009,7 @@
                 const cookieTheme = document.cookie.split('; ').find(row => row.startsWith('theme-preference='))?.split('=')[1];
                 if (cookieTheme === 'light' || cookieTheme === 'dark' || cookieTheme === 'auto') return cookieTheme;
             } catch (e) {}
-            return 'dark'; // здесь тоже меняем на 'dark' для единообразия
+            return 'dark';
         }
 
         function saveThemePreference(theme) {
@@ -2010,7 +2023,6 @@
             const preference = getThemePreference();
             if (preference === 'light') return 'light';
             if (preference === 'dark') return 'dark';
-            // если auto, смотрим систему
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
             return 'light';
         }
@@ -2170,11 +2182,20 @@
             }
         });
 
-        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (громкость 0.03) =====
+        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ =====
         let bgMusic = null;
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
         let currentTrack = 'chill';
+
+        // Функция обновления процентов громкости
+        function updateVolumePercent(value) {
+            const percentEl = document.getElementById('volume-percent');
+            if (percentEl) {
+                const percent = Math.round(value * 100);
+                percentEl.textContent = percent + '%';
+            }
+        }
 
         function initAudio() {
             if (bgMusic) return;
@@ -2191,10 +2212,11 @@
                 }
                 bgMusic = new Audio(trackUrl);
                 bgMusic.loop = true;
-                bgMusic.volume = 0.03; // Уменьшено до 0.03
+                bgMusic.volume = 0.03;
                 bgMusic.preload = 'auto';
                 bgMusic.muted = false;
                 console.log('Audio initialized with track:', currentTrack);
+                updateVolumePercent(0.03);
             } catch (e) {
                 console.error('Audio init error:', e);
             }
@@ -2206,7 +2228,9 @@
             if (!bgMusic) initAudio();
             if (!bgMusic) return;
             bgMusic.muted = false;
-            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
+            const savedVolume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
+            bgMusic.volume = savedVolume;
+            updateVolumePercent(savedVolume);
             const playPromise = bgMusic.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
@@ -2274,7 +2298,9 @@
             }
             if (!isMusicPlaying) {
                 bgMusic.muted = false;
-                bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
+                const savedVolume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
+                bgMusic.volume = savedVolume;
+                updateVolumePercent(savedVolume);
                 const playPromise = bgMusic.play();
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
@@ -2303,6 +2329,7 @@
                 const volume = parseFloat(value);
                 bgMusic.volume = volume;
                 localStorage.setItem('musicVolume', value);
+                updateVolumePercent(volume);
                 if (!isMusicPlaying && volume > 0) {
                     bgMusic.muted = false;
                     const playPromise = bgMusic.play();
@@ -2335,9 +2362,11 @@
             }
             bgMusic = new Audio(musicTracks[track]);
             bgMusic.loop = true;
-            bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
+            const savedVolume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
+            bgMusic.volume = savedVolume;
             bgMusic.preload = 'auto';
             bgMusic.muted = false;
+            updateVolumePercent(savedVolume);
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
             const trackBtn = document.getElementById('track' + track.charAt(0).toUpperCase() + track.slice(1));
             if (trackBtn) trackBtn.classList.add('active');
@@ -2360,6 +2389,7 @@
             if (volumeControl) {
                 volumeControl.value = volume;
             }
+            updateVolumePercent(parseFloat(volume));
             const musicTracks = {
                 chill: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112778.mp3',
                 ambient: 'https://cdn.pixabay.com/download/audio/2024/10/17/audio_74b9006f8c.mp3?filename=calm-piano-inspiring-251916.mp3',
