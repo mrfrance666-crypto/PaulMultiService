@@ -1078,9 +1078,9 @@
             <a href="#top" class="nav-pill" id="nav-home">Accueil</a>
             <a href="#how" class="nav-pill" id="n-how">Process</a>
             <a href="#services" class="nav-pill" id="n-serv">Services</a>
-            <a href="#faq" class="nav-pill" id="n-faq">FAQ</a>
-            <a href="#zone" class="nav-pill" id="n-zone">Zone</a>
             <a href="#booking" class="nav-pill" id="n-booking">Rendez-vous</a>
+            <a href="#zone" class="nav-pill" id="n-zone">Zone</a>
+            <a href="#faq" class="nav-pill" id="n-faq">FAQ</a>
         </div>
     </div>
 
@@ -1142,21 +1142,6 @@
         </div>
     </div>
 
-    <div id="faq" class="reveal" style="padding: 20px; max-width: 800px; margin: 40px auto;">
-        <h2 id="f-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <div id="faq-container"></div>
-    </div>
-
-    <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
-        <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
-        <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
-        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881260759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
-        <br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;">
-            <i class="msg-icon fas fa-route"></i><span id="route-text"></span>
-        </a>
-    </div>
-
     <!-- РАЗДЕЛ ЗАПИСИ (две колонки) -->
     <div id="booking" class="reveal" style="padding: 20px; max-width: 1200px; margin: 40px auto;">
         <h2 id="booking-title" style="color:var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 30px;"></h2>
@@ -1178,6 +1163,21 @@
         <div style="text-align: center; margin-top: 30px;">
             <p style="color: var(--text-color); font-size: 1.1rem;">Email: <a href="mailto:contact@paulmultiservice.fr" style="color: var(--gold); text-decoration: none; border-bottom: 1px dotted var(--gold);">contact@paulmultiservice.fr</a></p>
         </div>
+    </div>
+
+    <div id="zone" class="reveal" style="padding: 20px; max-width: 1000px; margin: 40px auto;">
+        <h2 id="z-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
+        <p id="z-desc" style="margin-bottom: 20px; font-weight: 600;"></p>
+        <iframe style="width: 100%; height: 350px; border-radius: 20px; border: 2px solid var(--gold);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42618.34963503112!2d-1.6881260759082264!3d48.11726591783063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ede3238867f7d%3A0x40ca5cd36e4ab30!2sBetton!5e0!3m2!1sfr!2sfr!4v1715850000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+        <br>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Rennes" target="_blank" class="msg-btn call-btn" id="l-route" style="display:inline-flex; margin-top:20px; width:auto; padding:12px 40px;">
+            <i class="msg-icon fas fa-route"></i><span id="route-text"></span>
+        </a>
+    </div>
+
+    <div id="faq" class="reveal" style="padding: 20px; max-width: 800px; margin: 40px auto;">
+        <h2 id="f-t" style="color:var(--gold); font-family: 'Playfair Display', serif;"></h2>
+        <div id="faq-container"></div>
     </div>
 
     <!-- ФУТЕР -->
@@ -1688,7 +1688,7 @@
             }
         });
 
-        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ =====
+        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (ОБНОВЛЁННЫЕ ФУНКЦИИ) =====
         let bgMusic = null;
         let isMusicPlaying = false;
         let isMusicPanelVisible = false;
@@ -1726,11 +1726,11 @@
                 }
                 bgMusic = new Audio(trackUrl);
                 bgMusic.loop = true;
-                bgMusic.volume = 0.03;
+                bgMusic.volume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
                 bgMusic.preload = 'auto';
                 bgMusic.muted = false;
+                updateVolumePercent(bgMusic.volume);
                 console.log('Audio initialized with track:', currentTrack);
-                updateVolumePercent(0.03);
             } catch (e) {
                 console.error('Audio init error:', e);
             }
@@ -1745,34 +1745,31 @@
             const savedVolume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
             bgMusic.volume = savedVolume;
             updateVolumePercent(savedVolume);
-            const playPromise = bgMusic.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
+            bgMusic.play()
+                .then(() => {
                     isMusicPlaying = true;
                     updateMusicUI(true);
                     document.getElementById('musicBtn').classList.add('playing');
                     console.log('Music autoplay success');
-                }).catch(error => {
+                })
+                .catch(() => {
                     console.log('Autoplay blocked, waiting for user interaction');
                     const playOnInteraction = () => {
                         if (!isMusicPlaying && bgMusic) {
-                            bgMusic.play().then(() => {
-                                isMusicPlaying = true;
-                                updateMusicUI(true);
-                                document.getElementById('musicBtn').classList.add('playing');
-                                console.log('Music started after interaction');
-                            }).catch(e => {
-                                console.error('Play after interaction failed:', e);
-                            });
+                            bgMusic.play()
+                                .then(() => {
+                                    isMusicPlaying = true;
+                                    updateMusicUI(true);
+                                    document.getElementById('musicBtn').classList.add('playing');
+                                    console.log('Music started after interaction');
+                                })
+                                .catch(e => console.error('Play after interaction failed:', e));
                         }
                     };
                     document.addEventListener('click', playOnInteraction, { once: true });
                     const musicBtn = document.getElementById('musicBtn');
-                    if (musicBtn) {
-                        musicBtn.addEventListener('click', playOnInteraction, { once: true });
-                    }
+                    if (musicBtn) musicBtn.addEventListener('click', playOnInteraction, { once: true });
                 });
-            }
         }
 
         function updateMusicUI(playing) {
@@ -1797,15 +1794,11 @@
             if (!panel) return;
             isMusicPanelVisible = !isMusicPanelVisible;
             panel.style.display = isMusicPanelVisible ? 'block' : 'none';
-            if (!bgMusic) {
-                initAudio();
-            }
+            if (!bgMusic) initAudio();
         }
 
         function toggleMusic() {
-            if (!bgMusic) {
-                initAudio();
-            }
+            if (!bgMusic) initAudio();
             if (!bgMusic) {
                 showNotification("🎵 Музыка временно недоступна");
                 return;
@@ -1815,18 +1808,17 @@
                 const savedVolume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
                 bgMusic.volume = savedVolume;
                 updateVolumePercent(savedVolume);
-                const playPromise = bgMusic.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
+                bgMusic.play()
+                    .then(() => {
                         isMusicPlaying = true;
                         updateMusicUI(true);
                         localStorage.setItem('musicDisabled', 'false');
                         console.log('Music started successfully');
-                    }).catch(error => {
+                    })
+                    .catch(error => {
                         console.error('Play error:', error);
                         showNotification("🔊 Нажмите еще раз для включения музыки");
                     });
-                }
             } else {
                 bgMusic.pause();
                 isMusicPlaying = false;
@@ -1836,25 +1828,13 @@
         }
 
         function changeVolume(value) {
-            if (!bgMusic) {
-                initAudio();
-            }
-            if (bgMusic) {
-                const volume = parseFloat(value);
+            const volume = parseFloat(value);
+            localStorage.setItem('musicVolume', value);
+            updateVolumePercent(volume);
+            if (isMusicPlaying && bgMusic) {
                 bgMusic.volume = volume;
-                localStorage.setItem('musicVolume', value);
-                updateVolumePercent(volume);
-                if (!isMusicPlaying && volume > 0) {
-                    bgMusic.muted = false;
-                    const playPromise = bgMusic.play();
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            isMusicPlaying = true;
-                            updateMusicUI(true);
-                        }).catch(e => {});
-                    }
-                }
             }
+            // Если музыка не играет, громкость применится при старте
         }
 
         function changeTrack(track) {
@@ -1870,9 +1850,7 @@
             const wasPlaying = isMusicPlaying;
             currentTrack = track;
             if (bgMusic) {
-                if (wasPlaying) {
-                    bgMusic.pause();
-                }
+                if (wasPlaying) bgMusic.pause();
             }
             bgMusic = new Audio(musicTracks[track]);
             bgMusic.loop = true;
@@ -1886,12 +1864,12 @@
             if (trackBtn) trackBtn.classList.add('active');
             localStorage.setItem('musicTrack', track);
             if (wasPlaying) {
-                bgMusic.play().then(() => {
-                    console.log('Track changed to:', track);
-                }).catch(e => {
-                    console.error('Track change play error:', e);
-                    showNotification("🔊 Нажмите кнопку воспроизведения");
-                });
+                bgMusic.play()
+                    .then(() => console.log('Track changed to:', track))
+                    .catch(e => {
+                        console.error('Track change play error:', e);
+                        showNotification("🔊 Нажмите кнопку воспроизведения");
+                    });
             }
         }
 
@@ -1900,18 +1878,14 @@
             const track = localStorage.getItem('musicTrack') || 'chill';
             const disabled = localStorage.getItem('musicDisabled') === 'true';
             const volumeControl = document.getElementById('volumeControl');
-            if (volumeControl) {
-                volumeControl.value = volume;
-            }
+            if (volumeControl) volumeControl.value = volume;
             updateVolumePercent(parseFloat(volume));
             const musicTracks = {
                 chill: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112778.mp3',
                 ambient: 'https://cdn.pixabay.com/download/audio/2024/10/17/audio_74b9006f8c.mp3?filename=calm-piano-inspiring-251916.mp3',
                 corporate: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=corporate-technology-11273.mp3'
             };
-            if (track && musicTracks[track]) {
-                currentTrack = track;
-            }
+            if (track && musicTracks[track]) currentTrack = track;
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
             const trackBtn = document.getElementById('track' + currentTrack.charAt(0).toUpperCase() + currentTrack.slice(1));
             if (trackBtn) trackBtn.classList.add('active');
@@ -1924,9 +1898,7 @@
             if (trackAmbient) trackAmbient.textContent = t.track_ambient;
             if (trackCorporate) trackCorporate.textContent = t.track_corporate;
             updateMusicUI(false);
-            if (!disabled) {
-                setTimeout(attemptAutoPlay, 1500);
-            }
+            if (!disabled) setTimeout(attemptAutoPlay, 1500);
         }
 
         document.addEventListener('visibilitychange', function() {
