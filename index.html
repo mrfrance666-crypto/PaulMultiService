@@ -220,6 +220,18 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
+        /* === Ссылка SIRET (Pappers) === */
+        .siret-link {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            transition: opacity 0.3s ease;
+        }
+        .siret-link:hover {
+            opacity: 0.8;
+            text-decoration-style: solid;
+        }
+
         /* === FIX ДЛЯ iOS SAFARI === */
         @supports (-webkit-touch-callout: none) {
             body {
@@ -1582,7 +1594,7 @@
         </a>
     </div>
 
-    <!-- ОБНОВЛЕННЫЙ ФУТЕР С ЗАЩИТОЙ, ПЕРЕВОДОМ И ЛОГОТИПОМ SAP -->
+    <!-- ОБНОВЛЕННЫЙ ФУТЕР С ЗАЩИТОЙ, ПЕРЕВОДОМ, ЛОГОТИПОМ SAP И ССЫЛКОЙ НА SIRET -->
     <div class="footer reveal" id="main-footer">
         <div class="footer-watermark" id="footer-watermark"></div>
         <div class="footer-protection-notice" id="footer-protection-notice">PROTECTED CONTENT ©</div>
@@ -1590,7 +1602,8 @@
         <div class="footer-content">
             <span class="footer-name" id="f-name"></span>
             <div id="footer-zone-text" style="font-weight: 600; margin-bottom: 15px; font-size: 1.1rem;"></div>
-            <p class="gold-text">EI Pavlo Pashkin | SIRET : 10000226000014</p>
+            <!-- SIRET cliquable vers Pappers.fr -->
+            <p class="gold-text">EI Pavlo Pashkin | SIRET : <a href="https://www.pappers.fr/entreprise/10000226000014" target="_blank" rel="noopener noreferrer" class="siret-link" title="Voir l'entreprise sur Pappers">10000226000014</a></p>
             <p class="gold-text">RC Pro incluse</p>
             <p class="gold-text">Service à la Personne : 10002260 (Déclaration du 17/02/2026)</p>
             <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">TVA non applicable, art. 293 B du CGI<br>35700 Rennes, France</p>
@@ -2798,4 +2811,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
