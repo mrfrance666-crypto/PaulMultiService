@@ -193,31 +193,32 @@
             }
         }
 
-        /* === ЛОГОТИП SAP (traceur) === */
+        /* === ЛОГОТИП SAP (traceur) – исправленная версия без белого фона === */
         .sap-logo-container {
             margin-top: 25px;
             text-align: center;
         }
         .sap-logo-container a {
             display: inline-block;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: transform 0.3s ease;
         }
         .sap-logo-container img {
             height: 60px;                /* минимальный размер для web – 60px */
             width: auto;
-            border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.15);
-            padding: 4px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: transparent; /* прозрачный фон */
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease, filter 0.3s ease;
         }
         .sap-logo-container img:hover {
             transform: scale(1.03);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
         }
+        /* Для тёмной темы – светлая тень */
         [data-theme="dark"] .sap-logo-container img {
-            background-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
+        }
+        [data-theme="dark"] .sap-logo-container img:hover {
+            filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.15));
         }
 
         /* === Ссылка SIRET (Pappers) === */
