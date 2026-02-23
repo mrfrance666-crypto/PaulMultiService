@@ -214,7 +214,7 @@
             position: relative;
         }
         .iframe-container:hover {
-            box-shadow: var(--shadow), 0 0 25px var(--gold);
+            animation: goldPulse 2s infinite ease-in-out;
             border-color: var(--gold-light);
         }
         .iframe-container iframe {
@@ -383,6 +383,12 @@
         @keyframes pulseAuto { 0%,100% { box-shadow:0 0 20px rgba(212,175,55,0.5),0 0 40px rgba(212,175,55,0.2); } 50% { box-shadow:0 0 25px rgba(212,175,55,0.7),0 0 50px rgba(212,175,55,0.3); } }
         @keyframes themeChangePulse { 0% { opacity:0; transform:scale(0.5); } 50% { opacity:0.3; transform:scale(1.2); } 100% { opacity:0; transform:scale(1.5); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Новая анимация пульсации для iframe */
+        @keyframes goldPulse {
+            0% { box-shadow: var(--shadow), 0 0 20px var(--gold), 0 0 40px rgba(212,175,55,0.2); }
+            50% { box-shadow: var(--shadow), 0 0 35px var(--gold), 0 0 70px rgba(212,175,55,0.4); }
+            100% { box-shadow: var(--shadow), 0 0 20px var(--gold), 0 0 40px rgba(212,175,55,0.2); }
+        }
 
         /* === БАЗОВЫЕ СТИЛИ === */
         * { box-sizing: border-box; }
