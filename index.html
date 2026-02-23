@@ -210,12 +210,29 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             border: 1.5px solid var(--border-color);
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1), border-color 0.3s ease;
             position: relative;
         }
+        .iframe-container::before {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 24px;
+            background: linear-gradient(45deg, transparent 30%, var(--gold) 50%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+            pointer-events: none;
+            background-size: 200% 200%;
+        }
         .iframe-container:hover {
-            animation: goldPulse 2s infinite ease-in-out;
+            transform: scale(1.02);
             border-color: var(--gold-light);
+            animation: goldBreathing 2s infinite ease-in-out;
+        }
+        .iframe-container:hover::before {
+            opacity: 0.25;
+            animation: rotateGlow 3s linear infinite;
         }
         .iframe-container iframe {
             display: block;
@@ -223,6 +240,8 @@
             height: auto;
             border: none;
             background: var(--card-bg);
+            position: relative;
+            z-index: 1;
         }
         #booking-form {
             height: 1450px;
@@ -383,11 +402,15 @@
         @keyframes pulseAuto { 0%,100% { box-shadow:0 0 20px rgba(212,175,55,0.5),0 0 40px rgba(212,175,55,0.2); } 50% { box-shadow:0 0 25px rgba(212,175,55,0.7),0 0 50px rgba(212,175,55,0.3); } }
         @keyframes themeChangePulse { 0% { opacity:0; transform:scale(0.5); } 50% { opacity:0.3; transform:scale(1.2); } 100% { opacity:0; transform:scale(1.5); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /* Новая анимация пульсации для iframe */
-        @keyframes goldPulse {
+        /* Новые анимации для динамического свечения */
+        @keyframes goldBreathing {
             0% { box-shadow: var(--shadow), 0 0 20px var(--gold), 0 0 40px rgba(212,175,55,0.2); }
-            50% { box-shadow: var(--shadow), 0 0 35px var(--gold), 0 0 70px rgba(212,175,55,0.4); }
+            50% { box-shadow: var(--shadow), 0 0 40px var(--gold), 0 0 80px rgba(212,175,55,0.5); }
             100% { box-shadow: var(--shadow), 0 0 20px var(--gold), 0 0 40px rgba(212,175,55,0.2); }
+        }
+        @keyframes rotateGlow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 200%; }
         }
 
         /* === БАЗОВЫЕ СТИЛИ === */
