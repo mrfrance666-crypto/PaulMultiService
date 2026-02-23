@@ -788,21 +788,11 @@
             transition: all 0.3s ease;
             line-height: 1;
             padding: 0;
-        }
-        #musicToggle:not(.playing) {
-            /* Символ воспроизведения ▶ */
-            transform: translateX(1px);
-        }
-        #musicToggle.playing {
-            /* Символ паузы ❚❚ */
-            transform: translateX(0);
+            /* Убраны все transform – символы центрируются естественно */
         }
         #musicToggle:hover {
-            transform: scale(1.1) translateX(1px);
+            transform: scale(1.1);
             box-shadow: 0 0 10px var(--gold);
-        }
-        #musicToggle.playing:hover {
-            transform: scale(1.1) translateX(0);
         }
         #musicStatus {
             color: var(--gold);
