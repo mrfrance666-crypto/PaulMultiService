@@ -798,7 +798,7 @@
             transform: translateX(0);
         }
         #musicToggle:hover {
-            transform: scale(1.1) translateX(20px);
+            transform: scale(1.1) translateX(1px);
             box-shadow: 0 0 10px var(--gold);
         }
         #musicToggle.playing:hover {
@@ -1839,11 +1839,17 @@
             const musicStatus = document.getElementById('musicStatus');
             const musicBtn = document.getElementById('musicBtn');
             if (playing) {
-                if (musicToggle) musicToggle.innerHTML = '❚❚'; // символ паузы
+                if (musicToggle) {
+                    musicToggle.innerHTML = '❚❚';
+                    musicToggle.classList.add('playing');
+                }
                 if (musicStatus) musicStatus.textContent = t.music_on;
                 if (musicBtn) musicBtn.classList.add('playing');
             } else {
-                if (musicToggle) musicToggle.innerHTML = '▶'; // символ воспроизведения
+                if (musicToggle) {
+                    musicToggle.innerHTML = '▶';
+                    musicToggle.classList.remove('playing');
+                }
                 if (musicStatus) musicStatus.textContent = t.music_off;
                 if (musicBtn) musicBtn.classList.remove('playing');
             }
