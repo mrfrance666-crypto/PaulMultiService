@@ -1255,8 +1255,8 @@
                 ],
                 msg: "Bonjour Paul! Je vous contacte via votre site pour un devis: ",
                 wa_sim: "Simulation",
-                music_on: "Musique activé",
-                music_off: "Musique désactivé",
+                music_on: "Musique activée",
+                music_off: "Musique désactivée",
                 track_chill: "Lofi",
                 track_ambient: "Ambient",
                 track_corporate: "Focus",
@@ -1754,22 +1754,28 @@
                 })
                 .catch(() => {
                     console.log('Autoplay blocked, waiting for user interaction');
-                    const playOnInteraction = () => {
-                        if (!isMusicPlaying && bgMusic) {
-                            bgMusic.play()
-                                .then(() => {
-                                    isMusicPlaying = true;
-                                    updateMusicUI(true);
-                                    document.getElementById('musicBtn').classList.add('playing');
-                                    console.log('Music started after interaction');
-                                })
-                                .catch(e => console.error('Play after interaction failed:', e));
-                        }
-                    };
-                    document.addEventListener('click', playOnInteraction, { once: true });
-                    const musicBtn = document.getElementById('musicBtn');
-                    if (musicBtn) musicBtn.addEventListener('click', playOnInteraction, { once: true });
+                    // Уже не нужно, так как обработчик первого клика добавлен
                 });
+        }
+
+        function startMusicOnFirstInteraction() {
+            const musicDisabled = localStorage.getItem('musicDisabled') === 'true';
+            if (musicDisabled || isMusicPlaying) return;
+            if (!bgMusic) initAudio();
+            if (!bgMusic) return;
+            bgMusic.muted = false;
+            const savedVolume = parseFloat(localStorage.getItem('musicVolume') || '0.03');
+            bgMusic.volume = savedVolume;
+            updateVolumePercent(savedVolume);
+            bgMusic.play()
+                .then(() => {
+                    isMusicPlaying = true;
+                    updateMusicUI(true);
+                    document.getElementById('musicBtn').classList.add('playing');
+                    localStorage.setItem('musicDisabled', 'false');
+                    console.log('Music started on first interaction');
+                })
+                .catch(e => console.error('Failed to start music on interaction:', e));
         }
 
         function updateMusicUI(playing) {
@@ -1908,7 +1914,7 @@
             if (trackAmbient) trackAmbient.textContent = t.track_ambient;
             if (trackCorporate) trackCorporate.textContent = t.track_corporate;
             updateMusicUI(false);
-            if (!disabled) setTimeout(attemptAutoPlay, 1500);
+            // Убрали setTimeout(attemptAutoPlay, 1500) — автозапуск теперь только по первому клику
         }
 
         document.addEventListener('visibilitychange', function() {
@@ -2260,6 +2266,15 @@
                         e.preventDefault();
                     }, { passive: false });
                 }
+                // Обработчик первого клика для запуска музыки (если не отключена)
+                const firstInteractionHandler = function() {
+                    document.removeEventListener('click', firstInteractionHandler);
+                    document.removeEventListener('touchstart', firstInteractionHandler);
+                    startMusicOnFirstInteraction();
+                };
+                document.addEventListener('click', firstInteractionHandler, { once: true });
+                document.addEventListener('touchstart', firstInteractionHandler, { once: true });
+
                 changeLang('fr'); 
                 revealSections(); 
                 setTimeout(() => {
