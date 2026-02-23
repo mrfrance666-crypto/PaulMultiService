@@ -1161,7 +1161,7 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 30px;">
-            <p style="color: var(--text-color); font-size: 1.1rem;">Email: <a href="mailto:contact@paulmultiservice.fr" style="color: var(--gold); text-decoration: none; border-bottom: 1px dotted var(--gold);">contact@paulmultiservice.fr</a></p>
+            <p style="color: var(--text-color); font-size: 1.1rem;">Email: <a href="mailto:contact@paulmultiservice.fr" id="email-link" style="color: var(--gold); text-decoration: none; border-bottom: 1px dotted var(--gold);">contact@paulmultiservice.fr</a></p>
         </div>
     </div>
 
@@ -1795,6 +1795,14 @@
             isMusicPanelVisible = !isMusicPanelVisible;
             panel.style.display = isMusicPanelVisible ? 'block' : 'none';
             if (!bgMusic) initAudio();
+            // Синхронизируем ползунок с текущей громкостью при открытии панели
+            if (bgMusic) {
+                const volumeSlider = document.getElementById('volumeControl');
+                if (volumeSlider) {
+                    volumeSlider.value = bgMusic.volume;
+                    updateVolumePercent(bgMusic.volume);
+                }
+            }
         }
 
         function toggleMusic() {
@@ -1831,10 +1839,9 @@
             const volume = parseFloat(value);
             localStorage.setItem('musicVolume', value);
             updateVolumePercent(volume);
-            if (isMusicPlaying && bgMusic) {
-                bgMusic.volume = volume;
+            if (bgMusic) {
+                bgMusic.volume = volume; // всегда устанавливаем громкость, даже если музыка не играет
             }
-            // Если музыка не играет, громкость применится при старте
         }
 
         function changeTrack(track) {
@@ -1859,6 +1866,9 @@
             bgMusic.preload = 'auto';
             bgMusic.muted = false;
             updateVolumePercent(savedVolume);
+            // Синхронизируем ползунок
+            const volumeSlider = document.getElementById('volumeControl');
+            if (volumeSlider) volumeSlider.value = savedVolume;
             document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
             const trackBtn = document.getElementById('track' + track.charAt(0).toUpperCase() + track.slice(1));
             if (trackBtn) trackBtn.classList.add('active');
@@ -2234,6 +2244,21 @@
                 const musicBtn = document.getElementById('musicBtn');
                 if (musicBtn) {
                     musicBtn.addEventListener('click', toggleMusicPanel);
+                }
+                // Обработчик для email в футере
+                const emailLink = document.getElementById('email-link');
+                if (emailLink) {
+                    emailLink.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        copyEmail();
+                    });
+                }
+                // Запрещаем скролл страницы при движении ползунка громкости на iPhone
+                const volumeSlider = document.getElementById('volumeControl');
+                if (volumeSlider) {
+                    volumeSlider.addEventListener('touchmove', function(e) {
+                        e.preventDefault();
+                    }, { passive: false });
                 }
                 changeLang('fr'); 
                 revealSections(); 
