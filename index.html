@@ -754,7 +754,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.2rem; /* чуть больше для символов */
             transition: all 0.3s ease;
         }
         #musicToggle:hover {
@@ -797,6 +797,17 @@
             font-weight: 600;
             min-width: 35px;
             text-align: right;
+        }
+        /* Стили для иконок громкости (премиум-версия) */
+        .volume-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+            transition: transform 0.2s ease, text-shadow 0.2s ease;
+            cursor: default;
+        }
+        .volume-icon:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 8px var(--gold);
         }
         .track-buttons {
             margin-top: 8px;
@@ -1199,19 +1210,19 @@
         </div>
     </div>
 
-    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
+    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (обновлённые иконки) -->
     <div id="musicPlayer">
         <div class="music-control">
-            <button onclick="toggleMusic()" id="musicToggle">▶️</button>
+            <button onclick="toggleMusic()" id="musicToggle">⏵</button>
             <span id="musicStatus">Musique off</span>
         </div>
         <div class="volume-control">
-            <span style="color:var(--gold); font-size:0.8rem;">🔈</span>
+            <span class="volume-icon">🔈</span>
             <button onclick="adjustVolume(-0.01)" title="-1%">−</button>
             <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.03" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
             <button onclick="adjustVolume(0.01)" title="+1%">+</button>
-            <span style="color:var(--gold); font-size:0.8rem;" id="volume-percent">3%</span>
-            <span style="color:var(--gold); font-size:0.8rem;">🔊</span>
+            <span id="volume-percent">3%</span>
+            <span class="volume-icon">🔊</span>
         </div>
         <div class="track-buttons">
             <button onclick="changeTrack('chill')" class="track-btn active" id="trackChill"></button>
@@ -1754,7 +1765,7 @@
                 })
                 .catch(() => {
                     console.log('Autoplay blocked, waiting for user interaction');
-                    // Уже не нужно, так как обработчик первого клика добавлен
+                    // Обработчик первого клика уже есть
                 });
         }
 
@@ -1785,11 +1796,11 @@
             const musicStatus = document.getElementById('musicStatus');
             const musicBtn = document.getElementById('musicBtn');
             if (playing) {
-                if (musicToggle) musicToggle.innerHTML = '⏸️';
+                if (musicToggle) musicToggle.innerHTML = '⏸'; // символ паузы
                 if (musicStatus) musicStatus.textContent = t.music_on;
                 if (musicBtn) musicBtn.classList.add('playing');
             } else {
-                if (musicToggle) musicToggle.innerHTML = '▶️';
+                if (musicToggle) musicToggle.innerHTML = '⏵'; // символ воспроизведения
                 if (musicStatus) musicStatus.textContent = t.music_off;
                 if (musicBtn) musicBtn.classList.remove('playing');
             }
