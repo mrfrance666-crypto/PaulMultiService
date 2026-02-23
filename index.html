@@ -748,15 +748,15 @@
             background: var(--gold);
             border: none;
             color: #000; /* чёрный цвет символов */
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.4rem; /* чуть крупнее для лучшей читаемости */
+            font-size: 1.4rem;
             transition: all 0.3s ease;
+            line-height: 1;
         }
         #musicToggle:hover {
             transform: scale(1.1);
@@ -799,7 +799,6 @@
             min-width: 35px;
             text-align: right;
         }
-        /* Стили для иконок громкости (премиум-версия) */
         .volume-icon {
             color: var(--gold);
             font-size: 1.2rem;
@@ -1105,6 +1104,7 @@
 
     <div class="messenger-wrapper reveal">
         <a href="#" class="msg-btn wa-btn" id="wa-link" onclick="sendToWhatsApp(event)"><i class="msg-icon fab fa-whatsapp"></i><span id="wa-text">WhatsApp</span></a>
+        <!-- Ссылка на Telegram пока заглушка, вы замените позже -->
         <a href="https://t.me/PaulMultiService_bot" target="_blank" class="msg-btn tg-btn" id="tg-link"><i class="msg-icon fab fa-telegram-plane"></i><span id="tg-text">Telegram</span></a>
         <a href="tel:+33745625007" class="msg-btn call-btn" id="l-call"><i class="msg-icon fas fa-phone-alt"></i><span id="call-text"></span></a>
         <button onclick="copyEmail()" class="msg-btn mail-btn" id="l-mail"><i class="msg-icon fas fa-envelope"></i><span id="mail-text"></span></button>
@@ -1211,10 +1211,10 @@
         </div>
     </div>
 
-    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (обновлённые иконки) -->
+    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (обновлённые символы) -->
     <div id="musicPlayer">
         <div class="music-control">
-            <button onclick="toggleMusic()" id="musicToggle">⏵</button>
+            <button onclick="toggleMusic()" id="musicToggle">▶</button>
             <span id="musicStatus">Musique off</span>
         </div>
         <div class="volume-control">
@@ -1291,7 +1291,6 @@
                 form_title: "Formulaire de rendez-vous",
                 calendar_title: "Calendrier des disponibilités",
                 calendar_lang: "fr"
-                // telegram_bot: "https://t.me/PaulMultiService_bot"  // будет добавлено позже
             },
             ru: {
                 n_home: "Главная",
@@ -1346,7 +1345,6 @@
                 form_title: "Форма записи",
                 calendar_title: "Календарь доступности",
                 calendar_lang: "ru"
-                // telegram_bot: "https://t.me/PaulMultiService_ru_bot"
             },
             ua: {
                 n_home: "Головна",
@@ -1401,7 +1399,6 @@
                 form_title: "Форма запису",
                 calendar_title: "Календар доступності",
                 calendar_lang: "uk"
-                // telegram_bot: "https://t.me/PaulMultiService_ua_bot"
             },
             en: {
                 n_home: "Home",
@@ -1456,7 +1453,6 @@
                 form_title: "Booking form",
                 calendar_title: "Availability calendar",
                 calendar_lang: "en"
-                // telegram_bot: "https://t.me/PaulMultiService_en_bot"
             }
         };
 
@@ -1801,11 +1797,11 @@
             const musicStatus = document.getElementById('musicStatus');
             const musicBtn = document.getElementById('musicBtn');
             if (playing) {
-                if (musicToggle) musicToggle.innerHTML = '⏸'; // символ паузы
+                if (musicToggle) musicToggle.innerHTML = '❚❚'; // символ паузы
                 if (musicStatus) musicStatus.textContent = t.music_on;
                 if (musicBtn) musicBtn.classList.add('playing');
             } else {
-                if (musicToggle) musicToggle.innerHTML = '⏵'; // символ воспроизведения
+                if (musicToggle) musicToggle.innerHTML = '▶'; // символ воспроизведения
                 if (musicStatus) musicStatus.textContent = t.music_off;
                 if (musicBtn) musicBtn.classList.remove('playing');
             }
