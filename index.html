@@ -413,6 +413,69 @@
             100% { background-position: 200% 200%; }
         }
 
+        /* === СТИЛИ ДЛЯ МИКРО-ТАЙМЛАЙНА === */
+        .booking-steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+            padding: 15px 0;
+            border-top: 1px solid var(--border-color);
+        }
+        .step-item {
+            text-align: center;
+            min-width: 80px;
+        }
+        .step-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+        .step-text {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: block;
+        }
+        @media (max-width: 600px) {
+            .booking-steps {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            .step-item {
+                min-width: 70px;
+            }
+            .step-icon {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* === СТИЛИ ДЛЯ КНОПКИ ОТМЕНЫ === */
+        .cancel-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1.5px solid var(--gold);
+            border-radius: 30px;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: transparent;
+            cursor: pointer;
+        }
+        .cancel-btn:hover {
+            background: var(--gold);
+            color: #0a2e1f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.3);
+        }
+        @media (max-width: 480px) {
+            .cancel-btn {
+                padding: 6px 15px;
+                font-size: 0.8rem;
+            }
+        }
+
         /* === БАЗОВЫЕ СТИЛИ === */
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -1202,6 +1265,25 @@
                 <div class="iframe-container" style="height: 600px;">
                     <iframe id="calendar-iframe" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&hl=fr&showPrint=0&showTitle=0&showCalendars=0&src=cGF1bG11bHRpc2VydmljZTdAZ21haWwuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%230b8043" style="border: none; width: 100%; height: 600px;" frameborder="0" scrolling="no" title="Calendrier des disponibilités"></iframe>
                 </div>
+                <!-- МИКРО-ТАЙМЛАЙН (три шага) -->
+                <div class="booking-steps">
+                    <div class="step-item">
+                        <div class="step-icon">✍️</div>
+                        <span class="step-text" id="step1-text">Demande</span>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">📅</div>
+                        <span class="step-text" id="step2-text">Confirmation</span>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">🔔</div>
+                        <span class="step-text" id="step3-text">Rappel</span>
+                    </div>
+                </div>
+                <!-- КНОПКА ДЛЯ ОТМЕНЫ/ИЗМЕНЕНИЯ -->
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" id="cancel-link" class="cancel-btn">Modifier ou annuler une réservation</a>
+                </div>
             </div>
         </div>
         <div style="text-align: center; margin-top: 30px;">
@@ -1322,7 +1404,11 @@
                 booking_title: "Prendre rendez-vous",
                 form_title: "Formulaire de rendez-vous",
                 calendar_title: "Calendrier des disponibilités",
-                calendar_lang: "fr"
+                calendar_lang: "fr",
+                step1: "Demande",
+                step2: "Confirmation",
+                step3: "Rappel",
+                cancel_text: "Modifier ou annuler une réservation"
             },
             ru: {
                 n_home: "Главная",
@@ -1376,7 +1462,11 @@
                 booking_title: "Записаться на приём",
                 form_title: "Форма записи",
                 calendar_title: "Календарь доступности",
-                calendar_lang: "ru"
+                calendar_lang: "ru",
+                step1: "Заявка",
+                step2: "Подтверждение",
+                step3: "Напоминание",
+                cancel_text: "Изменить или отменить запись"
             },
             ua: {
                 n_home: "Головна",
@@ -1430,7 +1520,11 @@
                 booking_title: "Записатися на прийом",
                 form_title: "Форма запису",
                 calendar_title: "Календар доступності",
-                calendar_lang: "uk"
+                calendar_lang: "uk",
+                step1: "Заявка",
+                step2: "Підтвердження",
+                step3: "Нагадування",
+                cancel_text: "Змінити або скасувати запис"
             },
             en: {
                 n_home: "Home",
@@ -1484,7 +1578,11 @@
                 booking_title: "Book an appointment",
                 form_title: "Booking form",
                 calendar_title: "Availability calendar",
-                calendar_lang: "en"
+                calendar_lang: "en",
+                step1: "Request",
+                step2: "Confirmation",
+                step3: "Reminder",
+                cancel_text: "Modify or cancel booking"
             }
         };
 
@@ -2030,6 +2128,14 @@
             ru: "https://docs.google.com/forms/d/e/1FAIpQLSewSOZ3iGoOyfCQTD0hUgZpfSFpoOqn503uH0FrRbOfEziLLg/viewform?embedded=true"
         };
 
+        // Ссылки на формы для отмены/изменения (отдельные)
+        const cancelFormUrls = {
+            fr: "https://docs.google.com/forms/d/e/1FAIpQLSfppeQ5enxyJq5tAsAfxr6_tQqyN-7LcCfHfAgQzDXze7ONCw/viewform?embedded=true",
+            en: "https://docs.google.com/forms/d/e/1FAIpQLSfg-qwtI1lR8PBHi9qpkjtUnDB3U1hho9MRg7yo1QZDfCYyJA/viewform?embedded=true",
+            ua: "https://docs.google.com/forms/d/e/1FAIpQLSfKg7ALo16g1I8JEKg008LN4R34kFiLQ0mKYwxhuAJZS_twXA/viewform?embedded=true",
+            ru: "https://docs.google.com/forms/d/e/1FAIpQLSd8WGMNhY2KCext2BlILovAq98QklVHyS-2JHXSwtzrRwqINw/viewform?embedded=true"
+        };
+
         const calendarBaseUrl = "https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&showPrint=0&showTitle=0&showCalendars=0&src=cGF1bG11bHRpc2VydmljZTdAZ21haWwuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%230b8043";
 
         function changeLang(lang) {
@@ -2153,6 +2259,18 @@
             if (calendarIframe && t.calendar_lang) {
                 const separator = calendarBaseUrl.includes('?') ? '&' : '?';
                 calendarIframe.src = calendarBaseUrl + separator + 'hl=' + t.calendar_lang;
+            }
+
+            // Обновление микро-таймлайна
+            setText('step1-text', t.step1);
+            setText('step2-text', t.step2);
+            setText('step3-text', t.step3);
+
+            // Обновление кнопки отмены
+            const cancelLink = document.getElementById('cancel-link');
+            if (cancelLink) {
+                cancelLink.href = cancelFormUrls[lang];
+                cancelLink.textContent = t.cancel_text;
             }
             
             updateCalc();
