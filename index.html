@@ -476,6 +476,32 @@
             }
         }
 
+        /* === СТИЛИ ДЛЯ ДОПОЛНИТЕЛЬНЫХ СТРОК === */
+        .info-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .info-icon {
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+        @media (max-width: 480px) {
+            .info-row {
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+        }
+
         /* === БАЗОВЫЕ СТИЛИ === */
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -851,11 +877,20 @@
             transition: all 0.3s ease;
             line-height: 1;
             padding: 0;
-            /* Убраны все transform – символы центрируются естественно */
+        }
+        /* Смещение для символа play (▶) – подберите нужное значение */
+        #musicToggle:not(.playing) {
+            transform: translateX(1px);
+        }
+        #musicToggle.playing {
+            transform: translateX(0); /* пауза без смещения (при необходимости подкорректируйте) */
         }
         #musicToggle:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) translateX(2px); /* при наведении комбинируем */
             box-shadow: 0 0 10px var(--gold);
+        }
+        #musicToggle.playing:hover {
+            transform: scale(1.1) translateX(0);
         }
         #musicStatus {
             color: var(--gold);
@@ -1284,6 +1319,11 @@
                 <div style="text-align: center; margin-top: 20px;">
                     <a href="#" id="cancel-link" class="cancel-btn">Modifier ou annuler une réservation</a>
                 </div>
+                <!-- ДОПОЛНИТЕЛЬНЫЕ СТРОКИ -->
+                <div class="info-row">
+                    <span class="info-item"><span class="info-icon">⏱️</span> <span id="response-time-text">Réponse sous 24h</span></span>
+                    <span class="info-item"><span class="info-icon">🔒</span> <span id="data-protection-text">Vos données sont protégées</span></span>
+                </div>
             </div>
         </div>
         <div style="text-align: center; margin-top: 30px;">
@@ -1408,7 +1448,9 @@
                 step1: "Demande",
                 step2: "Confirmation",
                 step3: "Rappel",
-                cancel_text: "Modifier ou annuler une réservation"
+                cancel_text: "Modifier ou annuler une réservation",
+                response_time: "Réponse sous 24h",
+                data_protection: "Vos données sont protégées"
             },
             ru: {
                 n_home: "Главная",
@@ -1466,7 +1508,9 @@
                 step1: "Заявка",
                 step2: "Подтверждение",
                 step3: "Напоминание",
-                cancel_text: "Изменить или отменить запись"
+                cancel_text: "Изменить или отменить запись",
+                response_time: "Ответ в течение 24 ч",
+                data_protection: "Ваши данные защищены"
             },
             ua: {
                 n_home: "Головна",
@@ -1524,7 +1568,9 @@
                 step1: "Заявка",
                 step2: "Підтвердження",
                 step3: "Нагадування",
-                cancel_text: "Змінити або скасувати запис"
+                cancel_text: "Змінити або скасувати запис",
+                response_time: "Відповідь протягом 24 год",
+                data_protection: "Ваші дані захищені"
             },
             en: {
                 n_home: "Home",
@@ -1582,7 +1628,9 @@
                 step1: "Request",
                 step2: "Confirmation",
                 step3: "Reminder",
-                cancel_text: "Modify or cancel booking"
+                cancel_text: "Modify or cancel booking",
+                response_time: "Reply within 24h",
+                data_protection: "Your data is protected"
             }
         };
 
@@ -2272,6 +2320,10 @@
                 cancelLink.href = cancelFormUrls[lang];
                 cancelLink.textContent = t.cancel_text;
             }
+
+            // Обновление дополнительных строк
+            setText('response-time-text', t.response_time);
+            setText('data-protection-text', t.data_protection);
             
             updateCalc();
         }
