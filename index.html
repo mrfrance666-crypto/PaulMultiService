@@ -17,6 +17,8 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Подключаем Phosphor Icons Duotone -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css">
     
     <style>
         /* === БАЗОВЫЕ ПЕРЕМЕННЫЕ === */
@@ -873,24 +875,22 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.2rem; /* для иконок */
             transition: all 0.3s ease;
-            line-height: 1;
             padding: 0;
         }
-        /* Смещение для символа play (▶) внутри круга */
-        #musicToggle:not(.playing) {
-            transform: translateX(2px); /* подберите нужное значение */
+        #musicToggle i {
+            transition: transform 0.3s ease, opacity 0.2s ease;
         }
-        #musicToggle.playing {
-            transform: translateX(0); /* пауза без смещения */
+        #musicToggle.playing i {
+            transform: rotate(360deg) scale(0.9);
+        }
+        #musicToggle:not(.playing) i {
+            transform: rotate(0) scale(1);
         }
         #musicToggle:hover {
-            transform: scale(1.1) translateX(2px); /* при наведении комбинируем */
+            transform: scale(1.1);
             box-shadow: 0 0 10px var(--gold);
-        }
-        #musicToggle.playing:hover {
-            transform: scale(1.1) translateX(0);
         }
         #musicStatus {
             color: var(--gold);
@@ -929,15 +929,21 @@
             min-width: 35px;
             text-align: right;
         }
+        /* Стили для иконок громкости Phosphor */
         .volume-icon {
+            font-size: 1.5rem;
             color: var(--gold);
-            font-size: 1.2rem;
-            transition: transform 0.2s ease, text-shadow 0.2s ease;
+            transition: transform 0.2s ease, filter 0.2s ease;
             cursor: default;
         }
         .volume-icon:hover {
             transform: scale(1.1);
-            text-shadow: 0 0 8px var(--gold);
+            filter: drop-shadow(0 0 8px var(--gold));
+        }
+        /* Для duotone задаём два цвета */
+        .ph-duotone {
+            --ph-duotone-color1: var(--gold);
+            --ph-duotone-color2: #0a2e1f; /* тёмно-зелёный из :root */
         }
         .track-buttons {
             margin-top: 8px;
@@ -1321,8 +1327,8 @@
                 </div>
                 <!-- ДОПОЛНИТЕЛЬНЫЕ СТРОКИ -->
                 <div class="info-row">
-                    <span class="info-item"><span class="info-icon">⏱️</span> <span id="response-time-text">Réponse sous 24h</span></span>
-                    <span class="info-item"><span class="info-icon">🔒</span> <span id="data-protection-text">Vos données sont protégées</span></span>
+                    <span class="info-item"><i class="fas fa-clock info-icon"></i> <span id="response-time-text">Réponse sous 24h</span></span>
+                    <span class="info-item"><i class="fas fa-lock info-icon"></i> <span id="data-protection-text">Vos données sont protégées</span></span>
                 </div>
             </div>
         </div>
@@ -1365,19 +1371,19 @@
         </div>
     </div>
 
-    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (обновлённые символы) -->
+    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (премиум-иконки) -->
     <div id="musicPlayer">
         <div class="music-control">
-            <button onclick="toggleMusic()" id="musicToggle">▶</button>
+            <button onclick="toggleMusic()" id="musicToggle"><i class="fas fa-play"></i></button>
             <span id="musicStatus">Musique off</span>
         </div>
         <div class="volume-control">
-            <span class="volume-icon">🔈</span>
+            <i class="ph-duotone ph-speaker-low volume-icon"></i>
             <button onclick="adjustVolume(-0.01)" title="-1%">−</button>
             <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.03" oninput="changeVolume(this.value)" style="width:100px; accent-color:var(--gold);">
             <button onclick="adjustVolume(0.01)" title="+1%">+</button>
             <span id="volume-percent">3%</span>
-            <span class="volume-icon">🔊</span>
+            <i class="ph-duotone ph-speaker-high volume-icon"></i>
         </div>
         <div class="track-buttons">
             <button onclick="changeTrack('chill')" class="track-btn active" id="trackChill"></button>
@@ -1976,14 +1982,14 @@
             const musicBtn = document.getElementById('musicBtn');
             if (playing) {
                 if (musicToggle) {
-                    musicToggle.innerHTML = '❚❚';
+                    musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
                     musicToggle.classList.add('playing');
                 }
                 if (musicStatus) musicStatus.textContent = t.music_on;
                 if (musicBtn) musicBtn.classList.add('playing');
             } else {
                 if (musicToggle) {
-                    musicToggle.innerHTML = '▶';
+                    musicToggle.innerHTML = '<i class="fas fa-play"></i>';
                     musicToggle.classList.remove('playing');
                 }
                 if (musicStatus) musicStatus.textContent = t.music_off;
