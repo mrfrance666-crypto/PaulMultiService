@@ -415,6 +415,11 @@
             0% { background-position: 0% 0%; }
             100% { background-position: 200% 200%; }
         }
+        /* Мягкое пульсирующее свечение для кнопки play/pause */
+        @keyframes softGlow {
+            0%, 100% { box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(212,175,55,0.3); }
+            50% { box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(212,175,55,0.5); }
+        }
 
         /* === СТИЛИ ДЛЯ МИКРО-ТАЙМЛАЙНА === */
         .booking-steps {
@@ -865,7 +870,7 @@
             gap: 12px;
             margin-bottom: 10px;
         }
-        /* Кнопка play/pause – прозрачная с золотой обводкой */
+        /* Кнопка play/pause – прозрачная с золотой обводкой (обновлённая) */
         #musicToggle {
             background: transparent;
             border: 2px solid var(--gold);
@@ -880,6 +885,8 @@
             font-size: 1.5rem;
             transition: all 0.3s ease;
             padding: 0;
+            position: relative;
+            overflow: visible;
         }
         #musicToggle i {
             transition: transform 0.4s ease, opacity 0.3s ease;
@@ -890,11 +897,23 @@
         #musicToggle:not(.playing) i {
             transform: rotate(0) scale(1);
         }
+        /* Эффект при наведении (без жёлтой заливки, только свечение) */
         #musicToggle:hover {
-            background: var(--gold);
-            color: #0a2e1f; /* тёмно-зелёный */
+            background: transparent;            /* убираем жёлтую заливку */
+            color: var(--gold);                 /* иконка остаётся золотой */
             transform: scale(1.1);
-            box-shadow: 0 0 10px var(--gold);
+            box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(212,175,55,0.4);
+            border-color: var(--gold-light);    /* чуть светлее обводка */
+        }
+        /* Эффект при нажатии (клике) – яркая вспышка */
+        #musicToggle:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 30px var(--gold), 0 0 60px rgba(212,175,55,0.6);
+            transition: box-shadow 0.1s ease, transform 0.1s ease;
+        }
+        /* Лёгкое пульсирующее свечение, когда музыка играет */
+        #musicToggle.playing {
+            animation: softGlow 2s infinite ease-in-out;
         }
         #musicStatus {
             color: var(--gold);
