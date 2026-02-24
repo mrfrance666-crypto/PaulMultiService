@@ -16,9 +16,9 @@
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Подключаем Phosphor Icons (duotone) -->
+    <!-- Phosphor Icons (duotone) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css">
-    <!-- Font Awesome оставляем для других иконок (QR, мессенджеры и т.д.) -->
+    <!-- Font Awesome для других иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -865,10 +865,11 @@
             gap: 12px;
             margin-bottom: 10px;
         }
+        /* Кнопка play/pause – прозрачная с золотой обводкой */
         #musicToggle {
-            background: var(--gold);
-            border: none;
-            color: #000;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
             width: 38px;
             height: 38px;
             border-radius: 50%;
@@ -876,7 +877,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.5rem; /* размер иконок будет управляться через font-size самой иконки */
+            font-size: 1.5rem;
             transition: all 0.3s ease;
             padding: 0;
         }
@@ -890,6 +891,8 @@
             transform: rotate(0) scale(1);
         }
         #musicToggle:hover {
+            background: var(--gold);
+            color: #0a2e1f; /* тёмно-зелёный */
             transform: scale(1.1);
             box-shadow: 0 0 10px var(--gold);
         }
@@ -1371,7 +1374,7 @@
         </div>
     </div>
 
-    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (премиум-иконки Phosphor Duotone) -->
+    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (премиум-иконки Phosphor Duotone, прозрачная кнопка) -->
     <div id="musicPlayer">
         <div class="music-control">
             <button onclick="toggleMusic()" id="musicToggle"><i class="ph-duotone ph-play"></i></button>
