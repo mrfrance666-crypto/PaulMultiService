@@ -878,12 +878,12 @@
             line-height: 1;
             padding: 0;
         }
-        /* Смещение для символа play (▶) – подберите нужное значение */
+        /* Смещение для символа play (▶) внутри круга */
         #musicToggle:not(.playing) {
-            transform: translateX(1px);
+            transform: translateX(2px); /* подберите нужное значение */
         }
         #musicToggle.playing {
-            transform: translateX(0); /* пауза без смещения (при необходимости подкорректируйте) */
+            transform: translateX(0); /* пауза без смещения */
         }
         #musicToggle:hover {
             transform: scale(1.1) translateX(2px); /* при наведении комбинируем */
